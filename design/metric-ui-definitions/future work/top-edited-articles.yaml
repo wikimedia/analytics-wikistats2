@@ -1,0 +1,34 @@
+name: Top Edited Articles
+id: top-edited-articles
+type: tops
+deduplicate-across-projects: true # with wikidata ids?
+
+dimensions:
+    - userType:
+        - bot
+        - anon
+        - registered human
+    - pageType:
+        - articles
+        - other
+    # should we include reverting information or just default it to non-reverted?
+        
+additional-info:
+    - created-on
+    - change-in-rank-since-last-measure?
+
+time:
+    # - granularity: (doesn't apply to this metric)
+    - start:
+    - end:
+
+defaults:
+    dimensions:
+        - userType:
+            - registered human
+        - pageType:
+            - articles
+    # ISO 8601 format for intervals
+    time:
+        - start: PT7D
+        - end: PTNOW

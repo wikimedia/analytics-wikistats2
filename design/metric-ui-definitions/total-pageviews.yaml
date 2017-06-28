@@ -1,0 +1,37 @@
+name: Pageviews
+id: pageviews
+type: timeseries
+description: ...
+definitionArticle: ...
+deduplicateAcrossProjects: false
+
+dimensions:
+    - project:
+        - all
+        - all-{projects}
+        - {projects}
+    - agentType:
+        - all
+        - bot
+        - human
+    - accessSite:
+        - all
+        - desktop
+        - mobile
+        - mobile-web
+        
+time:
+    - granularity: day | month
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - agentType:
+            - human
+        - accessSite:
+            - all
+    # ISO 8601 format for intervals
+    time:
+        - start: PT2Y
+        - end: PTNOW

@@ -1,0 +1,34 @@
+name: Total Reverts
+id: total-reverts
+type: timeseries
+
+dimensions:
+    - userType:
+        - bot
+        - anon
+        - registered human
+        - unknown
+    - pageType:
+        - articles
+        - other
+
+additional-info:
+    - percentage
+
+time:
+    - granularity: day | month
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - userType:
+            - registered human
+        - pageType:
+            - articles
+    # ISO 8601 format for intervals
+    time:
+        - start: PT0
+        - end: PTNOW
+    granularity:
+        - monthly

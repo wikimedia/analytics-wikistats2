@@ -1,0 +1,41 @@
+name: Top Contributors
+id: top-contributors
+type: tops | timeseries
+deduplicate-across-projects: true
+
+dimensions:
+    - userType:
+        - bot
+        - anon
+        - registered human
+    - pageType:
+        - articles
+        - other
+    - active:
+        - within-30-days
+        - not-within-30-days
+        
+additional-info:
+    - first-edit
+    - article-creates-total
+    - article-creates-last-30-days
+    - change-in-rank-since-last-measure
+
+time:
+    # - granularity: (doesn't apply to this metric)
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - userType:
+            - registered human
+        - pageType:
+            - articles
+        - active:
+            - within-30-days
+            - not-within-30-days
+    # ISO 8601 format for intervals
+    time:
+        - start: PT0
+        - end: PTNOW

@@ -1,0 +1,40 @@
+name: Editors
+id: editors
+type: timeseries
+deduplicate-across-projects: false
+
+dimensions:
+    - userType:
+        - bot
+        - anon
+        - registered human
+    - pageType:
+        - articles
+        - other
+    - reverted:
+        - no
+        - within-24-hours
+        - after-24-hours
+        
+time:
+    - granularity: day | week | month | year
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - userType:
+            - bot
+            - anon
+            - registered human
+        - pageType:
+            - articles
+            - other
+        - reverted:
+            - no
+            - within-24-hours
+            - after-24-hours
+    # ISO 8601 format for intervals
+    time:
+        - start: PT2Y
+        - end: PTNOW

@@ -1,0 +1,62 @@
+name: Editors
+id: editors
+type: tops | timeseries
+deduplicate-across-projects: true
+
+dimensions:
+    - activity-level:
+        - 1-2
+        - 3-4
+        - 5-9
+        - 10-24
+        - 100-249
+        - 250-999
+        - 1000-2499
+        - 2500-9999
+        - 10000-24999
+        - 25000-99999
+        - 100000-249999
+        - 250000-999999
+        - 1000000-2499999
+        - 2500000+
+
+    - userType:
+        - bot
+        - anon
+        - registered human
+    - pageType:
+        - articles
+        - other
+        
+time:
+    # - granularity: hour | day | week | month | year (always month)
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - activity-level:
+            - 1-2
+            - 3-4
+            - 5-9
+            - 10-24
+            - 100-249
+            - 250-999
+            - 1000-2499
+            - 2500-9999
+            - 10000-24999
+            - 25000-99999
+            - 100000-249999
+            - 250000-999999
+            - 1000000-2499999
+            - 2500000+
+    
+        - userType:
+            - bot
+            - registered human
+        - pageType:
+            - articles
+    # ISO 8601 format for intervals
+    time:
+        - start: PT2Y
+        - end: PTNOW

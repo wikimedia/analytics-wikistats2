@@ -1,0 +1,25 @@
+name: Article Deletion
+id: article-deletion
+type: timeseries
+
+dimensions:
+    - userType:
+        - bot
+        - anon
+        - registered human
+
+time:
+    - granularity: day | month
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - userType:
+            - registered human
+    # ISO 8601 format for intervals
+    time:
+        - start: PT0
+        - end: PTNOW
+    granularity:
+        - monthly

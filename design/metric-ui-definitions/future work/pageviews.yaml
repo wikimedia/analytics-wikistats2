@@ -1,0 +1,33 @@
+name: Pageviews
+id: total-reverts
+type: timeseries
+
+dimensions:
+    - agent-type:
+        - user
+        - bot
+    - access-method:
+        - mobile
+        - desktop
+        - app
+        - all-access
+
+time:
+    - granularity: 
+        - day
+        - month
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - agent-type:
+          - user
+        - access-method:
+            - all-access
+    # ISO 8601 format for intervals
+    time:
+        - start: PT0
+        - end: PTNOW
+    granularity:
+        - monthly

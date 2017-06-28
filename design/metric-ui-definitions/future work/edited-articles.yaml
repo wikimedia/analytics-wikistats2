@@ -1,0 +1,16 @@
+name: Edited Articles
+id: edited-articles
+type: timeseries
+
+time:
+    - granularity: day | month
+    - start: 
+    - end: 
+
+defaults:
+    # ISO 8601 format for intervals
+    time:
+        - start: PT0
+        - end: PTNOW
+    granularity:
+        - monthly

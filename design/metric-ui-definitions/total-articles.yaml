@@ -1,0 +1,30 @@
+name: Total Articles
+id: total-articles
+type: timeseries
+description: ...
+definitionArticle: ...
+deduplicateAcrossProjects: false
+
+dimensions:
+    - pageType:
+        - {namespaces}
+
+additional-info:
+    - categorized-counts
+    - counts-per-media-type
+
+time:
+    - granularity: month
+    - start: 
+    - end: 
+
+defaults:
+    dimensions:
+        - pageType:
+            - article-namespace
+    # ISO 8601 format for intervals
+    time:
+        - start: PT0
+        - end: PTNOW
+    granularity:
+        - monthly
