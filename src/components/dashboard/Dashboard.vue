@@ -3,7 +3,7 @@
     <div class="ui clearing basic top segment">
         <h2 class="ui left floated header">Monthly Overview</h2>
         <h5 class="ui right floated header">
-            <wiki-selector :wiki="wiki" single="true" @wiki="wiki" ></wiki-selector>
+            <wiki-selector :wiki="wiki" single="true" @wiki="wikiSelected" ></wiki-selector>
         </h5>
     </div>
     <div class="ui basic area segment"
@@ -39,7 +39,7 @@ export default {
     },
 
     methods: {
-        wiki (wiki) {
+        wikiSelected (wiki) {
             this.$emit('wiki', wiki)
         },
         load () {

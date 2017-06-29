@@ -54,10 +54,6 @@ export default {
         this.load()
     },
 
-    //afterUpdate () {
-        //this.drawChart()
-    //},
-
     methods: {
         load () {
             this.loading = true
@@ -68,7 +64,7 @@ export default {
                 this.breakdowns = result.breakdowns
                 let aqsApi = new AQS();
                 aqsApi.getData({
-                    project: [this.wiki.urlName],
+                    project: [this.wiki.language.address],
                     access: ['desktop', 'mobile-web', 'mobile-app']
                 }, {
                     metric: result.metricName,

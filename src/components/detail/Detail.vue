@@ -118,16 +118,12 @@ export default {
                 this.metricData = result
                 this.breakdowns = result.breakdowns
                 let aqsApi = new AQS();
-                aqsApi.getData({
-                    project: [this.wiki.language.address],
-                    access: ['desktop', 'mobile-web', 'mobile-app']
-                }, {
-                    metric: result.metricName,
-                    agent_type: result.agent_type,
-                    granularity: result.granularity,
-                    start: result.range[0],
-                    end: result.range[1]
-                }).then(dimensionalData => {
+                const defaults = this.metricData.defaults;
+                defaults.uniqueParameters.project = [this.wiki.language.address]
+                aqsApi.getData(
+                    defaults.uniqueParameters,
+                    defaults.commonParameters
+                ).then(dimensionalData => {
                     this.graphModel = new GraphModel(result, dimensionalData);
                 });
             });
@@ -135,7 +131,6 @@ export default {
             config.metrics(this.area).then((result) => {
                 const relevantMetrics = Object.keys(result)
                     .filter((m) => result[m].area === this.area)
-
                 this.otherMetrics =
                     relevantMetrics.map((m) => Object.assign(result[m], { name: m }))
             })
@@ -166,9 +161,9 @@ export default {
             this.highlightMetric = { name, area }
         },
 
-        goHighlight (area) {
-            const h = this.highlightMetric
-            router.push('/' + h.area + '/' + h.name)
+        goHighlight (name, area) {
+            this.changeHighlight(name, area)
+            router.push('/' + area + '/' + name)
             $('.ui.metrics.modal').modal('hide')
         },
 
