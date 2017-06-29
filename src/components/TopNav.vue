@@ -36,7 +36,7 @@ export default {
         load () {
             config.areas().then((result) => {
                 this.areas = result.map(a => Object.assign(a, {
-                    path: this.wikiCode + a.path
+                    path: '/' + this.wikiCode + a.path
                 }));
             })
         },

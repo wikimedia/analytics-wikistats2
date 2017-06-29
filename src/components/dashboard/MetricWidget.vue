@@ -1,5 +1,5 @@
 <template>
-<router-link v-if="graphModel" class="widget column" :to="wiki.language.address + '/' + area + '/' + metric.name">
+<router-link v-if="graphModel" class="widget column" :to="'/' + wiki.language.address + '/' + area + '/' + metric.name">
     <metric-bar-widget
         v-if="metricData.type === 'bars'"
         :metricData="metricData"
