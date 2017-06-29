@@ -270,6 +270,7 @@ const metrics = {
         lastMonthValue: 120340,
         lastYear: 2016,
         lastYearValue: 1210000,
+        range: ['2015053100', '2017053100'],
         detail: detailSeries
     },
     'active-editors': {
@@ -283,6 +284,7 @@ const metrics = {
         lastMonthValue: 43203,
         lastYear: 2016,
         lastYearValue: 60102,
+        range: ['2015053100', '2017053100'],
         breakdowns: [
             { on: true, name: 'Activity Level', values: [
                 { name: 'Lightly Active', on: true },
@@ -299,6 +301,7 @@ const metrics = {
         valueName: 'Total Edits for November', // make month dynamic?
         valueFilter: 'thousands',
         showNumbers: true,
+        range: ['2015053100', '2017053100'],
         sortedList: [
             { name: 'Username 1', value: 124503 },
             { name: 'Username 2', value: 123954 },
@@ -339,6 +342,7 @@ const metrics = {
         lastMonthValue: 4921109000,
         lastYear: 2016,
         lastYearValue: 20101345234,
+        range: ['2015053100', '2017053100'],
         detail: detailDailySeries
     },
     'most-viewed-articles': {
@@ -348,6 +352,7 @@ const metrics = {
         valueName: 'Total Views November', // make month dynamic?
         valueFilter: 'kmb',
         showNumbers: false,
+        range: ['2015053100', '2017053100'],
         sortedList: [
             { name: 'Long article name here one', value: 2103000 },
             { name: 'Long article name here two', value: 2000900 },
@@ -366,6 +371,7 @@ const metrics = {
         lastMonthValue: 10741345234,
         lastYear: 2016,
         lastYearValue: 25341345234,
+        range: ['2015053100', '2017053100'],
         detail: detailSeries
     },
     'new-articles': {
@@ -379,6 +385,7 @@ const metrics = {
         lastMonthValue: 1435321,
         lastYear: 2016,
         lastYearValue: 12445234,
+        range: ['2015053100', '2017053100'],
         detail: detailSeries
     },
     'media-uploads': {
@@ -392,6 +399,7 @@ const metrics = {
         lastMonthValue: 1940713,
         lastYear: 2016,
         lastYearValue: 2145234,
+        range: ['2015053100', '2017053100'],
         detail: detailSeries
     }
 }

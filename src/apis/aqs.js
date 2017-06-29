@@ -42,6 +42,9 @@ class AQS {
      *  /pageviews/aggregate/fr.wiktionary /mobile-web /user/daily/20170514/20170614
      */
     getData (uniqueParameters, commonParameters) {
+        if (!commonParameters.metric) {
+            return new Promise(() => new DimensionalData());
+        }
 
         let apiConfig = config.aqs[commonParameters.metric];
         let promises = utils.labeledCrossProduct(uniqueParameters)
