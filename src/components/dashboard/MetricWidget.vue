@@ -59,6 +59,9 @@ export default {
             this.loading = true
 
             config.metricData(this.metric.name, this.area).then((result) => {
+                // TODO: fix when metric configs are fixed
+                if (!result.range) { return; }
+
                 this.loading = false
                 this.metricData = result
                 this.breakdowns = result.breakdowns

@@ -3,7 +3,7 @@
     <div class="ui clearing basic top segment">
         <h2 class="ui left floated header">Monthly Overview</h2>
         <h5 class="ui right floated header">
-            <wiki-selector :wiki="wiki" single="true" @wiki="wikiSelected" ></wiki-selector>
+            <wiki-selector v-model="wiki" :single="true"></wiki-selector>
         </h5>
     </div>
     <div class="ui basic area segment"
@@ -20,8 +20,8 @@ import WikiSelector from '../WikiSelector'
 import config from '../../apis/Configuration'
 
 export default {
+    props: [ 'wiki' ],
     name: 'dashboard',
-    props: ['wiki'],
     components: {
         DashboardArea,
         WikiSelector,
@@ -38,10 +38,14 @@ export default {
         this.load()
     },
 
-    methods: {
-        wikiSelected (wiki) {
-            this.$emit('wiki', wiki)
+    watch: {
+        wiki: function () {
+            console.log(this.wiki);
+            this.$emit('wikiSelected', this.wiki);
         },
+    },
+
+    methods: {
         load () {
             const self = this
             config.areaData().then(function (result) {

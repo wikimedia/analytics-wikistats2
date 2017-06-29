@@ -41,17 +41,17 @@ export default {
             }
         }
     },
+    methods: {
+        wikiSelected: function (wiki) {
+            this.wiki = wiki;
+        }
+    },
     components: {
         TopNav,
         TopicExplorer,
         SiteLanguage,
         BottomFooter,
     },
-    methods: {
-        wikiSelected (wiki) {
-            this.wiki = wiki;
-        }
-    }
 }
 </script>
 

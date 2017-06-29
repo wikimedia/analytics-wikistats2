@@ -118,7 +118,10 @@ export default {
                 this.metricData = result
                 this.breakdowns = result.breakdowns
                 let aqsApi = new AQS();
-                const defaults = this.metricData.defaults;
+                const defaults = this.metricData.defaults || {
+                    uniqueParameters: {},
+                    commonParameters: {}
+                };
                 defaults.uniqueParameters.project = [this.wiki.language.address]
                 aqsApi.getData(
                     defaults.uniqueParameters,

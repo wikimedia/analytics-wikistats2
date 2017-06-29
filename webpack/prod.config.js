@@ -21,8 +21,7 @@ module.exports = merge(baseConfig, {
             },
         ]
     },
-    /*
-     * TODO: What the hell?!  It's still using uglify somehow
+
     plugins: [
         // Extract imported CSS into own file
         new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
@@ -33,5 +32,4 @@ module.exports = merge(baseConfig, {
             minimize: true,
         }),
     ],
-    */
 });

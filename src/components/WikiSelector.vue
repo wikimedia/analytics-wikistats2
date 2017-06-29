@@ -1,5 +1,6 @@
 <template>
 <div>
+    The wiki: {{wiki}}
     <div class="ui search">
         <div class="ui icon input">
             <input class="prompt" type="text" v-model="searchDisplay"
@@ -41,7 +42,7 @@ const separator = ' – ';
 
 export default {
     name: 'wiki-selector',
-    props: {single: { type: Boolean, default: true }},
+    props: { wiki: { type: Object }, single: { type: Boolean, default: true } },
 
     data () {
         return {
@@ -91,7 +92,7 @@ export default {
             // if both family and language are selected, broadcast the choice
             } else if (this.family && this.language) {
                 const { family, language } = this;
-                this.$emit('wikiSelected', { family, language });
+                this.$emit('wiki', { family, language });
             }
         }
     },

@@ -44,7 +44,7 @@
             </h5>
         </div>
         <div class="ui center aligned subdued basic segment">
-            <p>* Definition of {{metric}} goes here, pulled from config or maybe dynamically from the wiki page.</p>
+            <p>* Definition of {{metricData.fullName}} goes here, pulled from config or maybe dynamically from the wiki page.</p>
             <p>More descriptor text will go here assuming that it takes a few sentences to explain a term for a metric.</p>
 
         </div>
@@ -95,10 +95,6 @@ export default {
         },
         total: function () {
             return this.graphModel && this.graphModel.getTotal();
-        },
-        metric: function () {
-            return this.$route.params.metric ?
-                this.$route.params.metric : this.defaultMetrics[this.area]
         },
         changeOverRange: function () {
             const data = this.graphModel.getAggregatedValues();

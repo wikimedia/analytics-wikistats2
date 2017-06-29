@@ -35,7 +35,8 @@
         props: ['breakdowns'],
         watch: {
             breakdowns: function () {
-                this.shouldBeChecked();
+                // TODO: This throws an error and I'm not sure what it's supposed to do
+                // this.shouldBeChecked();
             }
         },
         methods: {
