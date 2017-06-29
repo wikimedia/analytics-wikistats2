@@ -60,22 +60,21 @@ export default {
 
             config.metricData(this.metric.name, this.area).then((result) => {
                 // TODO: fix when metric configs are fixed
-                if (!result.range) { return; }
+                if (!result.defaults) { return; }
 
                 this.loading = false
                 this.metricData = result
                 this.breakdowns = result.breakdowns
                 let aqsApi = new AQS();
-                aqsApi.getData({
-                    project: [this.wiki.language.address],
-                    access: ['desktop', 'mobile-web', 'mobile-app']
-                }, {
-                    metric: result.metricName,
-                    agent_type: result.agent_type,
-                    granularity: result.granularity,
-                    start: result.range[0],
-                    end: result.range[1]
-                }).then(dimensionalData => {
+                const defaults = this.metricData.defaults || {
+                    uniqueParameters: {},
+                    commonParameters: {}
+                };
+                defaults.uniqueParameters.project = [this.wiki.language.address];
+                aqsApi.getData(
+                    defaults.uniqueParameters,
+                    defaults.commonParameters
+                ).then(dimensionalData => {
                     this.graphModel = new GraphModel(result, dimensionalData);
                 });
             })
