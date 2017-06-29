@@ -75,7 +75,8 @@ export default {
             graphModel: null,
 
             project: 'all-projects',
-            wiki: null
+            wiki: null,
+            range: []
         }
     },
 
@@ -95,7 +96,7 @@ export default {
         loadDataParams: function () {
             return {
                 metric: this.metric,
-                range: this.metricData.range,
+                range: this.range,
                 wiki: this.wiki,
             }
         },
@@ -131,6 +132,10 @@ export default {
                     commonParameters: {}
                 };
                 defaults.uniqueParameters.project = [this.project];
+                if (this.range.length > 0) {
+                    defaults.commonParameters.start = this.range[0]
+                    defaults.commonParameters.end = this.range[1]
+                }
                 aqsApi.getData(
                     defaults.uniqueParameters,
                     defaults.commonParameters
@@ -179,7 +184,7 @@ export default {
         },
 
         setTimeRange (newRange) {
-            this.metricData.range = newRange;
+            this.range = newRange;
         }
     },
 }
