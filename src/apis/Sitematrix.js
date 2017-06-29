@@ -43,6 +43,27 @@ let lookup = matrix.then(function (data) {
 
 export default {
     /**
+     * Finds a wiki by its code (en.wikipedia, all-projects, etc.)
+     */
+    findByCode (code) {
+        return this.getByProjectFamily().then((byFamily) => {
+            let result = null;
+            for (let family of byFamily) {
+                for (let language of family.projects) {
+                    if (language.address === code) {
+                        result = { family, language };
+                        break;
+                    }
+                }
+                if (result) {
+                    break;
+                }
+            }
+            return result;
+        });
+    },
+
+    /**
      * Given a project db will return the project url from the sitematrix
      * If url is not found it will throw an error
      */

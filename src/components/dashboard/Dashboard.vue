@@ -18,9 +18,10 @@
 import DashboardArea from './DashboardArea'
 import WikiSelector from '../WikiSelector'
 import config from '../../apis/Configuration'
+import sitematrix from '../../apis/Sitematrix'
 
 export default {
-    props: [ 'wiki' ],
+    props: [ 'wikiCode' ],
     name: 'dashboard',
     components: {
         DashboardArea,
@@ -29,18 +30,23 @@ export default {
 
     data () {
         return {
+            wiki: {
+                language: {}
+            },
             areas: []
         };
     },
 
     mounted () {
-        $('body').scrollTop(0)
-        this.load()
+        $('body').scrollTop(0);
+        sitematrix.findByCode(this.wikiCode).then(found => {
+            this.wiki = found;
+            this.load();
+        });
     },
 
     watch: {
         wiki: function () {
-            console.log(this.wiki);
             this.$emit('wikiSelected', this.wiki);
         },
     },

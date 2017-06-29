@@ -7,11 +7,15 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/:area/:metric?', component: Detail,
+    { path: '/', redirect: '/all-projects' },
+
+    { path: '/:wikiCode', component: Dashboard,
+      name: 'Dashboard',
+      props: true
+    },
+
+    { path: '/:wikiCode/:area/:metric?', component: Detail,
       name: 'Detail'
     },
-    { path: '/', component: Dashboard,
-      name: 'Dashboard'
-    }
   ]
 })

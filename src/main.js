@@ -6,7 +6,6 @@ import '../semantic/dist/semantic.css';
 import router from './router';
 import numeral from 'numeral';
 
-
 Vue.config.productionTip = false
 
 // Register filters

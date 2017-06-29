@@ -2,7 +2,7 @@
 <section class="detail container" :class="{ area, fullscreen }">
     <detail-sidebar
         v-if="!fullscreen"
-        :wiki='wiki'
+        :wikiCode='project'
         :otherMetrics='otherMetrics'
         :metric='metric'
         :breakdowns='breakdowns'
@@ -12,7 +12,7 @@
 
     <graph-panel
         :metricData='metricData'
-        :wiki='wiki'
+        :wikiCode='wikiCode'
         :breakdowns='breakdowns'
         :area='area'
         :graphModel='graphModel'
@@ -45,7 +45,7 @@ import AQS from '../../apis/aqs'
 export default {
     name: 'detail',
     // TODO: move to the router
-    props: ['wiki'],
+    props: ['wikiCode'],
     components: {
         SimpleLegend,
         MetricsModal,
@@ -70,7 +70,9 @@ export default {
 
             breakdowns: [],
 
-            graphModel: null
+            graphModel: null,
+
+            project: 'all-projects',
         }
     },
 
@@ -98,19 +100,20 @@ export default {
 
     watch: {
         loadDataParams: 'loadData',
+        wiki: function () {
+            this.project = this.wiki.language.address;
+        },
     },
 
     mounted () {
         $('body').scrollTop(0);
+        this.project = this.wikiCode;
         this.loadData();
         $('.ui.metrics.modal').modal();
     },
 
     methods: {
 
-        wikiSelected (wiki) {
-            this.$emit('wikiSelected', wiki);
-        },
         loadData () {
             this.highlightMetric = { name: this.metric, area: this.area }
 
@@ -122,7 +125,7 @@ export default {
                     uniqueParameters: {},
                     commonParameters: {}
                 };
-                defaults.uniqueParameters.project = [this.wiki.language.address]
+                defaults.uniqueParameters.project = [this.project];
                 aqsApi.getData(
                     defaults.uniqueParameters,
                     defaults.commonParameters

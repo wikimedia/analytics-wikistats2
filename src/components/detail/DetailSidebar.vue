@@ -2,7 +2,7 @@
 <section class="left panel" >
     <div class="wikis">
         <h3 class="header">Wiki</h3>
-        <wiki-selector :wiki="wiki" :single="false" @wikiSelected="wikiSelected"></wiki-selector>
+        <wiki-selector v-model="wiki" :single="false"></wiki-selector>
     </div>
 
     <div class="ui clearing divider"></div>
@@ -10,7 +10,7 @@
     <h3 class="header">Metrics</h3>
 
     <router-link v-for="o in otherMetrics" :key="o.name"
-                 :to="'/' + area + '/' + o.name"
+                 :to="'/' + wikiCode + '/' + area + '/' + o.name"
                  class="ui line label"
                  :class="{active: o.name === metric}">
         {{o.fullName}}
@@ -27,16 +27,30 @@
 <script>
 import WikiSelector from '../WikiSelector'
 import Breakdowns from './Breakdowns'
+import sitematrix from '../../apis/Sitematrix'
 
 import '../../../semantic/src/definitions/modules/modal'
 import '../../../semantic/src/definitions/modules/dimmer'
 
 export default {
     name: 'detail-sidebar',
-    props: ['wiki','otherMetrics','metric','breakdowns','area'],
+    props: ['wikiCode','otherMetrics','metric','breakdowns','area'],
+    data () {
+        return {
+            wiki: {
+                language: {}
+            },
+        };
+    },
     components: {
         WikiSelector,
         Breakdowns
+    },
+    mounted () {
+        sitematrix.findByCode(this.wikiCode).then(found => {
+            this.wiki = found;
+            this.load();
+        });
     },
     methods: {
         wikiSelected (wiki) {

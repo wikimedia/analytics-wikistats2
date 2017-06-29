@@ -1,12 +1,12 @@
 <template>
 <div class="app">
     <section class="ui top attached clearing segment">
-        <top-nav></top-nav>
+        <top-nav wikiCode="all-projects"></top-nav>
     </section>
     <section class="ui attached content segment">
         <topic-explorer></topic-explorer>
 
-        <router-view :wiki="wiki" @wikiSelected="wikiSelected"></router-view>
+        <router-view></router-view>
     </section>
     <section class="ui attached language segment">
         <site-language></site-language>
@@ -25,27 +25,6 @@ import BottomFooter from './components/BottomFooter'
 
 export default {
     name: 'app',
-    data () {
-        return {
-            wiki: {
-                // TODO: auto-select default wiki in wiki selector
-                family: {
-                    id: 'all',
-                    title: 'All Projects',
-                },
-                language: {
-                    id: 'all',
-                    title: 'All Languages',
-                    address: 'all-projects',
-                },
-            }
-        }
-    },
-    methods: {
-        wikiSelected: function (wiki) {
-            this.wiki = wiki;
-        }
-    },
     components: {
         TopNav,
         TopicExplorer,

@@ -21,6 +21,7 @@ import config from '../apis/Configuration'
 
 export default {
     name: 'top-nav',
+    props: [ 'wikiCode' ],
     data () {
         return {
             areas: []
@@ -33,9 +34,10 @@ export default {
 
     methods: {
         load () {
-            const self = this
-            config.areas().then(function (result) {
-                self.areas = result
+            config.areas().then((result) => {
+                this.areas = result.map(a => Object.assign(a, {
+                    path: this.wikiCode + a.path
+                }));
             })
         },
     },
