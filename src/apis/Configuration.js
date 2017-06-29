@@ -308,6 +308,7 @@ const metrics = {
     },
     'total-pageviews': {
         fullName: 'Total Page Views',
+        description: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric.',
         defaults: {
             uniqueParameters: {
                 project: 'all-projects',

@@ -44,8 +44,7 @@
             </h5>
         </div>
         <div class="ui center aligned subdued basic segment">
-            <p>* Definition of {{metricData.fullName}} goes here, pulled from config or maybe dynamically from the wiki page.</p>
-            <p>More descriptor text will go here assuming that it takes a few sentences to explain a term for a metric.</p>
+            <p>{{metricData.description}}</p>
 
         </div>
         <div class="ui right floated icon button" @click="toggleFullscreen">
