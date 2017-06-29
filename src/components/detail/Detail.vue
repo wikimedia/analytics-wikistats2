@@ -7,12 +7,12 @@
         :metric='metric'
         :breakdowns='breakdowns'
         :area='area'
-        @wikiSelected='wikiSelected'
     />
 
     <graph-panel
+        v-if="wiki"
         :metricData='metricData'
-        :wikiCode='wikiCode'
+        :wiki='wiki'
         :breakdowns='breakdowns'
         :area='area'
         :graphModel='graphModel'
@@ -41,6 +41,8 @@ import router from '../../router/index'
 import DimensionalData from '../../models/DimensionalData'
 import GraphModel from '../../models/GraphModel'
 import AQS from '../../apis/aqs'
+
+import sitematrix from '../../apis/Sitematrix'
 
 export default {
     name: 'detail',
@@ -73,6 +75,7 @@ export default {
             graphModel: null,
 
             project: 'all-projects',
+            wiki: null
         }
     },
 
@@ -107,8 +110,10 @@ export default {
 
     mounted () {
         $('body').scrollTop(0);
-        this.project = this.wikiCode;
-        this.loadData();
+        sitematrix.findByCode(this.wikiCode).then(found => {
+            this.wiki = found;
+            this.loadData();
+        });
         $('.ui.metrics.modal').modal();
     },
 

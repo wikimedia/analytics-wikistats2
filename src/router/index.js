@@ -15,7 +15,8 @@ export default new Router({
     },
 
     { path: '/:wikiCode/:area/:metric?', component: Detail,
-      name: 'Detail'
+      name: 'Detail',
+      props: true
     },
   ]
 })
