@@ -1,5 +1,5 @@
 <template>
-<router-link v-if="graphModel" class="widget column" :to="'/' + wiki.language.address + '/' + area + '/' + metric.name">
+<router-link v-if="graphModel" class="widget column" :to="'/' + projectCode + '/' + area + '/' + metric.name">
     <metric-bar-widget
         v-if="metricData.type === 'bars'"
         :metricData="metricData"
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import MetricBarWidget from './MetricBarWidget'
 import MetricLineWidget from './MetricLineWidget'
 import MetricListWidget from './MetricListWidget'
@@ -29,14 +31,16 @@ import config from '../../apis/Configuration'
 import AQS from '../../apis/aqs'
 import GraphModel from '../../models/GraphModel'
 
+let aqsApi = new AQS();
+
 export default {
     name: 'metric-widget',
-    props: ['metric', 'area', 'wiki'],
+    props: ['metric', 'area'],
     data () {
         return {
             loading: false,
-            metricData: {},
-            graphModel: null
+            metricData: undefined,
+            graphModel: undefined
         }
     },
 
@@ -46,38 +50,50 @@ export default {
         MetricListWidget,
     },
 
-    watch: {
-        '$route.params': 'load',
-    },
-
-    created () {
-        this.load()
+    mounted () {
+        this.loadConfig();
     },
 
     methods: {
-        load () {
-            this.loading = true
-
+        loadConfig () {
+            this.loading = true;
             config.metricData(this.metric.name, this.area).then((result) => {
                 // TODO: fix when metric configs are fixed
                 if (!result.defaults) { return; }
 
-                this.loading = false
-                this.metricData = result
-                this.breakdowns = result.breakdowns
-                let aqsApi = new AQS();
-                const defaults = this.metricData.defaults || {
-                    uniqueParameters: {},
-                    commonParameters: {}
+                this.loading = false;
+                this.metricData = result;
+            });
+        },
+    },
+
+    computed: Object.assign(
+        mapGetters([
+            'projectCode'
+
+        ]), {
+            aqsParameters () {
+                if (!this.metricData || !this.projectCode) { return; }
+                const defaults = this.metricData.defaults;
+
+                return {
+                    unique: Object.assign(
+                        defaults.unique,
+                        { project: [this.projectCode] },
+                    ),
+                    common: defaults.common
                 };
-                defaults.uniqueParameters.project = [this.wiki.language.address];
-                aqsApi.getData(
-                    defaults.uniqueParameters,
-                    defaults.commonParameters
-                ).then(dimensionalData => {
-                    this.graphModel = new GraphModel(result, dimensionalData);
-                });
-            })
+            },
+        }
+    ),
+
+    watch: {
+        aqsParameters () {
+            const { unique, common } = this.aqsParameters;
+
+            aqsApi.getData(unique, common).then(dimensionalData => {
+                this.graphModel = new GraphModel(this.metricData, dimensionalData);
+            });
         },
     },
 }

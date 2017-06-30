@@ -3,61 +3,52 @@
     <div class="ui clearing basic top segment">
         <h2 class="ui left floated header">Monthly Overview</h2>
         <h5 class="ui right floated header">
-            <wiki-selector v-model="wiki" :single="true"></wiki-selector>
+            <wiki-selector :single="true"></wiki-selector>
         </h5>
     </div>
     <div class="ui basic area segment"
         v-for="a in areas"
         :key="a.state.id">
-        <dashboard-area :wiki="wiki" :area="a.state"></dashboard-area>
+        <dashboard-area :area="a.state"></dashboard-area>
     </div>
 </section>
 </template>
 
 <script>
-import DashboardArea from './DashboardArea'
-import WikiSelector from '../WikiSelector'
-import config from '../../apis/Configuration'
-import sitematrix from '../../apis/Sitematrix'
+import { mapState } from 'vuex';
+import router from '../../router'
+
+import DashboardArea from './DashboardArea';
+import WikiSelector from '../WikiSelector';
+
 
 export default {
-    props: [ 'wikiCode' ],
     name: 'dashboard',
     components: {
         DashboardArea,
         WikiSelector,
     },
 
-    data () {
-        return {
-            wiki: {
-                language: {}
-            },
-            areas: []
-        };
+    computed: mapState([
+        'areas',
+        'project',
+    ]),
+
+    watch: {
+        '$store.getters.projectCode': function () {
+            const newCode = this.$store.getters.projectCode;
+
+            if (this.$route.params.wikiCode !== newCode) {
+                router.push('/' + newCode);
+            }
+        },
     },
 
     mounted () {
         $('body').scrollTop(0);
-        sitematrix.findByCode(this.wikiCode).then(found => {
-            this.wiki = found;
-            this.load();
-        });
-    },
 
-    watch: {
-        wiki: function () {
-            this.$emit('wikiSelected', this.wiki);
-        },
-    },
-
-    methods: {
-        load () {
-            const self = this
-            config.areaData().then(function (result) {
-                self.areas = result
-            })
-        },
+        this.$store.dispatch('setProjectByCode', { family: 'all', code: 'all-projects' });
+        this.$store.dispatch('setAreasByConfig');
     },
 }
 </script>

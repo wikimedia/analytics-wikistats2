@@ -34,18 +34,14 @@ import SearchResults from './widgets/SearchResults';
 
 const modes = {
     family: 'Search through project families',
-    language: 'Select a language',
+    project: 'Select a sub-project or language',
 };
 const separator = ' – ';
 
 
 export default {
     name: 'wiki-selector',
-    model: {
-        prop: 'wiki',
-        event: 'wikiSelected',
-    },
-    props: { wiki: { type: Object }, single: { type: Boolean, default: true } },
+    props: { single: { type: Boolean, default: true } },
 
     data () {
         return {
@@ -58,7 +54,7 @@ export default {
             // search is the computed string that's passed to search-results
             searchDisplay: '',
             family: null,
-            language: null,
+            project: null,
 
             mode: modes.family,
             showResults: false,
@@ -71,23 +67,25 @@ export default {
 
     mounted () {
         this.searchBoxEl = $('input.prompt', this.$el);
-
-        sitematrix.getByProjectFamily().then(byFamily => {
-            this.byFamily = byFamily;
-            this.searchData = byFamily;
-        })
     },
 
     watch: {
-        wiki: function () {
-            this.family = this.wiki.family;
-            this.language = this.wiki.language;
-            // TODO: maybe searchDisplay can just watch these two?
-            this.searchDisplay = `${this.wiki.family.title}${separator}${this.wiki.language.title}`;
+        '$store.state.project': function () {
+            const siteProject = this.$store.state.project;
+
+            sitematrix.getByProjectFamily().then(byFamily => {
+                this.byFamily = byFamily;
+                this.searchDisplay = siteProject.title;
+
+                this.family = byFamily.find(f => f.family === siteProject.family);
+                this.project = this.family.projects.find(p => p.code === siteProject.code);
+                this.mode = modes.project;
+                this.searchData = this.family.projects;
+            })
         },
         searchDisplay: function () {
-            if (this.language && !_.endsWith(this.searchDisplay, this.language.title)) {
-                this.language = null;
+            if (this.project && !_.endsWith(this.searchDisplay, this.project.title)) {
+                this.project = null;
             }
             if (this.family && !_.startsWith(this.searchDisplay, this.result)) {
                 this.family = null;
@@ -95,13 +93,13 @@ export default {
                 this.searchData = this.byFamily;
                 this.searchDisplay = _.trim(this.searchDisplay, separator);
             }
-            if (!this.language) {
+            if (!this.project) {
                 this.open();
 
-            // if both family and language are selected, broadcast the choice
-            } else if (this.family && this.language) {
-                const { family, language } = this;
-                this.$emit('wikiSelected', { family, language });
+            // if both family and project are selected, broadcast the choice
+            } else if (this.family && this.project) {
+                const { family, project } = this;
+                this.$store.commit('setState', { project: sitematrix.makeProject(family, project) });
             }
         }
     },
@@ -135,7 +133,7 @@ export default {
         found (wiki) {
             if (this.mode === modes.family) {
                 this.family = wiki;
-                this.mode = modes.language;
+                this.mode = modes.project;
                 this.searchDisplay = this.result;
                 this.searchData = wiki.projects;
                 // if  there's only one sub-project, just select it
@@ -143,9 +141,9 @@ export default {
                     this.found(this.searchData[0]);
                 }
 
-            } else if (this.mode === modes.language) {
-                this.language = wiki;
-                this.searchDisplay = this.result + this.language.title;
+            } else if (this.mode === modes.project) {
+                this.project = wiki;
+                this.searchDisplay = this.result + this.project.title;
                 this.close();
             }
             this.searchBoxEl.focus();

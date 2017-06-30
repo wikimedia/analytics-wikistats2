@@ -5,6 +5,7 @@ import _ from 'lodash';
 //import $ from 'jquery';
 import config from '../config';
 
+const separator = ' – ';
 let matrix = $.ajax({
 
     url: config.sitematrix.endpoint,
@@ -43,23 +44,28 @@ let lookup = matrix.then(function (data) {
 
 export default {
     /**
-     * Finds a wiki by its code (en.wikipedia, all-projects, etc.)
+     * Given a family and a project, merges them into a standard object that all wikistats
+     * can understand
      */
-    findByCode (code) {
+    makeProject (f, p) {
+        const { family } = f;
+        const { code, dbname } = p;
+        const title = `${f.title}${separator}${p.title}`;
+
+        return { family, code, title, dbname };
+    },
+
+    /**
+     * Finds a project by its family and code ({wiki, en.wikipedia}, {all, all-projects}, etc.)
+     */
+    findByFamilyAndCode (family, code) {
         return this.getByProjectFamily().then((byFamily) => {
-            let result = null;
-            for (let family of byFamily) {
-                for (let language of family.projects) {
-                    if (language.address === code) {
-                        result = { family, language };
-                        break;
-                    }
-                }
-                if (result) {
-                    break;
-                }
+            const f = byFamily.find(x => x.family === family) || { projects: [] };
+            const p = f.projects.find(x => x.code === code);
+
+            if (f && p) {
+                return this.makeProject(f, p);
             }
-            return result;
         });
     },
 
@@ -80,9 +86,10 @@ export default {
      *   with their corresponding projects nested (enwiki, dewiki, etc.):
      *
      *   [
-     *      { id: 'wiki', title: 'Wikipedia',
+     *      { family: 'wiki', title: 'Wikipedia',
      *        projects: [
-     *          { id: 'enwiki', title 'Wikipedia - English', address: 'en.wikipedia.org', description: ... },
+     *          { title 'Wikipedia – English', description: ...,
+     *            code: 'en.wikipedia.org', dbname: 'enwiki' },
      *          ...
      *        ]},
      *      ...
@@ -92,29 +99,29 @@ export default {
         return matrix.then(function test (data) {
             let inEnglish = {};
 
-            return Object.values(_.transform(data.sitematrix, function (byFamily, languageGroup, code) {
-                if (code === 'count') { return byFamily; }
+            return Object.values(_.transform(data.sitematrix, function (byFamily, languageGroup, key) {
+                if (key === 'count') { return byFamily; }
 
-                _.forEach(languageGroup.site || languageGroup, function (site) {
-                    if (site.private || site.closed) { return; }
+                _.forEach(languageGroup.site || languageGroup, function (project) {
+                    if (project.private || project.closed) { return; }
 
-                    if (!(site.code in byFamily)) {
-                        byFamily[site.code] = {
-                            id: site.code,
+                    if (!(project.code in byFamily)) {
+                        byFamily[project.code] = {
+                            family: project.code,
                             projects: [],
                         };
                     }
 
                     if (languageGroup.code === 'en') {
-                        inEnglish[site.code] = site.sitename;
+                        inEnglish[project.code] = project.sitename;
                     }
-                    byFamily[site.code].title = languageGroup.site ? inEnglish[site.code] : _.capitalize(site.code);
+                    byFamily[project.code].title = languageGroup.site ? inEnglish[project.code] : _.capitalize(project.code);
 
-                    byFamily[site.code].projects.push({
-                        id: site.dbname,
-                        address: stripUrl(site.url),
-                        title: languageGroup.site ? languageGroup.localname : site.sitename,
-                        description: `${site.sitename} at ${site.url}`,
+                    byFamily[project.code].projects.push({
+                        title: languageGroup.site ? languageGroup.localname : project.sitename,
+                        description: `${project.sitename}`,
+                        code: stripUrl(project.url),
+                        dbname: project.dbname,
                     });
                 });
 
@@ -122,11 +129,11 @@ export default {
 
             }, {
                 all: {
-                    id: 'all', title: 'All Projects', projects: [{
-                        id: 'all',
-                        address: 'all-projects',
-                        title: 'All Languages',
-                        description: 'Aggregate data for all projects'
+                    family: 'all', title: 'All Project Families', projects: [{
+                        title: 'All Projects',
+                        description: 'Aggregate of all project families',
+                        code: 'all-projects',
+                        dbname: 'all',
                     }],
                 }
             })).map(f => {
@@ -134,11 +141,10 @@ export default {
 
                 if (sorted.length > 1) {
                     sorted.splice(0, 0, {
-                        id: 'all',
-                        // TODO: make this "all languages for this project"
-                        address: 'all-projects',
-                        title: 'All Languages',
-                        description: `Aggregate data for all ${f.title} languages`
+                        title: 'All Projects',
+                        description: `Aggregate of all ${f.title} projects`,
+                        code: 'all-projects',
+                        dbname: 'all',
                     });
                 }
 

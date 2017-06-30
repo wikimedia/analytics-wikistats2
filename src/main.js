@@ -3,6 +3,8 @@
 import Vue from 'vue';
 import App from './App';
 import '../semantic/dist/semantic.css';
+
+import store from './store';
 import router from './router';
 import numeral from 'numeral';
 
@@ -16,6 +18,7 @@ Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : '')
 // eslint-disable no-new
 new Vue({
     el: '#wikistats-app',
+    store,
     router: router,
     template: '<App/>',
     components: { App }
