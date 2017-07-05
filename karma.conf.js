@@ -1,4 +1,4 @@
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('./webpack/dev.config.js');
 
 const testConfiguration = {
     browsers: ['Chrome'],

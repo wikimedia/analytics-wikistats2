@@ -47,11 +47,13 @@ describe('DimensionalData', function () {
         dim.measure('views')
         let break1 = dim.breakdown('date')
 
+        console.log(break1, break1.find((x) => x.date === '2017-01'));
         expect(break1.find((x) => x.date === '2017-01').views).toEqual(23)
 
         dim.merge(pageviews2)
         let break2 = dim.breakdown('date')
 
+        console.log(break2.find((x) => x.date === '2017-01'));
         expect(break2.find((x) => x.date === '2017-01').views).toEqual(24)
     });
 

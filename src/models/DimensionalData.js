@@ -67,7 +67,7 @@ class DimensionalData {
         if (!secondColumn) {
             const breakDownMap = this.dimensionCache[measure].group().reduceSum((row) => {
                 return row[column];
-            }).top(Infinity).reduce((p, c) => {
+            }).all().reduce((p, c) => {
                 p[c.key] = c.value;
                 return p;
             }, {});
@@ -80,7 +80,7 @@ class DimensionalData {
         } else {
             const breakDownMap = this.dimensionCache[measure].group().reduce(
                 (p,c) => {
-                    p[c[secondColumn]] = p[c[secondColumn]]?
+                    p[c[secondColumn]] = p[c[secondColumn]] ?
                         p[c[secondColumn]] + c[column]:
                         c[column];
                     return p;
@@ -89,7 +89,7 @@ class DimensionalData {
                 () => {
                     return {};
                 }
-            ).top(Infinity).reduce((p, c) => {
+            ).all().reduce((p, c) => {
                 p[c.key] = c.value;
                 return p;
             }, {});

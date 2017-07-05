@@ -60,6 +60,7 @@ module.exports = {
         new webpack.IgnorePlugin(
             /ajv/
         ),
+        // NOTE: this doesn't work yet... 'transform-object-rest-spread',
     ],
     devServer: {
         contentBase: utils.resolve('dist'),
