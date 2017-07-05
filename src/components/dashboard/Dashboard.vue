@@ -16,7 +16,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import router from '../../router'
+import router from '../../router';
+import config from '../../apis/Configuration';
 
 import DashboardArea from './DashboardArea';
 import WikiSelector from '../WikiSelector';
@@ -30,25 +31,20 @@ export default {
     },
 
     computed: mapState([
-        'areas',
         'project',
     ]),
 
-    watch: {
-        '$store.getters.projectCode': function () {
-            const newCode = this.$store.getters.projectCode;
-
-            if (this.$route.params.wikiCode !== newCode) {
-                router.push('/' + newCode);
-            }
-        },
+    data: function () {
+        return {
+            areas: []
+        }
     },
 
     mounted () {
+        config.areaData().then((result) => {
+            this.areas = result
+        });
         $('body').scrollTop(0);
-
-        this.$store.dispatch('setProjectByCode', { family: 'all', code: 'all-projects' });
-        this.$store.dispatch('setAreasByConfig');
     },
 }
 </script>

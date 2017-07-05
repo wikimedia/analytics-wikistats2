@@ -8,7 +8,8 @@
                 @keyup.enter="select"
                 @keyup.esc="close"
                 @keydown.down="changeHighlight(1)"
-                @keydown.up="changeHighlight(-1)"/>
+                @keydown.up="changeHighlight(-1)"
+                @click="clear"/>
 
             <i class="search icon"></i>
         </div>
@@ -67,21 +68,15 @@ export default {
 
     mounted () {
         this.searchBoxEl = $('input.prompt', this.$el);
+        this.initWithCurrentProject();
     },
 
     watch: {
-        '$store.state.project': function () {
-            const siteProject = this.$store.state.project;
-
-            sitematrix.getByProjectFamily().then(byFamily => {
-                this.byFamily = byFamily;
-                this.searchDisplay = siteProject.title;
-
-                this.family = byFamily.find(f => f.family === siteProject.family);
-                this.project = this.family.projects.find(p => p.code === siteProject.code);
-                this.mode = modes.project;
-                this.searchData = this.family.projects;
-            })
+        '$store.getters': {
+            handler () {
+                this.initWithCurrentProject()
+            },
+            deep: true
         },
         searchDisplay: function () {
             if (this.project && !_.endsWith(this.searchDisplay, this.project.title)) {
@@ -99,7 +94,7 @@ export default {
             // if both family and project are selected, broadcast the choice
             } else if (this.family && this.project) {
                 const { family, project } = this;
-                this.$store.commit('setState', { project: sitematrix.makeProject(family, project) });
+                this.$store.commit('setState', { project: project.code });
             }
         }
     },
@@ -114,6 +109,23 @@ export default {
     },
 
     methods: {
+        initWithCurrentProject () {
+            const siteProject = this.$store.state.project;
+            sitematrix.getByProjectFamily().then(byFamily => {
+                this.byFamily = byFamily;
+
+                this.family = byFamily.find((family) => {
+                    this.project = family.projects.find((project) => {
+                        return project.code === siteProject
+                    })
+                    this.close();
+                    return this.project;
+                })
+                this.searchDisplay = this.family.title + ' - ' + this.project.title;
+                this.mode = modes.project;
+                this.searchData = this.family.projects;
+            });
+        },
         select () {
             if (this.$refs.searchResults) {
                 this.$refs.searchResults.selectHighlighted();
@@ -124,6 +136,11 @@ export default {
         },
         open () {
             this.showResults = true;
+        },
+        clear () {
+            if (this.project) {
+                this.searchDisplay = '';
+            }
         },
         changeHighlight (indexDiff) {
             if (this.$refs.searchResults) {

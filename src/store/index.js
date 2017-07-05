@@ -8,24 +8,24 @@ import config from '../apis/Configuration'
 Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
-        areas: [],
-        project: {},
+        area: '',
+        project: '',
+        metric: '',
     },
     getters: {
-        projectCode: state => state.project.code,
+        projectCode: state => state.project,
+        area: state => state.area,
+        metric: state => state.metric,
     },
     mutations: {
-
         setState (state, arg) {
             Object.keys(arg).forEach(k => state[k] = arg[k]);
         },
     },
     actions: {
 
-        setProjectByCode ({ commit }, arg) {
-            sitematrix.findByFamilyAndCode(arg.family, arg.code).then(project => {
-                commit('setState', { project });
-            });
+        setProject ({ commit }, project) {
+            commit('setState', { project });
         },
 
         setAreasByConfig ({ commit }) {

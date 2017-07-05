@@ -2,7 +2,6 @@
 <section class="detail container" :class="{ area, fullscreen }">
     <detail-sidebar
         v-if="!fullscreen"
-        :wikiCode='project'
         :otherMetrics='otherMetrics'
         :metric='metric'
         :breakdowns='breakdowns'
@@ -46,8 +45,6 @@ import sitematrix from '../../apis/Sitematrix'
 
 export default {
     name: 'detail',
-    // TODO: move to the router
-    props: ['wikiCode'],
     components: {
         SimpleLegend,
         MetricsModal,
@@ -91,31 +88,21 @@ export default {
 
         breakdown: function () {
             return (this.breakdowns || []).find((m) => m.on)
-        },
-
-        loadDataParams: function () {
-            return {
-                metric: this.metric,
-                range: this.range,
-                wiki: this.wiki,
-            }
-        },
+        }
     },
 
     watch: {
-        loadDataParams: 'loadData',
-        wiki: function () {
-            this.project = this.wiki.language.address;
+        '$store.getters.projectCode': function () {
+            this.wiki = this.$store.state.project;
+            this.loadData();
         },
     },
 
     mounted () {
+        this.wiki = this.$store.state.project;
         $('body').scrollTop(0);
-        sitematrix.findByCode(this.wikiCode).then(found => {
-            this.wiki = found;
-            this.loadData();
-        });
         $('.ui.metrics.modal').modal();
+        this.loadData();
     },
 
     methods: {
@@ -128,17 +115,17 @@ export default {
                 this.breakdowns = result.breakdowns
                 let aqsApi = new AQS();
                 const defaults = this.metricData.defaults || {
-                    uniqueParameters: {},
-                    commonParameters: {}
+                    unique: {},
+                    common: {}
                 };
-                defaults.uniqueParameters.project = [this.project];
+                defaults.unique.project = [this.$store.getters.projectCode];
                 if (this.range.length > 0) {
-                    defaults.commonParameters.start = this.range[0]
-                    defaults.commonParameters.end = this.range[1]
+                    defaults.common.start = this.range[0]
+                    defaults.common.end = this.range[1]
                 }
                 aqsApi.getData(
-                    defaults.uniqueParameters,
-                    defaults.commonParameters
+                    defaults.unique,
+                    defaults.common
                 ).then(dimensionalData => {
                     this.graphModel = new GraphModel(result, dimensionalData);
                 });

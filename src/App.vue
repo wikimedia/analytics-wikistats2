@@ -1,7 +1,7 @@
 <template>
 <div class="app">
     <section class="ui top attached clearing segment">
-        <top-nav wikiCode="all-projects"></top-nav>
+        <top-nav :wikiCode="wiki"></top-nav>
     </section>
     <section class="ui attached content segment">
         <topic-explorer></topic-explorer>
@@ -23,6 +23,8 @@ import TopicExplorer from './components/TopicExplorer'
 import SiteLanguage from './components/SiteLanguage'
 import BottomFooter from './components/BottomFooter'
 
+import router from './router';
+
 export default {
     name: 'app',
     components: {
@@ -31,6 +33,52 @@ export default {
         SiteLanguage,
         BottomFooter,
     },
+    data () {
+        return {
+            wiki: ''
+        }
+    },
+    updated () {
+        this.setStateFromURL();
+    },
+    mounted () {
+        this.setStateFromURL();
+    },
+    methods: {
+        setStateFromURL () {
+            this.$store.state.project = this.$route.params.wikiCode;
+            this.$store.state.area = this.$route.params.area;
+            this.$store.state.metric = this.$route.params.metric;
+        }
+    },
+    watch: {
+        // '$store.getters.projectCode': function () {
+        //     router.push('/' + this.$store.state.project)
+        // },
+        // '$store.getters.area': function () {
+        //     if (!this.$store.getters.area) return
+        //     router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
+        // },
+        // '$store.getters.metric': function () {
+        //     if (!this.$store.getters.metric) return
+        //     router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
+        // },
+        '$store.getters': {
+            handler: function () {
+                this.wiki = this.$store.state.project;
+                if (this.$store.getters.area) {
+                    if (this.$store.getters.metric) {
+                        router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
+                    } else {
+                        router.push('/' + this.$store.state.project + '/' + this.$store.state.area)
+                    }
+                } else {
+                    router.push('/' + this.$store.state.project)
+                }
+            },
+            deep: true
+        }
+    }
 }
 </script>
 

@@ -9,8 +9,7 @@
                 v-for="m in area.metrics"
                 :key="m"
                 :metric="{ name: m }"
-                :area="area.id"
-                :wiki="wiki">
+                :area="area.id">
             </metric-widget>
         </div>
     </div>
@@ -22,7 +21,7 @@ import MetricWidget from './MetricWidget'
 
 export default {
     name: 'dashboard-area',
-    props: ['area', 'wiki'],
+    props: ['area'],
 
     components: {
         MetricWidget,

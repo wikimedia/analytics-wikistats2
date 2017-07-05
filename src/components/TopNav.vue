@@ -8,7 +8,7 @@
     </h1>
     <div class="ui right floated link header">
         <router-link
-            v-for="a in areas" :to="a.path"
+            v-for="a in areas" :to="'/' + wikiCode + a.path"
             :key="a.name">
             {{a.name}}
         </router-link>
@@ -35,9 +35,7 @@ export default {
     methods: {
         load () {
             config.areas().then((result) => {
-                this.areas = result.map(a => Object.assign(a, {
-                    path: '/' + this.wikiCode + a.path
-                }));
+                this.areas = result;
             })
         },
     },
