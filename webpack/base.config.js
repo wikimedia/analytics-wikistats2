@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const utils = require('./utils');
 const webpack = require('webpack');
-
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     entry: './src/main.js',
@@ -60,6 +60,7 @@ module.exports = {
         new webpack.IgnorePlugin(
             /ajv/
         ),
+        new BundleAnalyzerPlugin()
         // NOTE: this doesn't work yet... 'transform-object-rest-spread',
     ],
     devServer: {
