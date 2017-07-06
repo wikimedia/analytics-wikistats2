@@ -6,7 +6,8 @@ export default {
 
     aqs: {
         'pageviews-aggregate': {
-            method: 'getAggregatedPageviews'
+            method: 'getAggregatedPageviews',
+            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/{{project}}/{{access}}/{{agent}}/{{granularity}}/{{start}}/{{end}}'
         },
 
         'unique-devices': {

@@ -1,7 +1,6 @@
 /**
  * Retrieves pageview and unique devices counts from AQS.
  */
-import pageviews from 'exports-loader?pageviews!pageviews';
 import DimensionalData from '../models/DimensionalData';
 import config from '../config';
 import _ from 'lodash';
@@ -49,10 +48,23 @@ class AQS {
         let apiConfig = config.aqs[commonParameters.metric];
         let promises = utils.labeledCrossProduct(uniqueParameters)
             .map(p => Object.assign(p, commonParameters))
-            // TODO: looking at what the pageviews module actually does, I don't think
-            // we should use it, it's a convenience that we don't need and we end up running
-            // through a bunch of unnecessary code
-            .map(p => pageviews[apiConfig.method](p));
+            .map(p => {
+                const url = apiConfig.endpoint
+                    .replace('{{project}}', p.project)
+                    .replace('{{access}}', p.access)
+                    .replace('{{agent}}', p.agent_type)
+                    .replace('{{granularity}}', p.granularity)
+                    .replace('{{start}}', p.start)
+                    .replace('{{end}}', p.end);
+                return new Promise((resolve, reject) => {
+                    $.get({
+                        url: url,
+                        jsonp: true,
+                        success: resolve,
+                        error: reject
+                    })
+                });
+            });
 
         return Promise.all(promises)
             .then(data => _.flatten(data.map(d => d.items)))
