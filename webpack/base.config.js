@@ -2,17 +2,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const utils = require('./utils');
 const webpack = require('webpack');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     entry: './src/main.js',
     resolve: {
         extensions: ['.js', '.vue', '.json'],
-        // vue-loader isn't compiling templates with the
-        // default version of vue
-        // alias: {
-        //     'vue$': 'vue/dist/vue.esm.js'
-        // }
     },
     module: {
         rules: [
