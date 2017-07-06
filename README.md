@@ -43,3 +43,12 @@ npm run dev
 ```
 npm test
 ```
+
+##Building
+
+* Lodash customized to just what we need:
+
+```
+npm i -g lodash-cli
+lodash include=assign,capitalize,debounce,filter,flatten,forEach,indexOf,kebabCase,last,take,transform
+```

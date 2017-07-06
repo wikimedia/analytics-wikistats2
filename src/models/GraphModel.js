@@ -1,3 +1,5 @@
+import _ from '../lodash-custom-bundle';
+
 class GraphModel {
     constructor (metricData, dimensionalData) {
         this.metricData = metricData;

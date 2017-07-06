@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '../../lodash-custom-bundle';
 import ArrowIcon from '../ArrowIcon'
 import * as d3 from 'd3-selection'
 import * as scales from 'd3-scale'

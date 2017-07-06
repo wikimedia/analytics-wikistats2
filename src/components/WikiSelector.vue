@@ -31,6 +31,7 @@
 <script>
 import sitematrix from '../apis/Sitematrix';
 import SearchResults from './widgets/SearchResults';
+import _ from '../lodash-custom-bundle';
 
 
 const modes = {

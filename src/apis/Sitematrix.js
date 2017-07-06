@@ -1,7 +1,7 @@
 /**
  * Gets the wikimedia sitematrix (endpoint in config) and parses it.
  */
-import _ from 'lodash';
+import _ from '../lodash-custom-bundle';
 //import $ from 'jquery';
 import config from '../config';
 

@@ -3,7 +3,7 @@
  */
 import DimensionalData from '../models/DimensionalData';
 import config from '../config';
-import _ from 'lodash';
+import _ from '../lodash-custom-bundle';
 import utils from '../utils';
 
 

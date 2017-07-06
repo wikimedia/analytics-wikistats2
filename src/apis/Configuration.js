@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from '../lodash-custom-bundle';
 
 const colors = {
     contributing: ['#c4cddf', '#99afd9', '#6582ba', '#2a4b8d'],
