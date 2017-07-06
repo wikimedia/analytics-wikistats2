@@ -10,9 +10,9 @@ module.exports = {
         extensions: ['.js', '.vue', '.json'],
         // vue-loader isn't compiling templates with the
         // default version of vue
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        }
+        // alias: {
+        //     'vue$': 'vue/dist/vue.esm.js'
+        // }
     },
     module: {
         rules: [
@@ -61,7 +61,7 @@ module.exports = {
             /ajv/
         ),
         // uncomment to see bundle size composition when running webpack
-        // new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin()
     ],
     devServer: {
         contentBase: utils.resolve('dist'),
