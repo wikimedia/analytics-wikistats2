@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 const utils = require('./utils');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyEsPlugin = require('uglify-es-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 
 module.exports = merge(baseConfig, {
@@ -26,7 +26,7 @@ module.exports = merge(baseConfig, {
         // Extract imported CSS into own file
         new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
         // Minify JS
-        new UglifyEsPlugin(),
+        new UglifyJSPlugin(),
         // Minify CSS
         new webpack.LoaderOptionsPlugin({
             minimize: true,

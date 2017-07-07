@@ -8,6 +8,9 @@ module.exports = {
     entry: './src/main.js',
     resolve: {
         extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
     },
     module: {
         rules: [
@@ -56,7 +59,7 @@ module.exports = {
             /ajv/
         ),
         // uncomment to see bundle size composition when running webpack
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
     ],
     devServer: {
         contentBase: utils.resolve('dist'),

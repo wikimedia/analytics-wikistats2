@@ -8,12 +8,6 @@ module.exports = merge(baseConfig, {
         filename: 'bundle.js',
         path: utils.resolve('dist-dev')
     },
-    resolve: {
-        // in dev mode, vue needs to run with this version
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        }
-    },
     module: {
         rules: [
             {
