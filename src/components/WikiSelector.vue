@@ -19,7 +19,7 @@
             subtitle="description"
             @select="found"></search-results>
     </div>
-    <div v-if="!single">
+    <div v-if="!single && addAnotherWiki">
         <a @click.prevent="addAnotherWiki" href="#">Add another Wiki</a>
         <div class="add wiki design">
             "Add another Wiki" is not implemented in the prototype.  But you can see how it would work in <a target="_new" href="https://www.dropbox.com/sh/lfrn4lcjyqhou7o/AAAmzec_63b1UwaZCGFDw1gea?dl=0&preview=Detail+Page+Two+Wiki+comparison.png">the design here</a> and <a href="https://www.dropbox.com/sh/lfrn4lcjyqhou7o/AAAmzec_63b1UwaZCGFDw1gea?dl=0&preview=Wiki+Selector.png" target="_new">here</a>.
@@ -60,6 +60,7 @@ export default {
 
             mode: modes.family,
             showResults: false,
+            addAnotherWiki: null
         }
     },
 
@@ -73,11 +74,8 @@ export default {
     },
 
     watch: {
-        '$store.getters': {
-            handler () {
-                this.initWithCurrentProject()
-            },
-            deep: true
+        '$store.getters.mainState' () {
+            this.initWithCurrentProject()
         },
         searchDisplay: function () {
             if (this.project && !_.endsWith(this.searchDisplay, this.project.title)) {
@@ -112,6 +110,7 @@ export default {
     methods: {
         initWithCurrentProject () {
             const siteProject = this.$store.state.project;
+            if (siteProject === "") return;
             sitematrix.getByProjectFamily().then(byFamily => {
                 this.byFamily = byFamily;
 

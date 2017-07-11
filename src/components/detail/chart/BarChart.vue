@@ -10,6 +10,7 @@ import * as arr from 'd3-array'
 import * as axes from 'd3-axis'
 import * as format from 'd3-format'
 import * as time from 'd3-time'
+import _ from 'lodash'
 
 import config from '../../../apis/Configuration'
 

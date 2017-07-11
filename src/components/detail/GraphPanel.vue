@@ -10,7 +10,7 @@
             <simple-legend v-if="chartType === 'bar'" class="simple legend" :data="metricData"></simple-legend>
             <div class="ui right floated icon buttons">
 
-                <button class="ui icon button" title="Download">
+                <button @click="download" class="ui icon button" title="Download">
                     <i class="download icon"></i>
                 </button>
                 <div class="ui simple dropdown right labeled icon button"
@@ -106,7 +106,7 @@ export default {
             availableChartTypes: [
                 { chart: 'bar', icon: 'bar' },
                 { chart: 'line', icon: 'line' },
-                { chart: 'map', icon: 'globe' },
+                //{ chart: 'map', icon: 'globe' },
                 { chart: 'table', icon: 'table' },
             ]
         }
@@ -128,6 +128,15 @@ export default {
         },
         toggleFullscreen () {
             this.$emit('toggleFullscreen')
+        },
+        download () {
+            const data = this.graphModel.getGraphData();
+            let a = window.document.createElement('a');
+            a.href = window.URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'text/json'}));
+            a.download = this.metricData.name + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
     }
 }

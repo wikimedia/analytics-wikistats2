@@ -4,12 +4,12 @@
         <top-nav :wikiCode="wiki"></top-nav>
     </section>
     <section class="ui attached content segment">
-        <topic-explorer></topic-explorer>
+        <topic-explorer v-if="false"></topic-explorer>
 
         <router-view></router-view>
     </section>
-    <section class="ui attached language segment">
-        <site-language></site-language>
+    <section v-if="languages.length > 1" class="ui attached language segment">
+        <site-language :languages="languages"></site-language>
     </section>
     <section class="ui attached footer segment">
         <bottom-footer></bottom-footer>
@@ -35,7 +35,10 @@ export default {
     },
     data () {
         return {
-            wiki: ''
+            wiki: '',
+            languages: [
+                'english'
+            ]
         }
     },
     updated () {
@@ -52,31 +55,17 @@ export default {
         }
     },
     watch: {
-        // '$store.getters.projectCode': function () {
-        //     router.push('/' + this.$store.state.project)
-        // },
-        // '$store.getters.area': function () {
-        //     if (!this.$store.getters.area) return
-        //     router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
-        // },
-        // '$store.getters.metric': function () {
-        //     if (!this.$store.getters.metric) return
-        //     router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
-        // },
-        '$store.getters': {
-            handler: function () {
-                this.wiki = this.$store.state.project;
-                if (this.$store.getters.area) {
-                    if (this.$store.getters.metric) {
-                        router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
-                    } else {
-                        router.push('/' + this.$store.state.project + '/' + this.$store.state.area)
-                    }
+        '$store.getters.mainState' () {
+            this.wiki = this.$store.state.project;
+            if (this.$store.getters.area) {
+                if (this.$store.getters.metric) {
+                    router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
                 } else {
-                    router.push('/' + this.$store.state.project)
+                    router.push('/' + this.$store.state.project + '/' + this.$store.state.area)
                 }
-            },
-            deep: true
+            } else {
+                router.push('/' + this.$store.state.project)
+            }
         }
     }
 }

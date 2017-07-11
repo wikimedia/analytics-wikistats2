@@ -16,7 +16,7 @@
         {{o.fullName}}
     </router-link>
 
-    <p>
+    <p v-if="otherMetrics.length > 1">
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
     </p>
 

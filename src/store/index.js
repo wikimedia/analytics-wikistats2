@@ -16,6 +16,12 @@ export default new Vuex.Store({
         projectCode: state => state.project,
         area: state => state.area,
         metric: state => state.metric,
+        mainState: state => {
+            return { project: state.project,
+                area: state.area,
+                metric: state.metric
+            }
+        }
     },
     mutations: {
         setState (state, arg) {

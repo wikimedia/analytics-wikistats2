@@ -96,6 +96,9 @@ export default {
             this.wiki = this.$store.state.project;
             this.loadData();
         },
+        'range': function () {
+            this.loadData();
+        }
     },
 
     mounted () {
@@ -133,7 +136,7 @@ export default {
 
             config.metrics(this.area).then((result) => {
                 const relevantMetrics = Object.keys(result)
-                    .filter((m) => result[m].area === this.area)
+                    .filter((m) => result[m].area === this.area )
                 this.otherMetrics =
                     relevantMetrics.map((m) => Object.assign(result[m], { name: m }))
             })

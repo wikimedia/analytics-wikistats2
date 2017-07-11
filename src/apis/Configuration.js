@@ -24,172 +24,6 @@ const darkColor = {
     reading: colors.reading[3],
     content: colors.content[3]
 }
-const fakeSeries = [
-    { month: 'December 2015', metric: 60000 },
-    { month: 'January 2016', metric: 70000 },
-    { month: 'February 2016', metric: 80000 },
-    { month: 'March 2016', metric: 100340 },
-    { month: 'April 2016', metric: 80000 },
-    { month: 'May 2016', metric: 100340 },
-    { month: 'June 2016', metric: 80000 },
-    { month: 'July 2016', metric: 100340 },
-    { month: 'August 2016', metric: 80000 },
-    { month: 'September 2016', metric: 100340 },
-    { month: 'October 2016', metric: 80000 },
-    { month: 'November 2016', metric: 100340 },
-    { month: 'December 2016', metric: 80000 },
-    { month: 'January 2017', metric: 90000 },
-    { month: 'February 2017', metric: 100000 },
-    { month: 'March 2017', metric: 120340 },
-    { month: 'April 2017', metric: 100000 },
-    { month: 'May 2017', metric: 120340 },
-    { month: 'June 2017', metric: 100000 },
-    { month: 'July 2017', metric: 120340 },
-    { month: 'August 2017', metric: 100000 },
-    { month: 'September 2017', metric: 120340 },
-    { month: 'October 2017', metric: 100000 },
-    { month: 'November', metric: 120340 }
-]
-const fakeDailySeries = Array.from({ length: 100 }, (el, index) => ({
-    day: new Date(2015, 10, index + 1),
-    metric: 200 + Math.random() * 600 + index
-}))
-const detailDailySeries = Array.from({ length: 365 }, (el, index) => ({
-    day: new Date(2015, 10, index + 1),
-    metric: 40000000 + (Math.random() * 30000000) + (index % 30) * 40000
-}))
-const detailSeries = [
-    { month: '2014-12-01', total: 80000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 70000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2015-01-01', total: 90000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 80000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2015-02-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2015-03-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2015-04-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2015-05-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2015-06-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2015-07-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2015-08-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2015-09-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2015-10-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2015-11-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2015-12-01', total: 130340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 110000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2015-12-01', total: 80000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 70000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2016-01-01', total: 90000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 80000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2016-02-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2016-03-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2016-04-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2016-05-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2016-06-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2016-07-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2016-08-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2016-09-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2016-10-01', total: 100000,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10000, 'Active': 90000, 'Very Active': 22000 }
-        }
-    },
-    { month: '2016-11-01', total: 120340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 100000, 'Very Active': 38000 }
-        }
-    },
-    { month: '2016-12-01', total: 130340,
-        breakdowns: {
-            'Activity Level': { 'Lightly Active': 10340, 'Active': 110000, 'Very Active': 38000 }
-        }
-    }
-]
 
 const questions = [
     { f: true, a: 'contributing', m: 'Top Contributors', q: 'Who are the top contributors?' },
@@ -241,71 +75,11 @@ const areasWithMetrics = _.transform(questions, function (result, q) {
 }, [])
 
 const mainMetricsByArea = [
-
-    { state: { id: 'contributing', name: 'Contributing', metrics: [
-        'non-bot-edits',
-        'active-editors',
-        'top-contributors'
-    ] }},
     { state: { id: 'reading', name: 'Reading', metrics: [
-        'total-pageviews',
-        'unique-devices',
-        'most-viewed-articles'
-    ] }},
-    { state: { id: 'content', name: 'Content', metrics: [
-        'total-articles',
-        'new-articles',
-        'media-uploads'
+        'total-pageviews'
     ] }}
 ]
 const metrics = {
-    'non-bot-edits': {
-        fullName: 'Non-bot edits',
-        type: 'bars',
-        area: 'contributing',
-        series: fakeSeries,
-        changeMoM: 3,
-        changeYoY: 0.5,
-        lastMonth: 'November',
-        lastMonthValue: 120340,
-        lastYear: 2016,
-        lastYearValue: 1210000,
-        detail: detailSeries
-    },
-    'active-editors': {
-        fullName: 'Active Editors',
-        type: 'bars',
-        area: 'contributing',
-        series: fakeSeries,
-        changeMoM: 1,
-        changeYoY: -0.5,
-        lastMonth: 'November',
-        lastMonthValue: 43203,
-        lastYear: 2016,
-        lastYearValue: 60102,
-        breakdowns: [
-            { on: true, name: 'Activity Level', values: [
-                { name: 'Lightly Active', on: true },
-                { name: 'Active', on: true },
-                { name: 'Very Active', on: true }
-            ] }
-        ],
-        detail: detailSeries.map((d) => Object.assign(d, { total: d.total + 1 }))
-    },
-    'top-contributors': {
-        fullName: 'Top Contributors',
-        type: 'list',
-        area: 'contributing',
-        valueName: 'Total Edits for November', // make month dynamic?
-        valueFilter: 'thousands',
-        showNumbers: true,
-        sortedList: [
-            { name: 'Username 1', value: 124503 },
-            { name: 'Username 2', value: 123954 },
-            { name: 'Username 3', value: 122031 },
-            { name: 'Username 4', value: 110891 }
-        ]
-    },
     'total-pageviews': {
         fullName: 'Total Page Views',
         description: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric.',
@@ -334,72 +108,6 @@ const metrics = {
                 { name: 'Mobile Web', on: true, key: 'mobile-web' }
             ]
         }],
-    },
-    'unique-devices': {
-        fullName: 'Unique Devices',
-        type: 'lines',
-        area: 'reading',
-        series: fakeDailySeries,
-        changeMoM: 3,
-        changeYoY: -0.5,
-        lastMonth: 'November',
-        lastMonthValue: 4921109000,
-        lastYear: 2016,
-        lastYearValue: 20101345234,
-        detail: detailDailySeries
-    },
-    'most-viewed-articles': {
-        fullName: 'Most Viewed Articles',
-        type: 'list',
-        area: 'reading',
-        valueName: 'Total Views November', // make month dynamic?
-        valueFilter: 'kmb',
-        showNumbers: false,
-        sortedList: [
-            { name: 'Long article name here one', value: 2103000 },
-            { name: 'Long article name here two', value: 2000900 },
-            { name: 'Long article name here three', value: 1910000 },
-            { name: 'Long article name here four', value: 1800001 }
-        ]
-    },
-    'total-articles': {
-        fullName: 'Total Articles',
-        type: 'bars',
-        area: 'content',
-        series: fakeSeries,
-        changeMoM: 3,
-        changeYoY: -0.5,
-        lastMonth: 'November',
-        lastMonthValue: 10741345234,
-        lastYear: 2016,
-        lastYearValue: 25341345234,
-        detail: detailSeries
-    },
-    'new-articles': {
-        fullName: 'New Articles',
-        type: 'bars',
-        area: 'content',
-        series: fakeSeries,
-        changeMoM: 3,
-        changeYoY: -0.5,
-        lastMonth: 'November',
-        lastMonthValue: 1435321,
-        lastYear: 2016,
-        lastYearValue: 12445234,
-        detail: detailSeries
-    },
-    'media-uploads': {
-        fullName: 'Media Uploads',
-        type: 'bars',
-        area: 'content',
-        series: fakeSeries,
-        changeMoM: 3,
-        changeYoY: -0.5,
-        lastMonth: 'November',
-        lastMonthValue: 1940713,
-        lastYear: 2016,
-        lastYearValue: 2145234,
-        detail: detailSeries
     }
 }
 
@@ -426,13 +134,20 @@ export default {
     },
 
     areas () {
+        const areasFromMetrics = new Set();
+        _.forEach(metrics, (metric) => {
+            areasFromMetrics.add(metric.area);
+        });
+        const areaList = [
+            { path: '/', name: 'Dashboard' },
+            { path: '/contributing', name: 'Contributing' },
+            { path: '/reading', name: 'Reading' },
+            { path: '/content', name: 'Content' }
+        ].filter((area)=> {
+            return area.path==='/' || areasFromMetrics.has(area.path.replace('/', ''))
+        })
         const promise = new Promise(function (resolve, reject) {
-            resolve([
-                { path: '/', name: 'Dashboard' },
-                { path: '/contributing', name: 'Contributing' },
-                { path: '/reading', name: 'Reading' },
-                { path: '/content', name: 'Content' }
-            ])
+            resolve(areaList);
         })
 
         return promise

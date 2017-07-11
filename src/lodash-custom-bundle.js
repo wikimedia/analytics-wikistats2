@@ -9,6 +9,7 @@ import indexOf from 'lodash/indexOf';
 import kebabCase from 'lodash/kebabCase';
 import last from 'lodash/last';
 import map from 'lodash/map';
+import replace from 'lodash/replace';
 import startsWith from 'lodash/startsWith';
 import sum from 'lodash/sum';
 import take from 'lodash/take';
@@ -28,6 +29,7 @@ export default {
     kebabCase,
     last,
     map,
+    replace,
     startsWith,
     sum,
     take,

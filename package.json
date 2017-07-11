@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "build": "NODE_ENV=production webpack -p --config webpack/prod.config.js",
+    "build": "./node_modules/webpack/bin/webpack.js --config webpack/prod.config.js",
     "start": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "dev": "./node_modules/webpack/bin/webpack.js --config webpack/dev.config.js --progress --watch",
     "server": "python -m SimpleHTTPServer 5000"
