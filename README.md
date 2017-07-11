@@ -18,27 +18,26 @@ For logic, such as models and data transformations, separate folders:
 =Project Plan=
 
 * Finish current work for basic version
-** 1 Month and 3 Month should get the last 1 or 3 full months from the API
-** 3 Month shows 2 rows in the table but only one bar in the bar chart
-** ESC or blur on the WikiSelector should keep the last selection
-** Main logo should link to the dashboard
-** The SimpleLegend lost its color swatches
-** This bug is carried over from the prototype - we need to only highlight the area that we're in, so we have to de-highlight the Dashboard link, kind of tricky with the router
-** Should pull up the rest of the site to account for the absence of the WikiSelector (most obvious in fullscreen mode)
-
+**(M) Main logo should link to the dashboard
+**(M) This bug is carried over from the prototype - we need to only highlight the area that we're in, so we have to de-highlight the Dashboard link, kind of tricky with the router
+**(D) ESC or blur on the WikiSelector should keep the last selection
+**(D) Should pull up the rest of the site to account for the absence of the WikiSelector (most obvious in fullscreen mode)
+**(F) 1 Month and 3 Month should get the last 1 or 3 full months from the API
+**(F) 3 Month shows 2 rows in the table but only one bar in the bar chart
+**(F) The SimpleLegend lost its color swatches
 ** Going back to the main screen sometimes shows 0 as the Total pageviews and doesn't display any data (I think when switching wikis and navigating a lot on the Detail page?
 
 * Clean up any code that needs help
-** move config to src/config.js and don't use promises when loading it - there's a fake delay in there (or get rid of the setTimeout)
-** don't set $store.state directly - example: App.vue
-** rename apis/Sitematrix.js to apis/sitematrix.js
-** area and metric getters don't make sense in the store, we already have them in the state
-** setProject doesn't make sense as an action, we can just setState or make a specific mutation
-** 4 tests are still failing - we can remove them if they're too hard to refactor but we should make sure they're not showing a mistake
+**(M) don't set $store.state directly - example: App.vue
+**(M) area and metric getters don't make sense in the store, we already have them in the state
+**(M) setProject doesn't make sense as an action, we can just setState or make a specific mutation
+**(D) move config to src/config.js and don't use promises when loading it - there's a fake delay in there (or get rid of the setTimeout)
+**(D) rename apis/Sitematrix.js to apis/sitematrix.js
+**(F) 4 tests are still failing - we can remove them if they're too hard to refactor but we should make sure they're not showing a mistake
 
 * Nice to have
-** It would be nice to have a util function that returns something we can pass to router.push.  The signature could be util.getNewURL({ project, area, metric, options })
-** CSS variables
+**(D) It would be nice to have a util function that returns something we can pass to router.push.  The signature could be util.getNewURL({ project, area, metric, options })
+**(D) CSS variables
 
 
 * Working time: 14:00 -> 17:00 CEST
