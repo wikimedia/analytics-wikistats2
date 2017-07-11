@@ -2,10 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import store from '../src/store'
 import Dashboard from '../src/components/dashboard/Dashboard.vue'
+import config from '../src/apis/Configuration'
 
 
 describe('The Dashboard page', () => {
-    it('should render given an api', (done) => {
+    it('should render as many areas as specified in the configuration', (done) => {
 
         const vm = new Vue({
             template: '<div><test></test></div>',
@@ -17,9 +18,10 @@ describe('The Dashboard page', () => {
 
         Vue.nextTick()
             .then(() => {
-                expect(vm.$el.querySelectorAll('.ui.basic.area.segment').length).toEqual(3);
-                // expect(vm.$store.state.project).toEqual('all-projects');
-                done();
+                config.areaData().then((areas) => {
+                    expect(vm.$el.querySelectorAll('.ui.basic.area.segment').length).toEqual(areas.length);
+                    done();
+                })
             })
             .catch((error) => {
                 console.error(error);

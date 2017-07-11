@@ -44,16 +44,11 @@ describe('DimensionalData', function () {
 
     it('should break down by any column', function () {
         let dim = new DimensionalData(pageviews1)
-        dim.measure('views')
-        let break1 = dim.breakdown('date')
-
-        console.log(break1, break1.find((x) => x.date === '2017-01'));
+        dim.measure('date')
+        let break1 = dim.breakdown('views')
         expect(break1.find((x) => x.date === '2017-01').views).toEqual(23)
-
         dim.merge(pageviews2)
-        let break2 = dim.breakdown('date')
-
-        console.log(break2.find((x) => x.date === '2017-01'));
+        let break2 = dim.breakdown('views')
         expect(break2.find((x) => x.date === '2017-01').views).toEqual(24)
     });
 
@@ -61,11 +56,12 @@ describe('DimensionalData', function () {
         let dim = new DimensionalData(pageviews1)
         dim.merge(pageviews2)
         dim.merge(pageviews3)
-        dim.measure('views')
-        let break1 = dim.breakdown('date', 'agent')
+        dim.measure('date')
+        let break1 = dim.breakdown('views', 'agent')
+        dump(break1)
 
         expect(break1.find(
-            (x) => x.date === '2017-01' && x.agent === 'user').views
+            (x) => x.date === '2017-01').views['user']
         ).toEqual(38)
     });
 
