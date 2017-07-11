@@ -35,7 +35,7 @@ export default {
                     return [dateFormat(d, "yyyymmddhh"), now]
                 },
                 '3-Month': () => {
-                    d.setMonth(d.getMonth() - 5)
+                    d.setMonth(d.getMonth() - 4)
                     return [dateFormat(d, "yyyymmddhh"), now]
                 },
                 '1-Month': () => {

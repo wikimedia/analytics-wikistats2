@@ -56,21 +56,36 @@ export default {
                   )
 
             function resize () {
-                const n = root.node(),
-                      width = n.offsetWidth - margin.left - margin.right,
-                      height = n.offsetHeight - margin.top - margin.bottom - padding,
-                      x = scales.scaleTime().rangeRound([0, width]),
-                      y = scales.scaleLinear().rangeRound([height, 0]),
-                      xW = scales.scaleBand().align(0).padding(0.92),
-                      dates = detail.map((d) => new Date(Date.parse(d.month)))
+                const n = root.node();
+                let dates = detail.map((d) => new Date(Date.parse(d.month)));
 
+
+                let height = n.offsetHeight - margin.top - margin.bottom - padding;
+                let y = scales.scaleLinear().rangeRound([height, 0]);
+                y.domain([0, arr.max(detail.map((d) => d.total))]);
+                const yAxis = axes.axisLeft(y).ticks(7)
+                                .tickFormat(format.format('0.00s'));
+                const yAxisContainer = g.append('g')
+                    .call(yAxis)
+                    .style('font-size', '13px')
+                    .style('font-family', 'Lato, "Open Sans"')
+                const yAxisContainerWidth = yAxisContainer.node().getBBox().width;
+
+                let width = n.offsetWidth - margin.left - margin.right - yAxisContainerWidth;
+                let x = scales.scaleTime().rangeRound([0, width]);
                 x.domain(arr.extent(dates))
-                y.domain([0, arr.max(detail.map((d) => d.total))])
-
+                let xW = scales.scaleBand().align(0).padding(0.92);
                 xW.range(x.range()).domain(x.domain())
 
                 svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight)
-                g.attr('width', width).attr('height', height)
+
+                const every = detail.length < 10? 1: 3
+                const xAxis = axes.axisBottom(x).ticks(time.timeMonth.every(every));
+
+                g.append('g').attr('transform', `translate(0,${height})`)
+                    .call(xAxis)
+                    .style('font-size', '13px')
+                    .style('font-family', 'Lato, "Open Sans"')
 
                 if (typeof detail[0].total !=  'number') {
                     // TODO max should only take into account the active breakdowns, not all
@@ -112,19 +127,6 @@ export default {
                             .attr('height', (d) => height - y(d.total))
                             .attr('fill', (d) => self.graphModel.getDarkColor())
                 }
-
-                const xAxis = axes.axisBottom(x).ticks(time.timeMonth.every(3)),
-                      yAxis = axes.axisLeft(y).ticks(7)
-                                .tickFormat(format.format('0.00s'))
-
-                g.append('g')
-                    .call(yAxis)
-                    .style('font-size', '13px')
-                    .style('font-family', 'Lato, "Open Sans"')
-                g.append('g').attr('transform', `translate(0,${height})`)
-                    .call(xAxis)
-                    .style('font-size', '13px')
-                    .style('font-family', 'Lato, "Open Sans"')
             }
             resize()
             // TODO: get this to resize cleanly d3.select(window).on('resize', resize)
