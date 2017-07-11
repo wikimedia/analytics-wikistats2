@@ -7,7 +7,7 @@
         </h2>
 
         <div class="ui right floated basic fudge segment">
-            <simple-legend class="simple legend" :data="metricData"></simple-legend>
+            <simple-legend v-if="chartType !== 'table'" class="simple legend" :data="metricData"></simple-legend>
             <div class="ui right floated icon buttons">
 
                 <button @click="download" class="ui icon button" title="Download">
