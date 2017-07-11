@@ -13,6 +13,9 @@
         </span>
     </div>
     <div class="bar-chart">
+        <svg>
+            <g></g>
+        </svg>
     </div>
     <div class="ui horizontal small statistic">
         <div class="value">
@@ -50,6 +53,10 @@ export default {
         this.drawChart()
     },
 
+    updated () {
+        this.drawChart()
+    },
+
     computed: {
         lastMonth: function () {
             return _.last(this.graphData);
@@ -81,13 +88,10 @@ export default {
                   margin = {top: 16, right: 0, bottom: 8, left: 0},
                   padding = 4
 
-            const svg = root.append('svg'),
-                  g = svg.append('g').attr(
+            const svg = root.select('svg'),
+                  g = svg.select('g').attr(
                     'transform', `translate(${margin.left},${margin.top})`
                   )
-
-            const data = self.metricData.series ?
-                self.metricData : { series: [] }
 
             const rowData = this.graphModel.getGraphData();
 
