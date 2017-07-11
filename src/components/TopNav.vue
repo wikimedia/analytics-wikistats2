@@ -1,11 +1,13 @@
 <template>
 <div>
-    <h1 class="ui left floated title header">
-        <span class="ui mini image">
-            <img src="../assets/Wikimedia-logo.svg">
-        </span>
-        <span class="text">Wikimedia Statistics</span>
-    </h1>
+    <router-link to="/">
+        <h1 class="ui left floated title header">
+            <span class="ui mini image">
+                    <img src="../assets/Wikimedia-logo.svg">
+            </span>
+            <span class="text">Wikimedia Statistics</span>
+        </h1>
+    </router-link>
     <div class="ui right floated link header">
         <router-link
             v-for="a in areas" :to="'/' + wikiCode + a.path"
