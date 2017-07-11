@@ -49,16 +49,18 @@ export default {
     },
     methods: {
         setStateFromURL () {
-            this.$store.state.project = this.$route.params.wikiCode;
-            this.$store.state.area = this.$route.params.area;
-            this.$store.state.metric = this.$route.params.metric;
+            this.$store.commit('setState', {
+                project: this.$route.params.wikiCode,
+                area: this.$route.params.area,
+                metric: this.$route.params.metric,
+            });
         }
     },
     watch: {
         '$store.getters.mainState' () {
             this.wiki = this.$store.state.project;
-            if (this.$store.getters.area) {
-                if (this.$store.getters.metric) {
+            if (this.$store.state.area) {
+                if (this.$store.state.metric) {
                     router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
                 } else {
                     router.push('/' + this.$store.state.project + '/' + this.$store.state.area)

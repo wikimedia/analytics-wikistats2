@@ -1,5 +1,5 @@
 <template>
-<router-link v-if="graphModel" class="widget column" :to="'/' + projectCode + '/' + area + '/' + metric.name">
+<router-link v-if="graphModel" class="widget column" :to="'/' + project + '/' + area + '/' + metric.name">
     <metric-bar-widget
         v-if="metricData.type === 'bars'"
         :metricData="metricData"
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 import MetricBarWidget from './MetricBarWidget'
 import MetricLineWidget from './MetricLineWidget'
@@ -68,18 +68,17 @@ export default {
     },
 
     computed: Object.assign(
-        mapGetters([
-            'projectCode'
-
+        mapState([
+            'project'
         ]), {
             aqsParameters () {
-                if (!this.metricData || !this.projectCode) { return; }
+                if (!this.metricData || !this.project) { return; }
                 const defaults = this.metricData.defaults;
 
                 return {
                     unique: Object.assign(
                         defaults.unique,
-                        { project: [this.projectCode] },
+                        { project: [this.project] },
                     ),
                     common: defaults.common
                 };

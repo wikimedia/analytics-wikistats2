@@ -90,7 +90,7 @@ export default {
     },
 
     watch: {
-        '$store.getters.projectCode': function () {
+        '$store.state.project': function () {
             this.wiki = this.$store.state.project;
             this.loadData();
         },
@@ -119,7 +119,7 @@ export default {
                     unique: {},
                     common: {}
                 };
-                defaults.unique.project = [this.$store.getters.projectCode];
+                defaults.unique.project = [this.$store.state.project];
                 if (this.range.length > 0) {
                     defaults.common.start = this.range[0]
                     defaults.common.end = this.range[1]
