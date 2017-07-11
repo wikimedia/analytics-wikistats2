@@ -11,7 +11,7 @@
     <div class="ui right floated link header">
         <router-link
             v-for="a in areas" :to="'/' + wikiCode + a.path"
-            :key="a.name">
+            :key="a.name" exact>
             {{a.name}}
         </router-link>
     </div>
