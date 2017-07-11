@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import SimpleLegend from './SimpleLegend'
 import MetricsModal from './MetricsModal'
 
 import GraphPanel from './GraphPanel'
@@ -46,7 +45,6 @@ import sitematrix from '../../apis/Sitematrix'
 export default {
     name: 'detail',
     components: {
-        SimpleLegend,
         MetricsModal,
         GraphPanel,
         DetailSidebar

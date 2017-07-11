@@ -3,7 +3,7 @@
     <span v-if="data.breakdowns && data.breakdowns[0].on">
         <span v-for="b, i in data.breakdowns[0].values" v-if="b.on">
             <span class="color swatch"
-                  :style="{ 'background-color': colors[ci[b.name]] }"></span>
+                  :style="{ 'background-color': colors[ci[b.key]] }"></span>
             {{b.name}}
         </span>
     </span>

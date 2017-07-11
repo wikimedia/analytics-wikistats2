@@ -22,8 +22,6 @@ For logic, such as models and data transformations, separate folders:
 **(M) This bug is carried over from the prototype - we need to only highlight the area that we're in, so we have to de-highlight the Dashboard link, kind of tricky with the router
 **(D) ESC or blur on the WikiSelector should keep the last selection
 **(D) Should pull up the rest of the site to account for the absence of the WikiSelector (most obvious in fullscreen mode)
-**(F) 3 Month shows 2 rows in the table but only one bar in the bar chart
-**(F) The SimpleLegend lost its color swatches
 ** Going back to the main screen sometimes shows 0 as the Total pageviews and doesn't display any data (I think when switching wikis and navigating a lot on the Detail page?
 
 * Clean up any code that needs help
