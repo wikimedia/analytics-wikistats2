@@ -4,6 +4,7 @@
         <div class="ui icon input">
             <input class="prompt" type="text" v-model="searchDisplay"
                 :placeholder="single ? 'Choose a Wiki' : 'Add another Wiki'"
+                @blur="onBlur"
                 @keyup.enter="select"
                 @keyup.esc="close"
                 @keydown.down="changeHighlight(1)"
@@ -143,6 +144,15 @@ export default {
             if (this.project) {
                 this.searchDisplay = '';
             }
+        },
+        onBlur () {
+            let fam = this.family;
+            let proj = this.project;
+            setTimeout(() => {
+                if (this.family === fam && proj === this.project) {
+                    this.close();
+                };
+            }, 200);
         },
         changeHighlight (indexDiff) {
             if (this.$refs.searchResults) {

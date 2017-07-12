@@ -46,7 +46,7 @@ export default {
         subtitle: { type: String, required: false },
 
         // (optional) (10) don't show more results than this
-        maxResults: { type: Number, default: 10 },
+        maxResults: { type: Number, default: 30 },
     },
 
     mounted () {
