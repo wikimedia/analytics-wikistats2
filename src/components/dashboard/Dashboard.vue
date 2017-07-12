@@ -17,7 +17,7 @@
 <script>
 import { mapState } from 'vuex';
 import router from '../../router';
-import config from '../../apis/Configuration';
+import config from '../../config';
 
 import DashboardArea from './DashboardArea';
 import WikiSelector from '../WikiSelector';
@@ -41,9 +41,7 @@ export default {
     },
 
     mounted () {
-        config.areaData().then((result) => {
-            this.areas = result
-        });
+        this.areas = config.areaData();
         $('body').scrollTop(0);
     },
 }

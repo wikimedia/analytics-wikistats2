@@ -12,8 +12,6 @@ import * as format from 'd3-format'
 import * as time from 'd3-time'
 import * as shape from 'd3-shape'
 
-import config from '../../../apis/Configuration'
-
 export default {
     name: 'line-chart',
     props: ['metricData', 'breakdown'],

@@ -18,18 +18,15 @@ For logic, such as models and data transformations, separate folders:
 =Project Plan=
 
 * Finish current work for basic version
+**(F) NEW: clicking on dashboard widget takes you to detail page without top nav area selected (I am pretty convinced we need to just globally use $store.getters.projectCode
 **(M) Main logo should link to the dashboard
 **(M) This bug is carried over from the prototype - we need to only highlight the area that we're in, so we have to de-highlight the Dashboard link, kind of tricky with the router
-**(D) ESC or blur on the WikiSelector should keep the last selection
-**(D) Should pull up the rest of the site to account for the absence of the WikiSelector (most obvious in fullscreen mode)
 ** Going back to the main screen sometimes shows 0 as the Total pageviews and doesn't display any data (I think when switching wikis and navigating a lot on the Detail page?
 
 * Clean up any code that needs help
 **(M) don't set $store.state directly - example: App.vue
 **(M) area and metric getters don't make sense in the store, we already have them in the state
 **(M) setProject doesn't make sense as an action, we can just setState or make a specific mutation
-**(D) move config to src/config.js and don't use promises when loading it - there's a fake delay in there (or get rid of the setTimeout)
-**(D) rename apis/Sitematrix.js to apis/sitematrix.js
 **(F) 4 tests are still failing - we can remove them if they're too hard to refactor but we should make sure they're not showing a mistake
 
 * Nice to have

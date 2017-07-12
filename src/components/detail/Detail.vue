@@ -34,13 +34,13 @@ import MetricsModal from './MetricsModal'
 import GraphPanel from './GraphPanel'
 import DetailSidebar from './DetailSidebar'
 
-import config from '../../apis/Configuration'
+import config from '../../config'
 import router from '../../router/index'
 import DimensionalData from '../../models/DimensionalData'
 import GraphModel from '../../models/GraphModel'
 import AQS from '../../apis/aqs'
 
-import sitematrix from '../../apis/Sitematrix'
+import sitematrix from '../../apis/sitematrix'
 
 export default {
     name: 'detail',
@@ -109,35 +109,35 @@ export default {
     methods: {
 
         loadData () {
+            if (!this.$store.state.project) { return; }
+
             this.highlightMetric = { name: this.metric, area: this.area }
 
-            config.metricData(this.metric, this.area).then((result) => {
-                this.metricData = result
-                this.breakdowns = result.breakdowns
-                let aqsApi = new AQS();
-                const defaults = this.metricData.defaults || {
-                    unique: {},
-                    common: {}
-                };
-                defaults.unique.project = [this.$store.state.project];
-                if (this.range.length > 0) {
-                    defaults.common.start = this.range[0]
-                    defaults.common.end = this.range[1]
-                }
-                aqsApi.getData(
-                    defaults.unique,
-                    defaults.common
-                ).then(dimensionalData => {
-                    this.graphModel = new GraphModel(result, dimensionalData);
-                });
+            const metricData = config.metricData(this.metric, this.area);
+            this.metricData = metricData;
+            this.breakdowns = metricData.breakdowns;
+            let aqsApi = new AQS();
+            const defaults = this.metricData.defaults || {
+                unique: {},
+                common: {}
+            };
+            defaults.unique.project = [this.$store.state.project];
+            if (this.range.length > 0) {
+                defaults.common.start = this.range[0]
+                defaults.common.end = this.range[1]
+            }
+            aqsApi.getData(
+                defaults.unique,
+                defaults.common
+            ).then(dimensionalData => {
+                this.graphModel = new GraphModel(metricData, dimensionalData);
             });
 
-            config.metrics(this.area).then((result) => {
-                const relevantMetrics = Object.keys(result)
-                    .filter((m) => result[m].area === this.area )
-                this.otherMetrics =
-                    relevantMetrics.map((m) => Object.assign(result[m], { name: m }))
-            })
+            const metrics = config.metrics;
+            const relevantMetrics = Object.keys(metrics)
+                .filter((m) => metrics[m].area === this.area );
+            this.otherMetrics =
+                relevantMetrics.map((m) => Object.assign(metrics[m], { name: m }));
         },
 
         changeChart (t) {

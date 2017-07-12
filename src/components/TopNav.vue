@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import config from '../apis/Configuration'
+import config from '../config'
 
 export default {
     name: 'top-nav',
@@ -31,15 +31,7 @@ export default {
     },
 
     mounted () {
-        this.load()
-    },
-
-    methods: {
-        load () {
-            config.areas().then((result) => {
-                this.areas = result;
-            })
-        },
+        this.areas = config.areas();
     },
 }
 </script>

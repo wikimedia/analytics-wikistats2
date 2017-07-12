@@ -7,6 +7,7 @@
 
                 @keyup.enter="select"
                 @keyup.esc="close"
+                @blur="close"
                 @keydown.down="changeHighlight(1)"
                 @keydown.up="changeHighlight(-1)"
                 @click="clear"/>
@@ -29,7 +30,7 @@
 </template>
 
 <script>
-import sitematrix from '../apis/Sitematrix';
+import sitematrix from '../apis/sitematrix';
 import SearchResults from './widgets/SearchResults';
 import _ from '../lodash-custom-bundle';
 
@@ -132,6 +133,9 @@ export default {
             }
         },
         close () {
+            if (!this.searchDisplay) {
+                this.initWithCurrentProject();
+            }
             this.showResults = false;
         },
         open () {

@@ -62,7 +62,7 @@
 <script>
 import r from '../router/index'
 import _ from '../lodash-custom-bundle';
-import config from '../apis/Configuration'
+import config from '../config'
 
 
 export default {

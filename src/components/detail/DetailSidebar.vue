@@ -27,7 +27,7 @@
 <script>
 import WikiSelector from '../WikiSelector'
 import Breakdowns from './Breakdowns'
-import sitematrix from '../../apis/Sitematrix'
+import sitematrix from '../../apis/sitematrix'
 
 import '../../../semantic/src/definitions/modules/modal'
 import '../../../semantic/src/definitions/modules/dimmer'

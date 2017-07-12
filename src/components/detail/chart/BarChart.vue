@@ -12,7 +12,7 @@ import * as format from 'd3-format'
 import * as time from 'd3-time'
 import _ from 'lodash'
 
-import config from '../../../apis/Configuration'
+import config from '../../../config'
 
 export default {
     name: 'bar-chart',

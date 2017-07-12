@@ -26,7 +26,7 @@ import { mapState } from 'vuex';
 import MetricBarWidget from './MetricBarWidget'
 import MetricLineWidget from './MetricLineWidget'
 import MetricListWidget from './MetricListWidget'
-import config from '../../apis/Configuration'
+import config from '../../config'
 
 import AQS from '../../apis/aqs'
 import GraphModel from '../../models/GraphModel'
@@ -38,7 +38,6 @@ export default {
     props: ['metric', 'area'],
     data () {
         return {
-            loading: false,
             metricData: undefined,
             graphModel: undefined
         }
@@ -56,14 +55,7 @@ export default {
 
     methods: {
         loadConfig () {
-            this.loading = true;
-            config.metricData(this.metric.name, this.area).then((result) => {
-                // TODO: fix when metric configs are fixed
-                if (!result.defaults) { return; }
-
-                this.loading = false;
-                this.metricData = result;
-            });
+            this.metricData = config.metricData(this.metric.name, this.area);
         },
     },
 

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import config from '../../apis/Configuration'
+import config from '../../config'
 
 export default {
     name: 'simple-legend',

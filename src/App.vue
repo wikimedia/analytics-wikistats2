@@ -88,7 +88,9 @@ a.router-link-active { font-weight: bold; color: #72777d }
 }
 .ui.attached.content.segment {
     background-color: #F6F6F6;
-    padding: 53px 32px 27px 32px;
+    /* with topic explorer: padding: 53px 32px 27px 32px; */
+    /* without topic explorer: */
+    padding: 2px 32px 27px 24px;
 }
 .ui.attached.language.segment {
     height: 70px;

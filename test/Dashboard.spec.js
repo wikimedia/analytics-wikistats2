@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import store from '../src/store'
 import Dashboard from '../src/components/dashboard/Dashboard.vue'
-import config from '../src/apis/Configuration'
+import config from '../src/config'
 
 
 describe('The Dashboard page', () => {
@@ -18,10 +18,9 @@ describe('The Dashboard page', () => {
 
         Vue.nextTick()
             .then(() => {
-                config.areaData().then((areas) => {
-                    expect(vm.$el.querySelectorAll('.ui.basic.area.segment').length).toEqual(areas.length);
-                    done();
-                })
+                const areas = config.areaData;
+                expect(vm.$el.querySelectorAll('.ui.basic.area.segment').length).toEqual(areas.length);
+                done();
             })
             .catch((error) => {
                 console.error(error);
