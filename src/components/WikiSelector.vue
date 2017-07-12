@@ -4,10 +4,8 @@
         <div class="ui icon input">
             <input class="prompt" type="text" v-model="searchDisplay"
                 :placeholder="single ? 'Choose a Wiki' : 'Add another Wiki'"
-
                 @keyup.enter="select"
                 @keyup.esc="close"
-                @blur="close"
                 @keydown.down="changeHighlight(1)"
                 @keydown.up="changeHighlight(-1)"
                 @click="clear"/>
