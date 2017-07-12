@@ -58,8 +58,6 @@ describe('DimensionalData', function () {
         dim.merge(pageviews3)
         dim.measure('date')
         let break1 = dim.breakdown('views', 'agent')
-        dump(break1)
-
         expect(break1.find(
             (x) => x.date === '2017-01').views['user']
         ).toEqual(38)

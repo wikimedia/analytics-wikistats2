@@ -18,7 +18,7 @@ describe('The Dashboard page', () => {
 
         Vue.nextTick()
             .then(() => {
-                const areas = config.areaData;
+                const areas = config.areaData();
                 expect(vm.$el.querySelectorAll('.ui.basic.area.segment').length).toEqual(areas.length);
                 done();
             })
