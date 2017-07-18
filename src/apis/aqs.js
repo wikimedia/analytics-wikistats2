@@ -59,7 +59,6 @@ class AQS {
                 return new Promise((resolve, reject) => {
                     $.get({
                         url: url,
-                        jsonp: true,
                         success: resolve,
                         error: reject
                     })
