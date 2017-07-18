@@ -4,7 +4,6 @@ import store from '../src/store'
 import Dashboard from '../src/components/dashboard/Dashboard.vue'
 import config from '../src/config'
 
-
 describe('The Dashboard page', () => {
     it('should render as many areas as specified in the configuration', (done) => {
 

@@ -1,10 +1,11 @@
 {
   "name": "wikistats",
-  "version": "0.0.1",
+  "version": "2.0.1",
   "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start",
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
+    "testDev": "./node_modules/karma/bin/karma start",
     "build": "./node_modules/webpack/bin/webpack.js --config webpack/prod.config.js",
     "start": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "dev": "./node_modules/webpack/bin/webpack.js --config webpack/dev.config.js --progress --watch",
@@ -40,6 +41,7 @@
     "karma-chrome-launcher": "^2.1.1",
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-ajax": "^0.1.13",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^2.0.3",
     "style-loader": "^0.18.1",
     "uglifyjs-webpack-plugin": "^0.4.6",
@@ -61,7 +63,7 @@
     "Wikistats",
     "Stats"
   ],
-  "author": "Dan Andreescu and Francisco Dans",
+  "author": "Dan Andreescu, Francisco Dans, Marcel Ruiz Forns",
   "license": "MIT",
   "homepage": "https://github.com/milimetric/wikistats-prototype#readme"
 }
