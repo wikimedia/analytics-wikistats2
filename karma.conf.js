@@ -5,12 +5,15 @@ const testConfiguration = {
 
     frameworks: ['jasmine-ajax', 'jasmine'],
 
-    files: [{
-        pattern: './test/**/*.spec.js',
-        watched: false,
-        included: true,
-        served: true
-    }],
+    files: [
+        './node_modules/babel-polyfill/dist/polyfill.js',
+        {
+            pattern: './test/**/*.spec.js',
+            watched: false,
+            included: true,
+            served: true
+        }
+    ],
 
     webpack: webpackConfig,
 

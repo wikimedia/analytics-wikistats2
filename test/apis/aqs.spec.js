@@ -1,4 +1,4 @@
-// import AQS from '../../src/apis/aqs'
+import AQS from '../../src/apis/aqs'
 
 
 let uniqueParameters = {
@@ -11,23 +11,22 @@ let commonParameters = {
 };
 
 describe('AQS', function () {
-    // beforeEach(function() {
-    //     jasmine.Ajax.install();
-    //   });
+    beforeEach(function() {
+        jasmine.Ajax.install();
+      });
 
-    // afterEach(function() {
-    //     jasmine.Ajax.uninstall();
-    // });
+    afterEach(function() {
+        jasmine.Ajax.uninstall();
+    });
 
     it('should call pageviews with correct parameters', function () {
-        // let a = new AQS();
+        let a = new AQS();
 
-        // let answer = a.getData(uniqueParameters, commonParameters);
+        let answer = a.getData(uniqueParameters, commonParameters);
 
-        // expect(jasmine.Ajax.requests.count()).toEqual(4);
-        // expect(jasmine.Ajax.requests.first().url)
-        //     .toEqual('https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/' +
-        //              'en.wikipedia/desktop/user/monthly/2017010100/2017060100');
-        expect(false)
+        expect(jasmine.Ajax.requests.count()).toEqual(4);
+        expect(jasmine.Ajax.requests.first().url)
+            .toEqual('https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/' +
+                     'en.wikipedia/desktop/user/monthly/2017010100/2017060100');
     });
 });
