@@ -1,33 +1,9 @@
 <template>
 <div>
-    <div class="ui medium statistic">
-        <div class="label">{{metricData.fullName}}</div>
-        <div class="value">{{lastMonth.total | kmb}}</div>
-    </div>
-    <div>
-        <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
-
-        <span class="change label">
-            <arrow-icon :value="changeMoM"/>
-            {{changeMoM}} % month over month
-        </span>
-    </div>
     <div class="bar-chart">
         <svg>
             <g></g>
         </svg>
-    </div>
-    <div class="ui horizontal small statistic">
-        <div class="value">
-            {{lastYear.total | kmb}}
-        </div>
-        <div class="change label">
-            <arrow-icon :value="changeYoY"/>
-            {{changeYoY}} % year over year
-        </div>
-    </div>
-    <div class="year total subdued">
-        Year Total ({{lastYear.month.split('-')[0]}})
     </div>
 </div>
 </template>
@@ -55,28 +31,6 @@ export default {
 
     updated () {
         this.drawChart()
-    },
-
-    computed: {
-        lastMonth: function () {
-            return _.last(this.graphData);
-        },
-        lastYear: function () {
-            return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12]
-        },
-        changeMoM: function () {
-            const data = this.graphData;
-            const prev = data[data.length - 2];
-            const diff = this.lastMonth.total - prev.total;
-            return ((diff / prev.total) * 100).toFixed(2);
-        },
-        changeYoY: function () {
-            const diff = this.lastMonth.total - this.lastYear.total;
-            return ((diff / this.lastYear.total) * 100).toFixed(2);
-        },
-        graphData: function () {
-            return this.graphModel.getGraphData();
-        }
     },
 
     methods: {
@@ -134,7 +88,6 @@ export default {
                           .style('font-family', 'Lato')
             }
             resize()
-            // TODO: get this to resize cleanly d3.select(window).on('resize', resize)
         },
         getMonthValue (date) {
             return months[parseInt(date.split('-')[1])]

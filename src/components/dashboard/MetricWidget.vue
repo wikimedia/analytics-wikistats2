@@ -1,23 +1,48 @@
 <template>
-<router-link v-if="graphModel" class="widget column" :to="'/' + project + '/' + area + '/' + metric.name">
-    <metric-bar-widget
-        v-if="metricData.type === 'bars'"
-        :metricData="metricData"
-        :graphModel="graphModel">
-    </metric-bar-widget>
+<div class="widget column" v-if="graphModel && !disabled">
+    <div class="ui medium statistic">
+        <div class="label">{{metricData.fullName}}</div>
+        <div class="value">{{lastMonth.total | kmb}}</div>
+    </div>
+    <div>
+        <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
+        <span class="change label">
+            <arrow-icon :value="changeMoM"/>
+            {{changeMoM}} % month over month
+        </span>
+    </div>
+    <router-link :to="'/' + project + '/' + area + '/' + metric.name">
+        <metric-bar-widget
+            v-if="metricData.type === 'bars'"
+            :metricData="metricData"
+            :graphModel="graphModel">
+        </metric-bar-widget>
 
-    <metric-line-widget
-        v-else-if="metricData.type === 'lines'"
-        :metricData="metricData"
-        :graphModel="graphModel">
-    </metric-line-widget>
+        <metric-line-widget
+            v-else-if="metricData.type === 'lines'"
+            :metricData="metricData"
+            :graphModel="graphModel">
+        </metric-line-widget>
 
-    <metric-list-widget
-        v-else-if="metricData.type === 'list'"
-        :metricData="metricData"
-        :graphModel="graphModel">
-    </metric-list-widget>
-</router-link>
+        <metric-list-widget
+            v-else-if="metricData.type === 'list'"
+            :metricData="metricData"
+            :graphModel="graphModel">
+        </metric-list-widget>
+    </router-link>
+    <div class="ui horizontal small statistic">
+        <div class="value">
+            {{lastYear.total | kmb}}
+        </div>
+        <div class="change label">
+            <arrow-icon :value="changeYoY"/>
+            {{changeYoY}} % year over year
+        </div>
+    </div>
+    <div class="year total subdued">
+        Year Total ({{lastYear.month.split('-')[0]}})
+    </div>
+</div>
 </template>
 
 <script>
@@ -30,8 +55,11 @@ import config from '../../config'
 
 import AQS from '../../apis/aqs'
 import GraphModel from '../../models/GraphModel'
+import dateformat from 'dateformat';
+import ArrowIcon from '../ArrowIcon';
 
 let aqsApi = new AQS();
+const months = [null, 'J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
 
 export default {
     name: 'metric-widget',
@@ -47,6 +75,7 @@ export default {
         MetricBarWidget,
         MetricLineWidget,
         MetricListWidget,
+        ArrowIcon
     },
 
     mounted () {
@@ -57,6 +86,9 @@ export default {
         loadConfig () {
             this.metricData = config.metricData(this.metric.name, this.area);
         },
+        getMonthValue (date) {
+            return months[parseInt(date.split('-')[1])]
+        }
     },
 
     computed: Object.assign(
@@ -66,25 +98,59 @@ export default {
             aqsParameters () {
                 if (!this.metricData || !this.project) { return; }
                 const defaults = this.metricData.defaults;
-
+                const end = new Date();
+                const start = new Date();
+                start.setYear(end.getFullYear() - 2);
+                start.setMonth(end.getMonth() - 1);
+                this.metricData.start = dateformat(start, 'yyyymmdd00');
+                this.metricData.end = dateformat(end, 'yyyymmdd00');
                 return {
                     unique: Object.assign(
                         defaults.unique,
                         { project: [this.project] },
                     ),
-                    common: defaults.common
-                };
+                    common: Object.assign(
+                        defaults.common,
+                        {
+                            start: this.metricData.start,
+                            end: this.metricData.end
+                        }
+                    )
+                }
             },
+            lastYear: function () {
+                return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12]
+            },
+            lastMonth: function () {
+                return _.last(this.graphData);
+            },
+            graphData: function () {
+                return this.graphModel.getGraphData();
+            },
+            changeMoM: function () {
+                const data = this.graphData;
+                const prev = data[data.length - 2];
+                const diff = this.lastMonth.total - prev.total;
+                return ((diff / prev.total) * 100).toFixed(2);
+            },
+            changeYoY: function () {
+                const diff = this.lastMonth.total - this.lastYear.total;
+                return ((diff / this.lastYear.total) * 100).toFixed(2);
+            },
+            disabled: function () {
+                return !this.metricData.global && this.$store.state.project === 'all-projects'
+            }
         }
     ),
 
     watch: {
         aqsParameters () {
+            if (this.disabled) return
             const { unique, common } = this.aqsParameters;
 
             aqsApi.getData(unique, common).then(dimensionalData => {
                 this.graphModel = new GraphModel(this.metricData, dimensionalData);
-            });
+            })
         },
     },
 }
