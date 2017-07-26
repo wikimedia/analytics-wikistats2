@@ -1,30 +1,9 @@
 <template>
 <div>
-    <div class="ui medium statistic">
-        <div class="label">{{data.fullName}}</div>
-        <div class="value">{{data.lastMonthValue | kmb}}</div>
-    </div>
-    <div>
-        <span class="subdued">{{data.lastMonth}}</span>
-
-        <span class="change label">
-            <arrow-icon :value="data.changeMoM"/>
-            {{data.changeMoM}} % month over month
-        </span>
-    </div>
     <div class="line-chart">
-    </div>
-    <div class="ui horizontal small statistic">
-        <div class="value">
-            {{data.lastYearValue | kmb}}
-        </div>
-        <div class="change label">
-            <arrow-icon :value="data.changeYoY"/>
-            {{data.changeYoY}} % year over year
-        </div>
-    </div>
-    <div class="year total subdued">
-        Year Total ({{data.lastYear}})
+        <svg>
+            <g></g>
+        </svg>
     </div>
 </div>
 </template>
@@ -36,15 +15,21 @@ import * as scales from 'd3-scale'
 import * as arr from 'd3-array'
 import * as shape from 'd3-shape'
 
+const months = [null, 'J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+
 export default {
     name: 'metric-line-widget',
-    props: ['data'],
+    props: ['metricData', 'graphModel'],
 
     components: {
         ArrowIcon,
     },
 
     mounted () {
+        this.drawChart()
+    },
+
+    updated () {
         this.drawChart()
     },
 
@@ -57,41 +42,48 @@ export default {
                   margin = {top: 0, right: 0, bottom: 0, left: 0},
                   padding = 4
 
-            const svg = root.append('svg'),
-                  g = svg.append('g').attr(
+            const svg = root.select('svg'),
+                  g = svg.select('g').attr(
                     'transform', `translate(${margin.left},${margin.top})`
                   )
 
-            const data = self.data.series ?
-                self.data : { series: [] }
+            const rowData = this.graphModel.getGraphData().map((row) => {
+                const splitDate = row.month.split('-');
+                return {
+                    total: row.total,
+                    month: new Date(splitDate[0], splitDate[1], splitDate[2])
+                }
+            });
 
             function resize () {
+                g.html("");
                 const n = root.node(),
                       width = n.offsetWidth - margin.left - margin.right,
                       height = n.offsetHeight - margin.top - margin.bottom - padding,
                       x = scales.scaleTime().rangeRound([0, width]),
                       y = scales.scaleLinear().rangeRound([height, 0])
 
-                x.domain(arr.extent(data.series.map((d) => d.day)))
-                y.domain([0, arr.max(data.series.map((d) => d.metric))])
+                x.domain(arr.extent(rowData.map((d) => d.month)))
+                y.domain([arr.min(rowData.map((d) => d.total)), arr.max(rowData.map((d) => d.total))])
 
                 const line = shape.line()
-                    .x((d) => x(d.day))
-                    .y((d) => y(d.metric))
+                    .x((d) => x(d.month))
+                    .y((d) => y(d.total))
                     .curve(shape.curveBundle.beta(0.3))
 
                 svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight)
                 g.attr('width', width).attr('height', height)
-                // console.log('resized ' + width, height)
-                g.append('path').datum(data.series)
+                g.append('path').datum(rowData)
                     .attr('d', line)
-                    .style('stroke', self.data.darkColor)
+                    .style('stroke', self.metricData.darkColor)
                     .style('stroke-width', '2px')
                     .style('fill', 'none')
             }
             resize()
-            // TODO: get this to resize cleanly d3.select(window).on('resize', resize)
         },
+        getMonthValue (date) {
+            return months[parseInt(date.split('-')[1])]
+        }
     }
 }
 </script>
