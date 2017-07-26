@@ -9,7 +9,8 @@
                 @keyup.esc="close"
                 @keydown.down="changeHighlight(1)"
                 @keydown.up="changeHighlight(-1)"
-                @click="clear"/>
+                @click="clear"
+                @mouseover="onHover"/>
 
             <i class="search icon"></i>
         </div>
@@ -153,6 +154,9 @@ export default {
                     this.close();
                 };
             }, 200);
+        },
+        onHover (e) {
+            $('input', this.$el).popup()
         },
         changeHighlight (indexDiff) {
             if (this.$refs.searchResults) {
