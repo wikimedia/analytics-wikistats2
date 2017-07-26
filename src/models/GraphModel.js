@@ -7,7 +7,7 @@ class GraphModel {
     }
     getGraphData () {
         const xAxisValue = 'timestamp';
-        const yAxisValue = 'views';
+        const yAxisValue = this.metricData.value;
         this.dimensionalData.measure('timestamp');
         const activeBreakdown = this.getActiveBreakdown();
         if (activeBreakdown) {
@@ -19,7 +19,7 @@ class GraphModel {
                 const month = ts.slice(0,4) + '-'
                         + ts.slice(4,6) + '-'
                         + ts.slice(6,8)
-                return {month: month, total: row.views}
+                return {month: month, total: row[yAxisValue]}
             });
         } else {
             const rawValues = this.dimensionalData.breakdown(yAxisValue);
@@ -28,7 +28,7 @@ class GraphModel {
                 const month = ts.slice(0,4) + '-'
                         + ts.slice(4,6) + '-'
                         + ts.slice(6,8)
-                return {month: month, total: row.views}
+                return {month: month, total: row[yAxisValue]}
             });
         }
     }
