@@ -60,7 +60,6 @@ import TimeRangeSelector from '../TimeRangeSelector'
 import SimpleLegend from './SimpleLegend'
 import BarChart from './chart/BarChart'
 import LineChart from './chart/LineChart'
-import MapChart from './chart/MapChart'
 import TableChart from './chart/TableChart'
 import EmptyChart from './chart/EmptyChart'
 
@@ -72,7 +71,6 @@ export default {
         SimpleLegend,
         BarChart,
         LineChart,
-        MapChart,
         TableChart,
         EmptyChart
     },
@@ -85,9 +83,10 @@ export default {
             return this.getChartTypes();
         },
         chartIcon: function () {
-            return this.getChartTypes()[0].icon;
+            return this.chartComponent.replace('-chart', '');
         },
         chartComponent: function () {
+            debugger;
             if (this.chartType) return this.chartType + '-chart'
             let chartTypes = this.getChartTypes();
             return (chartTypes[0].chart || 'empty') + '-chart'
@@ -121,9 +120,9 @@ export default {
         getChartTypes () {
             return this.availableChartTypes.filter((c) => {
                 if (!this.metricData) { return false; }
+                if (c.chart === 'table') return true;
                 if (this.metricData.type === 'bars') { return c.chart !== 'line' }
                 if (this.metricData.type === 'lines') { return c.chart === 'line' }
-                return c.chart === 'table'
             });
         },
         toggleFullscreen () {

@@ -12,16 +12,18 @@ import * as format from 'd3-format'
 import * as time from 'd3-time'
 import * as shape from 'd3-shape'
 
+import config from '../../../config'
+
 export default {
     name: 'line-chart',
-    props: ['metricData', 'breakdown'],
+    props: ['breakdown', 'graphModel'],
 
     mounted () {
         this.drawChart()
     },
 
     watch: {
-        metricData: {
+        graphModel: {
             handler: function () {
                 this.drawChart()
             },
@@ -49,9 +51,13 @@ export default {
                   g = svg.append('g').attr(
                     'transform', `translate(${margin.left},${margin.top})`
                   )
-
-            const data = self.metricData.detail ?
-                self.metricData : { detail: [] }
+            const rowData = this.graphModel.getGraphData().map((row) => {
+                const splitDate = row.month.split('-');
+                return {
+                    total: row.total,
+                    month: new Date(splitDate[0], splitDate[1], splitDate[2])
+                }
+            });
 
             function resize () {
                 const n = root.node(),
@@ -59,25 +65,48 @@ export default {
                       height = n.offsetHeight - margin.top - margin.bottom - padding,
                       x = scales.scaleTime().rangeRound([0, width]),
                       y = scales.scaleLinear().rangeRound([height, 0]),
-                      dates = data.detail.map((d) => d.day)
+                      dates = rowData.map((d) => d.month)
 
                 x.domain(arr.extent(dates))
-                y.domain([0, arr.max(data.detail.map((d) => d.metric))])
+                y.domain([0, arr.max(rowData.map((d) => d.total))])
 
                 svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight)
                 g.attr('width', width).attr('height', height)
 
                 const line = shape.line()
-                    .x((d) => x(d.day))
-                    .y((d) => y(d.metric))
+                    .x((d) => x(d.month))
+                    .y((d) => y(d.total))
                     .curve(shape.curveBundle.beta(0.5))
-
                 if (self.breakdown) {
-                    alert('breakdown not implemented yet for line charts')
+                    const max = _.max(rowData.map((r) => {
+                        return _.max(_.map(r.total, (breakdownValue, key) => {
+                            return self.graphModel.getActiveBreakdown()
+                                    .values.find(v => v.key === key).on? breakdownValue: 0;
+                        }));
+                    }));
+                    y.domain([0, max]);
+                    Object.keys(rowData[0].total).filter(key => {
+                        return self.breakdown.values.find(value => value.key === key).on;
+                    }).map((breakdownName) => {
+                        return rowData.map((row) => {
+                            return {
+                                month: row.month,
+                                total: row.total[breakdownName],
+                                key: breakdownName
+                            }
+                        })
+                    }).forEach(breakdown => {
+                        const bColor = config.colors[self.graphModel.getArea()][[config.stableColorIndexes[breakdown[0].key]]]
+                        g.append('path').datum(breakdown)
+                            .attr('d', line)
+                            .style('stroke', bColor)
+                            .style('stroke-width', '2px')
+                            .style('fill', 'none')
+                    })
                 } else {
-                    g.append('path').datum(data.detail)
+                    g.append('path').datum(rowData)
                         .attr('d', line)
-                        .style('stroke', self.metricData.darkColor)
+                        .style('stroke', self.graphModel.getDarkColor())
                         .style('stroke-width', '2px')
                         .style('fill', 'none')
                 }
