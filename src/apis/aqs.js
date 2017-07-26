@@ -49,18 +49,18 @@ class AQS {
         let promises = utils.labeledCrossProduct(uniqueParameters)
             .map(p => Object.assign(p, commonParameters))
             .map(p => {
-                const url = apiConfig.endpoint
-                    .replace('{{project}}', p.project)
-                    .replace('{{access}}', p.access)
-                    .replace('{{agent}}', p.agent_type)
-                    .replace('{{granularity}}', p.granularity)
-                    .replace('{{start}}', p.start)
-                    .replace('{{end}}', p.end);
+                let url = apiConfig.endpoint;
+                url.match(/{{.*?}}/g)
+                    .forEach((k) => {
+                        const key = k.replace('{{', '').replace('}}', '')
+                        url = url.replace(k, p[key])
+                    })
                 return new Promise((resolve, reject) => {
                     $.get({
                         url: url,
                         success: resolve,
-                        error: reject
+                        error: reject,
+                        crossDomain: true
                     })
                 });
             });
