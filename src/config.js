@@ -99,6 +99,8 @@ const metrics = {
         },
         type: 'bars',
         area: 'reading',
+        global: true,
+        value: 'views',
         breakdowns: [{
             on: false,
             name: 'Access method',
