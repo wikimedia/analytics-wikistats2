@@ -52,8 +52,8 @@ class AQS {
                 let url = apiConfig.endpoint;
                 url.match(/{{.*?}}/g)
                     .forEach((k) => {
-                        const key = k.replace('{{', '').replace('}}', '')
-                        url = url.replace(k, p[key])
+                        const key = _.trim(k, '{}');
+                        url = url.replace(k, p[key]);
                     })
                 return new Promise((resolve, reject) => {
                     $.get({
