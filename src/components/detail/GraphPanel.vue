@@ -86,7 +86,6 @@ export default {
             return this.chartComponent.replace('-chart', '');
         },
         chartComponent: function () {
-            debugger;
             if (this.chartType) return this.chartType + '-chart'
             let chartTypes = this.getChartTypes();
             return (chartTypes[0].chart || 'empty') + '-chart'
