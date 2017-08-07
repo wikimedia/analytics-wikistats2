@@ -75,14 +75,49 @@ const areasWithMetrics = _.transform(questions, function (result, q) {
 }, []);
 
 const mainMetricsByArea = [
-    { state: { id: 'reading', name: 'Reading', metrics: [
-        'total-pageviews'
-    ] }}
+    {
+        state: {
+            id: 'reading',
+            name: 'Reading',
+            metrics: [
+                'total-pageviews'
+            ]
+        }
+    }
 ];
 
 const metrics = {
     'total-pageviews': {
         fullName: 'Total Page Views',
+        description: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric.',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                access: ['desktop', 'mobile-web', 'mobile-app']
+            },
+            common: {
+                metric: 'pageviews-aggregate',
+                agent_type: 'all-agents',
+                granularity: 'monthly',
+                start: '2015053100',
+                end: '2017053100'
+            }
+        },
+        type: 'bars',
+        area: 'reading',
+        breakdowns: [{
+            on: false,
+            name: 'Access method',
+            breakdownName: 'access',
+            values: [
+                { name: 'Desktop', on: true, key: 'desktop' },
+                { name: 'Mobile App', on: true, key: 'mobile-app' },
+                { name: 'Mobile Web', on: true, key: 'mobile-web' }
+            ]
+        }],
+    },
+    'total-pageviews-2': {
+        fullName: 'Total Page Views 2',
         description: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric.',
         defaults: {
             unique: {
@@ -145,10 +180,10 @@ export default {
             areasFromMetrics.add(metric.area);
         });
         const areaList = [
-            { path: '/', name: 'Dashboard' },
-            { path: '/contributing', name: 'Contributing' },
-            { path: '/reading', name: 'Reading' },
-            { path: '/content', name: 'Content' }
+            { path: '', name: 'Dashboard', exact: true },
+            { path: 'contributing', name: 'Contributing' },
+            { path: 'reading', name: 'Reading' },
+            { path: 'content', name: 'Content' }
         ].filter((area)=> {
             return area.path==='/' || areasFromMetrics.has(area.path.replace('/', ''))
         })

@@ -1,7 +1,7 @@
 <template>
 <section class="ui three column centered grid">
     <div class="middle aligned column">
-        <p>Find out more <router-link to="/about">about Wikistats</router-link> and the <router-link to="/about-data">data that it uses</router-link></p>
+  <!--       <p>Find out more <router-link to="/about">about Wikistats</router-link> and the <router-link to="/about-data">data that it uses</router-link></p> -->
     </div>
     <div class="middle aligned column">
         <p>Wikistats is written with <a target="_blank" href="//vuejs.org">Vue.js</a> and <a target="_blank" href="//semantic-ui.com">Semantic UI</a>.  If you'd like to contribute, see our <a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">contributing guide</a>.</p>

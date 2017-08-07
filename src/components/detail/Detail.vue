@@ -34,8 +34,9 @@ import MetricsModal from './MetricsModal'
 import GraphPanel from './GraphPanel'
 import DetailSidebar from './DetailSidebar'
 
+import { mapState } from 'vuex';
+
 import config from '../../config'
-import router from '../../router/index'
 import DimensionalData from '../../models/DimensionalData'
 import GraphModel from '../../models/GraphModel'
 import AQS from '../../apis/aqs'
@@ -75,19 +76,16 @@ export default {
         }
     },
 
-    computed: {
-        area: function () {
-            return this.$route.params ? this.$route.params.area : 'loading ...'
-        },
-        metric: function () {
-            return this.$route.params.metric ?
-                this.$route.params.metric : this.defaultMetrics[this.area]
-        },
-
-        breakdown: function () {
-            return (this.breakdowns || []).find((m) => m.on)
+    computed: Object.assign(
+        mapState([
+            'area',
+            'metric',
+        ]), {
+            breakdown () {
+                return (this.breakdowns || []).find((m) => m.on);
+            },
         }
-    },
+    ),
 
     watch: {
         '$store.state.project': function () {
@@ -167,7 +165,7 @@ export default {
 
         goHighlight (name, area) {
             this.changeHighlight(name, area)
-            router.push('/' + area + '/' + name)
+            // router.push('/' + area + '/' + name)
             $('.ui.metrics.modal').modal('hide')
         },
 

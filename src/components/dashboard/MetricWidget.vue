@@ -1,5 +1,6 @@
 <template>
-<router-link v-if="graphModel" class="widget column" :to="'/' + project + '/' + area + '/' + metric.name">
+<div>
+<a @click.prevent="$store.commit('resetState', {project, area, metric: metric.name})" href="#" v-if="graphModel" class="widget column">
     <metric-bar-widget
         v-if="metricData.type === 'bars'"
         :metricData="metricData"
@@ -17,7 +18,8 @@
         :metricData="metricData"
         :graphModel="graphModel">
     </metric-list-widget>
-</router-link>
+</a>
+</div>
 </template>
 
 <script>

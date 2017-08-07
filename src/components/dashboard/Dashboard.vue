@@ -16,7 +16,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import router from '../../router';
 import config from '../../config';
 
 import DashboardArea from './DashboardArea';
@@ -30,9 +29,9 @@ export default {
         WikiSelector,
     },
 
-    computed: mapState([
-        'project',
-    ]),
+    // computed: mapState([
+    //     'project',
+    // ]),
 
     data: function () {
         return {

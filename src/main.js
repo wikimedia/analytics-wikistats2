@@ -6,10 +6,10 @@ import App from './App';
 import '../semantic/dist/semantic.css';
 
 import store from './store';
-import router from './router';
+import Router from './router';
 import numeral from 'numeral';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 // Register filters
 Vue.filter('thousands', (n) => numeral(n).format('0,0'));
@@ -20,7 +20,9 @@ Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : '')
 new Vue({
     el: '#wikistats-app',
     store,
-    router: router,
     template: '<App/>',
-    components: { App }
-})
+    components: { App },
+    mounted () {
+        new Router(store);
+    },
+});

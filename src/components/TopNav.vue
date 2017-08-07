@@ -1,19 +1,24 @@
 <template>
 <div>
-    <router-link to="/">
+    <a @click.prevent="$store.commit('resetState', { project: $store.state.project })" href="#" exact>
         <h1 class="ui left floated title header">
             <span class="ui mini image">
                     <img src="../assets/Wikimedia-logo.svg">
             </span>
             <span class="text">Wikimedia Statistics</span>
         </h1>
-    </router-link>
+    </a>
     <div class="ui right floated link header">
-        <router-link
-            v-for="a in areas" :to="'/' + wikiCode + a.path"
-            :key="a.name" exact>
-            {{a.name}}
-        </router-link>
+        <span v-for="a in areas">
+            <a v-if="a.exact" href="#" :key="a.name"
+             @click.prevent="$store.commit('resetState', {project: wikiCode, area: a.path})" exact>
+                {{a.name}}
+            </a>
+            <a v-else href="#" :key="a.name"
+             @click.prevent="$store.commit('resetState', {project: wikiCode, area: a.path})">
+                {{a.name}}
+            </a>
+        </span>
     </div>
 </div>
 </template>
@@ -55,5 +60,8 @@ export default {
 .link.header a {
     margin-left: 16px;
     font-size: 18px;
+}
+.router-link-active {
+    cursor: default;
 }
 </style>

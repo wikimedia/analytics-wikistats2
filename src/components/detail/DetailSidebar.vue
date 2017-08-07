@@ -9,12 +9,12 @@
 
     <h3 class="header">Metrics</h3>
 
-    <router-link v-for="o in otherMetrics" :key="o.name"
+<!--     <router-link v-for="o in otherMetrics" :key="o.name"
                  :to="'/' + $store.state.project + '/' + area + '/' + o.name"
                  class="ui line label"
                  :class="{active: o.name === metric}">
         {{o.fullName}}
-    </router-link>
+    </router-link> -->
 
     <p v-if="otherMetrics.length > 1">
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
