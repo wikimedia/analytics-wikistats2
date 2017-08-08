@@ -31,7 +31,7 @@ export default {
                 },
                 '1-Year': () => {
                     d.setYear(d.getFullYear() - 1)
-                    d.setMonth(d.getMonth() - 2)
+                    d.setMonth(d.getMonth() - 1)
                     return [dateFormat(d, "yyyymmddhh"), now]
                 },
                 '3-Month': () => {
