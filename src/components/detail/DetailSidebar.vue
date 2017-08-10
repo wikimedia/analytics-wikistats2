@@ -29,8 +29,8 @@ import WikiSelector from '../WikiSelector'
 import Breakdowns from './Breakdowns'
 import sitematrix from '../../apis/sitematrix'
 
-import '../../../semantic/src/definitions/modules/modal'
-import '../../../semantic/src/definitions/modules/dimmer'
+import '../../../semantic/dist/components/modal'
+import '../../../semantic/dist/components/dimmer'
 
 export default {
     name: 'detail-sidebar',

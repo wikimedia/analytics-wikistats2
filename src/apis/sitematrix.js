@@ -139,14 +139,14 @@ export default {
             })).map(f => {
                 let sorted = f.projects.sort((a, b) => a.title > b.title ? 1 : a.title < b.title ? -1 : 0);
 
-                if (sorted.length > 1) {
-                    sorted.splice(0, 0, {
-                        title: 'All Projects',
-                        description: `Aggregate of all ${f.title} projects`,
-                        code: 'all-projects',
-                        dbname: 'all',
-                    });
-                }
+                // if (sorted.length > 1) {
+                //     sorted.splice(0, 0, {
+                //         title: 'All Projects',
+                //         description: `Aggregate of all ${f.title} projects`,
+                //         code: 'all-projects',
+                //         dbname: 'all',
+                //     });
+                // }
 
                 return Object.assign(f, {
                     projects: sorted

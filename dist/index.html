@@ -8,5 +8,22 @@
     <body>
         <div id="wikistats-app"></div>
         <!-- built files will be auto injected -->
-    <script type="text/javascript" src="main.bundle.ae8052b72efd02c47084.js"></script></body>
+        <!-- Piwik -->
+        <script type="text/javascript">
+
+        var _paq = _paq || [];
+        _paq.push(["setDomains", ["*.stats.wikimedia.org"]]);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="//piwik.wikimedia.org/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', '12']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+        </script>
+        <noscript><p><img src="//piwik.wikimedia.org/piwik.php?idsite=12" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+    <script type="text/javascript" src="main.bundle.ad4f559d9b6e77ba6c4c.js"></script></body>
 </html>

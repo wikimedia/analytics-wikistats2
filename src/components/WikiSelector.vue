@@ -94,6 +94,7 @@ export default {
             } else if (this.family && this.project) {
                 const { family, project } = this;
                 this.$store.commit('setState', { project: project.code });
+                $('input', this.$el).blur();
             }
         }
     },
