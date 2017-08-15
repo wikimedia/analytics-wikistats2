@@ -228,7 +228,7 @@ export default {
     border-radius: 0;
 }
 .fullscreen.detail.container {
-    margin: 0 -32px -27px -32px;
+    margin: 0 -30px -27px -21px;
 }
 .right.floated.basic.fudge.segment {
     margin: 0;
