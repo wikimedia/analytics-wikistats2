@@ -1,6 +1,6 @@
 <template>
 <div>
-    <router-link to="/">
+    <router-link :to="'/' + wikiCode">
         <h1 class="ui left floated title header">
             <span class="ui mini image">
                     <img src="../assets/Wikimedia-logo.svg">

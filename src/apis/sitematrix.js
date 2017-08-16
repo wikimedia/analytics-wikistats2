@@ -130,7 +130,7 @@ export default {
             }, {
                 all: {
                     family: 'all', title: 'All Project Families', projects: [{
-                        title: 'All Projects',
+                        title: 'All Languages',
                         description: 'Aggregate of all project families',
                         code: 'all-projects',
                         dbname: 'all',
