@@ -1,7 +1,11 @@
 <template>
-<router-link v-if="graphModel" class="widget column" :to="'/' + project + '/' + area + '/' + metric.name">
+<router-link class="widget column" :to="'/' + project + '/' + area + '/' + metric.name">
+    <metric-placeholder-widget
+        v-if="!graphModel">
+    </metric-placeholder-widget>
+
     <metric-bar-widget
-        v-if="metricData.type === 'bars'"
+        v-else-if="metricData.type === 'bars'"
         :metricData="metricData"
         :graphModel="graphModel">
     </metric-bar-widget>
@@ -17,6 +21,7 @@
         :metricData="metricData"
         :graphModel="graphModel">
     </metric-list-widget>
+    <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
 </router-link>
 </template>
 
@@ -26,6 +31,9 @@ import { mapState } from 'vuex';
 import MetricBarWidget from './MetricBarWidget'
 import MetricLineWidget from './MetricLineWidget'
 import MetricListWidget from './MetricListWidget'
+import StatusOverlay from '../StatusOverlay'
+import MetricPlaceholderWidget from './MetricPlaceholderWidget'
+
 import config from '../../config'
 
 import AQS from '../../apis/aqs'
@@ -39,7 +47,8 @@ export default {
     data () {
         return {
             metricData: undefined,
-            graphModel: undefined
+            graphModel: undefined,
+            overlayMessage: null
         }
     },
 
@@ -47,6 +56,8 @@ export default {
         MetricBarWidget,
         MetricLineWidget,
         MetricListWidget,
+        MetricPlaceholderWidget,
+        StatusOverlay
     },
 
     mounted () {
@@ -82,7 +93,19 @@ export default {
         aqsParameters () {
             const { unique, common } = this.aqsParameters;
 
-            aqsApi.getData(unique, common).then(dimensionalData => {
+            let dataPromise = aqsApi.getData(unique, common);
+            this.overlayMessage = {
+                type: 'loading',
+                text: 'Loading metric'
+            }
+            dataPromise.catch((req, status, error) => {
+                this.overlayMessage = {
+                    type: 'error',
+                    text: 'Something wrong has happened'
+                }
+            });
+            dataPromise.then(dimensionalData => {
+                this.overlayMessage = null;
                 this.graphModel = new GraphModel(this.metricData, dimensionalData);
             });
         },
