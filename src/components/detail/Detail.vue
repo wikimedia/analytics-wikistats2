@@ -25,11 +25,13 @@
         @changeMetric="goHighlight">
 
     </metrics-modal>
+    <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
 </section>
 </template>
 
 <script>
 import MetricsModal from './MetricsModal'
+import StatusOverlay from '../StatusOverlay'
 
 import GraphPanel from './GraphPanel'
 import DetailSidebar from './DetailSidebar'
@@ -47,7 +49,8 @@ export default {
     components: {
         MetricsModal,
         GraphPanel,
-        DetailSidebar
+        DetailSidebar,
+        StatusOverlay
     },
     data () {
         return {
@@ -71,7 +74,8 @@ export default {
 
             project: 'all-projects',
             wiki: null,
-            range: []
+            range: [],
+            overlayMessage: null
         }
     },
 
@@ -126,10 +130,22 @@ export default {
                 defaults.common.start = this.range[0]
                 defaults.common.end = this.range[1]
             }
-            aqsApi.getData(
+            let dataPromise = aqsApi.getData(
                 defaults.unique,
                 defaults.common
-            ).then(dimensionalData => {
+            );
+            this.overlayMessage = {
+                type: 'loading',
+                text: 'Loading metric'
+            }
+            dataPromise.catch((req, status, error) => {
+                this.overlayMessage = {
+                    type: 'error',
+                    text: 'Something wrong has happened'
+                }
+            });
+            dataPromise.then(dimensionalData => {
+                this.overlayMessage = null;
                 this.graphModel = new GraphModel(metricData, dimensionalData);
             });
 
