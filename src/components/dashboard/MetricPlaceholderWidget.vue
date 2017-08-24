@@ -28,9 +28,11 @@
 </template>
 
 <script type="text/javascript">
+    import ArrowIcon from '../ArrowIcon';
     export default {
         name: 'metric-placeholder-widget',
-        props: ['metricData']
+        props: ['metricData'],
+        components: {ArrowIcon}
     }
 </script>
 
