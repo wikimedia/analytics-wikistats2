@@ -1,5 +1,21 @@
 import _ from './lodash-custom-bundle';
 
+const months = [
+    null,
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
+
 const colors = {
     contributing: ['#c4cddf', '#99afd9', '#6582ba', '#2a4b8d'],
     reading: ['#c8f0e7', '#77d8c2', '#00af89', '#03745c'],
@@ -99,6 +115,8 @@ const metrics = {
         },
         type: 'bars',
         area: 'reading',
+        global: true,
+        value: 'views',
         breakdowns: [{
             on: false,
             name: 'Access method',
@@ -165,4 +183,5 @@ export default {
     stableColorIndexes,
     questions,
     areasWithMetrics,
+    months
 };

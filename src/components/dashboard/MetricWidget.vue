@@ -1,23 +1,50 @@
 <template>
-<router-link v-if="graphModel" class="widget column" :to="'/' + project + '/' + area + '/' + metric.name">
-    <metric-bar-widget
-        v-if="metricData.type === 'bars'"
-        :metricData="metricData"
-        :graphModel="graphModel">
-    </metric-bar-widget>
+<div class="widget column" v-if="graphModel && !disabled">
+    <div class="ui medium statistic">
+        <div class="label">{{metricData.fullName}}</div>
+        <div class="value">{{lastMonth.total | kmb}}</div>
+    </div>
+    <div>
+        <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
+        <span class="change label">
+            <arrow-icon :value="changeMoM"/>
+            {{changeMoM}} % month over month
+        </span>
+    </div>
+    <router-link :to="'/' + project + '/' + area + '/' + metric.name">
+        <metric-bar-widget
+            v-if="metricData.type === 'bars'"
+            :metricData="metricData"
+            :graphModel="graphModel">
+        </metric-bar-widget>
 
-    <metric-line-widget
-        v-else-if="metricData.type === 'lines'"
-        :metricData="metricData"
-        :graphModel="graphModel">
-    </metric-line-widget>
+        <metric-line-widget
+            v-else-if="metricData.type === 'lines'"
+            :metricData="metricData"
+            :graphModel="graphModel">
+        </metric-line-widget>
 
-    <metric-list-widget
-        v-else-if="metricData.type === 'list'"
-        :metricData="metricData"
-        :graphModel="graphModel">
-    </metric-list-widget>
-</router-link>
+        <!-- TO DO -
+        Still to move logic from prototype to production code
+         <metric-list-widget
+            v-else-if="metricData.type === 'list'"
+            :metricData="metricData"
+            :graphModel="graphModel">
+        </metric-list-widget> -->
+    </router-link>
+    <div class="ui horizontal small statistic">
+        <div class="value">
+            {{lastYearAggregation.total | kmb}}
+        </div>
+        <div class="change label">
+            <arrow-icon :value="changeYoY"/>
+            {{changeYoY}} % year over year
+        </div>
+    </div>
+    <div class="year total subdued">
+        Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
+    </div>
+</div>
 </template>
 
 <script>
@@ -26,10 +53,13 @@ import { mapState } from 'vuex';
 import MetricBarWidget from './MetricBarWidget'
 import MetricLineWidget from './MetricLineWidget'
 import MetricListWidget from './MetricListWidget'
+import TimeRangeSelector from '../TimeRangeSelector';
 import config from '../../config'
 
 import AQS from '../../apis/aqs'
 import GraphModel from '../../models/GraphModel'
+import dateformat from 'dateformat';
+import ArrowIcon from '../ArrowIcon';
 
 let aqsApi = new AQS();
 
@@ -47,6 +77,7 @@ export default {
         MetricBarWidget,
         MetricLineWidget,
         MetricListWidget,
+        ArrowIcon
     },
 
     mounted () {
@@ -57,6 +88,9 @@ export default {
         loadConfig () {
             this.metricData = config.metricData(this.metric.name, this.area);
         },
+        getMonthValue (date) {
+            return config.months[parseInt(date.split('-')[1])]
+        }
     },
 
     computed: Object.assign(
@@ -66,25 +100,70 @@ export default {
             aqsParameters () {
                 if (!this.metricData || !this.project) { return; }
                 const defaults = this.metricData.defaults;
-
+                const range = TimeRangeSelector.getDefaultTimeRange();
+                this.metricData.start = range[0];
+                this.metricData.end = range[1];
                 return {
                     unique: Object.assign(
                         defaults.unique,
                         { project: [this.project] },
                     ),
-                    common: defaults.common
-                };
+                    common: Object.assign(
+                        defaults.common,
+                        {
+                            start: this.metricData.start,
+                            end: this.metricData.end
+                        }
+                    )
+                }
             },
+            monthOneYearAgo: function () {
+                return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12]
+            },
+            lastYearAggregation: function () {
+                if (this.metricData.additive) {
+                    return {
+                        total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total)
+                    }
+                } else {
+                    return {
+                        total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total) / 12
+                    }
+                }
+            },
+            lastMonth: function () {
+                return _.last(this.graphData);
+            },
+            graphData: function () {
+                return this.graphModel.getGraphData();
+            },
+            changeMoM: function () {
+                const data = this.graphData;
+                const prev = data[data.length - 2];
+                const diff = this.lastMonth.total - prev.total;
+                return ((diff / prev.total) * 100).toFixed(2);
+            },
+            changeYoY: function () {
+                const diff = this.lastMonth.total - this.monthOneYearAgo.total;
+                return ((diff / this.monthOneYearAgo.total) * 100).toFixed(2);
+            },
+            disabled: function () {
+                return !this.metricData.global && this.$store.state.project === 'all-projects'
+            },
+            aggregationType: function () {
+                return !this.metricData.additive? 'Average': 'Total';
+            }
         }
     ),
 
     watch: {
         aqsParameters () {
+            if (this.disabled) return
             const { unique, common } = this.aqsParameters;
 
             aqsApi.getData(unique, common).then(dimensionalData => {
                 this.graphModel = new GraphModel(this.metricData, dimensionalData);
-            });
+            })
         },
     },
 }
