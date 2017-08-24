@@ -92,15 +92,10 @@ export default {
     watch: {
         aqsParameters () {
             const { unique, common } = this.aqsParameters;
-
             let dataPromise = aqsApi.getData(unique, common);
             this.overlayMessage = StatusOverlay.LOADING;
-            dataPromise.catch((req, status, error) => {
-                if (req.status === 404) {
-                    this.overlayMessage = StatusOverlay.NO_DATA;
-                } else {
-                    this.overlayMessage = StatusOverlay.GENERAL_ERROR;
-                }
+            dataPromise.catch(req => {
+                this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
             });
             dataPromise.then(dimensionalData => {
                 this.overlayMessage = null;

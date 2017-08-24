@@ -28,6 +28,20 @@ let StatusOverlay = {
     props: ['overlayMessage']
 };
 
+StatusOverlay.getMessageForStatus = function (httpCode) {
+    switch(httpCode) {
+        case 404:
+            return StatusOverlay.NO_DATA;
+            break;
+        case 500:
+            return StatusOverlay.NO_SERVICE;
+            break;
+        default:
+            return StatusOverlay.GENERAL_ERROR;
+    }
+}
+
+
 StatusOverlay.NO_DATA = {
     type: 'error',
     text: 'There is no data available for this date range on this project'

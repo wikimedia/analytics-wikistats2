@@ -134,15 +134,9 @@ export default {
                 defaults.unique,
                 defaults.common
             );
-            this.overlayMessage = {
-                type: 'loading',
-                text: 'Loading metric'
-            }
+            this.overlayMessage = StatusOverlay.LOADING;
             dataPromise.catch((req, status, error) => {
-                this.overlayMessage = {
-                    type: 'error',
-                    text: 'Something wrong has happened'
-                }
+                this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
             });
             dataPromise.then(dimensionalData => {
                 this.overlayMessage = null;
