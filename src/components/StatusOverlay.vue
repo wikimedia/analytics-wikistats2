@@ -15,7 +15,7 @@
 // whether the data is still loading or there has been an error.
 // It should be compatible with any component in Wikistats.
 
-export default {
+let StatusOverlay = {
     name: 'status-overlay',
     computed: {
         iconClass () {
@@ -26,7 +26,35 @@ export default {
         }
     },
     props: ['overlayMessage']
-}
+};
+
+StatusOverlay.NO_DATA = {
+    type: 'error',
+    text: 'There is no data available for this date range on this project'
+};
+
+StatusOverlay.INCOMPATIBLE = {
+    type: 'error',
+    text: 'This metric is not available for this project selection'
+};
+
+StatusOverlay.NO_SERVICE = {
+    type: 'error',
+    text: 'The analytics query service seems to be down'
+};
+
+StatusOverlay.LOADING = {
+    type: 'loading',
+    text: 'Loading metric...'
+};
+
+StatusOverlay.GENERAL_ERROR = {
+    type: 'error',
+    text: 'Something wrong has happened'
+};
+
+export default StatusOverlay;
+
 </script>
 
 <style type="text/css">
