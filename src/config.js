@@ -27,7 +27,9 @@ const stableColorIndexes = {
     'Very Active': 2,
     'desktop': 0,
     'mobile-app': 1,
-    'mobile-web': 2
+    'mobile-web': 2,
+    'desktop-site': 0,
+    'mobile-site': 1,
 }
 
 const lightColor = {
@@ -92,7 +94,8 @@ const areasWithMetrics = _.transform(questions, function (result, q) {
 
 const mainMetricsByArea = [
     { state: { id: 'reading', name: 'Reading', metrics: [
-        'total-pageviews'
+        'total-pageviews',
+        'unique-devices'
     ] }}
 ];
 
@@ -108,15 +111,13 @@ const metrics = {
             common: {
                 metric: 'pageviews-aggregate',
                 agent_type: 'all-agents',
-                granularity: 'monthly',
-                start: '2015053100',
-                end: '2017053100'
+                granularity: 'monthly'
             }
         },
         type: 'bars',
         area: 'reading',
-        global: true,
         value: 'views',
+        global: true,
         breakdowns: [{
             on: false,
             name: 'Access method',
@@ -127,6 +128,32 @@ const metrics = {
                 { name: 'Mobile Web', on: true, key: 'mobile-web' }
             ]
         }],
+    },
+    'unique-devices': {
+        fullName: 'Unique Devices',
+        type: 'lines',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                'access-site': ['desktop-site', 'mobile-site']
+            },
+            common: {
+                metric: 'unique-devices',
+                granularity: 'monthly'
+            }
+        },
+        value: 'devices',
+        area: 'reading',
+        global: false,
+        breakdowns: [{
+            on: false,
+            name: 'Access site',
+            breakdownName: 'access-site',
+            values: [
+                { name: 'Mobile Site', on: true, key: 'mobile-site' },
+                { name: 'Desktop Site', on: true, key: 'desktop-site' }
+            ]
+        }]
     }
 }
 
@@ -140,11 +167,12 @@ export default {
     aqs: {
         'pageviews-aggregate': {
             method: 'getAggregatedPageviews',
-            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/{{project}}/{{access}}/{{agent}}/{{granularity}}/{{start}}/{{end}}'
+            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/{{project}}/{{access}}/{{agent_type}}/{{granularity}}/{{start}}/{{end}}'
         },
 
         'unique-devices': {
-            method: 'getUniqueDevices'
+            method: 'getUniqueDevices',
+            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/unique-devices/{{project}}/{{access-site}}/{{granularity}}/{{start}}/{{end}}'
         }
     },
 

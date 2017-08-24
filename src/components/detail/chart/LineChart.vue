@@ -102,11 +102,9 @@ export default {
                             .style('stroke', bColor)
                             .style('stroke-width', '2px')
                             .style('fill', 'none')
-                            .attr('class', 'breakdownLine')
                     })
                 } else {
                     g.append('path').datum(rowData)
-                        .attr('class', 'statLine')
                         .attr('d', line)
                         .style('stroke', self.graphModel.getDarkColor())
                         .style('stroke-width', '2px')
