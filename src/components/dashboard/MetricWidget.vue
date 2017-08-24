@@ -94,14 +94,12 @@ export default {
             const { unique, common } = this.aqsParameters;
 
             let dataPromise = aqsApi.getData(unique, common);
-            this.overlayMessage = {
-                type: 'loading',
-                text: 'Loading metric'
-            }
+            this.overlayMessage = StatusOverlay.LOADING;
             dataPromise.catch((req, status, error) => {
-                this.overlayMessage = {
-                    type: 'error',
-                    text: 'Something wrong has happened'
+                if (req.status === 404) {
+                    this.overlayMessage = StatusOverlay.NO_DATA;
+                } else {
+                    this.overlayMessage = StatusOverlay.GENERAL_ERROR;
                 }
             });
             dataPromise.then(dimensionalData => {
