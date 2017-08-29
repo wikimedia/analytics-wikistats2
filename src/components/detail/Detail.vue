@@ -35,14 +35,17 @@ import StatusOverlay from '../StatusOverlay'
 
 import GraphPanel from './GraphPanel'
 import DetailSidebar from './DetailSidebar'
+import TimeRangeSelector from '../TimeRangeSelector'
 
 import config from '../../config'
 import router from '../../router/index'
 import DimensionalData from '../../models/DimensionalData'
+
 import GraphModel from '../../models/GraphModel'
 import AQS from '../../apis/aqs'
 
 import sitematrix from '../../apis/sitematrix'
+import dateformat from 'dateformat';
 
 export default {
     name: 'detail',
@@ -74,8 +77,8 @@ export default {
 
             project: 'all-projects',
             wiki: null,
-            range: [],
-            overlayMessage: null
+            overlayMessage: null,
+            range: TimeRangeSelector.getDefaultTimeRange()
         }
     },
 
@@ -94,7 +97,7 @@ export default {
     },
 
     watch: {
-        '$store.state.project': function () {
+        '$store.getters.mainState': function () {
             this.wiki = this.$store.state.project;
             this.loadData();
         },
@@ -126,10 +129,8 @@ export default {
                 common: {}
             };
             defaults.unique.project = [this.$store.state.project];
-            if (this.range.length > 0) {
-                defaults.common.start = this.range[0]
-                defaults.common.end = this.range[1]
-            }
+            this.metricData.start = this.range[0];
+            this.metricData.end = this.range[1];
             let dataPromise = aqsApi.getData(
                 defaults.unique,
                 defaults.common

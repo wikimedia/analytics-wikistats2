@@ -1,5 +1,21 @@
 import _ from './lodash-custom-bundle';
 
+const months = [
+    null,
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
+
 const colors = {
     contributing: ['#c4cddf', '#99afd9', '#6582ba', '#2a4b8d'],
     reading: ['#c8f0e7', '#77d8c2', '#00af89', '#03745c'],
@@ -11,7 +27,9 @@ const stableColorIndexes = {
     'Very Active': 2,
     'desktop': 0,
     'mobile-app': 1,
-    'mobile-web': 2
+    'mobile-web': 2,
+    'desktop-site': 0,
+    'mobile-site': 1,
 }
 
 const lightColor = {
@@ -76,7 +94,8 @@ const areasWithMetrics = _.transform(questions, function (result, q) {
 
 const mainMetricsByArea = [
     { state: { id: 'reading', name: 'Reading', metrics: [
-        'total-pageviews'
+        'total-pageviews',
+        'unique-devices'
     ] }}
 ];
 
@@ -92,13 +111,13 @@ const metrics = {
             common: {
                 metric: 'pageviews-aggregate',
                 agent_type: 'all-agents',
-                granularity: 'monthly',
-                start: '2015053100',
-                end: '2017053100'
+                granularity: 'monthly'
             }
         },
         type: 'bars',
         area: 'reading',
+        value: 'views',
+        global: true,
         breakdowns: [{
             on: false,
             name: 'Access method',
@@ -109,6 +128,32 @@ const metrics = {
                 { name: 'Mobile Web', on: true, key: 'mobile-web' }
             ]
         }],
+    },
+    'unique-devices': {
+        fullName: 'Unique Devices',
+        type: 'lines',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                'access-site': ['desktop-site', 'mobile-site']
+            },
+            common: {
+                metric: 'unique-devices',
+                granularity: 'monthly'
+            }
+        },
+        value: 'devices',
+        area: 'reading',
+        global: false,
+        breakdowns: [{
+            on: false,
+            name: 'Access site',
+            breakdownName: 'access-site',
+            values: [
+                { name: 'Mobile Site', on: true, key: 'mobile-site' },
+                { name: 'Desktop Site', on: true, key: 'desktop-site' }
+            ]
+        }]
     }
 }
 
@@ -122,11 +167,12 @@ export default {
     aqs: {
         'pageviews-aggregate': {
             method: 'getAggregatedPageviews',
-            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/{{project}}/{{access}}/{{agent}}/{{granularity}}/{{start}}/{{end}}'
+            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/{{project}}/{{access}}/{{agent_type}}/{{granularity}}/{{start}}/{{end}}'
         },
 
         'unique-devices': {
-            method: 'getUniqueDevices'
+            method: 'getUniqueDevices',
+            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/unique-devices/{{project}}/{{access-site}}/{{granularity}}/{{start}}/{{end}}'
         }
     },
 
@@ -165,4 +211,5 @@ export default {
     stableColorIndexes,
     questions,
     areasWithMetrics,
+    months
 };

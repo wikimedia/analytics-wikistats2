@@ -4,7 +4,7 @@
         <p>Find out more <a href="https://wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">about Wikistats</a> and the <a href="https://wikitech.wikimedia.org/wiki/Analytics#Datasets">data that it uses</a></p>
     </div>
     <div class="middle aligned column">
-        <p>Wikistats is written with <a target="_blank" href="//vuejs.org">Vue.js</a> and <a target="_blank" href="//semantic-ui.com">Semantic UI</a>.  If you'd like to contribute, see our <a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">contributing guide</a>.</p>
+        <p>Wikistats is written with <a target="_blank" href="//vuejs.org">Vue.js</a> and <a target="_blank" href="//semantic-ui.com">Semantic UI</a>.  If you'd like to contribute, see our <a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0#Contributing_and_Deployment">contributing guide</a>.</p>
     </div>
     <div class="middle aligned column">
         <p>Wikistats is designed by <a target="_blank" href="//aislinngrigas.com/about/">Aislinn Grigas</a>.</p>

@@ -49,7 +49,7 @@ StatusOverlay.NO_DATA = {
 
 StatusOverlay.INCOMPATIBLE = {
     type: 'error',
-    text: 'This metric is not available for this project selection'
+    text: 'The {{metric_name}} metric is not available for this project selection'
 };
 
 StatusOverlay.NO_SERVICE = {
