@@ -61,10 +61,10 @@ export default {
 
 
                 let height = n.offsetHeight - margin.top - margin.bottom - padding;
-                let y = scales.scaleLinear().rangeRound([height, 0]);
+                let y = scales.scaleLinear().range([height, 0]);
                 y.domain([0, arr.max(detail.map((d) => d.total))]);
                 const yAxis = axes.axisLeft(y).ticks(7)
-                                .tickFormat(format.format('0.00s'));
+                                .tickFormat(format.format('.2s'));
                 const yAxisContainer = g.append('g')
                     .call(yAxis)
                     .style('font-size', '13px')
