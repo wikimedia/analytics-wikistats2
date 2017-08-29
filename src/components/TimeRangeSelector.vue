@@ -26,25 +26,30 @@ export default {
                 },
                 '2-Year': () => {
                     d.setYear(d.getFullYear() - 2)
-                    d.setMonth(d.getMonth() - 2)
                     return [dateFormat(d, "yyyymmddhh"), now]
                 },
                 '1-Year': () => {
                     d.setYear(d.getFullYear() - 1)
-                    d.setMonth(d.getMonth() - 1)
                     return [dateFormat(d, "yyyymmddhh"), now]
                 },
                 '3-Month': () => {
-                    d.setMonth(d.getMonth() - 4)
+                    d.setMonth(d.getMonth() - 3)
                     return [dateFormat(d, "yyyymmddhh"), now]
                 },
                 '1-Month': () => {
-                    d.setMonth(d.getMonth() - 2)
+                    d.setMonth(d.getMonth() - 1)
                     return [dateFormat(d, "yyyymmddhh"), now]
                 }
             }
             this.$emit('changeTimeRange', ranges[newRange]());
         }
+    },
+    getDefaultTimeRange () {
+        const end = new Date();
+        const start = new Date();
+        start.setYear(end.getFullYear() - 2);
+        return [dateFormat(start, 'yyyymmdd00'),
+                dateFormat(end, 'yyyymmdd00')];
     }
 }
 </script>

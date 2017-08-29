@@ -59,12 +59,22 @@ export default {
                 const n = root.node();
                 let dates = detail.map((d) => new Date(Date.parse(d.month)));
 
+                const max = _.max(detail.map((r) => {
+                    if (typeof detail[0].total !=  'number') {
+                        return _.max(_.map(r.total, (breakdownValue, key) => {
+                            return self.graphModel.getActiveBreakdown()
+                                    .values.find(v => v.key === key).on? breakdownValue: 0;
+                        }));
+                    } else {
+                        return r.total;
+                    }
 
+                }));
                 let height = n.offsetHeight - margin.top - margin.bottom - padding;
                 let y = scales.scaleLinear().rangeRound([height, 0]);
-                y.domain([0, arr.max(detail.map((d) => d.total))]);
+                y.domain([0, max]);
                 const yAxis = axes.axisLeft(y).ticks(7)
-                                .tickFormat(format.format('0.00s'));
+                                .tickFormat(format.format('.2s'));
                 const yAxisContainer = g.append('g')
                     .call(yAxis)
                     .style('font-size', '13px')
@@ -88,13 +98,6 @@ export default {
                     .style('font-family', 'Lato, "Open Sans"')
 
                 if (typeof detail[0].total !=  'number') {
-                    // TODO max should only take into account the active breakdowns, not all
-                    const max = _.max(detail.map((r) => {
-                        return _.max(_.map(r.total, (breakdownValue, key) => {
-                            return self.graphModel.getActiveBreakdown()
-                                    .values.find(v => v.key === key).on? breakdownValue: 0;
-                        }));
-                    }));
                     y.domain([0, max])
                     g.append('g').selectAll('.bar').data(detail)
                         .enter().selectAll('.minibar').data(function (d) {
