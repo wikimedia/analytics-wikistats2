@@ -52,13 +52,13 @@ export default {
 
             const svg = root.append('svg'),
                   g = svg.append('g').attr(
-                    'transform', `translate(${margin.left},${margin.top})`
+                    'transform', `translate(${margin.left + padding},${margin.top})`
                   )
 
             function resize () {
                 const n = root.node();
                 let dates = detail.map((d) => new Date(Date.parse(d.month)));
-
+                const datespan = arr.extent(dates);
                 const max = _.max(detail.map((r) => {
                     if (typeof detail[0].total !=  'number') {
                         return _.max(_.map(r.total, (breakdownValue, key) => {
@@ -68,7 +68,6 @@ export default {
                     } else {
                         return r.total;
                     }
-
                 }));
                 let height = n.offsetHeight - margin.top - margin.bottom - padding;
                 let y = scales.scaleLinear().rangeRound([height, 0]);
@@ -82,24 +81,22 @@ export default {
                 const yAxisContainerWidth = yAxisContainer.node().getBBox().width;
 
                 let width = n.offsetWidth - margin.left - margin.right - yAxisContainerWidth;
-                let x = scales.scaleTime().rangeRound([0, width]);
-                x.domain(arr.extent(dates))
-                let xW = scales.scaleBand().align(0).padding(0.92);
-                xW.range(x.range()).domain(x.domain())
+                let xW = scales.scaleBand()
+                               .rangeRound([0, width])
+                               .domain(dates)
+                               .paddingOuter(0)
+                               .paddingInner(0.1)
+                               .align(0)
 
                 svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight)
 
-                const every = detail.length < 10? 1: 3
-                const xAxis = axes.axisBottom(x).ticks(time.timeMonth.every(every));
-
-                g.append('g').attr('transform', `translate(0,${height})`)
-                    .call(xAxis)
-                    .style('font-size', '13px')
-                    .style('font-family', 'Lato, "Open Sans"')
+                const every = detail.length < 10? 1: 5
+                const period = (dates[1] - dates[0]) < 172800000 ? 'timeDay': 'timeMonth';
+                let graphElement = g.append('g');
 
                 if (typeof detail[0].total !=  'number') {
                     y.domain([0, max])
-                    g.append('g').selectAll('.bar').data(detail)
+                    graphElement.selectAll('.bar').data(detail)
                         .enter().selectAll('.minibar').data(function (d) {
                             // this should be passed in
                             const breakdown = self.graphModel.getBreakdowns()[0]
@@ -115,21 +112,31 @@ export default {
 
                             return newData
                         }).enter().append('rect')
-                            .attr('x', (d) => x(Date.parse(d.month)) + d.index * d.width / xW.padding())
+                            .attr('x', (d) => {
+                                return xW(new Date(Date.parse(d.month))) + d.index * d.width
+                            })
                             .attr('y', (d) => y(d.value))
                             .attr('width', (d) => d.width)
                             .attr('height', (d) => height - y(d.value))
                             .attr('fill', (d) => d.color)
 
                 } else {
-                    g.append('g').selectAll('.bar').data(detail)
+                    graphElement.selectAll('.bar').data(detail)
                         .enter().append('rect')
-                            .attr('x', (d) => x(Date.parse(d.month)))
+                            .attr('x', (d) => xW(new Date(Date.parse(d.month))))
                             .attr('y', (d) => y(d.total))
                             .attr('width', xW.bandwidth())
                             .attr('height', (d) => height - y(d.total))
                             .attr('fill', (d) => self.graphModel.getDarkColor())
                 }
+                const x = scales.scaleTime()
+                              .rangeRound([0, graphElement.node().getBBox().width])
+                              .domain(datespan);
+                const xAxis = axes.axisBottom(x);
+                g.append('g').attr('transform', `translate(0,${height})`)
+                    .call(xAxis)
+                    .style('font-size', '13px')
+                    .style('font-family', 'Lato, "Open Sans"')
             }
             resize()
             // TODO: get this to resize cleanly d3.select(window).on('resize', resize)

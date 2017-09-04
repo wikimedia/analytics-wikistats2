@@ -74,7 +74,8 @@ export default {
 
             project: 'all-projects',
             wiki: null,
-            range: TimeRangeSelector.getDefaultTimeRange()
+            range: TimeRangeSelector.getDefaultTimeRange(),
+            granularity: 'monthly'
         }
     },
 
@@ -125,6 +126,7 @@ export default {
                 common: {}
             };
             defaults.unique.project = [this.$store.state.project];
+            defaults.common.granularity = this.granularity;
             this.metricData.start = this.range[0];
             this.metricData.end = this.range[1];
             aqsApi.getData(
@@ -179,6 +181,11 @@ export default {
         },
 
         setTimeRange (newRange) {
+            if (newRange[1] - newRange[0] < 100000) {
+                this.granularity = 'daily';
+            } else {
+                this.granularity = 'monthly';
+            }
             this.range = newRange;
         }
     },
