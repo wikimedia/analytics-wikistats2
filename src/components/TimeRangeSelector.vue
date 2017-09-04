@@ -1,7 +1,7 @@
 <template>
 <div class="ui buttons">
     <button v-on:click='changeTimeRange' class="ui button">All</button>
-    <button v-on:click='changeTimeRange' class="ui button">2-Year</button>
+    <button v-on:click='changeTimeRange' class="ui button active">2-Year</button>
     <button v-on:click='changeTimeRange' class="ui button">1-Year</button>
     <button v-on:click='changeTimeRange' class="ui button">3-Month</button>
     <button v-on:click='changeTimeRange' class="ui button">1-Month</button>
@@ -15,6 +15,7 @@ export default {
     name: 'time-range-selector',
     methods: {
         changeTimeRange (e) {
+            $('.active', this.$el).removeClass('active');
             const newRange = e.target.textContent;
             let d = new Date();
             let beginningOfThisMonth = new Date();
