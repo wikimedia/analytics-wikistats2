@@ -20,7 +20,7 @@ const colors = {
     contributing: ['#c4cddf', '#99afd9', '#6582ba', '#2a4b8d'],
     reading: ['#c8f0e7', '#77d8c2', '#00af89', '#03745c'],
     content: ['#fff1c6', '#f9df90', '#ffcc33', '#ddad1c']
-}
+};
 const stableColorIndexes = {
     'Lightly Active': 0,
     'Active': 1,
@@ -36,12 +36,12 @@ const lightColor = {
     contributing: colors.contributing[0],
     reading: colors.reading[0],
     content: colors.content[1]
-}
+};
 const darkColor = {
     contributing: colors.contributing[3],
     reading: colors.reading[3],
     content: colors.content[3]
-}
+};
 
 const questions = [
     { f: true, a: 'contributing', m: 'Top Contributors', q: 'Who are the top contributors?' },
@@ -69,34 +69,40 @@ const questions = [
     { a: 'content', m: 'Articles with most edits', q: 'What articles have the most edits?' },
     { a: 'content', m: 'Articles with most contributors', q: 'What are the articles with the most contributors?' },
     { a: 'content', m: 'Reference Links', q: 'Where do articles link to?' }
-]
+];
 
 const areasWithMetrics = _.transform(questions, function (result, q) {
-    let area = result.find((a) => a.name === q.a)
+    let area = result.find((a) => a.name === q.a);
     if (!area) {
         area = {
             name: q.a,
             order: { contributing: 1, reading: 2, content: 3 }[q.a],
             color: colors[q.a][1],
             metrics: []
-        }
-        result.unshift(area)
+        };
+        result.unshift(area);
     }
 
     area.metrics.push({
         name: _.kebabCase(q.m),
         fullName: q.m
-    })
+    });
 
-    result.sort((a, b) => a.order > b.order)
-    return result
+    result.sort((a, b) => a.order > b.order);
+    return result;
 }, []);
 
 const mainMetricsByArea = [
-    { state: { id: 'reading', name: 'Reading', metrics: [
-        'total-pageviews',
-        'unique-devices'
-    ] }}
+    {
+        state: {
+            id: 'reading',
+            name: 'Reading',
+            metrics: [
+                'total-pageviews',
+                'unique-devices'
+            ]
+        }
+    }
 ];
 
 const metrics = {
@@ -155,7 +161,7 @@ const metrics = {
             ]
         }]
     }
-}
+};
 
 
 export default {
@@ -182,7 +188,7 @@ export default {
             metrics[metricName],
             { lightColor: lightColor[area] },
             { darkColor: darkColor[area] }
-        )
+        );
     },
 
     areas () {
@@ -191,13 +197,13 @@ export default {
             areasFromMetrics.add(metric.area);
         });
         const areaList = [
-            { path: '/', name: 'Dashboard' },
-            { path: '/contributing', name: 'Contributing' },
-            { path: '/reading', name: 'Reading' },
-            { path: '/content', name: 'Content' }
-        ].filter((area)=> {
-            return area.path==='/' || areasFromMetrics.has(area.path.replace('/', ''))
-        })
+            { path: '', name: 'Dashboard' },
+            { path: 'contributing', name: 'Contributing' },
+            { path: 'reading', name: 'Reading' },
+            { path: 'content', name: 'Content' }
+        ].filter(
+            (area) => area.path === '' || areasFromMetrics.has(area.path)
+        );
 
         return areaList;
     },

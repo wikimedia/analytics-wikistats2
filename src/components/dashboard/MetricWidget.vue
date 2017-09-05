@@ -11,7 +11,7 @@
             {{changeMoM}} % month over month
         </span>
     </div>
-    <router-link :to="'/' + project + '/' + area + '/' + metric.name">
+    <router-link :to="{project, area, metric: metric.name}" v-if="graphModel">
         <metric-bar-widget
             v-if="metricData.type === 'bars'"
             :metricData="metricData"
@@ -60,6 +60,7 @@ import AQS from '../../apis/aqs'
 import GraphModel from '../../models/GraphModel'
 import dateformat from 'dateformat';
 import ArrowIcon from '../ArrowIcon';
+import RouterLink from '../RouterLink';
 
 let aqsApi = new AQS();
 
@@ -70,14 +71,15 @@ export default {
         return {
             metricData: undefined,
             graphModel: undefined
-        }
+        };
     },
 
     components: {
         MetricBarWidget,
         MetricLineWidget,
         MetricListWidget,
-        ArrowIcon
+        ArrowIcon,
+        RouterLink
     },
 
     mounted () {
@@ -166,7 +168,7 @@ export default {
             })
         },
     },
-}
+};
 </script>
 
 <style>

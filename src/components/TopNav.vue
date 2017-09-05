@@ -1,6 +1,6 @@
 <template>
 <div>
-    <router-link :to="'/' + wikiCode">
+    <router-link :to="{project: $store.state.project}">
         <h1 class="ui left floated title header">
             <span class="ui mini image">
                     <img src="../assets/Wikimedia-logo.svg">
@@ -9,17 +9,16 @@
         </h1>
     </router-link>
     <div class="ui right floated link header">
-        <router-link
-            v-for="a in areas" :to="'/' + wikiCode + a.path"
-            :key="a.name" exact>
-            {{a.name}}
-        </router-link>
+        <span v-for="a in areas">
+            <router-link :to="{project: wikiCode, area: a.path}">{{a.name}}</router-link>
+        </span>
     </div>
 </div>
 </template>
 
 <script>
-import config from '../config'
+import RouterLink from './RouterLink';
+import config from '../config';
 
 export default {
     name: 'top-nav',
@@ -29,11 +28,13 @@ export default {
             areas: []
         };
     },
-
+    components: {
+        RouterLink,
+    },
     mounted () {
         this.areas = config.areas();
     },
-}
+};
 </script>
 
 <style scoped>
@@ -55,5 +56,8 @@ export default {
 .link.header a {
     margin-left: 16px;
     font-size: 18px;
+}
+.router-link-current {
+    cursor: default;
 }
 </style>
