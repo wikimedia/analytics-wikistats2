@@ -30,7 +30,7 @@ const stableColorIndexes = {
     'mobile-web': 2,
     'desktop-site': 0,
     'mobile-site': 1,
-}
+};
 
 const lightColor = {
     contributing: colors.contributing[0],

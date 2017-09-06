@@ -29,20 +29,20 @@
 </template>
 
 <script>
-import MetricsModal from './MetricsModal'
-import GraphPanel from './GraphPanel'
-import DetailSidebar from './DetailSidebar'
-import TimeRangeSelector from '../TimeRangeSelector'
+import MetricsModal from './MetricsModal';
+import GraphPanel from './GraphPanel';
+import DetailSidebar from './DetailSidebar';
+import TimeRangeSelector from '../TimeRangeSelector';
 
 import { mapState } from 'vuex';
 
-import config from '../../config'
-import DimensionalData from '../../models/DimensionalData'
+import config from '../../config';
+import DimensionalData from '../../models/DimensionalData';
 
-import GraphModel from '../../models/GraphModel'
-import AQS from '../../apis/aqs'
+import GraphModel from '../../models/GraphModel';
+import AQS from '../../apis/aqs';
 
-import sitematrix from '../../apis/sitematrix'
+import sitematrix from '../../apis/sitematrix';
 import dateformat from 'dateformat';
 
 export default {
@@ -76,7 +76,7 @@ export default {
             wiki: null,
             range: TimeRangeSelector.getDefaultTimeRange(),
             granularity: 'monthly'
-        }
+        };
     },
 
     computed: Object.assign(

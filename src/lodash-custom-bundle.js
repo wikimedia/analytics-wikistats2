@@ -43,4 +43,4 @@ export default {
     transform,
     trim,
     zip,
-}
+};

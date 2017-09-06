@@ -29,8 +29,8 @@ import Breakdowns from './Breakdowns';
 import sitematrix from '../../apis/sitematrix';
 import RouterLink from '../RouterLink';
 
-import '../../../semantic/dist/components/modal'
-import '../../../semantic/dist/components/dimmer'
+import '../../../semantic/dist/components/modal';
+import '../../../semantic/dist/components/dimmer';
 
 export default {
     name: 'detail-sidebar',

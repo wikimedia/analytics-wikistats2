@@ -20,7 +20,7 @@ export default {
             let d = new Date();
             let beginningOfThisMonth = new Date();
             beginningOfThisMonth.setDate(1);
-            const now = dateFormat(new Date(), "yyyymmddhh")
+            const now = dateFormat(new Date(), "yyyymmddhh");
             const ranges = {
                 'All': () => {
                     return ['1980010100', now]
@@ -41,7 +41,7 @@ export default {
                     d.setMonth(d.getMonth() - 1)
                     return [dateFormat(d, "yyyymmddhh"), now]
                 }
-            }
+            };
             this.$emit('changeTimeRange', ranges[newRange]());
         }
     },

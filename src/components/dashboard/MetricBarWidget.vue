@@ -25,13 +25,13 @@ export default {
     },
 
     mounted () {
-        this.drawChart()
+        this.drawChart();
     },
 
     watch: {
         graphModel: {
             handler: function () {
-                this.drawChart()
+                this.drawChart();
             },
             deep: true
         }
@@ -40,16 +40,16 @@ export default {
     methods: {
 
         drawChart () {
-            const self = this
+            const self = this;
 
             const root = d3.select(this.$el).select('.bar-chart'),
                   margin = {top: 16, right: 0, bottom: 8, left: 0},
-                  padding = 4
+                  padding = 4;
 
             const svg = root.select('svg'),
                   g = svg.select('g').attr(
                     'transform', `translate(${margin.left},${margin.top})`
-                  )
+                  );
             g.selectAll('*').remove();
 
             const rowData = this.graphModel.getGraphData();
@@ -59,13 +59,13 @@ export default {
                       width = n.offsetWidth - margin.left - margin.right,
                       height = n.offsetHeight - margin.top - margin.bottom - padding,
                       x = scales.scaleBand().rangeRound([0, width]).padding(0.3),
-                      y = scales.scaleLinear().rangeRound([height, 0])
+                      y = scales.scaleLinear().rangeRound([height, 0]);
 
-                x.domain(rowData.map((d) => d.month))
-                y.domain([0, arr.max(rowData.map((d) => d.total))])
+                x.domain(rowData.map((d) => d.month));
+                y.domain([0, arr.max(rowData.map((d) => d.total))]);
 
-                svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight)
-                g.attr('width', width).attr('height', height)
+                svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
+                g.attr('width', width).attr('height', height);
                 const lastMonth = rowData[rowData.length - 1].month;
                 g.append('g').selectAll('.bar').data(rowData)
                     .enter().append('rect')
@@ -76,7 +76,7 @@ export default {
                         .attr('fill', (d) =>
                             d.month === lastMonth ?
                                 self.metricData.darkColor : self.metricData.lightColor
-                        )
+                        );
 
                 g.append('g').classed('month-ticks', true)
                     .attr('transform', `translate(${
@@ -90,12 +90,12 @@ export default {
                             return self.getMonthValue(d.month);
                         }).style('fill', '#898989')
                           .style('font-size', '9px')
-                          .style('font-family', 'Lato')
+                          .style('font-family', 'Lato');
             }
-            resize()
+            resize();
         },
         getMonthValue (date) {
-            return config.months[parseInt(date.split('-')[1])][0]
+            return config.months[parseInt(date.split('-')[1])][0];
         }
     }
 }

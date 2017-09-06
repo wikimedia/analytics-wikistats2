@@ -29,7 +29,7 @@ export default {
             hovering: null,
             container: null,
             index: 0,
-        }
+        };
     },
 
     props: {

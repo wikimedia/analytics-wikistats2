@@ -20,12 +20,12 @@ export default {
     data () {
         return {
             ci: config.stableColorIndexes
-        }
+        };
     },
 
     computed: {
         colors: function () {
-            return config.colors[this.data.area]
+            return config.colors[this.data.area];
         }
     }
 }

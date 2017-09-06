@@ -28,12 +28,12 @@ export default {
 
     computed: {
         formattedList: function () {
-            if (!this.data.valueFilter) { return this.data.sortedList }
+            if (!this.data.valueFilter) { return this.data.sortedList; }
 
             return this.data.sortedList.map((l) => ({
                 value: Vue.options.filters[this.data.valueFilter](l.value),
                 name: l.name
-            }))
+            }));
         }
     },
 

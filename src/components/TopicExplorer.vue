@@ -78,27 +78,27 @@ export default {
 
   computed: {
       contributingQuestions: function () {
-          return config.questions.filter((m) => m.f && m.a === 'contributing')
+          return config.questions.filter((m) => m.f && m.a === 'contributing');
       },
       readingQuestions: function () {
-          return config.questions.filter((m) => m.f && m.a === 'reading')
+          return config.questions.filter((m) => m.f && m.a === 'reading');
       },
       contentQuestions: function () {
-          return config.questions.filter((m) => m.f && m.a === 'content')
+          return config.questions.filter((m) => m.f && m.a === 'content');
       },
       moreQuestions: function () {
-          return config.questions.filter((m) => !m.f)
+          return config.questions.filter((m) => !m.f);
       }
   },
 
   methods: {
       selectQuestion (q) {
-          this.selectedQuestion = q
+          this.selectedQuestion = q;
       },
 
       go () {
-          const s = this.selectedQuestion
-          r.push('/' + s.a + '/' + _.kebabCase(s.m))
+          const s = this.selectedQuestion;
+          r.push('/' + s.a + '/' + _.kebabCase(s.m));
       }
   }
 }

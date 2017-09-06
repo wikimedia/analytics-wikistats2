@@ -14,7 +14,7 @@ function matchPath (route, path) {
     let [routeParts, pathParts] = [route.split('/'), path.split('/')];
     if (routeParts.length !== pathParts.length) {
         return;
-    }
+    };
     let params = {};
     for (let [routePart, pathPart] of _.zip(routeParts, pathParts)) {
         if (routePart.startsWith(':') && pathPart !== '') {
