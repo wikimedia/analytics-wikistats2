@@ -11,7 +11,7 @@
             {{changeMoM}} % month over month
         </span>
     </div>
-    <router-link :to="'/' + project + '/' + area + '/' + metric.name">
+    <router-link :to="{project, area, metric: metric.name}" v-if="graphModel">
         <metric-bar-widget
             v-if="metricData.type === 'bars'"
             :metricData="metricData"
@@ -50,16 +50,17 @@
 <script>
 import { mapState } from 'vuex';
 
-import MetricBarWidget from './MetricBarWidget'
-import MetricLineWidget from './MetricLineWidget'
-import MetricListWidget from './MetricListWidget'
+import MetricBarWidget from './MetricBarWidget';
+import MetricLineWidget from './MetricLineWidget';
+import MetricListWidget from './MetricListWidget';
 import TimeRangeSelector from '../TimeRangeSelector';
-import config from '../../config'
+import config from '../../config';
 
-import AQS from '../../apis/aqs'
-import GraphModel from '../../models/GraphModel'
+import AQS from '../../apis/aqs';
+import GraphModel from '../../models/GraphModel';
 import dateformat from 'dateformat';
 import ArrowIcon from '../ArrowIcon';
+import RouterLink from '../RouterLink';
 
 let aqsApi = new AQS();
 
@@ -70,14 +71,15 @@ export default {
         return {
             metricData: undefined,
             graphModel: undefined
-        }
+        };
     },
 
     components: {
         MetricBarWidget,
         MetricLineWidget,
         MetricListWidget,
-        ArrowIcon
+        ArrowIcon,
+        RouterLink
     },
 
     mounted () {
@@ -89,7 +91,7 @@ export default {
             this.metricData = config.metricData(this.metric.name, this.area);
         },
         getMonthValue (date) {
-            return config.months[parseInt(date.split('-')[1])]
+            return config.months[parseInt(date.split('-')[1])];
         }
     },
 
@@ -115,20 +117,20 @@ export default {
                             end: this.metricData.end
                         }
                     )
-                }
+                };
             },
             monthOneYearAgo: function () {
-                return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12]
+                return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12];
             },
             lastYearAggregation: function () {
                 if (this.metricData.additive) {
                     return {
                         total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total)
-                    }
+                    };
                 } else {
                     return {
                         total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total) / 12
-                    }
+                    };
                 }
             },
             lastMonth: function () {
@@ -148,7 +150,7 @@ export default {
                 return ((diff / this.monthOneYearAgo.total) * 100).toFixed(2);
             },
             disabled: function () {
-                return !this.metricData.global && this.$store.state.project === 'all-projects'
+                return !this.metricData.global && this.$store.state.project === 'all-projects';
             },
             aggregationType: function () {
                 return !this.metricData.additive? 'Average': 'Total';
@@ -158,7 +160,7 @@ export default {
 
     watch: {
         aqsParameters () {
-            if (this.disabled) return
+            if (this.disabled) return;
             const { unique, common } = this.aqsParameters;
 
             aqsApi.getData(unique, common).then(dimensionalData => {
@@ -166,7 +168,7 @@ export default {
             })
         },
     },
-}
+};
 </script>
 
 <style>

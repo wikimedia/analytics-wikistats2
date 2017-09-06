@@ -1,12 +1,12 @@
 <template>
 <div class="app">
     <section class="ui top attached clearing segment">
-        <top-nav :wikiCode="wiki"></top-nav>
+        <top-nav :wikiCode="project"></top-nav>
     </section>
     <section class="ui attached content segment">
         <topic-explorer v-if="false"></topic-explorer>
 
-        <router-view></router-view>
+        <component :is="mainComponent"></component>
     </section>
     <section v-if="languages.length > 1" class="ui attached language segment">
         <site-language :languages="languages"></site-language>
@@ -18,12 +18,13 @@
 </template>
 
 <script>
-import TopNav from './components/TopNav'
-import TopicExplorer from './components/TopicExplorer'
-import SiteLanguage from './components/SiteLanguage'
-import BottomFooter from './components/BottomFooter'
-
-import router from './router';
+import TopNav from './components/TopNav';
+import TopicExplorer from './components/TopicExplorer';
+import SiteLanguage from './components/SiteLanguage';
+import BottomFooter from './components/BottomFooter';
+import Dashboard from './components/dashboard/Dashboard';
+import Detail from './components/detail/Detail';
+import { mapState } from 'vuex';
 
 export default {
     name: 'app',
@@ -32,53 +33,25 @@ export default {
         TopicExplorer,
         SiteLanguage,
         BottomFooter,
+        Dashboard,
+        Detail,
     },
     data () {
         return {
-            wiki: '',
-            languages: [
-                'english'
-            ]
-        }
+            languages: ['english']
+        };
     },
-    updated () {
-        this.setStateFromURL();
-    },
-    mounted () {
-        this.setStateFromURL();
-    },
-    methods: {
-        setStateFromURL () {
-            this.$store.commit('setState', {
-                project: this.$route.params.wikiCode,
-                area: this.$route.params.area,
-                metric: this.$route.params.metric,
-            });
-        }
-    },
-    watch: {
-        '$store.getters.mainState' () {
-            this.wiki = this.$store.state.project;
-            if (this.$store.state.area) {
-                if (this.$store.state.metric) {
-                    router.push('/' + this.$store.state.project + '/' + this.$store.state.area + '/' + this.$store.state.metric)
-                } else {
-                    router.push('/' + this.$store.state.project + '/' + this.$store.state.area)
-                }
-            } else {
-                router.push('/' + this.$store.state.project)
-            }
-        }
-    }
-}
+    computed: mapState([
+        'project',
+        'mainComponent',
+    ]),
+};
 </script>
 
 <style>
-a { color: #6289D8; }
 a:visited { color: #6289D8; }
-a.router-link-active { color: #5C5C5C; }
 a { font-weight: normal; color: #3366cc; }
-a.router-link-active { font-weight: bold; color: #72777d }
+a.router-link-current { font-weight: bold; color: #72777d }
 .ui.dropdown { background-color: #fff; }
 .ui.dropdown:hover { background-color: #fff; }
 

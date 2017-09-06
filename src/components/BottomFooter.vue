@@ -18,9 +18,14 @@
 </template>
 
 <script>
+import RouterLink from './RouterLink';
+
 export default {
-  name: 'bottom-footer'
-}
+  name: 'bottom-footer',
+  components: {
+    RouterLink,
+  },
+};
 </script>
 
 <style scoped>

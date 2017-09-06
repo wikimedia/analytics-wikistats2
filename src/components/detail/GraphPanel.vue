@@ -55,13 +55,13 @@
 </template>
 
 <script>
-import ArrowIcon from '../ArrowIcon'
-import TimeRangeSelector from '../TimeRangeSelector'
-import SimpleLegend from './SimpleLegend'
-import BarChart from './chart/BarChart'
-import LineChart from './chart/LineChart'
-import TableChart from './chart/TableChart'
-import EmptyChart from './chart/EmptyChart'
+import ArrowIcon from '../ArrowIcon';
+import TimeRangeSelector from '../TimeRangeSelector';
+import SimpleLegend from './SimpleLegend';
+import BarChart from './chart/BarChart';
+import LineChart from './chart/LineChart';
+import TableChart from './chart/TableChart';
+import EmptyChart from './chart/EmptyChart';
 
 export default {
     name: 'graph-panel',
@@ -77,7 +77,7 @@ export default {
     props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel'],
     computed: {
         breakdown: function () {
-            return (this.breakdowns || []).find((m) => m.on)
+            return (this.breakdowns || []).find((m) => m.on);
         },
         chartTypes: function () {
             return this.getChartTypes();
@@ -86,9 +86,9 @@ export default {
             return this.chartComponent.replace('-chart', '');
         },
         chartComponent: function () {
-            if (this.chartType) return this.chartType + '-chart'
+            if (this.chartType) return this.chartType + '-chart';
             let chartTypes = this.getChartTypes();
-            return (chartTypes[0].chart || 'empty') + '-chart'
+            return (chartTypes[0].chart || 'empty') + '-chart';
         },
         total: function () {
             return this.graphModel && this.graphModel.getTotal();
@@ -111,7 +111,7 @@ export default {
     },
     methods: {
         changeChart (t) {
-            this.chartType = t.chart
+            this.chartType = t.chart;
         },
         changeTimeRange (range) {
             this.$emit('changeTimeRange', range);
@@ -120,12 +120,12 @@ export default {
             return this.availableChartTypes.filter((c) => {
                 if (!this.metricData) { return false; }
                 if (c.chart === 'table') return true;
-                if (this.metricData.type === 'bars') { return c.chart !== 'line' }
-                if (this.metricData.type === 'lines') { return c.chart === 'line' }
+                if (this.metricData.type === 'bars') { return c.chart !== 'line'; }
+                if (this.metricData.type === 'lines') { return c.chart === 'line'; }
             });
         },
         toggleFullscreen () {
-            this.$emit('toggleFullscreen')
+            this.$emit('toggleFullscreen');
         },
         download () {
             const data = this.graphModel.getGraphData();

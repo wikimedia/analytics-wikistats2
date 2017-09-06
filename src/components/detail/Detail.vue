@@ -29,20 +29,20 @@
 </template>
 
 <script>
-import MetricsModal from './MetricsModal'
+import MetricsModal from './MetricsModal';
+import GraphPanel from './GraphPanel';
+import DetailSidebar from './DetailSidebar';
+import TimeRangeSelector from '../TimeRangeSelector';
 
-import GraphPanel from './GraphPanel'
-import DetailSidebar from './DetailSidebar'
-import TimeRangeSelector from '../TimeRangeSelector'
+import { mapState } from 'vuex';
 
-import config from '../../config'
-import router from '../../router/index'
-import DimensionalData from '../../models/DimensionalData'
+import config from '../../config';
+import DimensionalData from '../../models/DimensionalData';
 
-import GraphModel from '../../models/GraphModel'
-import AQS from '../../apis/aqs'
+import GraphModel from '../../models/GraphModel';
+import AQS from '../../apis/aqs';
 
-import sitematrix from '../../apis/sitematrix'
+import sitematrix from '../../apis/sitematrix';
 import dateformat from 'dateformat';
 
 export default {
@@ -74,23 +74,21 @@ export default {
 
             project: 'all-projects',
             wiki: null,
-            range: TimeRangeSelector.getDefaultTimeRange()
-        }
+            range: TimeRangeSelector.getDefaultTimeRange(),
+            granularity: 'monthly'
+        };
     },
 
-    computed: {
-        area: function () {
-            return this.$route.params ? this.$route.params.area : 'loading ...'
-        },
-        metric: function () {
-            return this.$route.params.metric ?
-                this.$route.params.metric : this.defaultMetrics[this.area]
-        },
-
-        breakdown: function () {
-            return (this.breakdowns || []).find((m) => m.on)
+    computed: Object.assign(
+        mapState([
+            'area',
+            'metric',
+        ]), {
+            breakdown () {
+                return (this.breakdowns || []).find((m) => m.on);
+            },
         }
-    },
+    ),
 
     watch: {
         '$store.getters.mainState': function () {
@@ -114,7 +112,7 @@ export default {
         loadData () {
             if (!this.$store.state.project) { return; }
 
-            this.highlightMetric = { name: this.metric, area: this.area }
+            this.highlightMetric = { name: this.metric, area: this.area };
 
             const metricData = config.metricData(this.metric, this.area);
             this.metricData = metricData;
@@ -125,6 +123,7 @@ export default {
                 common: {}
             };
             defaults.unique.project = [this.$store.state.project];
+            defaults.common.granularity = this.granularity;
             this.metricData.start = this.range[0];
             this.metricData.end = this.range[1];
             aqsApi.getData(
@@ -148,41 +147,45 @@ export default {
         },
 
         changeChart (t) {
-            this.chartType = t.chart
-            this.chartIcon = t.icon
+            this.chartType = t.chart;
+            this.chartIcon = t.icon;
         },
 
         toggleFullscreen () {
-            this.fullscreen = !this.fullscreen
+            this.fullscreen = !this.fullscreen;
 
             // TODO: hack, figure out a way to re-render bar without this
             const t = this.metricData,
-                  self = this
-            this.metricData = {}
+                  self = this;
+            this.metricData = {};
             setTimeout(function () {
-                self.metricData = t
-            }, 0)
+                self.metricData = t;
+            }, 0);
         },
 
         addAnotherWiki () {
-            $('.add.wiki.design').toggle('highlight')
+            $('.add.wiki.design').toggle('highlight');
         },
 
         changeHighlight (name, area) {
-            this.highlightMetric = { name, area }
+            this.highlightMetric = { name, area };
         },
 
         goHighlight (name, area) {
-            this.changeHighlight(name, area)
-            router.push('/' + area + '/' + name)
-            $('.ui.metrics.modal').modal('hide')
+            this.changeHighlight(name, area);
+            $('.ui.metrics.modal').modal('hide');
         },
 
         setTimeRange (newRange) {
+            if (newRange[1] - newRange[0] < 100000) {
+                this.granularity = 'daily';
+            } else {
+                this.granularity = 'monthly';
+            }
             this.range = newRange;
         }
     },
-}
+};
 </script>
 
 <style>
@@ -220,7 +223,7 @@ export default {
     padding: 5px 9px;
     cursor: pointer;
 }
-.ui.line.active.label {
+.ui.line.label.router-link-current {
     background-color: #a7a7a7!important;
     border: solid 2px #979797!important;
     font-weight: bold;

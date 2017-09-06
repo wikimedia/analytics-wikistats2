@@ -61,7 +61,7 @@ export default {
             mode: modes.family,
             showResults: false,
             addAnotherWiki: null
-        }
+        };
     },
 
     components: {
@@ -75,7 +75,7 @@ export default {
 
     watch: {
         '$store.getters.mainState' () {
-            this.initWithCurrentProject()
+            this.initWithCurrentProject();
         },
         searchDisplay: function () {
             if (this.project && !_.endsWith(this.searchDisplay, this.project.title)) {
@@ -118,7 +118,7 @@ export default {
                 this.family = byFamily.find((family) => {
                     this.project = family.projects.find((project) => {
                         return project.code === siteProject
-                    })
+                    });
                     this.close();
                     return this.project;
                 })
