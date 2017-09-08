@@ -9,12 +9,12 @@
     />
 
     <graph-panel
-        v-if="wiki"
         :metricData='metricData'
         :wiki='wiki'
         :breakdowns='breakdowns'
         :area='area'
         :graphModel='graphModel'
+        :overlayMessage="overlayMessage"
         @changeTimeRange='setTimeRange'
         @toggleFullscreen='toggleFullscreen'
     />
@@ -25,7 +25,6 @@
         @changeMetric="goHighlight">
 
     </metrics-modal>
-    <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
 </section>
 </template>
 
@@ -53,8 +52,7 @@ export default {
     components: {
         MetricsModal,
         GraphPanel,
-        DetailSidebar,
-        StatusOverlay
+        DetailSidebar
     },
     data () {
         return {
