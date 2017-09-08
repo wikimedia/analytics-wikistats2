@@ -94,7 +94,7 @@ class DimensionalData {
                 return p;
             }, {});
             return Object.keys(breakDownMap).map((key) => {
-                let row = {}
+                let row = {};
                 row[measure] = key;
                 row[column] = breakDownMap[key];
                 return row;

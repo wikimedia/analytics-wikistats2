@@ -29,13 +29,13 @@ export default {
     props: ['areasWithMetrics', 'highlightMetric'],
     methods: {
         changeHighlight (name, area) {
-            this.highlightMetric = { name, area }
+            this.highlightMetric = { name, area };
         },
 
         goHighlight (area) {
-            const h = this.highlightMetric
-            this.$emit('changeMetric', area)
-            $('.ui.metrics.modal').modal('hide')
+            const h = this.highlightMetric;
+            this.$emit('changeMetric', area);
+            $('.ui.metrics.modal').modal('hide');
         }
     }
 }

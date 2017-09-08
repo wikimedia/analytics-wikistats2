@@ -45,20 +45,20 @@ export default {
     props: ['metricData', 'breakdown', 'graphModel'],
 
     mounted () {
-        this.setColors()
+        this.setColors();
     },
 
     updated () {
-        this.setColors()
+        this.setColors();
     },
 
     methods: {
         setColors () {
-            const headerCells = this.$el.querySelectorAll('th')
-            let i = null
+            const headerCells = this.$el.querySelectorAll('th');
+            let i = null;
 
             for (let i = 0; i < headerCells.length; i++) {
-                headerCells[i].style = `background-color: ${this.metricData.darkColor};`
+                headerCells[i].style = `background-color: ${this.metricData.darkColor};`;
             }
         }
     }

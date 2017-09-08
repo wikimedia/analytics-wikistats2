@@ -10,8 +10,8 @@ function labeledCrossProduct (obj) {
             .map(x => arr.map(y => Object.assign({}, x, y)))
             .reduce((a, b) => a.concat(b), []);
     }, [{}]);
-}
+};
 
 export default {
     labeledCrossProduct,
-}
+};

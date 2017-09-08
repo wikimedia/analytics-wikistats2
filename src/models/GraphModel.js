@@ -18,8 +18,8 @@ class GraphModel {
                 var ts = row.timestamp;
                 const month = ts.slice(0,4) + '-'
                         + ts.slice(4,6) + '-'
-                        + ts.slice(6,8)
-                return {month: month, total: row[yAxisValue]}
+                        + ts.slice(6,8);
+                return {month: month, total: row[yAxisValue]};
             });
         } else {
             const rawValues = this.dimensionalData.breakdown(yAxisValue);
@@ -27,7 +27,7 @@ class GraphModel {
                 var ts = row.timestamp;
                 const month = ts.slice(0,4) + '-'
                         + ts.slice(4,6) + '-'
-                        + ts.slice(6,8)
+                        + ts.slice(6,8);
                 return {month: month, total: row[yAxisValue]}
             });
         }
@@ -53,7 +53,7 @@ class GraphModel {
         const data = this.getGraphData();
         if (typeof data[0].total === 'number') {
             return data.map((c) => {
-                return c.total
+                return c.total;
             });
         } else {
             return data.map((r) => {

@@ -1,57 +1,57 @@
 <template>
-<router-link class="widget column" :to="'/' + project + '/' + area + '/' + metric.name">
-    <metric-placeholder-widget
-        v-if="!graphModel">
-    </metric-placeholder-widget>
-    <div v-else>
+<div class="widget column">
+    <router-link :to="{project, area, metric: metric.name}">
+        <metric-placeholder-widget
+            v-if="!graphModel">
+        </metric-placeholder-widget>
+        <div v-else>
 
-        <div class="ui medium statistic">
-            <div class="label">{{metricData.fullName}}</div>
-            <div class="value">{{lastMonth.total | kmb}}</div>
-        </div>
-        <div>
-            <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
-            <span class="change label">
-                <arrow-icon :value="changeMoM"/>
-                {{changeMoM}} % month over month
-            </span>
-        </div>
-
-
-        <metric-bar-widget
-            v-if="metricData.type === 'bars'"
-            :metricData="metricData"
-            :graphModel="graphModel">
-        </metric-bar-widget>
-
-        <metric-line-widget
-            v-else-if="metricData.type === 'lines'"
-            :metricData="metricData"
-            :graphModel="graphModel">
-        </metric-line-widget>
-
-        <metric-list-widget
-            v-else-if="metricData.type === 'list'"
-            :metricData="metricData"
-            :graphModel="graphModel">
-        </metric-list-widget>
-
-        <div class="ui horizontal small statistic">
-            <div class="value">
-                {{lastYearAggregation.total | kmb}}
+            <div class="ui medium statistic">
+                <div class="label">{{metricData.fullName}}</div>
+                <div class="value">{{lastMonth.total | kmb}}</div>
             </div>
-            <div class="change label">
-                <arrow-icon :value="changeYoY"/>
-                {{changeYoY}} % year over year
+            <div>
+                <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
+                <span class="change label">
+                    <arrow-icon :value="changeMoM"/>
+                    {{changeMoM}} % month over month
+                </span>
+            </div>
+            <metric-bar-widget
+                v-if="metricData.type === 'bars'"
+                :metricData="metricData"
+                :graphModel="graphModel">
+            </metric-bar-widget>
+
+            <metric-line-widget
+                v-else-if="metricData.type === 'lines'"
+                :metricData="metricData"
+                :graphModel="graphModel">
+            </metric-line-widget>
+
+            <metric-list-widget
+                v-else-if="metricData.type === 'list'"
+                :metricData="metricData"
+                :graphModel="graphModel">
+            </metric-list-widget>
+
+            <div class="ui horizontal small statistic">
+                <div class="value">
+                    {{lastYearAggregation.total | kmb}}
+                </div>
+                <div class="change label">
+                    <arrow-icon :value="changeYoY"/>
+                    {{changeYoY}} % year over year
+                </div>
+            </div>
+            <div class="year total subdued">
+                Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
             </div>
         </div>
-        <div class="year total subdued">
-            Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
-        </div>
-    </div>
 
+    </router-link>
     <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
-</router-link>
+</div>
 </template>
 
 <script>
@@ -63,12 +63,13 @@ import MetricListWidget from './MetricListWidget'
 import StatusOverlay from '../StatusOverlay'
 import MetricPlaceholderWidget from './MetricPlaceholderWidget'
 import TimeRangeSelector from '../TimeRangeSelector';
-import config from '../../config'
+import config from '../../config';
 
-import AQS from '../../apis/aqs'
-import GraphModel from '../../models/GraphModel'
+import AQS from '../../apis/aqs';
+import GraphModel from '../../models/GraphModel';
 import dateformat from 'dateformat';
 import ArrowIcon from '../ArrowIcon';
+import RouterLink from '../RouterLink';
 
 let aqsApi = new AQS();
 
@@ -89,7 +90,8 @@ export default {
         MetricListWidget,
         MetricPlaceholderWidget,
         StatusOverlay,
-        ArrowIcon
+        ArrowIcon,
+        RouterLink
     },
 
     mounted () {
@@ -101,7 +103,7 @@ export default {
             this.metricData = config.metricData(this.metric.name, this.area);
         },
         getMonthValue (date) {
-            return config.months[parseInt(date.split('-')[1])]
+            return config.months[parseInt(date.split('-')[1])];
         }
     },
 
@@ -127,20 +129,20 @@ export default {
                             end: this.metricData.end
                         }
                     )
-                }
+                };
             },
             monthOneYearAgo: function () {
-                return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12]
+                return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12];
             },
             lastYearAggregation: function () {
                 if (this.metricData.additive) {
                     return {
                         total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total)
-                    }
+                    };
                 } else {
                     return {
                         total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total) / 12
-                    }
+                    };
                 }
             },
             lastMonth: function () {
@@ -160,7 +162,7 @@ export default {
                 return ((diff / this.monthOneYearAgo.total) * 100).toFixed(2);
             },
             disabled: function () {
-                return !this.metricData.global && this.$store.state.project === 'all-projects'
+                return !this.metricData.global && this.$store.state.project === 'all-projects';
             },
             aggregationType: function () {
                 return !this.metricData.additive? 'Average': 'Total';
@@ -189,7 +191,7 @@ export default {
             })
         },
     },
-}
+};
 </script>
 
 <style>

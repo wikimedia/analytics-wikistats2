@@ -55,7 +55,7 @@
                     this.breakdowns[index].values.forEach(v => {
                         v.on = true;
                     })
-                    this.breakdowns[index].on = false
+                    this.breakdowns[index].on = false;
                 }
             }
         }
