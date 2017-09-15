@@ -12,6 +12,8 @@ import * as format from 'd3-format'
 import * as time from 'd3-time'
 import * as shape from 'd3-shape'
 
+import _ from 'lodash';
+
 import config from '../../../config'
 
 export default {
@@ -99,6 +101,7 @@ export default {
                         const bColor = config.colors[self.graphModel.getArea()][[config.stableColorIndexes[breakdown[0].key]]];
                         g.append('path').datum(breakdown)
                             .attr('d', line)
+                            .attr('class', 'breakdownLine')
                             .style('stroke', bColor)
                             .style('stroke-width', '2px')
                             .style('fill', 'none');
@@ -106,6 +109,7 @@ export default {
                 } else {
                     g.append('path').datum(rowData)
                         .attr('d', line)
+                        .attr('class', 'statLine')
                         .style('stroke', self.graphModel.getDarkColor())
                         .style('stroke-width', '2px')
                         .style('fill', 'none');
