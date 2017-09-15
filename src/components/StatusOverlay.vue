@@ -1,8 +1,8 @@
 <template>
-<div class = 'statusOverlay'>
-    <div class = 'innerBox'>
+<div class = "status-overlay">
+    <div class = "inner-box">
         <i :class="iconClass"></i>
-        <div class = 'overlay-text'>
+        <div class = "overlay-text">
             {{overlayMessage.text}}
         </div>
     </div>
@@ -72,7 +72,7 @@ export default StatusOverlay;
 </script>
 
 <style type="text/css">
-    .statusOverlay {
+    .status-overlay {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -81,7 +81,7 @@ export default StatusOverlay;
         background-color: rgba(255, 255, 255, 0.92);
     }
 
-    .statusOverlay .innerBox {
+    .status-overlay .inner-box {
         text-align: center;
         margin: 15%;
     }
