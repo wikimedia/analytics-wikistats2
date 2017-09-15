@@ -75,10 +75,8 @@ export default {
 .left.panel .wikis {
     min-height: 120px;
 }
-.left.panel .ui.icon.input {
-    width: 204px;
-}
 .left.panel .ui.icon.input > input {
+    width: 204px;
     height: 36px;
     font-size: 13px!important;
     border: 1px solid #aaa9a9!important;

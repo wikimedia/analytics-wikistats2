@@ -9,7 +9,9 @@
                 @keyup.esc="close"
                 @keydown.down="changeHighlight(1)"
                 @keydown.up="changeHighlight(-1)"
-                @click="clear"/>
+                @click="clear"
+                @mouseover="onMouseOver"
+                @mouseleave="onMouseLeave"/>
 
             <i class="search icon"></i>
         </div>
@@ -71,6 +73,7 @@ export default {
     mounted () {
         this.searchBoxEl = $('input.prompt', this.$el);
         this.initWithCurrentProject();
+        this.initTextWidthMeasurer();
     },
 
     watch: {
@@ -127,6 +130,13 @@ export default {
                 this.searchData = this.family.projects;
             });
         },
+        initTextWidthMeasurer () {
+            if (!$("#wikiselector-hidden-measurer").length) {
+                let div = document.createElement('div');
+                div.setAttribute("id", "wikiselector-hidden-measurer");
+                document.body.appendChild(div);
+            }
+        },
         select () {
             if (this.$refs.searchResults) {
                 this.$refs.searchResults.selectHighlighted();
@@ -145,6 +155,7 @@ export default {
             if (this.project) {
                 this.searchDisplay = '';
             }
+            $('input', this.$el).stop().css('text-indent', 0);
         },
         onBlur () {
             let fam = this.family;
@@ -154,6 +165,20 @@ export default {
                     this.close();
                 };
             }, 200);
+        },
+        onMouseOver () {
+            let input = $('input', this.$el);
+            let measurer = $('#wikiselector-hidden-measurer');
+            measurer.css('font-size', input.css('font-size'));
+            measurer.html(input.val());
+
+            if (input.width() < measurer.width() && !input.is(':focus')) {
+                let offset = input.width() - measurer.width() + 1;
+                input.animate({textIndent: offset}, -10 * offset);
+            }
+        },
+        onMouseLeave () {
+            $('input', this.$el).stop().animate({textIndent: 0}, 200);
         },
         changeHighlight (indexDiff) {
             if (this.$refs.searchResults) {
@@ -189,5 +214,10 @@ export default {
 }
 .ui.search.focus .ui.input input::placeholder {
     color: #dfdfdf;
+}
+#wikiselector-hidden-measurer {
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
 }
 </style>

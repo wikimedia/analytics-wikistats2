@@ -55,14 +55,12 @@ export default {
 .right.floated.header { margin-right: 0; }
 .right.floated.header .ui.icon.input { margin-right: 0; }
 
-.widgets .ui.input {
-    width: 260px;
-}
 .widgets .ui.input > input {
+    width: 310px;
     border: 1px solid #aaa9a9;
     border-radius: 4px;
     height: 48px;
     color: #4A4A4A;
-    font-size: 17px;
+    font-size: 16px;
 }
 </style>
