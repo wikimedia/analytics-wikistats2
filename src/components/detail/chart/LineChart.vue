@@ -126,7 +126,13 @@ export default {
                 g.append('g').attr('transform', `translate(0,${height})`)
                     .call(xAxis)
                     .style('font-size', '13px')
-                    .style('font-family', 'Lato, "Open Sans"');
+                    .style('font-family', 'Lato, "Open Sans"')
+                    .selectAll("text")
+                        .style("text-anchor", "end")
+                        .attr("dx", "-.8em")
+                        .attr("dy", ".15em")
+                        .attr("transform", "rotate(-65)");
+                svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
             }
             resize();
             // TODO: get this to resize cleanly d3.select(window).on('resize', resize)
@@ -136,6 +142,6 @@ export default {
 </script>
 
 <style>
-.big.line.chart { min-height: 386px; min-width: 700px; }
+.big.line.chart { min-height: 386px; }
 .fullscreen .big.line.chart { min-height: 492px; }
 </style>

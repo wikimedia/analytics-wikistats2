@@ -135,8 +135,15 @@ export default {
                 const xAxis = axes.axisBottom(x);
                 g.append('g').attr('transform', `translate(0,${height})`)
                     .call(xAxis)
+                    .attr('class','x-axis-labels')
                     .style('font-size', '13px')
-                    .style('font-family', 'Lato, "Open Sans"');
+                    .style('font-family', 'Lato, "Open Sans"')
+                    .selectAll("text")
+                        .style("text-anchor", "end")
+                        .attr("dx", "-.8em")
+                        .attr("dy", ".15em")
+                        .attr("transform", "rotate(-45)");
+                svg.attr('width', n.offsetWidth).attr('height', g.node().getBBox().height + margin.top);
             }
             resize();
             // TODO: get this to resize cleanly d3.select(window).on('resize', resize)
