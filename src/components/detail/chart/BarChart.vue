@@ -70,7 +70,7 @@ export default {
                     }
                 }));
                 let height = n.offsetHeight - margin.top - margin.bottom - padding;
-                let y = scales.scaleLinear().rangeRound([height, 0]);
+                let y = scales.scaleLinear().range([height, 0]);
                 y.domain([0, max]);
                 const yAxis = axes.axisLeft(y).ticks(7)
                                 .tickFormat(format.format('.2s'));
