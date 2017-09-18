@@ -134,6 +134,7 @@ const metrics = {
                 { name: 'Mobile Web', on: true, key: 'mobile-web' }
             ]
         }],
+        additive: true
     },
     'unique-devices': {
         fullName: 'Unique Devices',
@@ -159,7 +160,8 @@ const metrics = {
                 { name: 'Mobile Site', on: true, key: 'mobile-site' },
                 { name: 'Desktop Site', on: true, key: 'desktop-site' }
             ]
-        }]
+        }],
+        additive: false
     }
 };
 
