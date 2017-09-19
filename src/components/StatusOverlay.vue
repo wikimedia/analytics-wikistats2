@@ -1,8 +1,8 @@
 <template>
-<div class = "status-overlay">
-    <div class = "inner-box">
+<div class = "status overlay">
+    <div class = "container">
         <i :class="iconClass"></i>
-        <div class = "overlay-text">
+        <div class = "overlay text">
             {{overlayMessage.text}}
         </div>
     </div>
@@ -64,7 +64,7 @@ StatusOverlay.LOADING = {
 
 StatusOverlay.GENERAL_ERROR = {
     type: 'error',
-    text: 'Something wrong has happened'
+    text: 'Something went wrong'
 };
 
 export default StatusOverlay;
@@ -72,7 +72,7 @@ export default StatusOverlay;
 </script>
 
 <style type="text/css">
-    .status-overlay {
+    .status.overlay {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -81,12 +81,12 @@ export default StatusOverlay;
         background-color: rgba(255, 255, 255, 0.92);
     }
 
-    .status-overlay .inner-box {
+    .status .container {
         text-align: center;
         margin: 15%;
     }
 
-    .overlay-text {
+    .overlay.text {
         text-align: center;
         margin-top: 5px;
         font-size: 18px;
