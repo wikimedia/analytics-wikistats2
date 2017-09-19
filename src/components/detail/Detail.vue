@@ -117,7 +117,7 @@ export default {
 
             this.highlightMetric = { name: this.metric, area: this.area };
 
-            const metricData = config.metricData(this.metric, this.area);
+            const metricData = Object.assign(config.metricData(this.metric, this.area), {});
             this.metricData = metricData;
             this.breakdowns = metricData.breakdowns;
             let aqsApi = new AQS();
@@ -125,13 +125,21 @@ export default {
                 unique: {},
                 common: {}
             };
-            defaults.unique.project = [this.$store.state.project];
-            defaults.common.granularity = this.granularity;
-            defaults.common.start = this.range[0];
-            defaults.common.end = this.range[1];
             let dataPromise = aqsApi.getData(
-                defaults.unique,
-                defaults.common
+                Object.assign(
+                    defaults.unique,
+                    {
+                        project: [this.$store.state.project]
+                    },
+                ),
+                Object.assign(
+                    defaults.common,
+                    {
+                        start: this.range[0],
+                        end: this.range[1],
+                        granularity: this.granularity
+                    }
+                )
             );
             this.overlayMessage = StatusOverlay.LOADING;
             dataPromise.catch((req, status, error) => {

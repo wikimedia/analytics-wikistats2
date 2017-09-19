@@ -126,7 +126,8 @@ export default {
                         defaults.common,
                         {
                             start: this.metricData.start,
-                            end: this.metricData.end
+                            end: this.metricData.end,
+                            granularity: 'monthly'
                         }
                     )
                 };
