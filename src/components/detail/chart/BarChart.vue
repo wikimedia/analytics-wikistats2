@@ -82,7 +82,7 @@ export default {
 
                 let width = n.offsetWidth - margin.left - margin.right - yAxisContainerWidth;
                 let xW = scales.scaleBand()
-                               .rangeRound([0, width])
+                               .range([0, width])
                                .domain(dates)
                                .paddingOuter(0)
                                .paddingInner(0.1)
