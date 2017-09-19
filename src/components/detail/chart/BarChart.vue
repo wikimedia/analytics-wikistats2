@@ -70,7 +70,7 @@ export default {
                     }
                 }));
                 let height = n.offsetHeight - margin.top - margin.bottom - padding;
-                let y = scales.scaleLinear().rangeRound([height, 0]);
+                let y = scales.scaleLinear().range([height, 0]);
                 y.domain([0, max]);
                 const yAxis = axes.axisLeft(y).ticks(7)
                                 .tickFormat(format.format('.2s'));
@@ -82,7 +82,7 @@ export default {
 
                 let width = n.offsetWidth - margin.left - margin.right - yAxisContainerWidth;
                 let xW = scales.scaleBand()
-                               .rangeRound([0, width])
+                               .range([0, width])
                                .domain(dates)
                                .paddingOuter(0)
                                .paddingInner(0.1)
@@ -135,8 +135,15 @@ export default {
                 const xAxis = axes.axisBottom(x);
                 g.append('g').attr('transform', `translate(0,${height})`)
                     .call(xAxis)
+                    .attr('class','x-axis-labels')
                     .style('font-size', '13px')
-                    .style('font-family', 'Lato, "Open Sans"');
+                    .style('font-family', 'Lato, "Open Sans"')
+                    .selectAll("text")
+                        .style("text-anchor", "end")
+                        .attr("dx", "-.8em")
+                        .attr("dy", ".15em")
+                        .attr("transform", "rotate(-45)");
+                svg.attr('width', n.offsetWidth).attr('height', g.node().getBBox().height + margin.top);
             }
             resize();
             // TODO: get this to resize cleanly d3.select(window).on('resize', resize)

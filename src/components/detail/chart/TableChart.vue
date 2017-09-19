@@ -2,7 +2,7 @@
 <div>
     <table :class="metricData.area" class="ui table" v-if="!breakdown">
         <thead>
-            <tr v-if="metricData.type === 'bars'">
+            <tr v-if="metricData.type === 'bars' || 'lines'">
                 <th>Month</th>
                 <th>Total</th>
             </tr>
@@ -12,13 +12,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="m in graphModel.getGraphData()" v-if="metricData.type === 'bars'">
+            <tr v-for="m in graphModel.getGraphData()" v-if="metricData.type === 'bars' || 'lines'">
                 <td>{{m.month}}</td>
                 <td>{{m.total}}</td>
-            </tr>
-            <tr v-for="m in metricData.sortedList" v-if="metricData.type === 'list'">
-                <td>{{m.name}}</td>
-                <td>{{m.value}}</td>
             </tr>
         </tbody>
     </table>
@@ -41,7 +37,7 @@
 
 <script>
 export default {
-    name: 'map-chart',
+    name: 'table-chart',
     props: ['metricData', 'breakdown', 'graphModel'],
 
     mounted () {

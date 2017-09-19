@@ -1,55 +1,58 @@
 <template>
 <section class="graph panel">
     <div class="ui clearing basic segment">
-        <h2 class="ui left floated header">
-            {{metricData.fullName || 'No data yet... '}}
-            <span class="subdued">{{wiki.title}}</span>
-        </h2>
+        <div v-if="wiki">
+            <h2 class="ui left floated header">
+                {{metricData.fullName || 'No data yet... '}}
+                <span class="subdued">{{wiki.title}}</span>
+            </h2>
 
-        <div class="ui right floated basic fudge segment">
-            <simple-legend v-if="chartType !== 'table'" class="simple legend" :data="metricData"></simple-legend>
-            <div class="ui right floated icon buttons">
+            <div class="ui right floated basic fudge segment">
+                <simple-legend v-if="chartType !== 'table'" class="simple legend" :data="metricData"></simple-legend>
+                <div class="ui right floated icon buttons">
 
-                <button @click="download" class="ui icon button" title="Download">
-                    <i class="download icon"></i>
-                </button>
-                <div class="ui simple dropdown right labeled icon button"
-                     title="Change Chart">
-                    <i class="ui dropdown icon"/>
-                    <span>
-                        <i :class="chartIcon" class="chart icon"></i>
-                    </span>
-                    <div class="menu">
-                        <div class="item"
-                             v-for="t in chartTypes" :key="t.chart"
-                             @click="changeChart(t)">
-                             <i :class="t.icon" class="chart icon"></i>
-                             {{t.chart}}
-                         </div>
+                    <button @click="download" class="ui icon button" title="Download">
+                        <i class="download icon"></i>
+                    </button>
+                    <div class="ui simple dropdown right labeled icon button"
+                         title="Change Chart">
+                        <i class="ui dropdown icon"/>
+                        <span>
+                            <i :class="chartIcon" class="chart icon"></i>
+                        </span>
+                        <div class="menu">
+                            <div class="item"
+                                 v-for="t in chartTypes" :key="t.chart"
+                                 @click="changeChart(t)">
+                                 <i :class="t.icon" class="chart icon"></i>
+                                 {{t.chart}}
+                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <component
-            v-if="graphModel"
-            :is="chartComponent"
-            :metricData="metricData"
-            :graphModel="graphModel"
-            :breakdown="breakdown">
-        </component>
-        <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
-            <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
-            <h5>
-                Total: {{total | kmb}} {{metricData.fullName}} <arrow-icon :value="changeOverRange"></arrow-icon> {{((changeOverRange / total) * 100).toFixed(2)}}% over this time range.
-            </h5>
-        </div>
-        <div class="ui center aligned subdued basic segment">
-            <p>{{metricData.description}}</p>
+            <component
+                v-if="graphModel"
+                :is="chartComponent"
+                :metricData="metricData"
+                :graphModel="graphModel"
+                :breakdown="breakdown">
+            </component>
+            <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
+                <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
+                <h5>
+                    Total: {{total | kmb}} {{metricData.fullName}} <arrow-icon :value="changeOverRange"></arrow-icon> {{((changeOverRange / total) * 100).toFixed(2)}}% over this time range.
+                </h5>
+            </div>
+            <div class="ui center aligned subdued basic segment">
+                <p>{{metricData.description}}</p>
 
+            </div>
+            <div class="ui right floated icon button" @click="toggleFullscreen">
+                <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
+            </div>
         </div>
-        <div class="ui right floated icon button" @click="toggleFullscreen">
-            <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
-        </div>
+        <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
 </section>
 </template>
@@ -62,6 +65,7 @@ import BarChart from './chart/BarChart';
 import LineChart from './chart/LineChart';
 import TableChart from './chart/TableChart';
 import EmptyChart from './chart/EmptyChart';
+import StatusOverlay from '../StatusOverlay';
 
 export default {
     name: 'graph-panel',
@@ -72,9 +76,10 @@ export default {
         BarChart,
         LineChart,
         TableChart,
-        EmptyChart
+        EmptyChart,
+        StatusOverlay
     },
-    props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel'],
+    props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel', 'overlayMessage'],
     computed: {
         breakdown: function () {
             return (this.breakdowns || []).find((m) => m.on);

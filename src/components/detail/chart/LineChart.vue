@@ -12,6 +12,8 @@ import * as format from 'd3-format'
 import * as time from 'd3-time'
 import * as shape from 'd3-shape'
 
+import _ from 'lodash';
+
 import config from '../../../config'
 
 export default {
@@ -99,6 +101,7 @@ export default {
                         const bColor = config.colors[self.graphModel.getArea()][[config.stableColorIndexes[breakdown[0].key]]];
                         g.append('path').datum(breakdown)
                             .attr('d', line)
+                            .attr('class', 'breakdownLine')
                             .style('stroke', bColor)
                             .style('stroke-width', '2px')
                             .style('fill', 'none');
@@ -106,6 +109,7 @@ export default {
                 } else {
                     g.append('path').datum(rowData)
                         .attr('d', line)
+                        .attr('class', 'statLine')
                         .style('stroke', self.graphModel.getDarkColor())
                         .style('stroke-width', '2px')
                         .style('fill', 'none');
@@ -122,7 +126,13 @@ export default {
                 g.append('g').attr('transform', `translate(0,${height})`)
                     .call(xAxis)
                     .style('font-size', '13px')
-                    .style('font-family', 'Lato, "Open Sans"');
+                    .style('font-family', 'Lato, "Open Sans"')
+                    .selectAll("text")
+                        .style("text-anchor", "end")
+                        .attr("dx", "-.8em")
+                        .attr("dy", ".15em")
+                        .attr("transform", "rotate(-65)");
+                svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
             }
             resize();
             // TODO: get this to resize cleanly d3.select(window).on('resize', resize)
@@ -132,6 +142,6 @@ export default {
 </script>
 
 <style>
-.big.line.chart { min-height: 386px; min-width: 700px; }
+.big.line.chart { min-height: 386px; }
 .fullscreen .big.line.chart { min-height: 492px; }
 </style>

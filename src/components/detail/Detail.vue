@@ -9,12 +9,12 @@
     />
 
     <graph-panel
-        v-if="wiki"
         :metricData='metricData'
         :wiki='wiki'
         :breakdowns='breakdowns'
         :area='area'
         :graphModel='graphModel'
+        :overlayMessage="overlayMessage"
         @changeTimeRange='setTimeRange'
         @toggleFullscreen='toggleFullscreen'
     />
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+
+import StatusOverlay from '../StatusOverlay';
 import MetricsModal from './MetricsModal';
 import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
@@ -74,6 +76,7 @@ export default {
 
             project: 'all-projects',
             wiki: null,
+            overlayMessage: null,
             range: TimeRangeSelector.getDefaultTimeRange(),
             granularity: 'monthly'
         };
@@ -114,7 +117,7 @@ export default {
 
             this.highlightMetric = { name: this.metric, area: this.area };
 
-            const metricData = config.metricData(this.metric, this.area);
+            const metricData = Object.assign(config.metricData(this.metric, this.area), {});
             this.metricData = metricData;
             this.breakdowns = metricData.breakdowns;
             let aqsApi = new AQS();
@@ -122,20 +125,28 @@ export default {
                 unique: {},
                 common: {}
             };
-            defaults.unique.project = [this.$store.state.project];
-            defaults.common.granularity = this.granularity;
-            this.metricData.start = this.range[0];
-            this.metricData.end = this.range[1];
-            aqsApi.getData(
-                defaults.unique,
+            let dataPromise = aqsApi.getData(
+                Object.assign(
+                    defaults.unique,
+                    {
+                        project: [this.$store.state.project]
+                    },
+                ),
                 Object.assign(
                     defaults.common,
                     {
-                        start: this.metricData.start,
-                        end: this.metricData.end
+                        start: this.range[0],
+                        end: this.range[1],
+                        granularity: this.granularity
                     }
                 )
-            ).then(dimensionalData => {
+            );
+            this.overlayMessage = StatusOverlay.LOADING;
+            dataPromise.catch((req, status, error) => {
+                this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
+            });
+            dataPromise.then(dimensionalData => {
+                this.overlayMessage = null;
                 this.graphModel = new GraphModel(metricData, dimensionalData);
             });
 
