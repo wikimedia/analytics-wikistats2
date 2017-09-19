@@ -1,58 +1,67 @@
 <template>
-<div class="widget column" v-if="graphModel && !disabled">
-    <div class="ui medium statistic">
-        <div class="label">{{metricData.fullName}}</div>
-        <div class="value">{{lastMonth.total | kmb}}</div>
-    </div>
-    <div>
-        <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
-        <span class="change label">
-            <arrow-icon :value="changeMoM"/>
-            {{changeMoM}} % month over month
-        </span>
-    </div>
-    <router-link :to="{project, area, metric: metric.name}" v-if="graphModel">
-        <metric-bar-widget
-            v-if="metricData.type === 'bars'"
-            :metricData="metricData"
-            :graphModel="graphModel">
-        </metric-bar-widget>
+<div class="widget column">
+    <router-link :to="{project, area, metric: metric.name}">
+        <metric-placeholder-widget
+            v-if="!graphModel">
+        </metric-placeholder-widget>
+        <div v-else>
 
-        <metric-line-widget
-            v-else-if="metricData.type === 'lines'"
-            :metricData="metricData"
-            :graphModel="graphModel">
-        </metric-line-widget>
+            <div class="ui medium statistic">
+                <div class="label">{{metricData.fullName}}</div>
+                <div class="value">{{lastMonth.total | kmb}}</div>
+            </div>
+            <div>
+                <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
+                <span class="change label">
+                    <arrow-icon :value="changeMoM"/>
+                    {{changeMoM}} % month over month
+                </span>
+            </div>
+            <metric-bar-widget
+                v-if="metricData.type === 'bars'"
+                :metricData="metricData"
+                :graphModel="graphModel">
+            </metric-bar-widget>
 
-        <!-- TO DO -
-        Still to move logic from prototype to production code
-         <metric-list-widget
-            v-else-if="metricData.type === 'list'"
-            :metricData="metricData"
-            :graphModel="graphModel">
-        </metric-list-widget> -->
+            <metric-line-widget
+                v-else-if="metricData.type === 'lines'"
+                :metricData="metricData"
+                :graphModel="graphModel">
+            </metric-line-widget>
+
+            <metric-list-widget
+                v-else-if="metricData.type === 'list'"
+                :metricData="metricData"
+                :graphModel="graphModel">
+            </metric-list-widget>
+
+            <div class="ui horizontal small statistic">
+                <div class="value">
+                    {{lastYearAggregation.total | kmb}}
+                </div>
+                <div class="change label">
+                    <arrow-icon :value="changeYoY"/>
+                    {{changeYoY}} % year over year
+                </div>
+            </div>
+            <div class="year total subdued">
+                Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
+            </div>
+        </div>
+
     </router-link>
-    <div class="ui horizontal small statistic">
-        <div class="value">
-            {{lastYearAggregation.total | kmb}}
-        </div>
-        <div class="change label">
-            <arrow-icon :value="changeYoY"/>
-            {{changeYoY}} % year over year
-        </div>
-    </div>
-    <div class="year total subdued">
-        Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
-    </div>
+    <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
 </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 
-import MetricBarWidget from './MetricBarWidget';
-import MetricLineWidget from './MetricLineWidget';
-import MetricListWidget from './MetricListWidget';
+import MetricBarWidget from './MetricBarWidget'
+import MetricLineWidget from './MetricLineWidget'
+import MetricListWidget from './MetricListWidget'
+import StatusOverlay from '../StatusOverlay'
+import MetricPlaceholderWidget from './MetricPlaceholderWidget'
 import TimeRangeSelector from '../TimeRangeSelector';
 import config from '../../config';
 
@@ -70,14 +79,17 @@ export default {
     data () {
         return {
             metricData: undefined,
-            graphModel: undefined
-        };
+            graphModel: undefined,
+            overlayMessage: null
+        }
     },
 
     components: {
         MetricBarWidget,
         MetricLineWidget,
         MetricListWidget,
+        MetricPlaceholderWidget,
+        StatusOverlay,
         ArrowIcon,
         RouterLink
     },
@@ -160,10 +172,21 @@ export default {
 
     watch: {
         aqsParameters () {
-            if (this.disabled) return;
+            if (this.disabled) {
+                let message = StatusOverlay.INCOMPATIBLE;
+                message.text = message.text.replace('{{metric_name}}', this.metricData.fullName);
+                this.overlayMessage = message;
+                this.graphModel = null;
+                return;
+            }
             const { unique, common } = this.aqsParameters;
-
-            aqsApi.getData(unique, common).then(dimensionalData => {
+            let dataPromise = aqsApi.getData(unique, common);
+            this.overlayMessage = StatusOverlay.LOADING;
+            dataPromise.catch(req => {
+                this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
+            });
+            dataPromise.then(dimensionalData => {
+                this.overlayMessage = null;
                 this.graphModel = new GraphModel(this.metricData, dimensionalData);
             })
         },

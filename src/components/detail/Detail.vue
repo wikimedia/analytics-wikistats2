@@ -9,12 +9,12 @@
     />
 
     <graph-panel
-        v-if="wiki"
         :metricData='metricData'
         :wiki='wiki'
         :breakdowns='breakdowns'
         :area='area'
         :graphModel='graphModel'
+        :overlayMessage="overlayMessage"
         @changeTimeRange='setTimeRange'
         @toggleFullscreen='toggleFullscreen'
     />
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+
+import StatusOverlay from '../StatusOverlay';
 import MetricsModal from './MetricsModal';
 import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
@@ -74,6 +76,7 @@ export default {
 
             project: 'all-projects',
             wiki: null,
+            overlayMessage: null,
             range: TimeRangeSelector.getDefaultTimeRange(),
             granularity: 'monthly'
         };
@@ -124,18 +127,18 @@ export default {
             };
             defaults.unique.project = [this.$store.state.project];
             defaults.common.granularity = this.granularity;
-            this.metricData.start = this.range[0];
-            this.metricData.end = this.range[1];
-            aqsApi.getData(
+            defaults.common.start = this.range[0];
+            defaults.common.end = this.range[1];
+            let dataPromise = aqsApi.getData(
                 defaults.unique,
-                Object.assign(
-                    defaults.common,
-                    {
-                        start: this.metricData.start,
-                        end: this.metricData.end
-                    }
-                )
-            ).then(dimensionalData => {
+                defaults.common
+            );
+            this.overlayMessage = StatusOverlay.LOADING;
+            dataPromise.catch((req, status, error) => {
+                this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
+            });
+            dataPromise.then(dimensionalData => {
+                this.overlayMessage = null;
                 this.graphModel = new GraphModel(metricData, dimensionalData);
             });
 
