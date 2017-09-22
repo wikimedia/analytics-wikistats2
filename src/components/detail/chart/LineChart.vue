@@ -115,7 +115,7 @@ export default {
                         .style('fill', 'none');
                 }
 
-                const xAxis = axes.axisBottom(x).ticks(time.timeMonth.every(3)),
+                const xAxis = axes.axisBottom(x),
                       yAxis = axes.axisLeft(y).ticks(7)
                                 .tickFormat(format.format('0.00s'));
 
@@ -125,17 +125,17 @@ export default {
                     .style('font-family', 'Lato, "Open Sans"');
                 g.append('g').attr('transform', `translate(0,${height})`)
                     .call(xAxis)
+                    .attr('class','x-axis-labels')
                     .style('font-size', '13px')
                     .style('font-family', 'Lato, "Open Sans"')
                     .selectAll("text")
                         .style("text-anchor", "end")
                         .attr("dx", "-.8em")
                         .attr("dy", ".15em")
-                        .attr("transform", "rotate(-65)");
-                svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
+                        .attr("transform", "rotate(-45)");
+                svg.attr('width', n.offsetWidth).attr('height', g.node().getBBox().height + margin.top);
             }
             resize();
-            // TODO: get this to resize cleanly d3.select(window).on('resize', resize)
         },
     }
 }
