@@ -23,11 +23,11 @@ const metric = {
 let dimensionalData = new DimensionalData(uniques.desktop.items);
 dimensionalData.merge(uniques.mobile.items);
 const graphModel = new GraphModel(metric, dimensionalData);
+let vm;
 
 describe('The line chart', () => {
-    it('should generate one line when there are no breakdowns selected', () => {
-
-        const vm = new Vue({
+    beforeEach(() => {
+        vm = new Vue({
             template: '<div><test :graphModel="graphModel"></test></div>',
             components: {
                 'test': LineChart
@@ -38,6 +38,8 @@ describe('The line chart', () => {
                 }
             }
         }).$mount();
+    })
+    it('should generate one line when there are no breakdowns selected', () => {
         const lineClassName = '.statLine';
         expect($(lineClassName, vm.$el).length).toEqual(1);
     });
@@ -52,22 +54,25 @@ describe('The line chart', () => {
                 { name: 'Desktop Site', on: true, key: 'desktop-site' }
             ]
         }
-        metric.breakdowns[0] = breakdown;
+        graphModel.breakdowns[0] = breakdown;
 
         const vm = new Vue({
-            template: '<div><test :graphModel="graphModel" :breakdown="breakdown"></test></div>',
+            template: '<div><test :graphModel="graphModel"></test></div>',
             components: {
                 'test': LineChart
             },
             data () {
                 return {
-                    graphModel: graphModel,
-                    breakdown: breakdown
+                    graphModel: graphModel
                 }
             }
         }).$mount();
         const breakdownLineClassName = '.breakdownLine';
-        dump(vm.$el)
         expect($(breakdownLineClassName, vm.$el).length).toEqual(2);
+    });
+
+    it('should generate an x axis', function () {
+        const xAxisClassName = '.xAxisLabel';
+        expect($(xAxisClassName, vm.$el).length).toBeGreaterThan(0);
     });
 });

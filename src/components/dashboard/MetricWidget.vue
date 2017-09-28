@@ -115,8 +115,6 @@ export default {
                 if (!this.metricData || !this.project) { return; }
                 const defaults = this.metricData.defaults;
                 const range = TimeRangeSelector.getDefaultTimeRange();
-                this.metricData.start = range[0];
-                this.metricData.end = range[1];
                 return {
                     unique: Object.assign(
                         defaults.unique,
@@ -125,8 +123,8 @@ export default {
                     common: Object.assign(
                         defaults.common,
                         {
-                            start: this.metricData.start,
-                            end: this.metricData.end,
+                            start: range[0],
+                            end: range[1],
                             granularity: 'monthly'
                         }
                     )
@@ -173,6 +171,7 @@ export default {
 
     watch: {
         aqsParameters () {
+            this.loadConfig();
             if (this.disabled) {
                 let message = StatusOverlay.INCOMPATIBLE;
                 message.text = message.text.replace('{{metric_name}}', this.metricData.fullName);

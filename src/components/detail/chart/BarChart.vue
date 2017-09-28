@@ -99,7 +99,7 @@ export default {
                     graphElement.selectAll('.bar').data(detail)
                         .enter().selectAll('.minibar').data(function (d) {
                             // this should be passed in
-                            const breakdown = self.graphModel.getBreakdowns()[0];
+                            const breakdown = self.graphModel.getActiveBreakdown();
                             const breakdowns = breakdown.values.filter((x) => x.on);
                             const newData = breakdowns.map((b, i) => ({
                                 month: d.month,
