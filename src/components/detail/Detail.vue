@@ -4,8 +4,8 @@
         v-if="!fullscreen"
         :otherMetrics='otherMetrics'
         :metric='metric'
-        :breakdowns='breakdowns'
         :area='area'
+        :graphModel='graphModel'
     />
 
     <graph-panel

@@ -4,6 +4,7 @@ class GraphModel {
     constructor (metricData, dimensionalData) {
         this.metricData = metricData;
         this.dimensionalData = dimensionalData;
+        this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
     }
     getGraphData () {
         const xAxisValue = 'timestamp';
@@ -32,8 +33,11 @@ class GraphModel {
             });
         }
     }
-    getBreakdowns () {
+    getMetricBreakdowns () {
         return this.metricData.breakdowns;
+    }
+    getBreakdowns () {
+        return this.breakdowns;
     }
     getArea () {
         return this.metricData.area;
@@ -45,7 +49,7 @@ class GraphModel {
         return _.sum(this.getAggregatedValues());
     }
     getActiveBreakdown () {
-        return this.metricData.breakdowns.filter((breakdown) => {
+        return this.breakdowns.filter((breakdown) => {
             return breakdown.on;
         })[0];
     }
