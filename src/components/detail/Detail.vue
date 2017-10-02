@@ -10,6 +10,7 @@
 
     <graph-panel
         :metricData='metricData'
+        :granularity='granularity'
         :wiki='wiki'
         :breakdowns='breakdowns'
         :area='area'

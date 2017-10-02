@@ -4,7 +4,7 @@
         <div v-if="wiki">
             <h2 class="ui left floated header">
                 {{metricData.fullName || 'No data yet... '}}
-                <span class="subdued">{{wiki.title}}</span>
+                <span class="subdued granularity">{{granularity}}</span>
             </h2>
 
             <div class="ui right floated basic fudge segment">
@@ -79,7 +79,7 @@ export default {
         EmptyChart,
         StatusOverlay
     },
-    props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel', 'overlayMessage'],
+    props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
     computed: {
         breakdown: function () {
             return (this.breakdowns || []).find((m) => m.on);
@@ -177,5 +177,10 @@ export default {
 
 .graph.panel p {
     margin: 0;
+}
+
+.granularity {
+    text-transform: capitalize;
+    font-style: italic;
 }
 </style>
