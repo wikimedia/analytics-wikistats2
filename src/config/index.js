@@ -1,4 +1,4 @@
-import _ from './lodash-custom-bundle';
+import _ from '../lodash-custom-bundle';
 
 const months = [
     null,
@@ -76,93 +76,33 @@ const mainMetricsByArea = [
                 'top-viewed-articles'
             ]
         }
-    }
+    },
+    // {
+    //     state: {
+    //         id: 'contributing',
+    //         name: 'Contributing',
+    //         metrics: [
+    //             'new-registered-users',
+    //             'edits',
+    //             'editors'
+    //         ]
+    //     }
+    // },
+    // {
+    //     state: {
+    //         id: 'content',
+    //         name: 'Content',
+    //         metrics: [
+    //             'edited-pages',
+    //             'net-bytes',
+    //             'absolute-bytes'
+    //         ]
+    //     }
+    // }
 ];
 
-const metrics = {
-    'total-pageviews': {
-        fullName: 'Total Page Views',
-        description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views.',
-        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
-        defaults: {
-            unique: {
-                project: ['all-projects'],
-                access: ['desktop', 'mobile-web', 'mobile-app']
-            },
-            common: {
-                metric: 'total-pageviews',
-                agent_type: 'user',
-                granularity: 'monthly'
-            }
-        },
-        type: 'lines',
-        area: 'reading',
-        value: 'views',
-        global: true,
-        breakdowns: [{
-            on: false,
-            name: 'Access method',
-            breakdownName: 'access',
-            values: [
-                { name: 'Desktop', on: true, key: 'desktop' },
-                { name: 'Mobile App', on: true, key: 'mobile-app' },
-                { name: 'Mobile Web', on: true, key: 'mobile-web' }
-            ]
-        }],
-        additive: true
-    },
-    'unique-devices': {
-        fullName: 'Unique Devices',
-        description: 'How many distinct devices we have visiting a project in a given time period.',
-        info_url: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
-        type: 'lines',
-        defaults: {
-            unique: {
-                project: ['all-projects'],
-                'access-site': ['desktop-site', 'mobile-site']
-            },
-            common: {
-                metric: 'unique-devices',
-                granularity: 'monthly'
-            }
-        },
-        value: 'devices',
-        area: 'reading',
-        global: false,
-        breakdowns: [{
-            on: false,
-            name: 'Access site',
-            breakdownName: 'access-site',
-            values: [
-                { name: 'Mobile Site', on: true, key: 'mobile-site' },
-                { name: 'Desktop Site', on: true, key: 'desktop-site' }
-            ]
-        }],
-        additive: false
-    },
-    'top-viewed-articles': {
-        fullName: 'Top Viewed Articles',
-        subtitle: 'Most viewed articles',
-        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
-        type: 'list',
-        defaults: {
-            unique: {
-                project: ['all-projects'],
-                access: ['all-access']
-            },
-            common: {
-                metric: 'top-viewed-articles',
-                granularity: 'monthly'
-            }
-        },
-        value: 'views',
-        valueName: 'Views',
-        key: 'article',
-        area: 'reading',
-        global: false,
-        breakdowns: null
-    }
-};
+
+const metrics = require('./metrics');
 
 const questions = [
 
@@ -201,7 +141,7 @@ questions.forEach(q => {
     q.enabled = !!(metrics[q.id]);
 });
 
-
+const AQS_HOST = 'https://wikimedia.org/api/rest_v1/metrics';
 
 export default {
 
@@ -212,16 +152,44 @@ export default {
     aqs: {
         'total-pageviews': {
             method: 'getAggregatedPageviews',
-            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/{{project}}/{{access}}/{{agent_type}}/{{granularity}}/{{start}}/{{end}}'
+            endpoint: AQS_HOST + '/pageviews/aggregate/{{project}}/{{access}}/{{agent_type}}/{{granularity}}/{{start}}/{{end}}'
         },
 
         'unique-devices': {
             method: 'getUniqueDevices',
-            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/unique-devices/{{project}}/{{access-site}}/{{granularity}}/{{start}}/{{end}}'
+            endpoint: AQS_HOST + '/unique-devices/{{project}}/{{access-site}}/{{granularity}}/{{start}}/{{end}}'
         },
 
         'top-viewed-articles': {
-            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/top/{{project}}/{{access}}/2015/10/all-days'
+            endpoint: AQS_HOST + '/pageviews/top/{{project}}/{{access}}/2015/10/all-days'
+        },
+
+        'new-pages': {
+            endpoint: AQS_HOST + '/edited-pages/new/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'new-registered-users': {
+            endpoint: AQS_HOST + '/registered-users/new/{{project}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'editors': {
+            endpoint: AQS_HOST + '/editors/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{activity_level}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'edits': {
+            endpoint: AQS_HOST + '/edits/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'edited-pages': {
+            endpoint: AQS_HOST + '/edited-pages/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{activity_level}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'net-bytes': {
+            endpoint: AQS_HOST + '/bytes-difference/net/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'absolute-bytes': {
+            endpoint: AQS_HOST + '/bytes-difference/absolute/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
         }
     },
 
@@ -241,9 +209,9 @@ export default {
         });
         const areaList = [
             { path: '', name: 'Dashboard' },
-            { path: 'contributing', name: 'Contributing' },
+            // { path: 'contributing', name: 'Contributing' },
             { path: 'reading', name: 'Reading' },
-            { path: 'content', name: 'Content' }
+            // { path: 'content', name: 'Content' },
         ].filter(
             (area) => area.path === '' || areasFromMetrics.has(area.path)
         );
