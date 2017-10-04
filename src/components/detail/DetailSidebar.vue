@@ -19,7 +19,7 @@
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
     </p>
 
-    <breakdowns :graphModel = "graphModel"/>
+    <breakdowns v-if="graphModel && graphModel.breakdowns" :graphModel = "graphModel"/>
 </section>
 </template>
 

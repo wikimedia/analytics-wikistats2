@@ -5,50 +5,47 @@
             v-if="!graphModel">
         </metric-placeholder-widget>
         <div v-else>
-
-            <div class="ui medium statistic">
-                <div class="label">{{metricData.fullName}}</div>
-                <div class="value">{{lastMonth.total | kmb}}</div>
-            </div>
-            <div>
-                <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
-                <span class="change label">
-                    <arrow-icon :value="changeMoM"/>
-                    {{changeMoM}} % month over month
-                </span>
-            </div>
-            <metric-bar-widget
-                v-if="metricData.type === 'bars'"
-                :metricData="metricData"
-                :graphModel="graphModel">
-            </metric-bar-widget>
-
-            <metric-line-widget
-                v-else-if="metricData.type === 'lines'"
-                :metricData="metricData"
-                :graphModel="graphModel">
-            </metric-line-widget>
-
             <metric-list-widget
-                v-else-if="metricData.type === 'list'"
+                v-if="metricData.type === 'list'"
                 :metricData="metricData"
                 :graphModel="graphModel">
             </metric-list-widget>
-
-            <div class="ui horizontal small statistic">
-                <div class="value">
-                    {{lastYearAggregation.total | kmb}}
+            <div v-else>
+                <div class="ui medium statistic">
+                    <div class="label">{{metricData.fullName}}</div>
+                    <div class="value">{{lastMonth.total | kmb}}</div>
                 </div>
-                <div class="change label">
-                    <arrow-icon :value="changeYoY"/>
-                    {{changeYoY}} % year over year
+                <div>
+                    <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
+                    <span class="change label">
+                        <arrow-icon :value="changeMoM"/>
+                        {{changeMoM}} % month over month
+                    </span>
                 </div>
-            </div>
-            <div class="year total subdued">
-                Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
+                <metric-bar-widget
+                    v-if="metricData.type === 'bars'"
+                    :metricData="metricData"
+                    :graphModel="graphModel">
+                </metric-bar-widget>
+                <metric-line-widget
+                    v-else-if="metricData.type === 'lines'"
+                    :metricData="metricData"
+                    :graphModel="graphModel">
+                </metric-line-widget>
+                <div class="ui horizontal small statistic">
+                    <div class="value">
+                        {{lastYearAggregation.total | kmb}}
+                    </div>
+                    <div class="change label">
+                        <arrow-icon :value="changeYoY"/>
+                        {{changeYoY}} % year over year
+                    </div>
+                </div>
+                <div class="year total subdued">
+                    Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
+                </div>
             </div>
         </div>
-
     </router-link>
     <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
 </div>
@@ -173,9 +170,7 @@ export default {
         aqsParameters () {
             this.loadConfig();
             if (this.disabled) {
-                let message = StatusOverlay.INCOMPATIBLE;
-                message.text = message.text.replace('{{metric_name}}', this.metricData.fullName);
-                this.overlayMessage = message;
+                this.overlayMessage = StatusOverlay.NON_GLOBAL(this.metricData.fullName);
                 this.graphModel = null;
                 return;
             }

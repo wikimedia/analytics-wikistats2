@@ -1,53 +1,68 @@
 <template>
-<div>
+<div v-if="graphModel">
     <div class="ui medium statistic">
-        <div class="label">{{data.fullName}}</div>
+        <div class="label">{{metricData.fullName}}</div>
     </div>
     <div class="subdued">
-        {{data.valueName}}
+        {{metricData.subtitle + ' for ' + currentMonth}}
     </div>
-    <ul class="widget list">
-        <li v-for="(line, index) in formattedList">
-            <span class="number">{{line.value}}</span>
+    <table class="widget list">
+        <tr v-for="(item, i) in sortedList">
+            <td class="number">{{item.views | kmb}}</td>
             &nbsp;
-            <span v-if="data.showNumbers">{{index + 1}}.</span>
-            <span class="label">
-                {{line.name | elipsis(17)}}
-            </span>
-        </li>
-    </ul>
+            <td class="label">
+                <a v-on:click.stop target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + item.article">
+                    {{item.article.replace(/_/g, ' ')}}
+                </a>
+            </td>
+        </tr>
+    </table>
 </div>
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
+import config from '../../config';
 
 export default {
     name: 'metric-list-widget',
-    props: ['data'],
+    props: ['metricData', 'graphModel'],
 
     computed: {
-        formattedList: function () {
-            if (!this.data.valueFilter) { return this.data.sortedList; }
-
-            return this.data.sortedList.map((l) => ({
-                value: Vue.options.filters[this.data.valueFilter](l.value),
-                name: l.name
-            }));
+        currentMonth () {
+            return config.months[new Date().getMonth() + 1];
+        },
+        sortedList () {
+            return this.graphModel.topXByY(this.metricData.key, this.metricData.value).slice(0,4);
         }
-    },
-
-    methods: {
-        format: function (value) {
-        }
-    },
-}
+    }
+};
 </script>
 
 <style>
-.widget.list { list-style: none; font-size: 1.4em; padding: 0; margin: 0; }
-.widget.list li { margin: 10px 10px 0 0; padding-bottom: 10px; vertical-align: middle; border-bottom: 2px solid #bbb; }
-.widget.list li:last-child { border: none; }
+.widget.list {
+    list-style: none;
+    font-size: 1.4em;
+    padding: 0;
+    margin: 0;
+    color: #4a4a4a;
+    border-collapse: collapse;
+}
+.widget.list tr {
+    height: 45px;
+    margin: 10px 10px 0 0;
+    padding-bottom: 10px;
+    vertical-align: middle;
+    border-bottom: 2px solid #bbb;
+    white-space: nowrap;
+}
+.widget.list a {
+    color: #000;
+}
+.widget.list a:hover {
+    color: #6289D8;
+}
+.widget.list tr:last-child { border: none; }
 .widget.list .number {
     font-size: 25px;
     font-weight: 600;
@@ -55,6 +70,8 @@ export default {
 .widget.list .label {
     font-size: 20px;
     font-weight: normal;
-    color: #4a4a4a;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>
