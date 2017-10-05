@@ -109,6 +109,7 @@ const metrics = {
     'total-pageviews': {
         fullName: 'Total Page Views',
         description: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric.',
+        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -138,6 +139,8 @@ const metrics = {
     },
     'unique-devices': {
         fullName: 'Unique Devices',
+        description: 'How many distinct devices we have visiting a project in a given time period.',
+        info_url: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
         type: 'lines',
         defaults: {
             unique: {
