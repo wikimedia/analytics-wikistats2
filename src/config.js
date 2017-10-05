@@ -120,7 +120,7 @@ const metrics = {
                 granularity: 'monthly'
             }
         },
-        type: 'bars',
+        type: 'lines',
         area: 'reading',
         value: 'views',
         global: true,

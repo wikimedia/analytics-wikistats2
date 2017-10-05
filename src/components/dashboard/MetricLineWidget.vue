@@ -64,21 +64,42 @@ export default {
                       y = scales.scaleLinear().rangeRound([height, 0]);
 
                 x.domain(arr.extent(rowData.map((d) => d.month)));
-                y.domain([arr.min(rowData.map((d) => d.total)), arr.max(rowData.map((d) => d.total))]);
+                y.domain([0, arr.max(rowData.map((d) => d.total))]);
 
-                const line = shape.line()
+                const area = shape.area()
                     .x((d) => x(d.month))
-                    .y((d) => y(d.total))
-                    .curve(shape.curveBundle.beta(0.3));
+                    .y1((d) => y(d.total))
+                    .y0(height)
 
                 svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
                 g.attr('width', width).attr('height', height);
                 g.append('path').datum(rowData)
+                    .attr('d', area)
+                    .style('fill', 'url(#grad)')
+                    .style('stroke-width', '0');
+                let gradient = g.append('linearGradient')
+                    .attr('id', 'grad')
+                    .attr('x1',"0%")
+                    .attr('y1',"0%")
+                    .attr('x2',"0%")
+                    .attr('y2',"100%")
+                gradient.append('stop')
+                    .attr('offset', '10%')
+                    .attr('stop-color', self.metricData.lightColor);
+                gradient.append('stop')
+                    .attr('offset', '100%')
+                    .attr('stop-color', self.metricData.lightColor)
+                    .attr('stop-opacity', 0);
+
+                const line = shape.area()
+                    .x((d) => x(d.month))
+                    .y((d) => y(d.total));
+                g.append('path').datum(rowData)
                     .attr('d', line)
-                    .style('stroke', self.metricData.darkColor)
-                    .style('stroke-width', '2px')
-                    .style('fill', 'none');
-            }
+                    .style('fill', 'none')
+                    .style('stroke-width', '2')
+                    .style('stroke', self.metricData.darkColor);
+        }
             resize();
         },
         getMonthValue (date) {

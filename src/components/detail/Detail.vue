@@ -4,12 +4,13 @@
         v-if="!fullscreen"
         :otherMetrics='otherMetrics'
         :metric='metric'
-        :breakdowns='breakdowns'
         :area='area'
+        :graphModel='graphModel'
     />
 
     <graph-panel
         :metricData='metricData'
+        :granularity='granularity'
         :wiki='wiki'
         :breakdowns='breakdowns'
         :area='area'
