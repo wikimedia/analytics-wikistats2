@@ -99,7 +99,8 @@ const mainMetricsByArea = [
             name: 'Reading',
             metrics: [
                 'total-pageviews',
-                'unique-devices'
+                'unique-devices',
+                'top-viewed-articles'
             ]
         }
     }
@@ -116,7 +117,7 @@ const metrics = {
                 access: ['desktop', 'mobile-web', 'mobile-app']
             },
             common: {
-                metric: 'pageviews-aggregate',
+                metric: 'total-pageviews',
                 agent_type: 'all-agents',
                 granularity: 'monthly'
             }
@@ -165,6 +166,28 @@ const metrics = {
             ]
         }],
         additive: false
+    },
+    'top-viewed-articles': {
+        fullName: 'Top Viewed Articles',
+        subtitle: 'Most viewed articles',
+        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        type: 'list',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                access: ['all-access']
+            },
+            common: {
+                metric: 'top-viewed-articles',
+                granularity: 'monthly'
+            }
+        },
+        value: 'views',
+        valueName: 'Views',
+        key: 'article',
+        area: 'reading',
+        global: false,
+        breakdowns: null
     }
 };
 
@@ -176,7 +199,7 @@ export default {
     },
 
     aqs: {
-        'pageviews-aggregate': {
+        'total-pageviews': {
             method: 'getAggregatedPageviews',
             endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/{{project}}/{{access}}/{{agent_type}}/{{granularity}}/{{start}}/{{end}}'
         },
@@ -184,15 +207,19 @@ export default {
         'unique-devices': {
             method: 'getUniqueDevices',
             endpoint: 'https://wikimedia.org/api/rest_v1/metrics/unique-devices/{{project}}/{{access-site}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'top-viewed-articles': {
+            endpoint: 'https://wikimedia.org/api/rest_v1/metrics/pageviews/top/{{project}}/{{access}}/2015/10/all-days'
         }
     },
 
     // site config
-    metricData (metricName, area) {
+    metricData (metricName) {
         return _.assign(
             metrics[metricName],
-            { lightColor: lightColor[area] },
-            { darkColor: darkColor[area] }
+            { lightColor: lightColor[metrics[metricName].area] },
+            { darkColor: darkColor[metrics[metricName].area] }
         );
     },
 

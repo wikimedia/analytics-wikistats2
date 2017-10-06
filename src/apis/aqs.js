@@ -67,16 +67,23 @@ class AQS {
                     });
                 });
             });
-
+        const metricData = config.metricData(commonParameters.metric);
         return Promise.all(promises).then(data => {
             let validData = _.filter(data, d => !d.hasOwnProperty('error'));
             let formattedData = _.flatten(validData.map(d => d.items));
             if (formattedData.length > 0) {
+                if (metricData.type === 'list') {
+                    formattedData = this.formatTops(formattedData);
+                }
                 return new DimensionalData(formattedData);
             } else {
                 throw 'None of the API requests have returned any data.';
             }
         });
+    }
+
+    formatTops (data) {
+        return _.flatten(data.map(item => item.articles));
     }
 }
 

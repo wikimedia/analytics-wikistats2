@@ -6,7 +6,7 @@ let uniqueParameters = {
     access: ['desktop', 'mobile-web']
 };
 let commonParameters = {
-    metric: 'pageviews-aggregate', agent_type: 'user',
+    metric: 'total-pageviews', agent_type: 'user',
     granularity: 'monthly', start: '2017010100', end: '2017060100'
 };
 

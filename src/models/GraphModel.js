@@ -6,12 +6,17 @@ class GraphModel {
         this.dimensionalData = dimensionalData;
         this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
         // Remove dimension values that have no data.
-        this.breakdowns.forEach(breakdown => {
-            let dimensionValues = this.dimensionalData.getDimensionValues(breakdown.breakdownName);
-            breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
-        });
+        if (this.breakdowns) {
+            this.breakdowns.forEach(breakdown => {
+                let dimensionValues = this.dimensionalData.getDimensionValues(breakdown.breakdownName);
+                breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
+            });
+        }
     }
     getGraphData () {
+        if (this.metricData.type === 'list') {
+            return this.topXByY(this.metricData.key, this.metricData.value);
+        }
         const xAxisValue = 'timestamp';
         const yAxisValue = this.metricData.value;
         this.dimensionalData.measure('timestamp');
@@ -54,6 +59,7 @@ class GraphModel {
         return _.sum(this.getAggregatedValues());
     }
     getActiveBreakdown () {
+        if (!this.breakdowns) return null;
         return this.breakdowns.filter((breakdown) => {
             return breakdown.on;
         })[0];
@@ -71,6 +77,10 @@ class GraphModel {
                 }));
             });
         }
+    }
+    topXByY (x, y) {
+        this.dimensionalData.measure(x);
+        return _.sortBy(this.dimensionalData.breakdown(y), y).reverse();
     }
 }
 
