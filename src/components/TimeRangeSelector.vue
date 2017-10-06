@@ -1,11 +1,11 @@
 <template>
-<div class="ui buttons">
-    <button v-on:click='changeTimeRange' class="ui button">All</button>
-    <button v-on:click='changeTimeRange' class="ui button active">2-Year</button>
-    <button v-on:click='changeTimeRange' class="ui button">1-Year</button>
-    <button v-on:click='changeTimeRange' class="ui button">3-Month</button>
-    <button v-on:click='changeTimeRange' class="ui button">1-Month</button>
-</div>
+    <div class="ui buttons">
+        <button v-on:click='changeTimeRange' :class="isActive('All')">All</button>
+        <button v-on:click='changeTimeRange' :class="isActive('2-Year')">2-Year</button>
+        <button v-on:click='changeTimeRange' :class="isActive('1-Year')">1-Year</button>
+        <button v-on:click='changeTimeRange' :class="isActive('3-Month')">3-Month</button>
+        <button v-on:click='changeTimeRange' :class="isActive('1-Month')">1-Month</button>
+    </div>
 </template>
 
 <script>
@@ -13,10 +13,14 @@ import dateFormat from 'dateformat';
 
 export default {
     name: 'time-range-selector',
+    data () {
+        return {
+            activeRange: '2-Year'
+        }
+    },
     methods: {
         changeTimeRange (e) {
-            $('.active', this.$el).removeClass('active');
-            const newRange = e.target.textContent;
+            this.activeRange = e.target.textContent;
             let d = new Date();
             let beginningOfThisMonth = new Date();
             beginningOfThisMonth.setDate(1);
@@ -42,7 +46,11 @@ export default {
                     return [dateFormat(d, "yyyymmddhh"), now]
                 }
             };
-            this.$emit('changeTimeRange', ranges[newRange]());
+            this.$emit('changeTimeRange', ranges[this.activeRange]());
+        },
+        isActive (range) {
+            if (range === this.activeRange) return 'ui button active';
+            return 'ui button';
         }
     },
     getDefaultTimeRange () {

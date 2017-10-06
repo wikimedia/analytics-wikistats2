@@ -4,8 +4,19 @@ class GraphModel {
     constructor (metricData, dimensionalData) {
         this.metricData = metricData;
         this.dimensionalData = dimensionalData;
+        this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
+        // Remove dimension values that have no data.
+        if (this.breakdowns) {
+            this.breakdowns.forEach(breakdown => {
+                let dimensionValues = this.dimensionalData.getDimensionValues(breakdown.breakdownName);
+                breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
+            });
+        }
     }
     getGraphData () {
+        if (this.metricData.type === 'list') {
+            return this.topXByY(this.metricData.key, this.metricData.value);
+        }
         const xAxisValue = 'timestamp';
         const yAxisValue = this.metricData.value;
         this.dimensionalData.measure('timestamp');
@@ -32,8 +43,11 @@ class GraphModel {
             });
         }
     }
-    getBreakdowns () {
+    getMetricBreakdowns () {
         return this.metricData.breakdowns;
+    }
+    getBreakdowns () {
+        return this.breakdowns;
     }
     getArea () {
         return this.metricData.area;
@@ -45,7 +59,8 @@ class GraphModel {
         return _.sum(this.getAggregatedValues());
     }
     getActiveBreakdown () {
-        return this.metricData.breakdowns.filter((breakdown) => {
+        if (!this.breakdowns) return null;
+        return this.breakdowns.filter((breakdown) => {
             return breakdown.on;
         })[0];
     }
@@ -62,6 +77,10 @@ class GraphModel {
                 }));
             });
         }
+    }
+    topXByY (x, y) {
+        this.dimensionalData.measure(x);
+        return _.sortBy(this.dimensionalData.breakdown(y), y).reverse();
     }
 }
 

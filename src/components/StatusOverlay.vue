@@ -47,9 +47,11 @@ StatusOverlay.NO_DATA = {
     text: 'There is no data available for this date range on this project'
 };
 
-StatusOverlay.INCOMPATIBLE = {
-    type: 'error',
-    text: 'The {{metric_name}} metric is not available for this project selection'
+StatusOverlay.NON_GLOBAL = (metricName) => {
+    return {
+        type: 'error',
+        text: 'The ' + metricName + ' metric is not available for all projects. Select a specific wiki'
+    };
 };
 
 StatusOverlay.NO_SERVICE = {

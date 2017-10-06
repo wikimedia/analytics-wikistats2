@@ -4,12 +4,13 @@
         v-if="!fullscreen"
         :otherMetrics='otherMetrics'
         :metric='metric'
-        :breakdowns='breakdowns'
         :area='area'
+        :graphModel='graphModel'
     />
 
     <graph-panel
         :metricData='metricData'
+        :granularity='granularity'
         :wiki='wiki'
         :breakdowns='breakdowns'
         :area='area'
@@ -119,37 +120,41 @@ export default {
 
             const metricData = Object.assign(config.metricData(this.metric, this.area), {});
             this.metricData = metricData;
-            this.breakdowns = metricData.breakdowns;
-            let aqsApi = new AQS();
-            const defaults = this.metricData.defaults || {
-                unique: {},
-                common: {}
-            };
-            let dataPromise = aqsApi.getData(
-                Object.assign(
-                    defaults.unique,
-                    {
-                        project: [this.$store.state.project]
-                    },
-                ),
-                Object.assign(
-                    defaults.common,
-                    {
-                        start: this.range[0],
-                        end: this.range[1],
-                        granularity: this.granularity
-                    }
-                )
-            );
-            this.overlayMessage = StatusOverlay.LOADING;
-            dataPromise.catch((req, status, error) => {
-                this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
-            });
-            dataPromise.then(dimensionalData => {
-                this.overlayMessage = null;
-                this.graphModel = new GraphModel(metricData, dimensionalData);
-            });
-
+            if (!metricData.global && this.$store.state.project === 'all-projects') {
+                this.overlayMessage = StatusOverlay.NON_GLOBAL(this.metricData.fullName);
+            } else {
+                this.breakdowns = metricData.breakdowns;
+                let aqsApi = new AQS();
+                const defaults = this.metricData.defaults || {
+                    unique: {},
+                    common: {}
+                };
+                let dataPromise = aqsApi.getData(
+                    Object.assign(
+                        defaults.unique,
+                        {
+                            project: [this.$store.state.project]
+                        },
+                    ),
+                    Object.assign(
+                        defaults.common,
+                        {
+                            start: this.range[0],
+                            end: this.range[1],
+                            granularity: this.granularity
+                        }
+                    )
+                );
+                this.overlayMessage = StatusOverlay.LOADING;
+                dataPromise.catch((req, status, error) => {
+                    this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
+                });
+                dataPromise.then(dimensionalData => {
+                    this.overlayMessage = null;
+                    this.graphModel = new GraphModel(metricData, dimensionalData);
+                    this.breakdowns = this.graphModel.getBreakdowns();
+                });
+            }
             const metrics = config.metrics;
             const relevantMetrics = Object.keys(metrics)
                 .filter((m) => metrics[m].area === this.area );

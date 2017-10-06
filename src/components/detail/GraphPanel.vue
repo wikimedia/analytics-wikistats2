@@ -3,8 +3,10 @@
     <div class="ui clearing basic segment">
         <div v-if="wiki">
             <h2 class="ui left floated header">
-                {{metricData.fullName || 'No data yet... '}}
-                <span class="subdued">{{wiki.title}}</span>
+                <a class='metric link' :href="metricData.info_url" target="_blank">
+                    {{metricData.fullName || 'No data yet... '}}
+                </a>
+                <span class="subdued granularity">{{granularity}}</span>
             </h2>
 
             <div class="ui right floated basic fudge segment">
@@ -45,7 +47,7 @@
                 </h5>
             </div>
             <div class="ui center aligned subdued basic segment">
-                <p>{{metricData.description}}</p>
+                <p>{{metricData.description}}. <a class='metric link' :href="metricData.info_url" target="_blank">More info about this metric.</a></p>
 
             </div>
             <div class="ui right floated icon button" @click="toggleFullscreen">
@@ -79,7 +81,7 @@ export default {
         EmptyChart,
         StatusOverlay
     },
-    props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel', 'overlayMessage'],
+    props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
     computed: {
         breakdown: function () {
             return (this.breakdowns || []).find((m) => m.on);
@@ -177,5 +179,19 @@ export default {
 
 .graph.panel p {
     margin: 0;
+}
+
+.granularity {
+    text-transform: capitalize;
+    font-style: italic;
+}
+
+.metric.link{
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px dashed black;
+}
+.metric.link:hover {
+    color: #6289D8;
 }
 </style>

@@ -19,7 +19,7 @@
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
     </p>
 
-    <breakdowns :breakdowns='breakdowns'/>
+    <breakdowns v-if="graphModel && graphModel.breakdowns" :graphModel = "graphModel"/>
 </section>
 </template>
 
@@ -34,7 +34,7 @@ import '../../../semantic/dist/components/dimmer';
 
 export default {
     name: 'detail-sidebar',
-    props: ['otherMetrics','metric','breakdowns','area'],
+    props: ['otherMetrics','metric','graphModel','area'],
     data () {
         return {
             wiki: {
