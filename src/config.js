@@ -43,33 +43,6 @@ const darkColor = {
     content: colors.content[3]
 };
 
-const questions = [
-    { f: true, a: 'contributing', m: 'Top Contributors', q: 'Who are the top contributors?' },
-    { a: 'contributing', m: 'New Editors', q: 'How many new editors are there?' },
-    { a: 'contributing', m: 'Newly registered users', q: 'How many new users are there?' },
-    { f: true, a: 'contributing', m: 'Active Editors', q: 'How many active editors are there?' },
-    { a: 'contributing', m: 'Total editors', q: 'How many editors are there?' },
-    { a: 'contributing', m: 'Editors by language', q: 'How many editors are there in the most populated countries?' },
-    { a: 'contributing', m: 'Total Edits', q: 'How many edits have been made?' },
-    { f: true, a: 'contributing', m: 'Non-bot edits', q: 'How many edits have been made by registered human users?' },
-    { a: 'contributing', m: 'Anonymous edits', q: 'How many edits have been made by anonymous users?' },
-    { a: 'contributing', m: 'Edits per article', q: 'How many edits does an article receive on average?' },
-    { a: 'contributing', m: 'Top edited articles', q: 'What are the most edited articles?' },
-    { a: 'contributing', m: 'Total Reverts', q: 'How many edits undo previous edits?' },
-    { f: true, a: 'reading', m: 'Total Pageviews', q: 'How many times are articles viewed?' },
-    { f: true, a: 'reading', m: 'Unique Devices', q: 'How many unique devices access content?' },
-    { f: true, a: 'reading', m: 'Most Viewed Articles', q: 'What are the most viewed articles?' },
-    { a: 'reading', m: 'Article Pageviews', q: 'How many times is an article viewed, on average?' },
-    { a: 'reading', m: 'Page Views per Edit?', q: 'How many times is a particular article version viewed?' },
-    { f: true, a: 'content', m: 'Total Articles', q: 'How many articles are there?' },
-    { f: true, a: 'content', m: 'Media Uploads', q: 'How much media is there (video, sound, images)?' },
-    { f: true, a: 'content', m: 'New articles', q: 'How many new articles are added?' },
-    { a: 'content', m: 'Top Article Creators', q: 'Who are the top article creators?' },
-    { a: 'content', m: 'Article size (bytes)', q: 'What is the size of all articles in bytes?' },
-    { a: 'content', m: 'Articles with most edits', q: 'What articles have the most edits?' },
-    { a: 'content', m: 'Articles with most contributors', q: 'What are the articles with the most contributors?' },
-    { a: 'content', m: 'Reference Links', q: 'Where do articles link to?' }
-];
 
 const areasWithMetrics = _.transform(questions, function (result, q) {
     let area = result.find((a) => a.name === q.a);
@@ -190,6 +163,44 @@ const metrics = {
         breakdowns: null
     }
 };
+
+const questions = [
+
+    { area: 'contributing', metric: 'Top Contributors', question: 'Who are the top contributors?' },
+    { area: 'contributing', metric: 'Active Editors',   question: 'How many active editors are there?' },
+    { area: 'contributing', metric: 'Non-bot edits',    question: 'How many edits have been made by registered human users?' },
+    { area: 'contributing', metric: 'New Editors',            question: 'How many new editors are there?' },
+    { area: 'contributing', metric: 'Newly registered users', question: 'How many new users are there?' },
+    { area: 'contributing', metric: 'Total editors',          question: 'How many editors are there?' },
+    { area: 'contributing', metric: 'Editors by language',    question: 'How many editors are there in the most populated countries?' },
+    { area: 'contributing', metric: 'Total Edits',         question: 'How many edits have been made?' },
+    { area: 'contributing', metric: 'Anonymous edits',     question: 'How many edits have been made by anonymous users?' },
+    { area: 'contributing', metric: 'Edits per article',   question: 'How many edits does an article receive on average?' },
+    { area: 'contributing', metric: 'Top edited articles', question: 'What are the most edited articles?' },
+    { area: 'contributing', metric: 'Total Reverts',       question: 'How many edits undo previous edits?' },
+
+    { area: 'reading', metric: 'Total Pageviews',      question: 'How many times are articles viewed?' },
+    { area: 'reading', metric: 'Unique Devices',       question: 'How many unique devices access content?' },
+    { area: 'reading', metric: 'Most Viewed Articles', question: 'What are the most viewed articles?' },
+    { area: 'reading', metric: 'Article Pageviews',    question: 'How many times is an article viewed, on average?' },
+    { area: 'reading', metric: 'Page Views per Edit?', question: 'How many times is a particular article version viewed?' },
+
+    { area: 'content', metric: 'Total Articles',    question: 'How many articles are there?' },
+    { area: 'content', metric: 'Media Uploads',     question: 'How much media is there (video, sound, images)?' },
+    { area: 'content', metric: 'New articles',      question: 'How many new articles are added?' },
+    { area: 'content', metric: 'Top Article Creators', question: 'Who are the top article creators?' },
+    { area: 'content', metric: 'Article size', question: 'What is the size of all articles in bytes?' },
+    { area: 'content', metric: 'Articles with most edits',        question: 'What articles have the most edits?' },
+    { area: 'content', metric: 'Articles with most contributors', question: 'What are the articles with the most contributors?' },
+    { area: 'content', metric: 'Reference Links', question: 'Where do articles link to?' }
+];
+
+// The metric id is inferred from the long name and used to determine whether the metric is enabled
+questions.forEach(q => {
+    q.id = _.kebabCase(q.metric);
+    q.enabled = !!(metrics[q.id]);
+});
+
 
 
 export default {

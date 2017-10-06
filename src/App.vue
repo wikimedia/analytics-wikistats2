@@ -3,8 +3,8 @@
     <section class="ui top attached clearing segment">
         <top-nav :wikiCode="project"></top-nav>
     </section>
-    <section class="ui attached content segment">
-        <topic-explorer v-if="false"></topic-explorer>
+    <section class="ui attached content segment animate">
+        <topic-explorer></topic-explorer>
 
         <component :is="mainComponent"></component>
     </section>
@@ -44,6 +44,7 @@ export default {
     computed: mapState([
         'project',
         'mainComponent',
+        'topicsMinimized',
     ]),
 };
 </script>
@@ -58,11 +59,11 @@ a.router-link-current { font-weight: bold; color: #72777d }
 .ui.top.attached.clearing.segment {
     border-bottom: 4px solid #4A4A4A;
     padding: 35px 44px;
+    /* has to have room under it to fit topic selector animation */
+    z-index: 10;
 }
 .ui.attached.content.segment {
     background-color: #F6F6F6;
-    /* with topic explorer: padding: 53px 32px 27px 32px; */
-    /* without topic explorer: */
     padding: 2px 32px 27px 24px;
 }
 .ui.attached.language.segment {
