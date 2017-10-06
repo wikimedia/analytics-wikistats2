@@ -5,6 +5,11 @@ class GraphModel {
         this.metricData = metricData;
         this.dimensionalData = dimensionalData;
         this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
+        // Remove dimension values that have no data.
+        this.breakdowns.forEach(breakdown => {
+            let dimensionValues = this.dimensionalData.getDimensionValues(breakdown.breakdownName);
+            breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
+        });
     }
     getGraphData () {
         const xAxisValue = 'timestamp';

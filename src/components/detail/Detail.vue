@@ -120,7 +120,7 @@ export default {
 
             const metricData = Object.assign(config.metricData(this.metric, this.area), {});
             this.metricData = metricData;
-            this.breakdowns = metricData.breakdowns;
+
             let aqsApi = new AQS();
             const defaults = this.metricData.defaults || {
                 unique: {},
@@ -149,6 +149,7 @@ export default {
             dataPromise.then(dimensionalData => {
                 this.overlayMessage = null;
                 this.graphModel = new GraphModel(metricData, dimensionalData);
+                this.breakdowns = this.graphModel.getBreakdowns();
             });
 
             const metrics = config.metrics;

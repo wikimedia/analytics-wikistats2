@@ -54,20 +54,29 @@ class AQS {
                     .forEach((k) => {
                         const key = _.trim(k, '{}');
                         url = url.replace(k, p[key]);
-                    })
+                    });
                 return new Promise((resolve, reject) => {
                     $.get({
                         url: url,
                         success: resolve,
-                        error: reject,
+                        // Some wikis may return 200 for some requests and 404 for others.
+                        // Like: 200 for desktop and mobile-web, and 404 for mobile-app.
+                        // This resolves the 404 errors so that Promise.all() can handle them.
+                        error: (xhr, status, error) => { resolve({xhr, status, error}); },
                         crossDomain: true
-                    })
+                    });
                 });
             });
 
-        return Promise.all(promises)
-            .then(data => _.flatten(data.map(d => d.items)))
-            .then(items => new DimensionalData(items));
+        return Promise.all(promises).then(data => {
+            let validData = _.filter(data, d => !d.hasOwnProperty('error'));
+            let formattedData = _.flatten(validData.map(d => d.items));
+            if (formattedData.length > 0) {
+                return new DimensionalData(formattedData);
+            } else {
+                throw 'None of the API requests have returned any data.';
+            }
+        });
     }
 }
 

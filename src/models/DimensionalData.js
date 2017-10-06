@@ -29,6 +29,17 @@ class DimensionalData {
         }
     }
 
+    getDimensionValues (column) {
+        let allItems = this.crossfilter.dimension(
+            item => item[this.currentMeasure]
+        ).top(Infinity);
+        let dimensionValues = {};
+        allItems.forEach(item => {
+            dimensionValues[item[column]] = true;
+        });
+        return Object.keys(dimensionValues);
+    }
+
     measure (column) {
         this.addDimension(column);
         this.currentMeasure = column;
