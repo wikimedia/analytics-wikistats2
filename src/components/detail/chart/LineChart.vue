@@ -25,11 +25,11 @@ import * as d3 from 'd3-selection'
 import * as scales from 'd3-scale'
 import * as arr from 'd3-array'
 import * as axes from 'd3-axis'
-import * as format from 'd3-format'
 import * as time from 'd3-time'
 import * as shape from 'd3-shape'
 
 import dateformat from 'dateformat';
+import utils from '../../../utils';
 
 import _ from 'lodash';
 
@@ -202,7 +202,7 @@ export default {
             const height = y.range()[0];
             const xAxis = axes.axisBottom(x),
                   yAxis = axes.axisLeft(y).ticks(7)
-                            .tickFormat(format.format('.2s'));
+                            .tickFormat(utils.modifiedSIFormat);
             g.append('g')
                 .call(yAxis)
                 .attr('class', 'yAxis')
