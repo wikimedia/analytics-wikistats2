@@ -7,8 +7,8 @@
                 <th>Total</th>
             </tr>
             <tr v-if="metricData.type === 'list'">
-                <th>Name</th>
                 <th>{{metricData.valueName}}</th>
+                <th>Name</th>
             </tr>
         </thead>
         <tbody>
@@ -17,8 +17,8 @@
                 <td>{{m.total}}</td>
             </tr>
             <tr v-if="metricData.type === 'list'" v-for="m in listData">
+                <td class="right aligned">{{m[metricData.value]}}</td>
                 <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[metricData.key]">{{m[metricData.key].replace(/_/g, ' ')}}</a></td>
-                <td>{{m[metricData.value]}}</td>
             </tr>
         </tbody>
     </table>
@@ -85,5 +85,8 @@ td a:hover {
 }
 td a {
     color: #000;
+}
+td.right.aligned {
+    text-align: right;
 }
 </style>
