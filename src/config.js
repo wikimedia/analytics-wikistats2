@@ -82,7 +82,7 @@ const mainMetricsByArea = [
 const metrics = {
     'total-pageviews': {
         fullName: 'Total Page Views',
-        description: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric.',
+        description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views.',
         info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         defaults: {
             unique: {
@@ -91,7 +91,7 @@ const metrics = {
             },
             common: {
                 metric: 'total-pageviews',
-                agent_type: 'all-agents',
+                agent_type: 'user',
                 granularity: 'monthly'
             }
         },
