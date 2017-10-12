@@ -12,6 +12,7 @@ export default new Vuex.Store({
         mainComponent: '',
         breakdowns: null,
         topicsMinimized: true,
+        centralNotice: null,
     },
     getters: {
         // Do not add mainComponent to mainState
