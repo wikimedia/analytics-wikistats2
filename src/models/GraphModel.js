@@ -1,10 +1,14 @@
 import _ from '../lodash-custom-bundle';
 
 class GraphModel {
-    constructor (metricData, dimensionalData) {
+    constructor (metricData, dimensionalData, prevBreakdowns) {
         this.metricData = metricData;
         this.dimensionalData = dimensionalData;
-        this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
+        if (prevBreakdowns) {
+            this.breakdowns = prevBreakdowns;
+        } else {
+            this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
+        }
         // Remove dimension values that have no data.
         if (this.breakdowns) {
             this.breakdowns.forEach(breakdown => {

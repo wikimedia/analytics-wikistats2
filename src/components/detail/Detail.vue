@@ -123,7 +123,6 @@ export default {
             if (!metricData.global && this.$store.state.project === 'all-projects') {
                 this.overlayMessage = StatusOverlay.NON_GLOBAL(this.metricData.fullName);
             } else {
-                this.breakdowns = metricData.breakdowns;
                 let aqsApi = new AQS();
                 const defaults = this.metricData.defaults || {
                     unique: {},
@@ -151,8 +150,8 @@ export default {
                 });
                 dataPromise.then(dimensionalData => {
                     this.overlayMessage = null;
-                    this.graphModel = new GraphModel(metricData, dimensionalData);
-                    this.breakdowns = this.graphModel.getBreakdowns();
+                    const prevBreakdowns = this.graphModel && this.graphModel.getBreakdowns();
+                    this.graphModel = new GraphModel(metricData, dimensionalData, prevBreakdowns);
                 });
             }
             const metrics = config.metrics;
