@@ -72,6 +72,11 @@ class AQS {
             let validData = _.filter(data, d => !d.hasOwnProperty('error'));
             let formattedData = _.flatten(validData.map(d => d.items));
             if (formattedData.length > 0) {
+                // Some endpoints return repetitive information in an upper level, and then row
+                // data in a results array
+                if (formattedData[0].results) {
+                    formattedData = this.transformResults(formattedData);
+                }
                 if (metricData.type === 'list') {
                     formattedData = this.formatTops(formattedData);
                 }
@@ -84,6 +89,38 @@ class AQS {
 
     formatTops (data) {
         return _.flatten(data.map(item => item.articles));
+    }
+
+
+    /*
+    Takes the common data in an API request and adds it to each individual item.
+
+    INPUT:                             OUTPUT:
+
+    {                                  [{
+        'a': 'foo',                        'a': 'foo',
+        'b': 'bar',              ==>       'b': 'bar',
+        'results': [{                      'timestamp': 1990,
+            'timestamp': 1990,             'x': 20
+            'x': 20                    }, ...
+        }, ...]                        ]
+    }
+
+    Any hyphens in keys will be replaced by underscores to uniformise breakdown keys
+    and parameter names.
+    */
+    transformResults (data) {
+        return data.reduce((p, c) => {
+            let keys = Object.keys(c);
+            const resultsIndex = keys.indexOf('results');
+            keys.splice(resultsIndex, 1);
+            return p.concat(c.results.map((datum) => {
+                keys.forEach((key) => {
+                    datum[key.replace(/-/g, '_')] = c[key];
+                })
+                return datum
+            }))
+        }, []);
     }
 }
 

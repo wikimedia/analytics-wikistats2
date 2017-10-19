@@ -31,18 +31,14 @@ class GraphModel {
             const rawValues = this.dimensionalData.breakdown(yAxisValue, activeBreakdown.breakdownName);
             return rawValues.map((row) => {
                 var ts = row.timestamp;
-                const month = ts.slice(0,4) + '-'
-                        + ts.slice(4,6) + '-'
-                        + ts.slice(6,8);
+                const month = createDate(ts);
                 return {month: month, total: row[yAxisValue]};
             });
         } else {
             const rawValues = this.dimensionalData.breakdown(yAxisValue);
             return rawValues.map((row) => {
                 var ts = row.timestamp;
-                const month = ts.slice(0,4) + '-'
-                        + ts.slice(4,6) + '-'
-                        + ts.slice(6,8);
+                const month = createDate(ts);
                 return {month: month, total: row[yAxisValue]}
             });
         }
@@ -85,6 +81,16 @@ class GraphModel {
     topXByY (x, y) {
         this.dimensionalData.measure(x);
         return _.sortBy(this.dimensionalData.breakdown(y), y).reverse();
+    }
+}
+
+function createDate(timestamp) {
+    if (timestamp.length <= 10) {
+        return new Date(timestamp.slice(0,4) + '-'
+                        + timestamp.slice(4,6) + '-'
+                        + timestamp.slice(6,8));
+    } else {
+        return new Date(timestamp);
     }
 }
 

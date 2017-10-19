@@ -95,7 +95,7 @@ export default {
             resize();
         },
         getMonthValue (date) {
-            return config.months[parseInt(date.split('-')[1])][0];
+            return config.months[date.getMonth() + 1][0];
         }
     }
 }
