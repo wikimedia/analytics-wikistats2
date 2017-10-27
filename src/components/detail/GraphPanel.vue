@@ -43,14 +43,17 @@
             <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
                 <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
                 <h5>
-                    Total: {{total | kmb}} {{metricData.fullName}} <arrow-icon :value="changeOverRange"></arrow-icon> {{((changeOverRange / total) * 100).toFixed(2)}}% over this time range.
+                    {{graphModel.getAggregateLabel()}}:
+                    {{aggregate | kmb}} {{metricData.fullName}}
+                    <arrow-icon :value="changeOverRange"></arrow-icon>
+                    {{changeOverRange}}% over this time range.
                 </h5>
             </div>
             <div class="ui center aligned subdued basic segment">
                 <p>{{metricData.description}}. <a class='metric link' :href="metricData.info_url" target="_blank">More info about this metric.</a></p>
 
             </div>
-            <div class="ui right floated icon button" @click="toggleFullscreen">
+            <div class="ui right floated icon button" title="Toggle full-width graph" @click="toggleFullscreen">
                 <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
             </div>
         </div>
@@ -97,12 +100,12 @@ export default {
             let chartTypes = this.getChartTypes();
             return (chartTypes[0].chart || 'empty') + '-chart';
         },
-        total: function () {
-            return this.graphModel && this.graphModel.getTotal();
+        aggregate: function () {
+            return this.graphModel && this.graphModel.getAggregate();
         },
         changeOverRange: function () {
             const data = this.graphModel.getAggregatedValues();
-            return data[data.length - 1] - data[0];
+            return ((data[data.length - 1] - data[0]) / data[0] * 100).toFixed(2);
         }
     },
     data () {

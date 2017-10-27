@@ -13,6 +13,7 @@ import last from 'lodash/last';
 import map from 'lodash/map';
 import pickBy from 'lodash/pickBy';
 import replace from 'lodash/replace';
+import round from 'lodash/round';
 import sortBy from 'lodash/sortBy';
 import startsWith from 'lodash/startsWith';
 import sum from 'lodash/sum';
@@ -38,6 +39,7 @@ export default {
     map,
     pickBy,
     replace,
+    round,
     sortBy,
     startsWith,
     sum,

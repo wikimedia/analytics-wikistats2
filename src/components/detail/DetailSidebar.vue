@@ -15,9 +15,9 @@
         {{o.fullName}}
     </router-link>
 
-    <p v-if="otherMetrics.length > 1">
+    <!--p v-if="otherMetrics.length > 1">
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
-    </p>
+    </p-->
 
     <breakdowns v-if="graphModel && graphModel.breakdowns" :graphModel = "graphModel"/>
 </section>

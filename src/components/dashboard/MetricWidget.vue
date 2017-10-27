@@ -34,7 +34,7 @@
                 </metric-line-widget>
                 <div class="ui horizontal small statistic">
                     <div class="value">
-                        {{lastYearAggregation.total | kmb}}
+                        {{lastYearAggregation | kmb}}
                     </div>
                     <div class="change label">
                         <arrow-icon :value="changeYoY"/>
@@ -131,15 +131,7 @@ export default {
                 return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12];
             },
             lastYearAggregation: function () {
-                if (this.metricData.additive) {
-                    return {
-                        total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total)
-                    };
-                } else {
-                    return {
-                        total: _.sumBy(this.graphData.slice(_.indexOf(this.graphData, this.lastMonth) - 12), month => month.total) / 12
-                    };
-                }
+                return this.graphModel.getLimitedAggregate(12);
             },
             lastMonth: function () {
                 return _.last(this.graphData);
@@ -154,6 +146,8 @@ export default {
                 return ((diff / prev.total) * 100).toFixed(2);
             },
             changeYoY: function () {
+                // TODO: We're showing more than the last year, but reporting YoY.  This can be confusing because the YoY might not match up visually with the graph (like for Unique Devices in Achinese).
+
                 const diff = this.lastMonth.total - this.monthOneYearAgo.total;
                 return ((diff / this.monthOneYearAgo.total) * 100).toFixed(2);
             },
@@ -161,7 +155,7 @@ export default {
                 return !this.metricData.global && this.$store.state.project === 'all-projects';
             },
             aggregationType: function () {
-                return !this.metricData.additive? 'Average': 'Total';
+                return this.graphModel.getAggregateLabel();
             }
         }
     ),

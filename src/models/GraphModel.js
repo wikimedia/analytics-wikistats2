@@ -59,28 +59,46 @@ class GraphModel {
     getDarkColor () {
         return this.metricData.darkColor;
     }
-    getTotal () {
-        return _.sum(this.getAggregatedValues());
-    }
     getActiveBreakdown () {
         if (!this.breakdowns) return null;
         return this.breakdowns.filter((breakdown) => {
             return breakdown.on;
         })[0];
     }
-    getAggregatedValues () {
+
+    getAggregateLabel () {
+        return this.metricData.additive ? 'Total' : 'Average';
+    }
+
+    getAggregate () {
+        return this.getLimitedAggregate();
+    }
+
+    getLimitedAggregate (limitToLastN) {
+        const values = this.getAggregatedValues(limitToLastN);
+        const total = _.sum(values);
+        const average = _.round(total / values.length, 1);
+
+        return this.metricData.additive ? total : average;
+    }
+
+    getAggregatedValues (limitToLastN) {
         const data = this.getGraphData();
+        let values;
+
         if (typeof data[0].total === 'number') {
-            return data.map((c) => {
+            values = data.map((c) => {
                 return c.total;
             });
         } else {
-            return data.map((r) => {
+            values = data.map((r) => {
                 return _.sum(_.map(r.total, (breakdownValue, key) => {
                     return this.getActiveBreakdown().values.find(v => v.key === key).on? breakdownValue: 0;
                 }));
             });
         }
+        const limit = Math.min(limitToLastN || values.length, values.length);
+        return _.take(values, limit);
     }
     topXByY (x, y) {
         this.dimensionalData.measure(x);
