@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="year total subdued">
-                    Year {{aggregationType}} ({{monthOneYearAgo.month.split('-')[0]}})
+                    Year {{aggregationType}} ({{monthOneYearAgo.month.getFullYear()}})
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@ export default {
             this.metricData = config.metricData(this.metric.name, this.area);
         },
         getMonthValue (date) {
-            return config.months[parseInt(date.split('-')[1])];
+            return config.months[date.getMonth() + 1];
         }
     },
 
