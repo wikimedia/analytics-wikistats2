@@ -42,6 +42,7 @@
                         }
                     })
                 }
+                this.updateState();
             },
             shouldBeChecked (index) {
                 // HORRIBLE, this shouldn't have side effects
@@ -51,6 +52,9 @@
                     })
                     this.graphModel.getBreakdowns()[index].on = false;
                 }
+            },
+            updateState () {
+                this.$store.state.breakdowns = JSON.parse(JSON.stringify(this.graphModel.getBreakdowns()));
             }
         }
     }

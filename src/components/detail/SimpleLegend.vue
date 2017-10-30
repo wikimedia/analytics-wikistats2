@@ -1,9 +1,9 @@
 <template>
 <span>
-    <span v-if="data.breakdowns && data.breakdowns[0].on">
-        <span v-for="b, i in data.breakdowns[0].values" v-if="b.on">
+    <span v-if="breakdown">
+        <span v-for="b, i in breakdown.values" v-if="b.on">
             <span class="color swatch"
-                  :style="{ 'background-color': colors[ci[b.key]] }"></span>
+                  :style="{ 'background-color': getColor(b.key) }"></span>
             {{b.name}}
         </span>
     </span>
@@ -15,17 +15,10 @@ import config from '../../config'
 
 export default {
     name: 'simple-legend',
-    props: ['data'],
-
-    data () {
-        return {
-            ci: config.stableColorIndexes
-        };
-    },
-
-    computed: {
-        colors: function () {
-            return config.colors[this.data.area];
+    props: ['breakdown'],
+    methods: {
+        getColor (key) {
+            return config.getColorForBreakdown(this.breakdown, key);
         }
     }
 }

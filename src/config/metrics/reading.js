@@ -6,7 +6,7 @@ module.exports = {
         defaults: {
             unique: {
                 project: ['all-projects'],
-                access: ['desktop', 'mobile-web', 'mobile-app']
+                access: ['all-access']
             },
             common: {
                 metric: 'total-pageviews',
@@ -38,7 +38,7 @@ module.exports = {
         defaults: {
             unique: {
                 project: ['all-projects'],
-                'access-site': ['desktop-site', 'mobile-site']
+                'access-site': ['all-sites']
             },
             common: {
                 metric: 'unique-devices',

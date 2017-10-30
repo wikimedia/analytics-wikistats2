@@ -170,9 +170,8 @@ export default {
             breakdownData.forEach(breakdown => {
 
                 // We need to find each breakdown's corresponding colour from the config
-
                 if (activeBreakdown) {
-                    bColor = config.colors[self.graphModel.getArea()][[config.stableColorIndexes[breakdown[0].key]]];
+                    bColor = config.getColorForBreakdown(activeBreakdown, breakdown[0].key);
                 }
                 g.append('path').datum(breakdown)
                     .attr('d', line)
@@ -221,7 +220,8 @@ export default {
         },
 
         getColorForBreakdown (key) {
-            return config.colors[this.graphModel.getArea()][config.stableColorIndexes[key]];
+            const activeBreakdown = this.graphModel.getActiveBreakdown();
+            return config.getColorForBreakdown(activeBreakdown, key);
         },
 
 

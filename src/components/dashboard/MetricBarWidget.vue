@@ -54,45 +54,42 @@ export default {
 
             const rowData = this.graphModel.getGraphData();
 
-            function resize () {
-                const n = root.node(),
-                      width = n.offsetWidth - margin.left - margin.right,
-                      height = n.offsetHeight - margin.top - margin.bottom - padding,
-                      x = scales.scaleBand().rangeRound([0, width]).padding(0.3),
-                      y = scales.scaleLinear().rangeRound([height, 0]);
+            const n = root.node(),
+                  width = n.offsetWidth - margin.left - margin.right,
+                  height = n.offsetHeight - margin.top - margin.bottom - padding,
+                  x = scales.scaleBand().rangeRound([0, width]).padding(0.3),
+                  y = scales.scaleLinear().rangeRound([height, 0]);
 
-                x.domain(rowData.map((d) => d.month));
-                y.domain([0, arr.max(rowData.map((d) => d.total))]);
+            x.domain(rowData.map((d) => d.month));
+            y.domain([0, arr.max(rowData.map((d) => d.total))]);
 
-                svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
-                g.attr('width', width).attr('height', height);
-                const lastMonth = rowData[rowData.length - 1].month;
-                g.append('g').selectAll('.bar').data(rowData)
-                    .enter().append('rect')
-                        .attr('x', (d) => x(d.month))
-                        .attr('y', (d) => y(d.total))
-                        .attr('width', x.bandwidth())
-                        .attr('height', (d) => height - y(d.total))
-                        .attr('fill', (d) =>
-                            d.month === lastMonth ?
-                                self.metricData.darkColor : self.metricData.lightColor
-                        );
+            svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
+            g.attr('width', width).attr('height', height);
+            const lastMonth = rowData[rowData.length - 1].month;
+            g.append('g').selectAll('.bar').data(rowData)
+                .enter().append('rect')
+                    .attr('x', (d) => x(d.month))
+                    .attr('y', (d) => y(d.total))
+                    .attr('width', x.bandwidth())
+                    .attr('height', (d) => height - y(d.total))
+                    .attr('fill', (d) =>
+                        d.month === lastMonth ?
+                            self.metricData.darkColor : self.metricData.lightColor
+                    );
 
-                g.append('g').classed('month-ticks', true)
-                    .attr('transform', `translate(${
-                                            x.bandwidth() / 2 - 3
-                                        },${12})`)
-                    .selectAll('.month').data(rowData)
-                    .enter().append('text')
-                        .attr('x', (d) => x(d.month))
-                        .attr('y', height)
-                        .text((d) => {
-                            return self.getMonthValue(d.month);
-                        }).style('fill', '#898989')
-                          .style('font-size', '9px')
-                          .style('font-family', 'Lato');
-            }
-            resize();
+            g.append('g').classed('month-ticks', true)
+                .attr('transform', `translate(${
+                                        x.bandwidth() / 2 - 3
+                                    },${12})`)
+                .selectAll('.month').data(rowData)
+                .enter().append('text')
+                    .attr('x', (d) => x(d.month))
+                    .attr('y', height)
+                    .text((d) => {
+                        return self.getMonthValue(d.month);
+                    }).style('fill', '#898989')
+                      .style('font-size', '9px')
+                      .style('font-family', 'Lato');
         },
         getMonthValue (date) {
             return config.months[date.getMonth() + 1][0];

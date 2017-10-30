@@ -48,7 +48,6 @@ export default {
         RouterLink,
     },
     methods: {
-
         viewMoreMetrics () {
             $('.ui.metrics.modal', this.$el).modal('show');
         },

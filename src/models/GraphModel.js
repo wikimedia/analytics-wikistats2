@@ -10,11 +10,10 @@ class GraphModel {
             this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
         }
         // Remove dimension values that have no data.
-        if (this.breakdowns) {
-            this.breakdowns.forEach(breakdown => {
-                let dimensionValues = this.dimensionalData.getDimensionValues(breakdown.breakdownName);
-                breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
-            });
+        const breakdown = this.getActiveBreakdown();
+        if (breakdown) {
+            let dimensionValues = this.dimensionalData.getDimensionValues(breakdown.breakdownName);
+            breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
         }
     }
     getGraphData () {

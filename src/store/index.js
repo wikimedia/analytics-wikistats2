@@ -10,6 +10,7 @@ export default new Vuex.Store({
         area: '',
         metric: '',
         mainComponent: '',
+        breakdowns: null,
         topicsMinimized: true,
     },
     getters: {

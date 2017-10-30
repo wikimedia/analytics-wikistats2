@@ -17,7 +17,7 @@ module.exports = {
         type: 'lines',
         area: 'content',
         value: 'edited_pages',
-        global: true,
+        global: false,
         breakdowns: [{
             on: false,
             name: 'Editor type',
@@ -89,7 +89,7 @@ module.exports = {
         additive: false
     },
     'absolute-bytes': {
-        fullName: 'Absolute bytes difference',
+        fullName: 'Absolute bytes diff',
         description: 'Absolute sum of all diff bytes in a project',
         defaults: {
             unique: {

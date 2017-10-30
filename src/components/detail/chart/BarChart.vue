@@ -106,7 +106,7 @@ export default {
                                 month: d.month,
                                 key: b.name,
                                 value: d.total[b.key],
-                                color: config.colors[self.graphModel.getArea()][[config.stableColorIndexes[b.key]]],
+                                color: config.getColorForBreakdown(breakdown, b.key),
                                 width: xW.bandwidth() / breakdowns.length,
                                 index: i
                             }));

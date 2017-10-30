@@ -11,9 +11,6 @@
     <graph-panel
         :metricData='metricData'
         :granularity='granularity'
-        :wiki='wiki'
-        :breakdowns='breakdowns'
-        :area='area'
         :graphModel='graphModel'
         :overlayMessage="overlayMessage"
         @changeTimeRange='setTimeRange'
@@ -101,6 +98,12 @@ export default {
         },
         'range': function () {
             this.loadData();
+        },
+        '$store.state.breakdowns': {
+            handler: function () {
+                this.loadData();
+            },
+            deep: true
         }
     },
 
@@ -112,7 +115,6 @@ export default {
     },
 
     methods: {
-
         loadData () {
             if (!this.$store.state.project) { return; }
 
@@ -128,13 +130,21 @@ export default {
                     unique: {},
                     common: {}
                 };
-                let dataPromise = aqsApi.getData(
-                    Object.assign(
-                        defaults.unique,
-                        {
-                            project: [this.$store.state.project]
-                        },
-                    ),
+                let uniqueParameters = Object.assign(
+                    defaults.unique,
+                    {
+                        project: [this.$store.state.project]
+                    },
+                );
+                const activeBreakdown = this.graphModel && this.graphModel.getActiveBreakdown();
+                if (activeBreakdown) {
+                    const breakdownKeys = activeBreakdown.values.reduce((p, c) => {
+                        c.on && p.push(c.key);
+                        return p;
+                    }, []);
+                    uniqueParameters[activeBreakdown.breakdownName] = breakdownKeys;
+                }
+                let dataPromise = aqsApi.getData(uniqueParameters,
                     Object.assign(
                         defaults.common,
                         {
@@ -145,12 +155,12 @@ export default {
                     )
                 );
                 this.overlayMessage = StatusOverlay.LOADING;
+                const prevBreakdowns = this.graphModel && this.graphModel.getBreakdowns();
                 dataPromise.catch((req, status, error) => {
                     this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
                 });
                 dataPromise.then(dimensionalData => {
                     this.overlayMessage = null;
-                    const prevBreakdowns = this.graphModel && this.graphModel.getBreakdowns();
                     this.graphModel = new GraphModel(metricData, dimensionalData, prevBreakdowns);
                 });
             }

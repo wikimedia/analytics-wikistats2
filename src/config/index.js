@@ -21,6 +21,21 @@ const colors = {
     reading: ['#c8f0e7', '#77d8c2', '#00af89', '#03745c'],
     content: ['#fff1c6', '#f9df90', '#ffcc33', '#ddad1c']
 };
+
+const qualitativeScale = {
+    "1": [ "#7F3C8D" ],
+    "2": [ "#7F3C8D", "#11A579", "#A5AA99" ],
+    "3": [ "#7F3C8D", "#11A579", "#3969AC", "#A5AA99" ],
+    "4": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#A5AA99" ],
+    "5": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#A5AA99" ],
+    "6": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", "#A5AA99" ],
+    "7": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", "#E68310", "#A5AA99" ],
+    "8": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", "#E68310", "#008695", "#A5AA99" ],
+    "9": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", "#E68310", "#008695", "#CF1C90", "#A5AA99" ],
+    "10": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", "#E68310", "#008695", "#CF1C90", "#f97b72", "#A5AA99" ],
+    "11": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", "#E68310", "#008695", "#CF1C90", "#f97b72", "#4b4b8f", "#A5AA99" ]
+};
+
 const stableColorIndexes = {
     'Lightly Active': 0,
     'Active': 1,
@@ -77,28 +92,28 @@ const mainMetricsByArea = [
             ]
         }
     },
-    // {
-    //     state: {
-    //         id: 'contributing',
-    //         name: 'Contributing',
-    //         metrics: [
-    //             'new-registered-users',
-    //             'edits',
-    //             'editors'
-    //         ]
-    //     }
-    // },
-    // {
-    //     state: {
-    //         id: 'content',
-    //         name: 'Content',
-    //         metrics: [
-    //             'edited-pages',
-    //             'net-bytes',
-    //             'absolute-bytes'
-    //         ]
-    //     }
-    // }
+    {
+        state: {
+            id: 'contributing',
+            name: 'Contributing',
+            metrics: [
+                'new-registered-users',
+                'edits',
+                'editors'
+            ]
+        }
+    },
+    {
+        state: {
+            id: 'content',
+            name: 'Content',
+            metrics: [
+                'edited-pages',
+                'net-bytes',
+                'absolute-bytes'
+            ]
+        }
+    }
 ];
 
 
@@ -202,6 +217,10 @@ export default {
         );
     },
 
+    getColorForBreakdown (breakdown, key) {
+        return qualitativeScale[breakdown.values.length][breakdown.values.indexOf(breakdown.values.find(value => value.key === key))]
+    },
+
     areas () {
         const areasFromMetrics = new Set();
         _.forEach(metrics, (metric) => {
@@ -209,9 +228,9 @@ export default {
         });
         const areaList = [
             { path: '', name: 'Dashboard' },
-            // { path: 'contributing', name: 'Contributing' },
+            { path: 'contributing', name: 'Contributing' },
             { path: 'reading', name: 'Reading' },
-            // { path: 'content', name: 'Content' },
+            { path: 'content', name: 'Content' },
         ].filter(
             (area) => area.path === '' || areasFromMetrics.has(area.path)
         );
@@ -225,6 +244,7 @@ export default {
 
     metrics,
     colors,
+    qualitativeScale,
     stableColorIndexes,
     questions,
     areasWithMetrics,

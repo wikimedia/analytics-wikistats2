@@ -95,15 +95,16 @@ class AQS {
     /*
     Takes the common data in an API request and adds it to each individual item.
 
-    INPUT:                             OUTPUT:
-
-    {                                  [{
-        'a': 'foo',                        'a': 'foo',
-        'b': 'bar',              ==>       'b': 'bar',
-        'results': [{                      'timestamp': 1990,
-            'timestamp': 1990,             'x': 20
-            'x': 20                    }, ...
-        }, ...]                        ]
+    INPUT:                                               OUTPUT:
+    {                                                    [
+        'granularity': 'monthy',                             {
+        'access-site': 'desktop-site',                           'granularity': 'monthy',
+        'results': [                            ==>              'access-site': 'desktop-site',
+            {                                                    'timestamp': '2017090100',
+                'timestamp': '2017090100',                       'value': 200
+                'value': 200                                 }, ...
+            }, ...
+        ]
     }
 
     Any hyphens in keys will be replaced by underscores to uniformise breakdown keys

@@ -1,7 +1,7 @@
 <template>
 <section class="graph panel">
     <div class="ui clearing basic segment">
-        <div v-if="wiki">
+        <div v-if="graphModel && !overlayMessage">
             <h2 class="ui left floated header">
                 <a class='metric link' :href="metricData.info_url" target="_blank">
                     {{metricData.fullName || 'No data yet... '}}
@@ -10,7 +10,7 @@
             </h2>
 
             <div class="ui right floated basic fudge segment">
-                <simple-legend v-if="chartType !== 'table'" class="simple legend" :data="metricData"></simple-legend>
+                <simple-legend v-if="activeBreakdown && metricData.type !== 'table'" class="simple legend" :breakdown="activeBreakdown"></simple-legend>
                 <div class="ui right floated icon buttons">
 
                     <button @click="download" class="ui icon button" title="Download">
@@ -36,26 +36,25 @@
             <component
                 v-if="graphModel"
                 :is="chartComponent"
-                :metricData="metricData"
                 :graphModel="graphModel"
-                :breakdown="breakdown">
+                :metricData="metricData"
+                :graphData="graphModel.getGraphData()">
             </component>
+            <div class="ui right floated icon button" @click="toggleFullscreen">
+                <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
+            </div>
             <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
-                <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
                 <h5>
                     {{graphModel.getAggregateLabel()}}:
                     {{aggregate | kmb}} {{metricData.fullName}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     {{changeOverRange}}% over this time range.
                 </h5>
-            </div>
-            <div class="ui center aligned subdued basic segment">
                 <p>{{metricData.description}}. <a class='metric link' :href="metricData.info_url" target="_blank">More info about this metric.</a></p>
-
             </div>
-            <div class="ui right floated icon button" title="Toggle full-width graph" @click="toggleFullscreen">
-                <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
-            </div>
+        </div>
+        <div class="ui center aligned subdued basic segment">
+            <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
@@ -84,11 +83,8 @@ export default {
         EmptyChart,
         StatusOverlay
     },
-    props: ['metricData', 'wiki', 'breakdowns', 'fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
+    props: ['metricData', 'fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
     computed: {
-        breakdown: function () {
-            return (this.breakdowns || []).find((m) => m.on);
-        },
         chartTypes: function () {
             return this.getChartTypes();
         },
@@ -106,6 +102,9 @@ export default {
         changeOverRange: function () {
             const data = this.graphModel.getAggregatedValues();
             return ((data[data.length - 1] - data[0]) / data[0] * 100).toFixed(2);
+        },
+        activeBreakdown: function () {
+            return this.graphModel.getActiveBreakdown();
         }
     },
     data () {
