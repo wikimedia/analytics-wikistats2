@@ -3,11 +3,12 @@
     <div v-if="hoveredPoint" class="valuePopup">
         <p ><b>{{formatDate(hoveredPoint.month)}}</b></p>
         <div v-if="!graphModel.getActiveBreakdown()">
-            <p>{{selectedValue}}</p>
+            <p>{{selectedValue | thousands}}</p>
         </div>
         <div v-else v-for="b in this.selectedValue">
             <p class="breakdown">
-                <b><span v-bind:style="{ color: getColorForBreakdown(b[0])}">{{graphModel.getActiveBreakdown().values.find(v => v.key === b[0]).name + ": "}}</span></b><span>{{b[1]}}</span>
+                <b><span v-bind:style="{ color: getColorForBreakdown(b[0])}">{{graphModel.getActiveBreakdown().values.find(v => v.key === b[0]).name + ": "}}</span></b>
+                <span>{{b[1] | thousands}}</span>
             </p>
         </div>
     </div>

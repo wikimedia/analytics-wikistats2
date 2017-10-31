@@ -40,9 +40,6 @@
                 :metricData="metricData"
                 :graphData="graphModel.getGraphData()">
             </component>
-            <div class="ui right floated icon button" @click="toggleFullscreen">
-                <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
-            </div>
             <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
                 <h5>
                     {{graphModel.getAggregateLabel()}}:
@@ -57,6 +54,13 @@
             <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
+    </div>
+    <div class="ui right floated icon button"
+         v-if="!overlayMessage"
+        @click="toggleFullscreen"
+        :title="fullscreen ? 'minimize the graph and show controls' : 'maximize the graph and hide controls'">
+
+        <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
     </div>
 </section>
 </template>

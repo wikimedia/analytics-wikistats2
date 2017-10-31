@@ -1,7 +1,48 @@
 module.exports = {
+    'absolute-bytes': {
+        fullName: 'Absolute bytes diff',
+        description: 'Absolute sum of all diff bytes in a project',
+        question: 'How many bytes have been changed?',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                editor_type: ['all-editor-types'],
+                page_type: ['all-page-types']
+            },
+            common: {
+                granularity: 'monthly',
+                metric: 'absolute-bytes'
+            }
+        },
+        type: 'bars',
+        area: 'content',
+        value: 'abs_bytes_diff',
+        global: true,
+        breakdowns: [{
+            on: false,
+            name: 'User type',
+            breakdownName: 'editor_type',
+            values: [
+                { name: 'Anonymous', on: true, key: 'anonymous' },
+                { name: 'Group bot', on: true, key: 'group-bot' },
+                { name: 'Name bot', on: true, key: 'name-bot' },
+                { name: 'User', on: true, key: 'user' },
+            ]
+        },{
+            on: false,
+            name: 'Page type',
+            breakdownName: 'page_type',
+            values: [
+                { name: 'Content', on: true, key: 'content' },
+                { name: 'Non content', on: true, key: 'non-content' }
+            ]
+        }],
+        additive: false
+    },
     'edited-pages': {
         fullName: 'Edited pages',
         description: 'Number of pages edited',
+        question: 'How many pages are edited?',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -52,6 +93,7 @@ module.exports = {
     'net-bytes': {
         fullName: 'Net bytes difference',
         description: 'Net difference between current byte size of a project and last period\'s',
+        question: 'How did the size in bytes change since last period?',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -88,43 +130,4 @@ module.exports = {
         }],
         additive: false
     },
-    'absolute-bytes': {
-        fullName: 'Absolute bytes diff',
-        description: 'Absolute sum of all diff bytes in a project',
-        defaults: {
-            unique: {
-                project: ['all-projects'],
-                editor_type: ['all-editor-types'],
-                page_type: ['all-page-types']
-            },
-            common: {
-                granularity: 'monthly',
-                metric: 'absolute-bytes'
-            }
-        },
-        type: 'bars',
-        area: 'content',
-        value: 'abs_bytes_diff',
-        global: true,
-        breakdowns: [{
-            on: false,
-            name: 'User type',
-            breakdownName: 'editor_type',
-            values: [
-                { name: 'Anonymous', on: true, key: 'anonymous' },
-                { name: 'Group bot', on: true, key: 'group-bot' },
-                { name: 'Name bot', on: true, key: 'name-bot' },
-                { name: 'User', on: true, key: 'user' },
-            ]
-        },{
-            on: false,
-            name: 'Page type',
-            breakdownName: 'page_type',
-            values: [
-                { name: 'Content', on: true, key: 'content' },
-                { name: 'Non content', on: true, key: 'non-content' }
-            ]
-        }],
-        additive: false
-    }
 };

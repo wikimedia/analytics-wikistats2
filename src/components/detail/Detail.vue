@@ -2,19 +2,20 @@
 <section class="detail container" :class="{ area, fullscreen }">
     <detail-sidebar
         v-if="!fullscreen"
-        :otherMetrics='otherMetrics'
-        :metric='metric'
-        :area='area'
-        :graphModel='graphModel'
+        :otherMetrics="otherMetrics"
+        :metric="metric"
+        :area="area"
+        :graphModel="graphModel"
     />
 
     <graph-panel
-        :metricData='metricData'
-        :granularity='granularity'
-        :graphModel='graphModel'
+        :metricData="metricData"
+        :granularity="granularity"
+        :graphModel="graphModel"
+        :fullscreen="fullscreen"
         :overlayMessage="overlayMessage"
-        @changeTimeRange='setTimeRange'
-        @toggleFullscreen='toggleFullscreen'
+        @changeTimeRange="setTimeRange"
+        @toggleFullscreen="toggleFullscreen"
     />
 
     <metrics-modal
@@ -104,7 +105,11 @@ export default {
                 this.loadData();
             },
             deep: true
-        }
+        },
+        'overlayMessage': function () {
+            // when we display an error or loading in full-screen, the overlay doesn't show and causes a broken interface
+            if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) { this.fullscreen = false; }
+        },
     },
 
     mounted () {
@@ -235,8 +240,6 @@ export default {
     height: 18px;
     margin-right: 3px;
 }
-.left.panel .ui.toggle { margin-top: 10px; }
-.left.panel .ui.toggle label { cursor: pointer!important; }
 .ui.line.label {
     display: table;
     margin: 3px;
@@ -253,10 +256,6 @@ export default {
     border: solid 2px #979797!important;
     font-weight: bold;
     color: #222!important;
-}
-
-.app .ui.toggle.checkbox input:checked ~ label:before {
-    background-color: #227634!important;
 }
 
 .fullscreen .graph.panel {

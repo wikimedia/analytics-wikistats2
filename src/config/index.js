@@ -119,42 +119,12 @@ const mainMetricsByArea = [
 
 const metrics = require('./metrics');
 
-const questions = [
-
-    { area: 'contributing', metric: 'Top Contributors', question: 'Who are the top contributors?' },
-    { area: 'contributing', metric: 'Active Editors',   question: 'How many active editors are there?' },
-    { area: 'contributing', metric: 'Non-bot edits',    question: 'How many edits have been made by registered human users?' },
-    { area: 'contributing', metric: 'New Editors',            question: 'How many new editors are there?' },
-    { area: 'contributing', metric: 'Newly registered users', question: 'How many new users are there?' },
-    { area: 'contributing', metric: 'Total editors',          question: 'How many editors are there?' },
-    { area: 'contributing', metric: 'Editors by language',    question: 'How many editors are there in the most populated countries?' },
-    { area: 'contributing', metric: 'Total Edits',         question: 'How many edits have been made?' },
-    { area: 'contributing', metric: 'Anonymous edits',     question: 'How many edits have been made by anonymous users?' },
-    { area: 'contributing', metric: 'Edits per article',   question: 'How many edits does an article receive on average?' },
-    { area: 'contributing', metric: 'Top edited articles', question: 'What are the most edited articles?' },
-    { area: 'contributing', metric: 'Total Reverts',       question: 'How many edits undo previous edits?' },
-
-    { area: 'reading', metric: 'Total Pageviews',      question: 'How many times are articles viewed?' },
-    { area: 'reading', metric: 'Unique Devices',       question: 'How many unique devices access content?' },
-    { area: 'reading', metric: 'Most Viewed Articles', question: 'What are the most viewed articles?' },
-    { area: 'reading', metric: 'Article Pageviews',    question: 'How many times is an article viewed, on average?' },
-    { area: 'reading', metric: 'Page Views per Edit?', question: 'How many times is a particular article version viewed?' },
-
-    { area: 'content', metric: 'Total Articles',    question: 'How many articles are there?' },
-    { area: 'content', metric: 'Media Uploads',     question: 'How much media is there (video, sound, images)?' },
-    { area: 'content', metric: 'New articles',      question: 'How many new articles are added?' },
-    { area: 'content', metric: 'Top Article Creators', question: 'Who are the top article creators?' },
-    { area: 'content', metric: 'Article size', question: 'What is the size of all articles in bytes?' },
-    { area: 'content', metric: 'Articles with most edits',        question: 'What articles have the most edits?' },
-    { area: 'content', metric: 'Articles with most contributors', question: 'What are the articles with the most contributors?' },
-    { area: 'content', metric: 'Reference Links', question: 'Where do articles link to?' }
-];
-
-// The metric id is inferred from the long name and used to determine whether the metric is enabled
-questions.forEach(q => {
-    q.id = _.kebabCase(q.metric);
-    q.enabled = !!(metrics[q.id]);
-});
+const questions = Object.keys(metrics).map(k => ({
+    id: k,
+    metric: metrics[k].fullName,
+    area: metrics[k].area,
+    question: metrics[k].question,
+})).sort((a, b) => a.area > b.area || a.metric > b.metric);
 
 const AQS_HOST = 'https://wikimedia.org/api/rest_v1/metrics';
 

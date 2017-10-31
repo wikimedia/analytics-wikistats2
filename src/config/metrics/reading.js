@@ -1,7 +1,32 @@
 module.exports = {
+    'top-viewed-articles': {
+        fullName: 'Top Viewed Articles',
+        subtitle: 'Most viewed articles',
+        description: 'Most viewed articles',
+        question: 'What are the most viewed articles?',
+        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        type: 'list',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                access: ['all-access']
+            },
+            common: {
+                metric: 'top-viewed-articles',
+                granularity: 'monthly'
+            }
+        },
+        value: 'views',
+        valueName: 'Views',
+        key: 'article',
+        area: 'reading',
+        global: false,
+        breakdowns: null
+    },
     'total-pageviews': {
         fullName: 'Total Page Views',
         description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views.',
+        question: 'How many times are articles viewed?',
         info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         defaults: {
             unique: {
@@ -33,6 +58,7 @@ module.exports = {
     'unique-devices': {
         fullName: 'Unique Devices',
         description: 'How many distinct devices we have visiting a project in a given time period.',
+        question: 'How many unique devices access content?',
         info_url: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
         type: 'lines',
         defaults: {
@@ -59,26 +85,4 @@ module.exports = {
         }],
         additive: false
     },
-    'top-viewed-articles': {
-        fullName: 'Top Viewed Articles',
-        subtitle: 'Most viewed articles',
-        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
-        type: 'list',
-        defaults: {
-            unique: {
-                project: ['all-projects'],
-                access: ['all-access']
-            },
-            common: {
-                metric: 'top-viewed-articles',
-                granularity: 'monthly'
-            }
-        },
-        value: 'views',
-        valueName: 'Views',
-        key: 'article',
-        area: 'reading',
-        global: false,
-        breakdowns: null
-    }
 };

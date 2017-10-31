@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 
 // Register filters
 Vue.filter('thousands', (n) => numeral(n).format('0,0'));
-Vue.filter('kmb', (n) => numeral(n).format('0.0a'));
+Vue.filter('kmb', (n) => numeral(n).format('0,0a'));
 Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : ''));
 
 // eslint-disable no-new

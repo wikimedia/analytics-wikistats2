@@ -190,12 +190,14 @@ export default {
     margin-left: 0.3333333333%;
     margin-right: 0.3333333333%;
     background-color: #ffffff;
-    border-radius: 0 0 10px 10px;
     border: 1px solid #d4d4d5;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
     color: #000!important;
     padding: 13px 22px!important;
+}
+.widget.column, .widget.column .status.overlay {
+    border-radius: 0 0 10px 10px;
 }
 .widget.column:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
