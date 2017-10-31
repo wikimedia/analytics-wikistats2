@@ -32,13 +32,11 @@
         props: ['graphModel'],
         methods: {
             breakdownToggled (index) {
-                if (this.graphModel.getBreakdowns()[index].on) {
-                    this.graphModel.getBreakdowns().forEach((b, i) => {
-                        if(i != index) {
-                            this.graphModel.getBreakdowns()[i].on = false;
-                        }
-                    })
-                }
+                this.graphModel.getBreakdowns().forEach((b, i) => {
+                    if(i != index) {
+                        this.graphModel.getBreakdowns()[i].on = false;
+                    }
+                })
                 this.updateState();
             },
             shouldBeChecked (index) {

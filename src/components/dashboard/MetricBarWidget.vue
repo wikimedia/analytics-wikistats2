@@ -60,8 +60,10 @@ export default {
                   x = scales.scaleBand().rangeRound([0, width]).padding(0.3),
                   y = scales.scaleLinear().rangeRound([height, 0]);
 
+            const min = Math.min(0, arr.min(rowData.map((d) => d.total)));
+
             x.domain(rowData.map((d) => d.month));
-            y.domain([0, arr.max(rowData.map((d) => d.total))]);
+            y.domain([min, arr.max(rowData.map((d) => d.total))]);
 
             svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
             g.attr('width', width).attr('height', height);
@@ -69,13 +71,30 @@ export default {
             g.append('g').selectAll('.bar').data(rowData)
                 .enter().append('rect')
                     .attr('x', (d) => x(d.month))
-                    .attr('y', (d) => y(d.total))
+                    .attr('y', (d) => {
+                        if (d.total >= 0) {
+                            return y(d.total);
+                        } else {
+                            return y(0);
+                        }
+                    })
                     .attr('width', x.bandwidth())
-                    .attr('height', (d) => height - y(d.total))
+                    .attr('height', (d) => {
+                        return Math.abs(y(d.total) - y(0))
+                    })
                     .attr('fill', (d) =>
                         d.month === lastMonth ?
                             self.metricData.darkColor : self.metricData.lightColor
                     );
+            if (min < 0) {
+                g.append('line')
+                    .attr('x1', 0)
+                    .attr('x2', width)
+                    .attr('y1', y(0))
+                    .attr('y2', y(0))
+                    .style('stroke', self.metricData.lightColor)
+                    .style('stroke-width', 0.5);
+            }
 
             g.append('g').classed('month-ticks', true)
                 .attr('transform', `translate(${

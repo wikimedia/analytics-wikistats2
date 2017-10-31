@@ -54,8 +54,9 @@ export default {
                 const n = root.node(),
                       width = n.offsetWidth - margin.left - margin.right,
                       height = n.offsetHeight - margin.top - margin.bottom - padding,
+                      min = Math.min(0, arr.min(rowData.map((d) => d.total))),
                       x = scales.scaleTime().rangeRound([0, width]),
-                      y = scales.scaleLinear().rangeRound([height, 0]);
+                      y = scales.scaleLinear().rangeRound([height, min]);
 
                 x.domain(arr.extent(rowData.map((d) => d.month)));
                 y.domain([0, arr.max(rowData.map((d) => d.total))]);

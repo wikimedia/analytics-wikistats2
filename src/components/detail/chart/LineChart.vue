@@ -121,7 +121,7 @@ export default {
 
             const height = n.offsetHeight - margin.top - margin.bottom - padding;
             let y = scales.scaleLinear().rangeRound([height, 0]);
-            y.domain([0, max]);
+            y.domain([this.getMinValue(rowData, activeBreakdown), max]);
 
             // Resize the parent svg element so that it envelops the whole content
 
@@ -250,6 +250,19 @@ export default {
                 }));
             } else {
                 return _.max(rowData.map((d) => d.total));
+            }
+        },
+
+        getMinValue (rowData, activeBreakdown) {
+            if (activeBreakdown) {
+                return Math.min(0,_.min(rowData.map((r) => {
+                    return _.min(_.map(r.total, (breakdownValue, key) => {
+                        return activeBreakdown.values
+                                    .find(v => v.key === key).on? breakdownValue: 0;
+                    }));
+                })));
+            } else {
+                return Math.min(0, _.min(rowData.map((d) => d.total)));
             }
         },
 
