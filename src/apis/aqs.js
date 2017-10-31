@@ -72,6 +72,11 @@ class AQS {
             let validData = _.filter(data, d => !d.hasOwnProperty('error'));
             let formattedData = _.flatten(validData.map(d => d.items));
             if (formattedData.length > 0) {
+                // Some endpoints return repetitive information in an upper level, and then row
+                // data in a results array
+                if (formattedData[0].results) {
+                    formattedData = this.transformResults(formattedData);
+                }
                 if (metricData.type === 'list') {
                     formattedData = this.formatTops(formattedData);
                 }
@@ -84,6 +89,39 @@ class AQS {
 
     formatTops (data) {
         return _.flatten(data.map(item => item.articles));
+    }
+
+
+    /*
+    Takes the common data in an API request and adds it to each individual item.
+
+    INPUT:                                               OUTPUT:
+    {                                                    [
+        'granularity': 'monthy',                             {
+        'access-site': 'desktop-site',                           'granularity': 'monthy',
+        'results': [                            ==>              'access-site': 'desktop-site',
+            {                                                    'timestamp': '2017090100',
+                'timestamp': '2017090100',                       'value': 200
+                'value': 200                                 }, ...
+            }, ...
+        ]
+    }
+
+    Any hyphens in keys will be replaced by underscores to uniformise breakdown keys
+    and parameter names.
+    */
+    transformResults (data) {
+        return data.reduce((p, c) => {
+            let keys = Object.keys(c);
+            const resultsIndex = keys.indexOf('results');
+            keys.splice(resultsIndex, 1);
+            return p.concat(c.results.map((datum) => {
+                keys.forEach((key) => {
+                    datum[key.replace(/-/g, '_')] = c[key];
+                })
+                return datum
+            }))
+        }, []);
     }
 }
 

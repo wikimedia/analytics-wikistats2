@@ -67,7 +67,7 @@ export default {
     },
 
     mounted () {
-        this.searchData = config.questions.filter(q => q.enabled);
+        this.searchData = config.questions;
     },
 
     computed: mapState([

@@ -3,11 +3,12 @@
     <div v-if="hoveredPoint" class="valuePopup">
         <p ><b>{{formatDate(hoveredPoint.month)}}</b></p>
         <div v-if="!graphModel.getActiveBreakdown()">
-            <p>{{selectedValue}}</p>
+            <p>{{selectedValue | thousands}}</p>
         </div>
         <div v-else v-for="b in this.selectedValue">
             <p class="breakdown">
-                <b><span v-bind:style="{ color: getColorForBreakdown(b[0])}">{{graphModel.getActiveBreakdown().values.find(v => v.key === b[0]).name + ": "}}</span></b><span>{{b[1]}}</span>
+                <b><span v-bind:style="{ color: getColorForBreakdown(b[0])}">{{graphModel.getActiveBreakdown().values.find(v => v.key === b[0]).name + ": "}}</span></b>
+                <span>{{b[1] | thousands}}</span>
             </p>
         </div>
     </div>
@@ -120,7 +121,7 @@ export default {
 
             const height = n.offsetHeight - margin.top - margin.bottom - padding;
             let y = scales.scaleLinear().rangeRound([height, 0]);
-            y.domain([0, max]);
+            y.domain([this.getMinValue(rowData, activeBreakdown), max]);
 
             // Resize the parent svg element so that it envelops the whole content
 
@@ -170,9 +171,8 @@ export default {
             breakdownData.forEach(breakdown => {
 
                 // We need to find each breakdown's corresponding colour from the config
-
                 if (activeBreakdown) {
-                    bColor = config.colors[self.graphModel.getArea()][[config.stableColorIndexes[breakdown[0].key]]];
+                    bColor = config.getColorForBreakdown(activeBreakdown, breakdown[0].key);
                 }
                 g.append('path').datum(breakdown)
                     .attr('d', line)
@@ -221,7 +221,8 @@ export default {
         },
 
         getColorForBreakdown (key) {
-            return config.colors[this.graphModel.getArea()][config.stableColorIndexes[key]];
+            const activeBreakdown = this.graphModel.getActiveBreakdown();
+            return config.getColorForBreakdown(activeBreakdown, key);
         },
 
 
@@ -249,6 +250,19 @@ export default {
                 }));
             } else {
                 return _.max(rowData.map((d) => d.total));
+            }
+        },
+
+        getMinValue (rowData, activeBreakdown) {
+            if (activeBreakdown) {
+                return Math.min(0,_.min(rowData.map((r) => {
+                    return _.min(_.map(r.total, (breakdownValue, key) => {
+                        return activeBreakdown.values
+                                    .find(v => v.key === key).on? breakdownValue: 0;
+                    }));
+                })));
+            } else {
+                return Math.min(0, _.min(rowData.map((d) => d.total)));
             }
         },
 

@@ -2,22 +2,20 @@
 <section class="detail container" :class="{ area, fullscreen }">
     <detail-sidebar
         v-if="!fullscreen"
-        :otherMetrics='otherMetrics'
-        :metric='metric'
-        :area='area'
-        :graphModel='graphModel'
+        :otherMetrics="otherMetrics"
+        :metric="metric"
+        :area="area"
+        :graphModel="graphModel"
     />
 
     <graph-panel
-        :metricData='metricData'
-        :granularity='granularity'
-        :wiki='wiki'
-        :breakdowns='breakdowns'
-        :area='area'
-        :graphModel='graphModel'
+        :metricData="metricData"
+        :granularity="granularity"
+        :graphModel="graphModel"
+        :fullscreen="fullscreen"
         :overlayMessage="overlayMessage"
-        @changeTimeRange='setTimeRange'
-        @toggleFullscreen='toggleFullscreen'
+        @changeTimeRange="setTimeRange"
+        @toggleFullscreen="toggleFullscreen"
     />
 
     <metrics-modal
@@ -101,7 +99,17 @@ export default {
         },
         'range': function () {
             this.loadData();
-        }
+        },
+        '$store.state.breakdowns': {
+            handler: function () {
+                this.loadData();
+            },
+            deep: true
+        },
+        'overlayMessage': function () {
+            // when we display an error or loading in full-screen, the overlay doesn't show and causes a broken interface
+            if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) { this.fullscreen = false; }
+        },
     },
 
     mounted () {
@@ -112,7 +120,6 @@ export default {
     },
 
     methods: {
-
         loadData () {
             if (!this.$store.state.project) { return; }
 
@@ -128,13 +135,21 @@ export default {
                     unique: {},
                     common: {}
                 };
-                let dataPromise = aqsApi.getData(
-                    Object.assign(
-                        defaults.unique,
-                        {
-                            project: [this.$store.state.project]
-                        },
-                    ),
+                let uniqueParameters = Object.assign(
+                    defaults.unique,
+                    {
+                        project: [this.$store.state.project]
+                    },
+                );
+                const activeBreakdown = this.graphModel && this.graphModel.getActiveBreakdown();
+                if (activeBreakdown) {
+                    const breakdownKeys = activeBreakdown.values.reduce((p, c) => {
+                        c.on && p.push(c.key);
+                        return p;
+                    }, []);
+                    uniqueParameters[activeBreakdown.breakdownName] = breakdownKeys;
+                }
+                let dataPromise = aqsApi.getData(uniqueParameters,
                     Object.assign(
                         defaults.common,
                         {
@@ -145,12 +160,12 @@ export default {
                     )
                 );
                 this.overlayMessage = StatusOverlay.LOADING;
+                const prevBreakdowns = this.graphModel && this.graphModel.getBreakdowns();
                 dataPromise.catch((req, status, error) => {
                     this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
                 });
                 dataPromise.then(dimensionalData => {
                     this.overlayMessage = null;
-                    const prevBreakdowns = this.graphModel && this.graphModel.getBreakdowns();
                     this.graphModel = new GraphModel(metricData, dimensionalData, prevBreakdowns);
                 });
             }
@@ -225,8 +240,6 @@ export default {
     height: 18px;
     margin-right: 3px;
 }
-.left.panel .ui.toggle { margin-top: 10px; }
-.left.panel .ui.toggle label { cursor: pointer!important; }
 .ui.line.label {
     display: table;
     margin: 3px;
@@ -243,10 +256,6 @@ export default {
     border: solid 2px #979797!important;
     font-weight: bold;
     color: #222!important;
-}
-
-.app .ui.toggle.checkbox input:checked ~ label:before {
-    background-color: #227634!important;
 }
 
 .fullscreen .graph.panel {

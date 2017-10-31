@@ -1,17 +1,20 @@
 <template>
-<section class="ui three column centered grid">
-    <div class="middle aligned column">
-        <p>Find out more <a href="https://wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">about Wikistats</a> and the <a href="https://wikitech.wikimedia.org/wiki/Analytics#Datasets">data that it uses</a></p>
+<section class="ui centered grid">
+    <div class="four wide middle aligned column">
+        Find out more <a target="_blank" href="https://wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">about Wikistats</a><br/>
+        and the <a target="_blank" href="https://wikitech.wikimedia.org/wiki/Analytics#Datasets">data it uses</a><br/>
     </div>
-    <div class="middle aligned column">
-        <p>Wikistats is written with <a target="_blank" href="//vuejs.org">Vue.js</a> and <a target="_blank" href="//semantic-ui.com">Semantic UI</a>.  If you'd like to contribute, see our <a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0#Contributing_and_Deployment">contributing guide</a> or follow this link to <a target='_blank' href='https://phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&amp;projectPHIDs=Analytics-Wikistats,Analytics'>report a bug</a></p>
+    <div class="eight wide middle aligned column">
+        See our <a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0#Contributing_and_Deployment">contributing guide</a> to help us build Wikistats<br/>
+        We use <a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0#Technology">Vue.js, d3, CrossFilter, and more</a><br/>
+        Follow this link to <a target='_blank' href='https://phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&amp;projectPHIDs=Analytics-Wikistats,Analytics'>report a bug</a><br/>
     </div>
-    <div class="middle aligned column">
-        <p>Wikistats is designed by <a target="_blank" href="//aislinngrigas.com/about/">Aislinn Grigas</a>.</p>
+    <div class="four wide middle aligned column">
+        Designed by <a target="_blank" href="//aislinngrigas.com/about/">Aislinn Grigas</a>.<br/>
     </div>
     <div class="row">
-        <div class="eight wide middle aligned column">
-            <p>All data, charts, and other content is available under the <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_new">Creative Commons CC0 dedication.</a></p>
+        <div class="sixteen wide middle aligned column">
+            All data, charts, and other content is available under the <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 dedication.</a><br/>
         </div>
     </div>
 </section>
@@ -29,5 +32,6 @@ export default {
 </script>
 
 <style scoped>
-a, a:visited { color: #777; }
+a, a:visited { color: #888; }
+.ui.centered { font-size: 1.1em; }
 </style>

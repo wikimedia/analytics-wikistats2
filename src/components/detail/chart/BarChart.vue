@@ -70,9 +70,19 @@ export default {
                         return r.total;
                     }
                 }));
+                const min = Math.min(0, _.min(detail.map((r) => {
+                    if (typeof detail[0].total !=  'number') {
+                        return _.min(_.map(r.total, (breakdownValue, key) => {
+                            return self.graphModel.getActiveBreakdown()
+                                    .values.find(v => v.key === key).on? breakdownValue: 0;
+                        }));
+                    } else {
+                        return r.total;
+                    }
+                })));
                 let height = n.offsetHeight - margin.top - margin.bottom - padding;
                 let y = scales.scaleLinear().range([height, 0]);
-                y.domain([0, max]);
+                y.domain([min, max]);
                 const yAxis = axes.axisLeft(y).ticks(7)
                                 .tickFormat(utils.modifiedSIFormat);
                 const yAxisContainer = g.append('g')
@@ -96,7 +106,7 @@ export default {
                 let graphElement = g.append('g');
 
                 if (typeof detail[0].total !=  'number') {
-                    y.domain([0, max]);
+                    y.domain([min, max]);
                     graphElement.selectAll('.bar').data(detail)
                         .enter().selectAll('.minibar').data(function (d) {
                             // this should be passed in
@@ -106,7 +116,7 @@ export default {
                                 month: d.month,
                                 key: b.name,
                                 value: d.total[b.key],
-                                color: config.colors[self.graphModel.getArea()][[config.stableColorIndexes[b.key]]],
+                                color: config.getColorForBreakdown(breakdown, b.key),
                                 width: xW.bandwidth() / breakdowns.length,
                                 index: i
                             }));
@@ -116,19 +126,40 @@ export default {
                             .attr('x', (d) => {
                                 return xW(new Date(Date.parse(d.month))) + d.index * d.width;
                             })
-                            .attr('y', (d) => y(d.value))
+                            .attr('y', (d) => {
+                                if (d.value >= 0) {
+                                    return y(d.value);
+                                } else {
+                                    return y(0);
+                                }
+                            })
                             .attr('width', (d) => d.width)
-                            .attr('height', (d) => height - y(d.value))
+                            .attr('height', (d) => Math.abs(y(d.value) - y(0)))
                             .attr('fill', (d) => d.color);
 
                 } else {
                     graphElement.selectAll('.bar').data(detail)
                         .enter().append('rect')
                             .attr('x', (d) => xW(new Date(Date.parse(d.month))))
-                            .attr('y', (d) => y(d.total))
+                            .attr('y', (d) => {
+                                if (d.total >= 0) {
+                                    return y(d.total);
+                                } else {
+                                    return y(0);
+                                }
+                            })
                             .attr('width', xW.bandwidth())
-                            .attr('height', (d) => height - y(d.total))
+                            .attr('height', (d) => Math.abs(y(d.total) - y(0)))
                             .attr('fill', (d) => self.graphModel.getDarkColor());
+                }
+                if (min < 0) {
+                    graphElement.append('line')
+                        .attr('x1', 0)
+                        .attr('x2', width)
+                        .attr('y1', y(0))
+                        .attr('y2', y(0))
+                        .style('stroke', 'black')
+                        .style('stroke-width', 0.5);
                 }
                 const x = scales.scaleTime()
                               .rangeRound([0, graphElement.node().getBBox().width])

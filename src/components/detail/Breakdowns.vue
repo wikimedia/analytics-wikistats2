@@ -2,29 +2,26 @@
 <div v-if="graphModel">
     <div class="ui clearing divider"></div>
 
-    <h3 class="header">Filters and Breakdowns</h3>
+    <h3 class="header">Filter and Split</h3>
 
-    <div v-for="b, i in graphModel.getBreakdowns()">
-        {{b.name}}
+    <div v-for="b, i in graphModel.getBreakdowns()" class="breakdown">
+        <div class="ui toggle checkbox">
+            <input
+                type="checkbox"
+                :id="'breakdown' + b.breakdownName"
+                v-model="b.on"
+                @click="breakdownToggled(i)"
+                :checked="shouldBeChecked(i)">
+            <label :for="'breakdown' + b.breakdownName">
+                Split by <strong>{{b.name}}</strong>
+                <i class="help circle icon" title="Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes."/>
+            </label>
+        </div>
+
         <label class="xui checkbox" v-for="bv in b.values">
             <input type="checkbox" v-model="bv.on" :disabled="!b.on"/>
             {{bv.name}}
         </label>
-
-        <div class="ui toggle checkbox">
-            <input
-                type="checkbox"
-                id="breakdown"
-                v-model="b.on"
-                @click="breakdownToggled(i)"
-                :checked="shouldBeChecked(i)">
-            <label for="breakdown">
-                Breakdown
-                <span v-if="!b.on">Off</span>
-                <span v-if="b.on">On</span>
-                <i class="help circle icon" title="Breakdowns help you see more detail by breaking down the total values into parts."/>
-            </label>
-        </div>
     </div>
 </div>
 </template>
@@ -35,13 +32,12 @@
         props: ['graphModel'],
         methods: {
             breakdownToggled (index) {
-                if (this.graphModel.getBreakdowns()[index].on) {
-                    this.graphModel.getBreakdowns().forEach((b, i) => {
-                        if(i != index) {
-                            this.graphModel.getBreakdowns()[i].on = false;
-                        }
-                    })
-                }
+                this.graphModel.getBreakdowns().forEach((b, i) => {
+                    if(i != index) {
+                        this.graphModel.getBreakdowns()[i].on = false;
+                    }
+                })
+                this.updateState();
             },
             shouldBeChecked (index) {
                 // HORRIBLE, this shouldn't have side effects
@@ -51,7 +47,18 @@
                     })
                     this.graphModel.getBreakdowns()[index].on = false;
                 }
+            },
+            updateState () {
+                this.$store.state.breakdowns = JSON.parse(JSON.stringify(this.graphModel.getBreakdowns()));
             }
         }
     }
 </script>
+
+<style>
+.breakdown .ui.toggle.checkbox > label { cursor: pointer!important; padding-left: 4em; }
+.ui.toggle.checkbox { margin-top: 10px; }
+.ui.toggle.checkbox input:checked ~ label:before {
+    background-color: #227634!important;
+}
+</style>

@@ -47,21 +47,16 @@ export default {
                   );
             g.selectAll('*').remove();
 
-            const rowData = this.graphModel.getGraphData().map((row) => {
-                const splitDate = row.month.split('-');
-                return {
-                    total: row.total,
-                    month: new Date(splitDate[0], splitDate[1], splitDate[2])
-                };
-            });
+            const rowData = this.graphModel.getGraphData();
 
             function resize () {
                 g.html("");
                 const n = root.node(),
                       width = n.offsetWidth - margin.left - margin.right,
                       height = n.offsetHeight - margin.top - margin.bottom - padding,
+                      min = Math.min(0, arr.min(rowData.map((d) => d.total))),
                       x = scales.scaleTime().rangeRound([0, width]),
-                      y = scales.scaleLinear().rangeRound([height, 0]);
+                      y = scales.scaleLinear().rangeRound([height, min]);
 
                 x.domain(arr.extent(rowData.map((d) => d.month)));
                 y.domain([0, arr.max(rowData.map((d) => d.total))]);
@@ -75,10 +70,10 @@ export default {
                 g.attr('width', width).attr('height', height);
                 g.append('path').datum(rowData)
                     .attr('d', area)
-                    .style('fill', 'url(#grad)')
+                    .style('fill', 'url(#grad-'+self.graphModel.getArea()+')')
                     .style('stroke-width', '0');
                 let gradient = g.append('linearGradient')
-                    .attr('id', 'grad')
+                    .attr('id', 'grad-'+self.graphModel.getArea())
                     .attr('x1',"0%")
                     .attr('y1',"0%")
                     .attr('x2',"0%")
@@ -101,9 +96,6 @@ export default {
                     .style('stroke', self.metricData.darkColor);
         }
             resize();
-        },
-        getMonthValue (date) {
-            return config.months[parseInt(date.split('-')[1])][0];
         }
     }
 }
