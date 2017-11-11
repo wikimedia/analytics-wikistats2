@@ -23,8 +23,6 @@ module.exports = merge(baseConfig, {
     },
 
     plugins: [
-        // Extract imported CSS into own file
-        new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
         // Minify JS
         new UglifyJSPlugin(),
         // Minify CSS
