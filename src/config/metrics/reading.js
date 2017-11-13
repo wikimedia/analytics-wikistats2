@@ -17,11 +17,10 @@ module.exports = {
             }
         },
         value: 'views',
-        valueName: 'Views',
         key: 'article',
         area: 'reading',
         global: false,
-        breakdowns: null
+        additive: true
     },
     'total-pageviews': {
         fullName: 'Total Page Views',

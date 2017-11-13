@@ -16,15 +16,6 @@ function labeledCrossProduct (obj) {
 
 const formatSi = format.format(".2s");
 
-function modifiedSIFormat(x) {
-    var s = formatSi(x);
-    switch (s[s.length - 1]) {
-        case "G": return s.slice(0, -1) + "B";
-    }
-    return s;
-}
-
 export default {
-    labeledCrossProduct,
-    modifiedSIFormat
+    labeledCrossProduct
 };
