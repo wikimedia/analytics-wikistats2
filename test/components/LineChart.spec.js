@@ -10,7 +10,6 @@ const metric = {
     value: 'devices',
     area: 'reading',
     breakdowns: [{
-        on: false,
         name: 'Access site',
         breakdownName: 'access-site',
         values: [
@@ -22,57 +21,48 @@ const metric = {
 
 let dimensionalData = new DimensionalData(uniques.desktop.items);
 dimensionalData.merge(uniques.mobile.items);
-const graphModel = new GraphModel(metric, dimensionalData);
+const graphModel = new GraphModel(metric);
+graphModel.setData(dimensionalData);
 let vm;
 
 describe('The line chart', () => {
     beforeEach(() => {
         vm = new Vue({
-            template: '<div><test :graphModel="graphModel"></test></div>',
+            template: '<div><test :graphModel="graphModel" :data="graphModel.graphData"></test></div>',
             components: {
                 'test': LineChart
             },
             data () {
                 return {
-                    graphModel: graphModel
+                    graphModel
                 }
             }
         }).$mount();
     })
     it('should generate one line when there are no breakdowns selected', () => {
-        const lineClassName = '.statLine';
-        expect($(lineClassName, vm.$el).length).toEqual(1);
+        expect($('.breakdownLine', vm.$el).length).toEqual(1);
     });
 
     it('should generate as many lines as breakdowns selected', () => {
-        const breakdown = {
-            on: true,
-            name: 'Access site',
-            breakdownName: 'access-site',
-            values: [
-                { name: 'Mobile Site', on: true, key: 'mobile-site' },
-                { name: 'Desktop Site', on: true, key: 'desktop-site' }
-            ]
-        }
-        graphModel.breakdowns[0] = breakdown;
+        graphModel.activeBreakdown = graphModel.breakdowns[1];
+        // refresh data (not ideal)
+        graphModel.refreshData();
 
         const vm = new Vue({
-            template: '<div><test :graphModel="graphModel"></test></div>',
+            template: '<div><test :graphModel="graphModel" :data="graphModel.graphData"></test></div>',
             components: {
                 'test': LineChart
             },
             data () {
                 return {
-                    graphModel: graphModel
+                    graphModel
                 }
             }
         }).$mount();
-        const breakdownLineClassName = '.breakdownLine';
-        expect($(breakdownLineClassName, vm.$el).length).toEqual(2);
+        expect($('.breakdownLine', vm.$el).length).toEqual(2);
     });
 
     it('should generate an x axis', function () {
-        const xAxisClassName = '.xAxisLabel';
-        expect($(xAxisClassName, vm.$el).length).toBeGreaterThan(0);
+        expect($('.xAxisLabel', vm.$el).length).toBeGreaterThan(0);
     });
 });

@@ -55,6 +55,8 @@ class AQS {
                         const key = _.trim(k, '{}');
                         url = url.replace(k, p[key]);
                     });
+
+                // console.info('getting ', url.replace(/https.*metrics\//, ''));
                 return new Promise((resolve, reject) => {
                     $.get({
                         url: url,

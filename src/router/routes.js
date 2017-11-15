@@ -20,7 +20,7 @@ import config from '../config';
  * be 2 routes with the same set of wildcards.
  */
 const routes = [
-    ['/', { redirect: '/all-projects' }],
+    ['/', { redirect: '/' + config.ALL_PROJECTS }],
     ['/:project', { mainComponent: 'dashboard' }],
     ['/:project/:area', { redirect: getDefaultMetricPath }],
     ['/:project/:area/:metric', { mainComponent: 'detail' }],

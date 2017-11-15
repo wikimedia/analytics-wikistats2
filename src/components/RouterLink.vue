@@ -15,7 +15,7 @@ export default {
     methods: {
         commitState () {
             if (!this.isCurrent()) {
-                this.$store.commit('resetState', this.to);
+                this.$store.commit('resetNavigationState', this.to);
             }
         },
         highlightClass () {

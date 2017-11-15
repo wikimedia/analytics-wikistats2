@@ -17,9 +17,9 @@ const months = [
 ];
 
 const colors = {
-    contributing: ['#c4cddf', '#99afd9', '#6582ba', '#2a4b8d'],
-    reading: ['#c8f0e7', '#77d8c2', '#00af89', '#03745c'],
-    content: ['#fff1c6', '#f9df90', '#ffcc33', '#ddad1c']
+    contributing: ['#C4CDDF', '#99AFD9', '#6582BA', '#2A4B8D'],
+    reading: ['#C8F0E7', '#77D8C2', '#00AF89', '#03745C'],
+    content: ['#FFF1C6', '#F9DF90', '#FFCC33', '#DDAD1C']
 };
 
 const qualitativeScale = {
@@ -130,6 +130,8 @@ const AQS_HOST = 'https://wikimedia.org/api/rest_v1/metrics';
 
 export default {
 
+    ALL_PROJECTS: 'all-projects',
+
     sitematrix: {
         endpoint: 'https://meta.wikimedia.org/w/api.php?action=sitematrix&formatversion=2&format=json&maxage=3600&smaxage=3600'
     },
@@ -187,8 +189,10 @@ export default {
         );
     },
 
-    getColorForBreakdown (breakdown, key) {
-        return qualitativeScale[breakdown.values.length][breakdown.values.indexOf(breakdown.values.find(value => value.key === key))]
+    getColorForBreakdown (breakdown, key, area) {
+        return key === 'total' ?
+            colors[area][colors[area].length - 1] :
+            qualitativeScale[breakdown.values.length][breakdown.values.indexOf(breakdown.values.find(value => value.key === key))];
     },
 
     areas () {
@@ -218,5 +222,5 @@ export default {
     stableColorIndexes,
     questions,
     areasWithMetrics,
-    months
+    months,
 };

@@ -53,10 +53,6 @@ const metricSchema = {
         type: 'array',
         required: false,
         schema: {
-            on: {
-                type: 'boolean',
-                required: true
-            },
             name: {
                 type: 'string',
                 required: true

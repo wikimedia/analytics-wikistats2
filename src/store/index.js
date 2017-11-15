@@ -10,7 +10,6 @@ export default new Vuex.Store({
         area: '',
         metric: '',
         mainComponent: '',
-        breakdowns: null,
         topicsMinimized: true,
         centralNotice: null,
     },
@@ -31,8 +30,9 @@ export default new Vuex.Store({
             Object.keys(arg).forEach(k => state[k] = arg[k]);
         },
         // Sets all poperties passed, and sets any remaining navigation properties to empty string.
-        resetState (state, arg) {
+        resetNavigationState (state, arg) {
             navigationStateKeys.forEach(k => state[k] = '');
+            state.activeBreakdown = null;
             Object.keys(arg).forEach(k => state[k] = arg[k]);
         },
     },

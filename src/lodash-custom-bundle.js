@@ -11,6 +11,8 @@ import isEqual from 'lodash/isEqual';
 import kebabCase from 'lodash/kebabCase';
 import last from 'lodash/last';
 import map from 'lodash/map';
+import max from 'lodash/max';
+import min from 'lodash/min';
 import pickBy from 'lodash/pickBy';
 import replace from 'lodash/replace';
 import round from 'lodash/round';
@@ -18,6 +20,7 @@ import sortBy from 'lodash/sortBy';
 import startsWith from 'lodash/startsWith';
 import sum from 'lodash/sum';
 import take from 'lodash/take';
+import toPairs from 'lodash/toPairs';
 import transform from 'lodash/transform';
 import trim from 'lodash/trim';
 import zip from 'lodash/zip';
@@ -37,6 +40,8 @@ export default {
     kebabCase,
     last,
     map,
+    max,
+    min,
     pickBy,
     replace,
     round,
@@ -44,6 +49,7 @@ export default {
     startsWith,
     sum,
     take,
+    toPairs,
     transform,
     trim,
     zip,

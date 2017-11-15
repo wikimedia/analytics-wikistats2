@@ -43,7 +43,6 @@ module.exports = {
         value: 'views',
         global: true,
         breakdowns: [{
-            on: false,
             name: 'Access method',
             breakdownName: 'access',
             values: [
@@ -74,7 +73,6 @@ module.exports = {
         area: 'reading',
         global: false,
         breakdowns: [{
-            on: false,
             name: 'Access site',
             breakdownName: 'access-site',
             values: [

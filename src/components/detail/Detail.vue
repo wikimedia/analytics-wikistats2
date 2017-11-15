@@ -3,31 +3,24 @@
     <detail-sidebar
         v-if="!fullscreen"
         :otherMetrics="otherMetrics"
-        :metric="metric"
-        :area="area"
         :graphModel="graphModel"
     />
 
     <graph-panel
-        :metricData="metricData"
-        :granularity="granularity"
+        ref="graphPanel"
         :graphModel="graphModel"
-        :fullscreen="fullscreen"
         :overlayMessage="overlayMessage"
         @changeTimeRange="setTimeRange"
+        :fullscreen="fullscreen"
         @toggleFullscreen="toggleFullscreen"
     />
-
-    <metrics-modal
-        :areasWithMetrics="areasWithMetrics"
-        :highlightMetric="highlightMetric"
-        @changeMetric="goHighlight">
-
-    </metrics-modal>
 </section>
 </template>
 
 <script>
+
+import Vue from 'vue';
+import { mapState, mapGetters } from 'vuex';
 
 import StatusOverlay from '../StatusOverlay';
 import MetricsModal from './MetricsModal';
@@ -35,10 +28,7 @@ import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
 import TimeRangeSelector from '../TimeRangeSelector';
 
-import { mapState } from 'vuex';
-
 import config from '../../config';
-import DimensionalData from '../../models/DimensionalData';
 
 import GraphModel from '../../models/GraphModel';
 import AQS from '../../apis/aqs';
@@ -55,9 +45,10 @@ export default {
     },
     data () {
         return {
+            graphModel: null,
+
             fullscreen: false,
             areasWithMetrics: config.areasWithMetrics,
-            highlightMetric: {},
 
             defaultMetrics: {
                 contributing: 'active-editors',
@@ -67,17 +58,8 @@ export default {
 
             otherMetrics: [],
 
-            metricData: {},
-
-            breakdowns: [],
-
-            graphModel: null,
-
-            project: 'all-projects',
-            wiki: null,
             overlayMessage: null,
             range: TimeRangeSelector.getDefaultTimeRange(),
-            granularity: 'monthly'
         };
     },
 
@@ -85,95 +67,116 @@ export default {
         mapState([
             'area',
             'metric',
+            'project',
         ]), {
-            breakdown () {
-                return (this.breakdowns || []).find((m) => m.on);
+            metricParameters () {
+                return {
+                    project: this.project,
+                    area: this.area,
+                    metric: this.metric,
+                    metricConfig: config.metricData(this.metric),
+                };
+            },
+
+            dataParameters () {
+                return {
+                    range: this.range,
+                    granularity: this.range[1] - this.range[0] < 100000 ? 'daily' : 'monthly',
+
+                    breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
+                };
             },
         }
     ),
 
     watch: {
-        '$store.getters.mainState': function () {
-            this.wiki = this.$store.state.project;
-            this.loadData();
-        },
-        'range': function () {
-            this.loadData();
-        },
-        '$store.state.breakdowns': {
-            handler: function () {
-                this.loadData();
-            },
-            deep: true
-        },
-        'overlayMessage': function () {
+        overlayMessage () {
             // when we display an error or loading in full-screen, the overlay doesn't show and causes a broken interface
             if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) { this.fullscreen = false; }
+        },
+
+        metricParameters () {
+            this.buildGraphModel();
+        },
+
+        dataParameters: {
+            handler () {
+                this.loadData();
+            },
+            deep: true,
         },
     },
 
     mounted () {
-        this.wiki = this.$store.state.project;
         $('body').scrollTop(0);
-        $('.ui.metrics.modal').modal();
-        this.loadData();
+        this.aqsApi = new AQS();
+        Vue.nextTick(() => this.buildGraphModel());
     },
 
     methods: {
+        buildGraphModel () {
+            const params = this.metricParameters;
+
+            this.graphModel = new GraphModel(params.metricConfig);
+
+            this.otherMetrics = Object.keys(config.metrics)
+                .filter((m) => config.metrics[m].area === params.area)
+                .map((m) => Object.assign(config.metrics[m], { name: m }));
+        },
+
         loadData () {
-            if (!this.$store.state.project) { return; }
+            const params = Object.assign({}, this.metricParameters, this.dataParameters);
 
-            this.highlightMetric = { name: this.metric, area: this.area };
+            if (!params.metricConfig.global && params.project === config.ALL_PROJECTS) {
+                this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
 
-            const metricData = Object.assign(config.metricData(this.metric, this.area), {});
-            this.metricData = metricData;
-            if (!metricData.global && this.$store.state.project === 'all-projects') {
-                this.overlayMessage = StatusOverlay.NON_GLOBAL(this.metricData.fullName);
             } else {
-                let aqsApi = new AQS();
-                const defaults = this.metricData.defaults || {
+                const defaults = params.metricConfig.defaults || {
                     unique: {},
                     common: {}
                 };
                 let uniqueParameters = Object.assign(
+                    {},
                     defaults.unique,
                     {
-                        project: [this.$store.state.project]
+                        project: [params.project]
                     },
                 );
-                const activeBreakdown = this.graphModel && this.graphModel.getActiveBreakdown();
-                if (activeBreakdown) {
-                    const breakdownKeys = activeBreakdown.values.reduce((p, c) => {
-                        c.on && p.push(c.key);
-                        return p;
-                    }, []);
-                    uniqueParameters[activeBreakdown.breakdownName] = breakdownKeys;
-                }
-                let dataPromise = aqsApi.getData(uniqueParameters,
-                    Object.assign(
-                        defaults.common,
-                        {
-                            start: this.range[0],
-                            end: this.range[1],
-                            granularity: this.granularity
-                        }
-                    )
+                const commonParameters = Object.assign(
+                    {},
+                    defaults.common,
+                    {
+                        start: params.range[0],
+                        end: params.range[1],
+                        granularity: params.granularity
+                    }
                 );
+
+                if (params.breakdown && !params.breakdown.total) {
+                    let breakdownKeys = params.breakdown.values.filter(bv => bv.on).map(bv => bv.key);
+
+                    // in this case, the user de-selected the last value, toggle back to Total
+                    if (!breakdownKeys.length) {
+                        // also re-select everything otherwise this will loop
+                        // to see what I mean, try deleting the next line and de-selecting all values
+                        params.breakdown.values.forEach(bv => bv.on = true);
+                        this.graphModel.activeBreakdown = this.graphModel.breakdowns[0];
+                        return;
+                    }
+                    uniqueParameters[params.breakdown.breakdownName] = breakdownKeys;
+                }
+
+                let dataPromise = this.aqsApi.getData(uniqueParameters, commonParameters);
                 this.overlayMessage = StatusOverlay.LOADING;
-                const prevBreakdowns = this.graphModel && this.graphModel.getBreakdowns();
+
                 dataPromise.catch((req, status, error) => {
                     this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
                 });
                 dataPromise.then(dimensionalData => {
                     this.overlayMessage = null;
-                    this.graphModel = new GraphModel(metricData, dimensionalData, prevBreakdowns);
+                    this.graphModel.setData(dimensionalData);
                 });
             }
-            const metrics = config.metrics;
-            const relevantMetrics = Object.keys(metrics)
-                .filter((m) => metrics[m].area === this.area );
-            this.otherMetrics =
-                relevantMetrics.map((m) => Object.assign(metrics[m], { name: m }));
         },
 
         changeChart (t) {
@@ -183,35 +186,10 @@ export default {
 
         toggleFullscreen () {
             this.fullscreen = !this.fullscreen;
-
-            // TODO: hack, figure out a way to re-render bar without this
-            const t = this.metricData,
-                  self = this;
-            this.metricData = {};
-            setTimeout(function () {
-                self.metricData = t;
-            }, 0);
-        },
-
-        addAnotherWiki () {
-            $('.add.wiki.design').toggle('highlight');
-        },
-
-        changeHighlight (name, area) {
-            this.highlightMetric = { name, area };
-        },
-
-        goHighlight (name, area) {
-            this.changeHighlight(name, area);
-            $('.ui.metrics.modal').modal('hide');
+            Vue.nextTick(() => this.$refs.graphPanel.redrawGraph());
         },
 
         setTimeRange (newRange) {
-            if (newRange[1] - newRange[0] < 100000) {
-                this.granularity = 'daily';
-            } else {
-                this.granularity = 'monthly';
-            }
             this.range = newRange;
         }
     },

@@ -1,16 +1,20 @@
 <template>
 <section class="graph panel">
-    <div class="ui clearing basic segment">
-        <div v-if="graphModel && !overlayMessage">
+    <div class="ui clearing basic segment" v-if="graphModel">
+        <div>
             <h2 class="ui left floated header">
-                <a class='metric link' :href="metricData.info_url" target="_blank">
-                    {{metricData.fullName || 'No data yet... '}}
+                <a class='metric link' :href="graphModel.config.info_url" target="_blank">
+                    {{graphModel.config.fullName || 'No data yet... '}}
                 </a>
                 <span class="subdued granularity">{{granularity}}</span>
             </h2>
 
             <div class="ui right floated basic fudge segment">
-                <simple-legend v-if="activeBreakdown && chartComponent !== 'table-chart'" class="simple legend" :breakdown="activeBreakdown"></simple-legend>
+                <simple-legend
+                    v-if="activeBreakdown && chartComponent !== 'table-chart'"
+                    class="simple legend"
+                    :breakdown="activeBreakdown">
+                </simple-legend>
                 <div class="ui right floated icon buttons">
 
                     <button @click="download" class="ui icon button" title="Download">
@@ -34,20 +38,20 @@
                 </div>
             </div>
             <component
+                ref="graph"
                 v-if="graphModel"
                 :is="chartComponent"
                 :graphModel="graphModel"
-                :metricData="metricData"
-                :graphData="graphModel.getGraphData()">
+                :data="graphModel.graphData">
             </component>
-            <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
+            <div class="ui center aligned basic segment" v-if="graphModel.config.type !== 'list'">
                 <h5>
                     {{graphModel.getAggregateLabel()}}:
-                    {{graphModel.formatNumberForMetric(aggregate)}} {{metricData.fullName}}
+                    {{graphModel.formatNumberForMetric(aggregate)}} {{graphModel.config.fullName}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     {{changeOverRange}}% over this time range.
                 </h5>
-                <p>{{metricData.description}}. <a class='metric link' :href="metricData.info_url" target="_blank">More info about this metric.</a></p>
+                <p>{{graphModel.config.description}}. <a class='metric link' :href="graphModel.config.info_url" target="_blank">More info about this metric.</a></p>
             </div>
         </div>
         <div class="ui center aligned subdued basic segment">
@@ -87,7 +91,7 @@ export default {
         EmptyChart,
         StatusOverlay
     },
-    props: ['metricData', 'fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
+    props: ['fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
     computed: {
         chartTypes: function () {
             return this.getChartTypes();
@@ -108,8 +112,8 @@ export default {
             return ((data[data.length - 1] - data[0]) / data[0] * 100).toFixed(2);
         },
         activeBreakdown: function () {
-            return this.graphModel.getActiveBreakdown();
-        }
+            return this.graphModel.activeBreakdown;
+        },
     },
     data () {
         return {
@@ -122,7 +126,14 @@ export default {
             ]
         }
     },
+
     methods: {
+        // PUBLIC: used by parent components
+        redrawGraph () {
+            if (this.$refs.graph && this.$refs.graph.redraw) {
+                this.$refs.graph.redraw();
+            }
+        },
         changeChart (t) {
             this.chartType = t.chart;
         },
@@ -131,20 +142,20 @@ export default {
         },
         getChartTypes () {
             return this.availableChartTypes.filter((c) => {
-                if (!this.metricData) { return false; }
+                if (!this.graphModel) { return false; }
                 if (c.chart === 'table') return true;
-                if (this.metricData.type === 'bars') { return c.chart !== 'line'; }
-                if (this.metricData.type === 'lines') { return c.chart === 'line'; }
+                if (this.graphModel.config.type === 'bars') { return c.chart !== 'line'; }
+                if (this.graphModel.config.type === 'lines') { return c.chart === 'line'; }
             });
         },
         toggleFullscreen () {
             this.$emit('toggleFullscreen');
         },
         download () {
-            const data = this.graphModel.getGraphData();
+            const data = this.graphModel.graphData;
             let a = window.document.createElement('a');
             a.href = window.URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'text/json'}));
-            a.download = this.metricData.name + '.json';
+            a.download = this.graphModel.config.name + '.json';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

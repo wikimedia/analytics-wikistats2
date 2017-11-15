@@ -18,7 +18,7 @@ export default {
     props: ['breakdown'],
     methods: {
         getColor (key) {
-            return config.getColorForBreakdown(this.breakdown, key);
+            return config.getColorForBreakdown(this.breakdown, key, this.$store.state.area);
         }
     }
 }
