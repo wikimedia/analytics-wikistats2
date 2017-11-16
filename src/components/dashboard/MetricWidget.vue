@@ -13,7 +13,7 @@
             <div v-else>
                 <div class="ui medium statistic">
                     <div class="label">{{metricData.fullName}}</div>
-                    <div class="value">{{lastMonth.total | kmb}}</div>
+                    <div class="value">{{graphModel.formatNumberForMetric(lastMonth.total)}}</div>
                 </div>
                 <div>
                     <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
@@ -34,7 +34,7 @@
                 </metric-line-widget>
                 <div class="ui horizontal small statistic">
                     <div class="value">
-                        {{lastYearAggregation | kmb}}
+                        {{graphModel.formatNumberForMetric(lastYearAggregation)}}
                     </div>
                     <div class="change label">
                         <arrow-icon :value="changeYoY"/>
@@ -60,12 +60,11 @@ import MetricListWidget from './MetricListWidget'
 import StatusOverlay from '../StatusOverlay'
 import MetricPlaceholderWidget from './MetricPlaceholderWidget'
 import TimeRangeSelector from '../TimeRangeSelector';
-import config from '../../config';
+import ArrowIcon from '../ArrowIcon';
 
 import AQS from '../../apis/aqs';
+import config from '../../config';
 import GraphModel from '../../models/GraphModel';
-import dateformat from 'dateformat';
-import ArrowIcon from '../ArrowIcon';
 import RouterLink from '../RouterLink';
 
 let aqsApi = new AQS();

@@ -17,6 +17,7 @@ module.exports = {
         type: 'bars',
         area: 'content',
         value: 'abs_bytes_diff',
+        unit: 'bytes',
         global: true,
         breakdowns: [{
             on: false,
@@ -107,6 +108,7 @@ module.exports = {
         },
         type: 'bars',
         area: 'content',
+        unit: 'bytes',
         value: 'net_bytes_diff',
         global: true,
         breakdowns: [{

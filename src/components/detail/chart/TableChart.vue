@@ -7,7 +7,7 @@
                 <th>Total</th>
             </tr>
             <tr v-if="metricData.type === 'list'">
-                <th>{{metricData.valueName}}</th>
+                <th>{{metricData.value}}</th>
                 <th>Name</th>
             </tr>
         </thead>

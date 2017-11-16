@@ -149,7 +149,6 @@ module.exports = {
         area: 'contributing',
         value: 'new_registered_users',
         global: true,
-        breakdowns: null,
         additive: false
     },
 };

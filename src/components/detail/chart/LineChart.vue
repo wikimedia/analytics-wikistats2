@@ -202,7 +202,7 @@ export default {
             const height = y.range()[0];
             const xAxis = axes.axisBottom(x),
                   yAxis = axes.axisLeft(y).ticks(7)
-                            .tickFormat(utils.modifiedSIFormat);
+                            .tickFormat(this.graphModel.formatNumberForMetric.bind(this.graphModel));
             g.append('g')
                 .call(yAxis)
                 .attr('class', 'yAxis')

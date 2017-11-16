@@ -1,4 +1,5 @@
 import _ from '../lodash-custom-bundle';
+import numeral from 'numeral';
 
 class GraphModel {
     constructor (metricData, dimensionalData, prevBreakdowns) {
@@ -98,6 +99,14 @@ class GraphModel {
     topXByY (x, y) {
         this.dimensionalData.measure(x);
         return _.sortBy(this.dimensionalData.breakdown(y), y).reverse();
+    }
+    formatNumberForMetric (number) {
+        debugger;
+        if (this.metricData.unit === 'bytes') {
+            return numeral(number).format('0,0b');
+        } else {
+            return numeral(number).format('0,0a');
+        }
     }
 }
 

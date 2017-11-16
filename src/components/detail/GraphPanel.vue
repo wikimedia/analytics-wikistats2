@@ -43,7 +43,7 @@
             <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
                 <h5>
                     {{graphModel.getAggregateLabel()}}:
-                    {{aggregate | kmb}} {{metricData.fullName}}
+                    {{graphModel.formatNumberForMetric(aggregate)}} {{metricData.fullName}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     {{changeOverRange}}% over this time range.
                 </h5>
