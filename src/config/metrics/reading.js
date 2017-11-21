@@ -19,8 +19,34 @@ module.exports = {
         },
         value: 'views',
         key: 'article',
+        arrayName: 'articles',
         area: 'reading',
         global: false,
+        additive: true
+    },
+    'pageviews-by-country': {
+        fullName: 'Pageviews by Country',
+        subtitle: 'Countries with the most views',
+        description: 'Countries where this project is visited the most',
+        question: 'Where are the project\'s visitors coming from?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        type: 'map',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                access: ['all-access']
+            },
+            common: {
+                metric: 'pageviews-by-country',
+                granularity: 'monthly'
+            }
+        },
+        value: 'views',
+        key: 'country',
+        arrayName: 'countries',
+        area: 'reading',
+        global: true,
+        structure: 'top',
         additive: true
     },
     'total-pageviews': {

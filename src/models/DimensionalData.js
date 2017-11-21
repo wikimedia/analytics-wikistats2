@@ -30,14 +30,18 @@ class DimensionalData {
     }
 
     getDimensionValues (column) {
-        let allItems = this.crossfilter.dimension(
-            item => item[this.currentMeasure]
-        ).top(Infinity);
+        let allItems = this.getAllItems();
         let dimensionValues = {};
         allItems.forEach(item => {
             dimensionValues[item[column]] = true;
         });
         return Object.keys(dimensionValues);
+    }
+
+    getAllItems () {
+        return this.crossfilter.dimension(
+            item => item[this.currentMeasure]
+        ).top(Infinity);
     }
 
     measure (column) {
@@ -75,8 +79,13 @@ class DimensionalData {
     breakdown (column, secondColumn) {
         let measure = this.currentMeasure;
         this.addDimension(measure);
+        let breakDownMap;
+        const allItems = this.getAllItems();
+        if (allItems[0].rank){
+            return allItems;
+        }
         if (!secondColumn) {
-            const breakDownMap = this.dimensionCache[measure].group().reduceSum((row) => {
+            breakDownMap = this.dimensionCache[measure].group().reduceSum((row) => {
                 return row[column];
             }).all().reduce((p, c) => {
                 p[c.key] = c.value;
@@ -90,7 +99,7 @@ class DimensionalData {
                 return row;
             });
         } else {
-            const breakDownMap = this.dimensionCache[measure].group().reduce(
+            breakDownMap = this.dimensionCache[measure].group().reduce(
                 (p,c) => {
                     p[c[secondColumn]] = p[c[secondColumn]] ?
                         p[c[secondColumn]] + c[column]:

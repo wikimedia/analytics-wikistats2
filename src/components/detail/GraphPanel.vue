@@ -45,8 +45,8 @@
                 :graphModel="graphModel"
                 :data="graphModel.graphData">
             </component>
-            <div class="ui center aligned basic segment" v-if="graphModel.config.type !== 'list'">
-                <h5>
+            <div class="ui center aligned basic segment">
+                <h5 v-if="graphModel.config.type === 'timeseries'" >
                     {{graphModel.getAggregateLabel()}}:
                     {{graphModel.formatNumberForMetric(aggregate)}} {{graphModel.config.fullName}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
@@ -83,6 +83,7 @@ import BarChart from './chart/BarChart';
 import LineChart from './chart/LineChart';
 import TableChart from './chart/TableChart';
 import EmptyChart from './chart/EmptyChart';
+import MapChart from './chart/MapChart';
 import StatusOverlay from '../StatusOverlay';
 import *  as d3Formatter from 'd3-dsv';
 
@@ -95,6 +96,7 @@ export default {
         BarChart,
         LineChart,
         TableChart,
+        MapChart,
         EmptyChart,
         StatusOverlay
     },
@@ -104,7 +106,7 @@ export default {
             return this.getChartTypes();
         },
         chartIcon: function () {
-            return this.chartComponent.replace('-chart', '');
+            return this.availableChartTypes.find(type => type.chart === this.chartComponent.replace('-chart', '')).icon;
         },
         chartComponent: function () {
             if (this.chartType) return this.chartType + '-chart';
@@ -128,7 +130,7 @@ export default {
             availableChartTypes: [
                 { chart: 'bar', icon: 'bar' },
                 { chart: 'line', icon: 'line' },
-                //{ chart: 'map', icon: 'globe' },
+                { chart: 'map', icon: 'globe' },
                 { chart: 'table', icon: 'table' },
             ]
         }
@@ -151,6 +153,7 @@ export default {
             return this.availableChartTypes.filter((c) => {
                 if (!this.graphModel) { return false; }
                 if (c.chart === 'table') return true;
+                if (c.chart === 'map') return true;
                 if (this.graphModel.config.type === 'bars') { return c.chart !== 'line'; }
                 if (this.graphModel.config.type === 'lines') { return c.chart === 'line'; }
             });

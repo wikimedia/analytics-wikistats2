@@ -50,6 +50,10 @@ const metricSchema = {
         type: 'string',
         required: true
     },
+    arrayName: {
+        type: 'string',
+        required: false
+    },
     global: {
         type: 'boolean',
         required: false

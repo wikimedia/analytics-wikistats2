@@ -2,22 +2,22 @@
 <div>
     <table :class="graphModel.config.area" class="ui table">
         <thead>
-            <tr v-if="['bars', 'lines'].includes(graphModel.config.type)">
+            <tr v-if="graphModel.config.structure === 'timeseries'">
                 <th>Date</th>
                 <th class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{v.name}}</th>
             </tr>
-            <tr v-if="graphModel.config.type === 'list'">
-                <th class="right aligned">{{graphModel.config.valueName}}</th>
+            <tr v-if="graphModel.config.structure === 'top'">
+                <th class="right aligned">{{graphModel.config.value}}</th>
                 <th>Name</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-if="['bars', 'lines'].includes(graphModel.config.type)" v-for="m in data">
+            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in data">
                 <td>{{m.month|date}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
-            <tr v-if="graphModel.config.type === 'list'" v-for="m in data">
-                <td class="right aligned">{{m[graphModel.config.value].total|thousands}}</td>
+            <tr v-if="graphModel.config.structure === 'top'" v-for="m in data">
+                <td class="right aligned">{{m.total.total|thousands}}</td>
                 <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[graphModel.config.key]">{{m[graphModel.config.key].replace(/_/g, ' ')}}</a></td>
             </tr>
         </tbody>

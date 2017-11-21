@@ -4,15 +4,15 @@
         <div class="label">{{graphModel.config.fullName}}</div>
     </div>
     <div class="subdued">
-        {{graphModel.config.subtitle + ' for ' + currentMonth}}
+        {{graphModel.config.subtitle + ' for ' + lastMonth}}
     </div>
     <table class="widget list">
         <tr v-for="(item, i) in sortedList">
-            <td class="number">{{item.views.total | kmb}}</td>
+            <td class="number">{{item.total.total | kmb}}</td>
             &nbsp;
             <td class="label">
-                <a v-on:click.stop target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + item.article">
-                    {{item.article.replace(/_/g, ' ')}}
+                <a v-on:click.stop target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + item[graphModel.config.key]">
+                    {{item[graphModel.config.key].replace(/_/g, ' ')}}
                 </a>
             </td>
         </tr>
@@ -29,8 +29,11 @@ export default {
     props: ['graphModel', 'data'],
 
     computed: {
-        currentMonth () {
-            return config.months[new Date().getMonth()];
+        lastMonth () {
+            var lastMonthDate = new Date();
+            lastMonthDate.setDate(1);
+            lastMonthDate.setMonth(lastMonthDate.getMonth()-1);
+            return config.months[new Date().getMonth() + 1];
         },
         sortedList () {
             return this.data.slice(0, 4);

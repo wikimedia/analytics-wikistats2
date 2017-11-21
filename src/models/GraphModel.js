@@ -37,13 +37,19 @@ class GraphModel {
 
     setData (data) {
         this.data = data;
-
-        if (['list', 'map'].includes(this.config.type)) {
-            this.graphData = this.topXByY();
-            return;
-        }
         const xAxisValue = 'timestamp';
         const yAxisValue = this.config.value;
+
+        if (this.config.structure === 'top') {
+            this.graphData = this.topXByY().map(row => {
+                row.total = {
+                    total: row[yAxisValue]
+                };
+                delete row[yAxisValue];
+                return row;
+            });
+            return;
+        }
 
         this.data.measure(xAxisValue);
         const rawValues = this.data.breakdown(yAxisValue, this.activeBreakdown.breakdownName);
@@ -113,6 +119,14 @@ class GraphModel {
 
     getMinMax () {
         const activeDict = this.getActiveBreakdownValues();
+        if (this.config.structure === 'top') {
+            const sorted = _.sortBy(this.graphData, row => row.rank);
+            return {
+                min: sorted[sorted.length - 1].total.total,
+                max: sorted[0].total.total
+            }
+        }
+
         let min = 0;
         let max = 0;
 
@@ -131,7 +145,7 @@ class GraphModel {
 
         this.data.measure(x);
         const results = this.data.breakdown(y);
-        return _.take(_.sortBy(results, (row) => row[y].total).reverse(), limit || results.length);
+        return _.take(_.sortBy(results, (row) => row.rank), limit || results.length);
     }
 
     formatNumberForMetric (number) {
