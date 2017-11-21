@@ -1,5 +1,6 @@
 <template>
 <div class="app">
+    <central-notice v-if="$store.state.centralNotice" />
     <section class="ui top attached clearing segment">
         <top-nav :wikiCode="project"></top-nav>
     </section>
@@ -19,6 +20,7 @@
 
 <script>
 import TopNav from './components/TopNav';
+import CentralNotice from './components/CentralNotice';
 import TopicExplorer from './components/TopicExplorer';
 import SiteLanguage from './components/SiteLanguage';
 import BottomFooter from './components/BottomFooter';
@@ -35,6 +37,26 @@ export default {
         BottomFooter,
         Dashboard,
         Detail,
+        CentralNotice
+    },
+    mounted () {
+        this.isAdblockerOn() && this.warnAdBlocker();
+    },
+
+    methods: {
+        isAdblockerOn () {
+            let adTest = document.createElement('div');
+            adTest.innerHTML = '&nbsp;';
+            adTest.className = 'adsbox';
+            $(this.$el).append(adTest);
+            return adTest.offsetHeight === 0;
+        },
+        warnAdBlocker () {
+            this.$store.state.centralNotice = {
+                message: 'Your ad blocker is preventing Wikistats from reaching the server. Disable it to be able to see all metrics correctly.',
+                level: 'error'
+            }
+        }
     },
     data () {
         return {
