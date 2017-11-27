@@ -8,7 +8,7 @@ class GraphModel {
         if (prevBreakdowns) {
             this.breakdowns = prevBreakdowns;
         } else {
-            this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
+            this.breakdowns = this.metricData.breakdowns && JSON.parse(JSON.stringify(this.metricData.breakdowns));
         }
         // Remove dimension values that have no data.
         const breakdown = this.getActiveBreakdown();
@@ -101,7 +101,6 @@ class GraphModel {
         return _.sortBy(this.dimensionalData.breakdown(y), y).reverse();
     }
     formatNumberForMetric (number) {
-        debugger;
         if (this.metricData.unit === 'bytes') {
             return numeral(number).format('0,0b');
         } else {
