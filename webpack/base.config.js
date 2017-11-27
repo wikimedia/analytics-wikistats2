@@ -3,6 +3,9 @@ const path = require('path');
 const utils = require('./utils');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+
 
 module.exports = {
     entry: './src/main.js',
@@ -34,13 +37,35 @@ module.exports = {
                     name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
                 }
             },
+           {
+             test: /\.css$/,
+             use: ExtractTextPlugin.extract({
+                 fallback: "style-loader",
+                 use: "css-loader"
+            })
+            },
+            // Replacing google imports in semantic with ...ahem nothing so they do not run
+            // the css needed is included in lato.css
             {
-                test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
+                test: /semantic\.css$/,
+                use :
+                [
+                {loader: 'string-replace-loader',
+                    query: {
+                     search: 'https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin',
+                     replace: '',
+                     strict: true
+                    }
+                }
+                ]
             }
-        ]
+            ]
     },
+
+
     plugins: [
+         // Extract imported CSS into own file
+        new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.html',
@@ -60,6 +85,7 @@ module.exports = {
         ),
         // uncomment to see bundle size composition when running webpack
         // new BundleAnalyzerPlugin()
+
     ],
     devServer: {
         contentBase: utils.resolve('dist'),

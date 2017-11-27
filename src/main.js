@@ -4,17 +4,20 @@ import 'babel-polyfill';
 import Vue from 'vue';
 import App from './App';
 import '../semantic/dist/semantic.css';
+import './lato/lato.css';
 
 import store from './store';
 import router from './router';
 import routes from './router/routes'
 import numeral from 'numeral';
+import dateformat from 'dateformat';
 
 Vue.config.productionTip = false;
 
 // Register filters
 Vue.filter('thousands', (n) => numeral(n).format('0,0'));
 Vue.filter('kmb', (n) => numeral(n).format('0,0a'));
+Vue.filter('date', (date) => dateformat(date, 'yyyy-mm-dd'));
 Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : ''));
 
 // eslint-disable no-new

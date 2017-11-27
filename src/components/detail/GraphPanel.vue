@@ -10,7 +10,7 @@
             </h2>
 
             <div class="ui right floated basic fudge segment">
-                <simple-legend v-if="activeBreakdown && metricData.type !== 'table'" class="simple legend" :breakdown="activeBreakdown"></simple-legend>
+                <simple-legend v-if="activeBreakdown && chartComponent !== 'table-chart'" class="simple legend" :breakdown="activeBreakdown"></simple-legend>
                 <div class="ui right floated icon buttons">
 
                     <button @click="download" class="ui icon button" title="Download">
@@ -43,7 +43,7 @@
             <div class="ui center aligned basic segment" v-if="graphModel && metricData.type !== 'list'">
                 <h5>
                     {{graphModel.getAggregateLabel()}}:
-                    {{aggregate | kmb}} {{metricData.fullName}}
+                    {{graphModel.formatNumberForMetric(aggregate)}} {{metricData.fullName}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     {{changeOverRange}}% over this time range.
                 </h5>

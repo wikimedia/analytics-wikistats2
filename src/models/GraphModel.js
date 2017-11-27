@@ -1,4 +1,5 @@
 import _ from '../lodash-custom-bundle';
+import numeral from 'numeral';
 
 class GraphModel {
     constructor (metricData, dimensionalData, prevBreakdowns) {
@@ -7,7 +8,7 @@ class GraphModel {
         if (prevBreakdowns) {
             this.breakdowns = prevBreakdowns;
         } else {
-            this.breakdowns = JSON.parse(JSON.stringify(this.metricData.breakdowns));
+            this.breakdowns = this.metricData.breakdowns && JSON.parse(JSON.stringify(this.metricData.breakdowns));
         }
         // Remove dimension values that have no data.
         const breakdown = this.getActiveBreakdown();
@@ -98,6 +99,13 @@ class GraphModel {
     topXByY (x, y) {
         this.dimensionalData.measure(x);
         return _.sortBy(this.dimensionalData.breakdown(y), y).reverse();
+    }
+    formatNumberForMetric (number) {
+        if (this.metricData.unit === 'bytes') {
+            return numeral(number).format('0,0b');
+        } else {
+            return numeral(number).format('0,0a');
+        }
     }
 }
 

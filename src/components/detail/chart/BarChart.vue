@@ -11,7 +11,6 @@ import * as axes from 'd3-axis';
 import * as format from 'd3-format';
 import * as time from 'd3-time';
 import _ from 'lodash';
-import utils from '../../../utils';
 
 import config from '../../../config';
 
@@ -84,7 +83,7 @@ export default {
                 let y = scales.scaleLinear().range([height, 0]);
                 y.domain([min, max]);
                 const yAxis = axes.axisLeft(y).ticks(7)
-                                .tickFormat(utils.modifiedSIFormat);
+                                .tickFormat(self.graphModel.formatNumberForMetric.bind(self.graphModel));
                 const yAxisContainer = g.append('g')
                     .call(yAxis)
                     .style('font-size', '13px')

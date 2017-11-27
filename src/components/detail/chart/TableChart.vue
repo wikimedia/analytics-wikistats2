@@ -3,21 +3,21 @@
     <table :class="metricData.area" class="ui table" v-if="!breakdown">
         <thead>
             <tr v-if="['bars', 'lines'].includes(metricData.type)">
-                <th>Month</th>
+                <th>Date</th>
                 <th>Total</th>
             </tr>
             <tr v-if="metricData.type === 'list'">
-                <th>{{metricData.valueName}}</th>
+                <th>{{metricData.value}}</th>
                 <th>Name</th>
             </tr>
         </thead>
         <tbody>
             <tr v-if="['bars', 'lines'].includes(metricData.type)" v-for="m in listData">
-                <td>{{m.month}}</td>
-                <td>{{m.total}}</td>
+                <td>{{m.month|date}}</td>
+                <td>{{m.total|thousands}}</td>
             </tr>
             <tr v-if="metricData.type === 'list'" v-for="m in listData">
-                <td class="right aligned">{{m[metricData.value]}}</td>
+                <td class="right aligned">{{m[metricData.value]|thousands}}</td>
                 <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[metricData.key]">{{m[metricData.key].replace(/_/g, ' ')}}</a></td>
             </tr>
         </tbody>
@@ -25,14 +25,14 @@
     <table :class="metricData.area" class="ui table" v-if="breakdown">
         <thead>
             <tr>
-                <th>Month</th>
+                <th>Date</th>
                 <th v-for="v in breakdown.values" v-if="v.on">{{v.name}}</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="m in listData">
-                <td>{{m.month}}</td>
-                <td v-for="v in breakdown.values" v-if="v.on">{{m.total[v.key]}}</td>
+                <td>{{m.month|date}}</td>
+                <td v-for="v in breakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
         </tbody>
     </table>
