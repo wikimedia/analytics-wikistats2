@@ -1,14 +1,14 @@
 <template>
 <div v-if="graphModel">
     <div class="ui medium statistic">
-        <div class="label">{{metricData.fullName}}</div>
+        <div class="label">{{graphModel.config.fullName}}</div>
     </div>
     <div class="subdued">
-        {{metricData.subtitle + ' for ' + currentMonth}}
+        {{graphModel.config.subtitle + ' for ' + currentMonth}}
     </div>
     <table class="widget list">
         <tr v-for="(item, i) in sortedList">
-            <td class="number">{{item.views | kmb}}</td>
+            <td class="number">{{item.views.total | kmb}}</td>
             &nbsp;
             <td class="label">
                 <a v-on:click.stop target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + item.article">
@@ -26,14 +26,14 @@ import config from '../../config';
 
 export default {
     name: 'metric-list-widget',
-    props: ['metricData', 'graphModel'],
+    props: ['graphModel', 'data'],
 
     computed: {
         currentMonth () {
             return config.months[new Date().getMonth() + 1];
         },
         sortedList () {
-            return this.graphModel.topXByY(this.metricData.key, this.metricData.value).slice(0,4);
+            return this.data.slice(0, 4);
         }
     }
 };

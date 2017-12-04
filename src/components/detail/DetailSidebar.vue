@@ -10,7 +10,7 @@
     <h3 class="header">Metrics</h3>
 
     <router-link v-for="o in otherMetrics" :key="o.name"
-        :to="{project: $store.state.project, area, metric: o.name}"
+        :to="{project, area, metric: o.name}"
         class="ui line label">
         {{o.fullName}}
     </router-link>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import WikiSelector from '../WikiSelector';
 import Breakdowns from './Breakdowns';
 import sitematrix from '../../apis/sitematrix';
@@ -34,7 +36,7 @@ import '../../../semantic/dist/components/dimmer';
 
 export default {
     name: 'detail-sidebar',
-    props: ['otherMetrics','metric','graphModel','area'],
+    props: ['otherMetrics', 'graphModel'],
     data () {
         return {
             wiki: {
@@ -47,6 +49,10 @@ export default {
         Breakdowns,
         RouterLink,
     },
+    computed: mapState([
+        'project',
+        'area',
+    ]),
     methods: {
         viewMoreMetrics () {
             $('.ui.metrics.modal', this.$el).modal('show');

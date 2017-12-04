@@ -144,7 +144,7 @@ class Router {
         let state = getStateFromPath(path, routes);
         windowObject.history.replaceState(state, '', getPathFromState(root, state, routes));
         let mainComponent = getMainComponentFromState(state, routes);
-        store.commit('resetState', Object.assign({mainComponent}, state));
+        store.commit('resetNavigationState', Object.assign({mainComponent}, state));
 
         // Subscribe to changes on the application state.
         store.watch(
@@ -158,7 +158,7 @@ class Router {
                     // Update the application state with the redirect
                     // without propagating the change to browser history
                     // or updating the main component.
-                    store.commit('resetState', redirectedState);
+                    store.commit('resetNavigationState', redirectedState);
                 } else {
                     // Update only the main component and the browser's location.
                     store.commit('setState', {
@@ -175,7 +175,7 @@ class Router {
         // Subscribe to changes on the browser's location.
         windowObject.onpopstate = function (event) {
             if (event.state) {
-                store.commit('resetState', event.state);
+                store.commit('resetNavigationState', event.state);
             }
         };
     }

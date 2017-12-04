@@ -24,16 +24,18 @@ dimensionalData.merge(uniques.mobile.items);
 
 describe('GraphModel', function () {
     it('should reflect basic properties', function () {
-        let graphModel = new GraphModel(metric, dimensionalData);
+        let graphModel = new GraphModel(metric);
+        graphModel.setData(dimensionalData);
 
-        expect(graphModel.getArea()).toEqual(metric.area);
-        expect(graphModel.getBreakdowns()[0].name).toEqual(metric.breakdowns[0].name);
+        expect(graphModel.area).toEqual(metric.area);
+        expect(graphModel.breakdowns[1].name).toEqual(metric.breakdowns[0].name);
     });
 
     it('should aggregate total when metric is additive', function () {
         metric.additive = true;
 
-        let graphModel = new GraphModel(metric, dimensionalData);
+        let graphModel = new GraphModel(metric);
+        graphModel.setData(dimensionalData);
         expect(graphModel.getAggregateLabel()).toEqual('Total');
         expect(graphModel.getAggregate()).toEqual(1449174299);
 
@@ -44,7 +46,8 @@ describe('GraphModel', function () {
     it('should aggregate average when metric is not additive', function () {
         metric.additive = false;
 
-        let graphModel = new GraphModel(metric, dimensionalData);
+        let graphModel = new GraphModel(metric);
+        graphModel.setData(dimensionalData);
         expect(graphModel.getAggregateLabel()).toEqual('Average');
         expect(graphModel.getAggregate()).toEqual(120764524.9);
     });
@@ -52,34 +55,32 @@ describe('GraphModel', function () {
     it('should total properly when breaking down', function () {
         metric.additive = true;
 
-        metric.breakdowns[0].on = true;
-        metric.breakdowns[0].values[0].on = true;
-        metric.breakdowns[0].values[1].on = false;
+        let graphModel = new GraphModel(metric);
+        graphModel.activeBreakdown = graphModel.breakdowns[1];
+        graphModel.setData(dimensionalData);
 
-        let graphModel = new GraphModel(metric, dimensionalData);
+        graphModel.activeBreakdown.values[0].on = true;
+        graphModel.activeBreakdown.values[1].on = false;
         expect(graphModel.getAggregate()).toEqual(882978744);
 
-        metric.breakdowns[0].values[0].on = false;
-        metric.breakdowns[0].values[1].on = true;
-
-        graphModel = new GraphModel(metric, dimensionalData);
+        graphModel.activeBreakdown.values[0].on = false;
+        graphModel.activeBreakdown.values[1].on = true;
         expect(graphModel.getAggregate()).toEqual(566195555);
     });
 
     it('should average properly when breaking down', function () {
         metric.additive = false;
 
-        metric.breakdowns[0].on = true;
-        metric.breakdowns[0].values[0].on = true;
-        metric.breakdowns[0].values[1].on = false;
+        let graphModel = new GraphModel(metric);
+        graphModel.activeBreakdown = graphModel.breakdowns[1];
+        graphModel.setData(dimensionalData);
 
-        let graphModel = new GraphModel(metric, dimensionalData);
+        graphModel.activeBreakdown.values[0].on = true;
+        graphModel.activeBreakdown.values[1].on = false;
         expect(graphModel.getAggregate()).toEqual(73581562);
 
-        metric.breakdowns[0].values[0].on = false;
-        metric.breakdowns[0].values[1].on = true;
-
-        graphModel = new GraphModel(metric, dimensionalData);
+        graphModel.activeBreakdown.values[0].on = false;
+        graphModel.activeBreakdown.values[1].on = true;
         expect(graphModel.getAggregate()).toEqual(47182962.9);
     });
 });

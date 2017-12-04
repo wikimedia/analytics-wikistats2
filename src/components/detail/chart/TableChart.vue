@@ -1,38 +1,24 @@
 <template>
 <div>
-    <table :class="metricData.area" class="ui table" v-if="!breakdown">
+    <table :class="graphModel.config.area" class="ui table">
         <thead>
-            <tr v-if="['bars', 'lines'].includes(metricData.type)">
+            <tr v-if="['bars', 'lines'].includes(graphModel.config.type)">
                 <th>Date</th>
-                <th>Total</th>
+                <th class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{v.name}}</th>
             </tr>
-            <tr v-if="metricData.type === 'list'">
-                <th>{{metricData.value}}</th>
+            <tr v-if="graphModel.config.type === 'list'">
+                <th class="right aligned">{{graphModel.config.valueName}}</th>
                 <th>Name</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-if="['bars', 'lines'].includes(metricData.type)" v-for="m in listData">
+            <tr v-if="['bars', 'lines'].includes(graphModel.config.type)" v-for="m in data">
                 <td>{{m.month|date}}</td>
-                <td>{{m.total|thousands}}</td>
+                <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
-            <tr v-if="metricData.type === 'list'" v-for="m in listData">
-                <td class="right aligned">{{m[metricData.value]|thousands}}</td>
-                <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[metricData.key]">{{m[metricData.key].replace(/_/g, ' ')}}</a></td>
-            </tr>
-        </tbody>
-    </table>
-    <table :class="metricData.area" class="ui table" v-if="breakdown">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th v-for="v in breakdown.values" v-if="v.on">{{v.name}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="m in listData">
-                <td>{{m.month|date}}</td>
-                <td v-for="v in breakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
+            <tr v-if="graphModel.config.type === 'list'" v-for="m in data">
+                <td class="right aligned">{{m[graphModel.config.value].total|thousands}}</td>
+                <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[graphModel.config.key]">{{m[graphModel.config.key].replace(/_/g, ' ')}}</a></td>
             </tr>
         </tbody>
     </table>
@@ -42,7 +28,7 @@
 <script>
 export default {
     name: 'table-chart',
-    props: ['metricData', 'graphModel'],
+    props: ['data', 'graphModel'],
 
     mounted () {
         this.setColors();
@@ -71,7 +57,7 @@ export default {
             let i = null;
 
             for (let i = 0; i < headerCells.length; i++) {
-                headerCells[i].style = `background-color: ${this.metricData.darkColor};`;
+                headerCells[i].style = `background-color: ${this.graphModel.config.darkColor};`;
             }
         }
     }

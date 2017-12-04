@@ -6,13 +6,13 @@
         </metric-placeholder-widget>
         <div v-else>
             <metric-list-widget
-                v-if="metricData.type === 'list'"
-                :metricData="metricData"
+                v-if="graphModel.config.type === 'list'"
+                :data="graphData"
                 :graphModel="graphModel">
             </metric-list-widget>
             <div v-else>
                 <div class="ui medium statistic">
-                    <div class="label">{{metricData.fullName}}</div>
+                    <div class="label">{{graphModel.config.fullName}}</div>
                     <div class="value">{{graphModel.formatNumberForMetric(lastMonth.total)}}</div>
                 </div>
                 <div>
@@ -23,13 +23,13 @@
                     </span>
                 </div>
                 <metric-bar-widget
-                    v-if="metricData.type === 'bars'"
-                    :metricData="metricData"
+                    v-if="graphModel.config.type === 'bars'"
+                    :data="graphData"
                     :graphModel="graphModel">
                 </metric-bar-widget>
                 <metric-line-widget
-                    v-else-if="metricData.type === 'lines'"
-                    :metricData="metricData"
+                    v-else-if="graphModel.config.type === 'lines'"
+                    :data="graphData"
                     :graphModel="graphModel">
                 </metric-line-widget>
                 <div class="ui horizontal small statistic">
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { mapState } from 'vuex';
 
 import MetricBarWidget from './MetricBarWidget'
@@ -74,9 +75,8 @@ export default {
     props: ['metric', 'area'],
     data () {
         return {
-            metricData: undefined,
-            graphModel: undefined,
-            overlayMessage: null
+            graphModel: null,
+            overlayMessage: null,
         }
     },
 
@@ -90,43 +90,39 @@ export default {
         RouterLink
     },
 
-    mounted () {
-        this.loadConfig();
-    },
-
-    methods: {
-        loadConfig () {
-            this.metricData = config.metricData(this.metric.name, this.area);
-        },
-        getMonthValue (date) {
-            return config.months[date.getMonth() + 1];
-        }
-    },
-
     computed: Object.assign(
         mapState([
             'project'
         ]), {
-            aqsParameters () {
-                if (!this.metricData || !this.project) { return; }
-                const defaults = this.metricData.defaults;
-                const range = TimeRangeSelector.getDefaultTimeRange();
+            params () {
                 return {
-                    unique: Object.assign(
-                        defaults.unique,
-                        { project: [this.project] },
-                    ),
-                    common: Object.assign(
-                        defaults.common,
-                        {
-                            start: range[0],
-                            end: range[1],
-                            granularity: 'monthly'
-                        }
-                    )
+                    project: this.project,
+                    area: this.area,
+                    metric: this.metric.name,
+                    metricConfig: config.metricData(this.metric.name),
+                    range: TimeRangeSelector.getDefaultTimeRange(),
+                    granularity: 'monthly',
                 };
             },
+
+            graphData () {
+                if (!this.graphModel) { return []; }
+
+                if (this.graphModel.config.type === 'list') {
+                    return this.graphModel.graphData;
+                } else {
+                    // normalize the data to look like the old data
+                    // if building breakdowns into the widgets, look here first
+                    return this.graphModel.graphData.map(d => ({
+                        month: d.month,
+                        total: d.total.total,
+                    }));
+                }
+            },
+
             monthOneYearAgo: function () {
+                if (!this.lastMonth) { return null; }
+
                 return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12];
             },
             lastYearAggregation: function () {
@@ -135,10 +131,9 @@ export default {
             lastMonth: function () {
                 return _.last(this.graphData);
             },
-            graphData: function () {
-                return this.graphModel.getGraphData();
-            },
             changeMoM: function () {
+                if (!this.lastMonth) { return null; }
+
                 const data = this.graphData;
                 const prev = data[data.length - 2];
                 const diff = this.lastMonth.total - prev.total;
@@ -151,7 +146,7 @@ export default {
                 return ((diff / this.monthOneYearAgo.total) * 100).toFixed(2);
             },
             disabled: function () {
-                return !this.metricData.global && this.$store.state.project === 'all-projects';
+                return !this.params.metricConfig.global && this.$store.state.project === config.ALL_PROJECTS;
             },
             aggregationType: function () {
                 return this.graphModel.getAggregateLabel();
@@ -159,24 +154,64 @@ export default {
         }
     ),
 
+    mounted () {
+        this.aqsApi = new AQS();
+        this.loadData();
+    },
+
     watch: {
-        aqsParameters () {
-            this.loadConfig();
+        params () {
+            this.graphModel = null;
+            // allow the placeholders to reset before loading new data
+            Vue.nextTick(() => this.loadData());
+        },
+    },
+
+    methods: {
+        getMonthValue (date) {
+            return config.months[date.getMonth() + 1];
+        },
+
+        loadData () {
+            const params = this.params;
+
             if (this.disabled) {
-                this.overlayMessage = StatusOverlay.NON_GLOBAL(this.metricData.fullName);
-                this.graphModel = null;
+                this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
                 return;
             }
-            const { unique, common } = this.aqsParameters;
-            let dataPromise = aqsApi.getData(unique, common);
+
+            const defaults = params.metricConfig.defaults || {
+                unique: {},
+                common: {}
+            };
+            let uniqueParameters = Object.assign(
+                {},
+                defaults.unique,
+                {
+                    project: [params.project]
+                },
+            );
+            const commonParameters = Object.assign(
+                {},
+                defaults.common,
+                {
+                    start: params.range[0],
+                    end: params.range[1],
+                    granularity: params.granularity
+                }
+            );
+
+            let dataPromise = this.aqsApi.getData(uniqueParameters, commonParameters);
             this.overlayMessage = StatusOverlay.LOADING;
-            dataPromise.catch(req => {
+
+            dataPromise.catch((req, status, error) => {
                 this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
             });
             dataPromise.then(dimensionalData => {
                 this.overlayMessage = null;
-                this.graphModel = new GraphModel(this.metricData, dimensionalData);
-            })
+                this.graphModel = new GraphModel(params.metricConfig);
+                this.graphModel.setData(dimensionalData);
+            });
         },
     },
 };

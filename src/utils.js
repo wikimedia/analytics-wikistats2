@@ -16,6 +16,11 @@ function labeledCrossProduct (obj) {
 
 const formatSi = format.format(".2s");
 
+function cloneDeep (c) {
+    return JSON.parse(JSON.stringify(c));
+}
+
 export default {
-    labeledCrossProduct
+    labeledCrossProduct,
+    cloneDeep,
 };

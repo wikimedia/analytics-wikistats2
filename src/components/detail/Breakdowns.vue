@@ -4,17 +4,31 @@
 
     <h3 class="header">Filter and Split</h3>
 
-    <div v-for="b, i in graphModel.getBreakdowns()" class="breakdown">
+    <div v-for="b, i in graphModel.breakdowns" class="breakdown">
         <div class="ui toggle checkbox">
             <input
-                type="checkbox"
+                type="radio"
                 :id="'breakdown' + b.breakdownName"
-                v-model="b.on"
-                @click="breakdownToggled(i)"
-                :checked="shouldBeChecked(i)">
+                v-model="graphModel.activeBreakdown"
+                :value="b">
             <label :for="'breakdown' + b.breakdownName">
-                Split by <strong>{{b.name}}</strong>
-                <i class="help circle icon" title="Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes."/>
+                <span v-if="b.total">
+                    Overall <strong>{{b.name}}</strong>
+                    <i class="help circle icon" title="See the overall total"/>
+                </span>
+                <span v-else>
+                    Split by <strong>{{b.name}}</strong>
+                    <i class="help circle icon" title="Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes."/>
+                </span>
+            </label>
+        </div>
+
+        <div v-if="!b.total && isActive(b)">
+            <label class="xui checkbox" :class="{active: isActive(b)}"
+                   v-for="bv in b.values">
+
+                <input type="checkbox" v-model="bv.on" :disabled="!isActive(b)"/>
+                {{bv.name}}
             </label>
         </div>
 
@@ -27,31 +41,17 @@
 </template>
 
 <script>
+    import utils from '../../utils';
+
     export default {
         name: 'breakdowns',
         props: ['graphModel'],
+
         methods: {
-            breakdownToggled (index) {
-                this.graphModel.getBreakdowns().forEach((b, i) => {
-                    if(i != index) {
-                        this.graphModel.getBreakdowns()[i].on = false;
-                    }
-                })
-                this.updateState();
-            },
-            shouldBeChecked (index) {
-                // HORRIBLE, this shouldn't have side effects
-                if(!this.graphModel.getBreakdowns()[index].values.some(b => b.on)) {
-                    this.graphModel.getBreakdowns()[index].values.forEach(v => {
-                        v.on = true;
-                    })
-                    this.graphModel.getBreakdowns()[index].on = false;
-                }
-            },
-            updateState () {
-                this.$store.state.breakdowns = JSON.parse(JSON.stringify(this.graphModel.getBreakdowns()));
+            isActive (b) {
+                return b === this.graphModel.activeBreakdown;
             }
-        }
+        },
     }
 </script>
 

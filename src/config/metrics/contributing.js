@@ -21,7 +21,6 @@ module.exports = {
         value: 'editors',
         global: false,
         breakdowns: [{
-            on: false,
             name: 'Editor type',
             breakdownName: 'editor_type',
             values: [
@@ -31,7 +30,6 @@ module.exports = {
                 { name: 'User', on: true, key: 'user' },
             ]
         },{
-            on: false,
             name: 'Page type',
             breakdownName: 'page_type',
             values: [
@@ -39,7 +37,6 @@ module.exports = {
                 { name: 'Non content', on: true, key: 'non-content' }
             ]
         },{
-            on: false,
             name: 'Activity level',
             breakdownName: 'activity_level',
             values: [
@@ -71,7 +68,6 @@ module.exports = {
         value: 'edits',
         global: true,
         breakdowns: [{
-            on: false,
             name: 'Editor type',
             breakdownName: 'editor_type',
             values: [
@@ -81,7 +77,6 @@ module.exports = {
                 { name: 'User', on: true, key: 'user' },
             ]
         },{
-            on: false,
             name: 'Page type',
             breakdownName: 'page_type',
             values: [
@@ -112,7 +107,6 @@ module.exports = {
         value: 'new_pages',
         global: true,
         breakdowns: [{
-            on: false,
             name: 'Editor type',
             breakdownName: 'editor_type',
             values: [
@@ -122,7 +116,6 @@ module.exports = {
                 { name: 'User', on: true, key: 'user' },
             ]
         },{
-            on: false,
             name: 'Page type',
             breakdownName: 'page_type',
             values: [

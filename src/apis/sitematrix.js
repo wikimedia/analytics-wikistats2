@@ -23,8 +23,8 @@ function stripUrl (url) {
 let lookup = matrix.then(function (data) {
 
     let result = {
-        'all': 'all-projects',
-        'all-projects':'all-projects'
+        'all': config.ALL_PROJECTS,
+        'all-projects': config.ALL_PROJECTS,
     };
 
     _.forEach(data.sitematrix, function (languageGroup) {
@@ -132,7 +132,7 @@ export default {
                     family: 'all', title: 'All Project Families', projects: [{
                         title: 'All Languages',
                         description: 'Aggregate of all project families',
-                        code: 'all-projects',
+                        code: config.ALL_PROJECTS,
                         dbname: 'all',
                     }],
                 }

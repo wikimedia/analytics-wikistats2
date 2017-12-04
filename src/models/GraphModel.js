@@ -1,69 +1,73 @@
 import _ from '../lodash-custom-bundle';
 import numeral from 'numeral';
+import utils from '../utils';
 
 class GraphModel {
-    constructor (metricData, dimensionalData, prevBreakdowns) {
-        this.metricData = metricData;
-        this.dimensionalData = dimensionalData;
-        if (prevBreakdowns) {
-            this.breakdowns = prevBreakdowns;
-        } else {
-            this.breakdowns = this.metricData.breakdowns && JSON.parse(JSON.stringify(this.metricData.breakdowns));
+    constructor (configuration) {
+        this.config = configuration;
+
+        if (this.config.type === 'list') {
+            return;
         }
+
+        this.breakdowns = utils.cloneDeep(this.config.breakdowns || []);
+        // insert a "total" breakdown as a default breakdown
+        this.breakdowns.splice(0, 0, {
+            total: true,
+            name: 'Total',
+            // this undefined is meaningful as a second parameter to DimensionalData.breakdown
+            breakdownName: null,
+            values: [
+                { name: 'total', on: true, key: 'total' },
+            ],
+        })
+        this.activeBreakdown = this.breakdowns[0];
+
+        // TODO: maybe make this dynamic when the breakdown is activated?
         // Remove dimension values that have no data.
-        const breakdown = this.getActiveBreakdown();
-        if (breakdown) {
-            let dimensionValues = this.dimensionalData.getDimensionValues(breakdown.breakdownName);
+        /*
+        this.breakdowns.forEach(breakdown => {
+            const dimensionValues = this.data.getDimensionValues(breakdown.breakdownName);
             breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
-        }
+        });
+        */
+
+        this.graphData = [];
     }
-    getGraphData () {
-        if (this.metricData.type === 'list') {
-            return this.topXByY(this.metricData.key, this.metricData.value);
+
+    setData (data) {
+        this.data = data;
+
+        if (this.config.type === 'list') {
+            this.graphData = this.topXByY();
+            return;
         }
         const xAxisValue = 'timestamp';
-        const yAxisValue = this.metricData.value;
-        this.dimensionalData.measure('timestamp');
-        const activeBreakdown = this.getActiveBreakdown();
-        if (activeBreakdown) {
-            // TODO: individual breakdown values should be filtered with DimensionalData
-            let brokenDownValues = [];
-            const rawValues = this.dimensionalData.breakdown(yAxisValue, activeBreakdown.breakdownName);
-            return rawValues.map((row) => {
-                var ts = row.timestamp;
-                const month = createDate(ts);
-                return {month: month, total: row[yAxisValue]};
-            });
-        } else {
-            const rawValues = this.dimensionalData.breakdown(yAxisValue);
-            return rawValues.map((row) => {
-                var ts = row.timestamp;
-                const month = createDate(ts);
-                return {month: month, total: row[yAxisValue]}
-            });
-        }
+        const yAxisValue = this.config.value;
+
+        this.data.measure(xAxisValue);
+        const rawValues = this.data.breakdown(yAxisValue, this.activeBreakdown.breakdownName);
+
+        this.graphData = rawValues.map((row) => {
+            var ts = row.timestamp;
+            const month = createDate(ts);
+            return {month: month, total: row[yAxisValue]};
+        });
     }
-    getMetricBreakdowns () {
-        return this.metricData.breakdowns;
+
+    refreshData () {
+        this.setData(this.data);
     }
-    getBreakdowns () {
-        return this.breakdowns;
+
+    get area () {
+        return this.config.area;
     }
-    getArea () {
-        return this.metricData.area;
-    }
-    getDarkColor () {
-        return this.metricData.darkColor;
-    }
-    getActiveBreakdown () {
-        if (!this.breakdowns) return null;
-        return this.breakdowns.filter((breakdown) => {
-            return breakdown.on;
-        })[0];
+    get darkColor () {
+        return this.config.darkColor;
     }
 
     getAggregateLabel () {
-        return this.metricData.additive ? 'Total' : 'Average';
+        return this.config.additive ? 'Total' : 'Average';
     }
 
     getAggregate () {
@@ -75,23 +79,53 @@ class GraphModel {
         const total = _.sum(values);
         const average = _.round(total / values.length, 1);
 
-        return this.metricData.additive ? total : average;
+        return this.config.additive ? total : average;
     }
 
     getAggregatedValues (limitToLastN) {
-        const data = this.getGraphData();
-        let values;
+        const activeDict = this.getActiveBreakdownValues();
+        const values = this.graphData.map((d) => {
+            return _.sum(_.map(d.total, (breakdownValue, key) => {
+                return key in activeDict ? breakdownValue : 0;
+            }));
+        });
+        const limit = Math.min(limitToLastN || values.length, values.length);
+        return _.take(values, limit);
+    }
 
-        if (typeof data[0].total === 'number') {
-            values = data.map((c) => {
-                return c.total;
-            });
+    getActiveBreakdownValues () {
+        const actives = this.activeBreakdown.values.filter(bv => bv.on).map(bv => bv.key);
+        return actives.reduce((r, a) => { r[a] = true; return r; }, {});
+    }
+
+    getMinMax () {
+        const activeDict = this.getActiveBreakdownValues();
+        let min = 0;
+        let max = 0;
+
+        _.forEach(this.graphData, d => {
+            const active = _.toPairs(d.total).filter(r => r[0] in activeDict).map(r => r[1]);
+            min = Math.min(min, _.min(active));
+            max = Math.max(max, _.max(active));
+        });
+
+        return { min, max };
+    }
+
+    topXByY (limit) {
+        const x = this.config.key;
+        const y = this.config.value;
+
+        this.data.measure(x);
+        const results = this.data.breakdown(y);
+        return _.take(_.sortBy(results, y).reverse(), limit || results.length);
+    }
+
+    formatNumberForMetric (number) {
+        if (this.config.unit === 'bytes') {
+            return numeral(number).format('0,0b');
         } else {
-            values = data.map((r) => {
-                return _.sum(_.map(r.total, (breakdownValue, key) => {
-                    return this.getActiveBreakdown().values.find(v => v.key === key).on? breakdownValue: 0;
-                }));
-            });
+            return numeral(number).format('0,0a');
         }
         const limit = Math.min(limitToLastN || values.length, values.length);
         return _.take(values, limit);
@@ -106,6 +140,16 @@ class GraphModel {
         } else {
             return numeral(number).format('0,0a');
         }
+    }
+}
+
+function createDate(timestamp) {
+    if (timestamp.length <= 10) {
+        return new Date(timestamp.slice(0,4) + '-'
+                        + timestamp.slice(4,6) + '-'
+                        + timestamp.slice(6,8));
+    } else {
+        return new Date(timestamp);
     }
 }
 

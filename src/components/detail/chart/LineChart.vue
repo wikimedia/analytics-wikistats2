@@ -1,16 +1,13 @@
 <template>
 <div class="graphContainer">
     <div v-if="hoveredPoint" class="valuePopup">
-        <p ><b>{{formatDate(hoveredPoint.month)}}</b></p>
-        <div v-if="!graphModel.getActiveBreakdown()">
-            <p>{{selectedValue | thousands}}</p>
-        </div>
-        <div v-else v-for="b in this.selectedValue">
-            <p class="breakdown">
-                <b><span v-bind:style="{ color: getColorForBreakdown(b[0])}">{{graphModel.getActiveBreakdown().values.find(v => v.key === b[0]).name + ": "}}</span></b>
-                <span>{{b[1] | thousands}}</span>
-            </p>
-        </div>
+        <b>{{formatDate(hoveredPoint.month)}}</b>
+        <ul v-for="b in this.selectedValue" class="breakdown">
+            <li>
+                <b><span :style="{ color: b.color }">{{b.name}}</span></b>
+                <span>{{b.value | thousands}}</span>
+            </li>
+        </ul>
     </div>
     <div class="big line chart">
         <svg>
@@ -38,7 +35,31 @@ import config from '../../../config'
 
 export default {
     name: 'line-chart',
-    props: ['graphModel'],
+    props: ['graphModel', 'data'],
+
+    data () {
+        return {
+            hoveredPoint: null
+        };
+    },
+
+    computed: {
+        selectedValue () {
+            let l = [];
+            const activeDict = this.graphModel.getActiveBreakdownValues();
+
+            _.forEach(this.hoveredPoint.total, (value, key) => {
+                if(key in activeDict){
+                    l.push({
+                        key, value,
+                        color: this.getColorForBreakdown(key),
+                        name: key,
+                    });
+                }
+            });
+            return _.sortBy(l, d => d.value).reverse();
+        },
+    },
 
     mounted () {
         this.drawChart();
@@ -75,22 +96,22 @@ export default {
     },
 
     watch: {
-        graphModel: {
-            handler: function () {
-                this.drawChart();
-            },
-            deep: true
-        },
-
-        breakdown: function () {
+        data: function () {
             this.drawChart();
         }
     },
 
     methods: {
 
+        // PUBLIC: used by parent components
+        redraw () {
+            this.drawChart();
+        },
+
         drawChart () {
-            const self = this;
+            if (!this.data.length) {
+                return;
+            }
 
             // We make sure that any selected point in a previous chart is cleared
             this.hoveredPoint = null;
@@ -105,9 +126,8 @@ export default {
                 'transform', `translate(${margin.left},${margin.top})`
             );
             g.selectAll('*').remove();
-            const rowData = this.rowData;
-            let activeBreakdown = self.graphModel.getActiveBreakdown();
-            const max = this.getMaxValue(rowData, activeBreakdown);
+            let activeBreakdown = this.graphModel.activeBreakdown;
+            const { min, max } = this.graphModel.getMinMax();
 
             const n = root.node();
 
@@ -116,12 +136,12 @@ export default {
 
             const width = n.offsetWidth - margin.left - margin.right;
             let x = scales.scaleTime().rangeRound([0, width]);
-            const dates = rowData.map((d) => d.month);
+            const dates = this.data.map((d) => d.month);
             x.domain(arr.extent(dates));
 
             const height = n.offsetHeight - margin.top - margin.bottom - padding;
             let y = scales.scaleLinear().rangeRound([height, 0]);
-            y.domain([this.getMinValue(rowData, activeBreakdown), max]);
+            y.domain([min, max]);
 
             // Resize the parent svg element so that it envelops the whole content
 
@@ -135,8 +155,8 @@ export default {
                 .x((d) => x(d.month))
                 .y((d) => y(d.total));
 
-            let breakdownData = [rowData];
-            let bColor = this.graphModel.getDarkColor();
+            const activeDict = this.graphModel.getActiveBreakdownValues();
+            let bColor = this.graphModel.darkColor;
 
             /*
             Data is flattened if we have breakdowns, so that more than one line is generated:
@@ -155,11 +175,10 @@ export default {
                                                 ]
             */
 
-            if (activeBreakdown) {
-                breakdownData = Object.keys(rowData[0].total).filter(key => {
-                    return activeBreakdown.values.find(value => value.key === key).on;
-                }).map((breakdownName) => {
-                    return rowData.map((row) => {
+            Object.keys(this.data[0].total)
+                .filter(key => key in activeDict)
+                .map((breakdownName) => {
+                    return this.data.map((row) => {
                         return {
                             month: row.month,
                             total: row.total[breakdownName],
@@ -167,26 +186,24 @@ export default {
                         };
                     });
                 })
-            }
-            breakdownData.forEach(breakdown => {
+                .forEach(breakdown => {
 
-                // We need to find each breakdown's corresponding colour from the config
-                if (activeBreakdown) {
-                    bColor = config.getColorForBreakdown(activeBreakdown, breakdown[0].key);
-                }
-                g.append('path').datum(breakdown)
-                    .attr('d', line)
-                    .style('stroke', '#000')
-                    .style('stroke-width', '3px')
-                    .style('fill', 'none');
-                g.append('path').datum(breakdown)
-                    .attr('d', line)
-                    .attr('class', 'statLine breakdownLine')
-                    .style('stroke', bColor)
-                    .style('stroke-width', '2px')
-                    .style('fill', 'none');
-            });
-            this.addHoverGuide(g, rowData, x, y);
+                    // We need to find each breakdown's corresponding colour from the config
+                    bColor = config.getColorForBreakdown(activeBreakdown, breakdown[0].key, this.graphModel.config.area);
+                    g.append('path').datum(breakdown)
+                        .attr('d', line)
+                        .style('stroke', '#000')
+                        .style('stroke-width', '3px')
+                        .style('fill', 'none');
+                    g.append('path').datum(breakdown)
+                        .attr('d', line)
+                        .attr('class', 'statLine breakdownLine')
+                        .style('stroke', bColor)
+                        .style('stroke-width', '2px')
+                        .style('fill', 'none');
+                });
+
+            this.addHoverGuide(g, this.data, x, y);
             this.addAxes(x, y, g);
 
             // Final resizing to include the axes
@@ -221,8 +238,7 @@ export default {
         },
 
         getColorForBreakdown (key) {
-            const activeBreakdown = this.graphModel.getActiveBreakdown();
-            return config.getColorForBreakdown(activeBreakdown, key);
+            return config.getColorForBreakdown(this.graphModel.activeBreakdown, key, this.graphModel.config.area);
         },
 
 
@@ -240,36 +256,11 @@ export default {
             this.hoveredPoint = null;
         },
 
-        getMaxValue (rowData, activeBreakdown) {
-            if (activeBreakdown) {
-                return _.max(rowData.map((r) => {
-                    return _.max(_.map(r.total, (breakdownValue, key) => {
-                        return activeBreakdown.values
-                                    .find(v => v.key === key).on? breakdownValue: 0;
-                    }));
-                }));
-            } else {
-                return _.max(rowData.map((d) => d.total));
-            }
-        },
-
-        getMinValue (rowData, activeBreakdown) {
-            if (activeBreakdown) {
-                return Math.min(0,_.min(rowData.map((r) => {
-                    return _.min(_.map(r.total, (breakdownValue, key) => {
-                        return activeBreakdown.values
-                                    .find(v => v.key === key).on? breakdownValue: 0;
-                    }));
-                })));
-            } else {
-                return Math.min(0, _.min(rowData.map((d) => d.total)));
-            }
-        },
-
         // The hover guide is a UI element that shows the value of each point in the
         // line when hovering. It adds a vertical line for better feedback.
         addHoverGuide (g, rowData, x, y) {
-            let self = this;
+            const self = this;
+
             const width = x.range()[1];
             const height = y.range()[0];
             this.addGuideLine(g, height);
@@ -298,26 +289,19 @@ export default {
 
             // For better clarity on which point is being selected, we add circles that
             // indicate the exact one.
+            const activeDict = this.graphModel.getActiveBreakdownValues();
             hoverGs.each(function (d) {
                 let sel = d3.select(this);
-                const activeBreakdown = self.graphModel.getActiveBreakdown();
-                if (activeBreakdown) {
-                    _.forEach(d.total, (value, key) => {
-                        if (activeBreakdown.values.find(v => v.key === key).on) {
-                            sel.append('circle')
-                                .attr('cx', d => x(d.month))
-                                .attr('cy', d => y(value))
-                                .attr('r', 5)
-                                .style('display', 'none');
-                        }
-                    });
-                } else {
-                    sel.append('circle')
-                    .attr('cx', d => x(d.month))
-                    .attr('cy', d => y(d.total))
-                    .attr('r', 5)
-                    .style('display', 'none');
-                }
+                const activeBreakdown = self.graphModel.activeBreakdown;
+                _.forEach(d.total, (value, key) => {
+                    if (key in activeDict) {
+                        sel.append('circle')
+                            .attr('cx', d => x(d.month))
+                            .attr('cy', d => y(value))
+                            .attr('r', 5)
+                            .style('display', 'none');
+                    }
+                });
             });
         },
 

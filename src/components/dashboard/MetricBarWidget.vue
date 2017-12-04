@@ -13,12 +13,11 @@ import _ from '../../lodash-custom-bundle';
 import ArrowIcon from '../ArrowIcon'
 import * as d3 from 'd3-selection'
 import * as scales from 'd3-scale'
-import * as arr from 'd3-array'
 import config from '../../config'
 
 export default {
     name: 'metric-bar-widget',
-    props: ['metricData', 'graphModel'],
+    props: ['graphModel', 'data'],
 
     components: {
         ArrowIcon,
@@ -29,17 +28,15 @@ export default {
     },
 
     watch: {
-        graphModel: {
-            handler: function () {
-                this.drawChart();
-            },
-            deep: true
-        }
+        data: function () {
+            this.drawChart();
+        },
     },
 
     methods: {
 
         drawChart () {
+
             const self = this;
 
             const root = d3.select(this.$el).select('.bar-chart'),
@@ -52,23 +49,21 @@ export default {
                   );
             g.selectAll('*').remove();
 
-            const rowData = this.graphModel.getGraphData();
-
             const n = root.node(),
                   width = n.offsetWidth - margin.left - margin.right,
                   height = n.offsetHeight - margin.top - margin.bottom - padding,
                   x = scales.scaleBand().rangeRound([0, width]).padding(0.3),
                   y = scales.scaleLinear().rangeRound([height, 0]);
 
-            const min = Math.min(0, arr.min(rowData.map((d) => d.total)));
+            const { min, max } = this.graphModel.getMinMax();
 
-            x.domain(rowData.map((d) => d.month));
-            y.domain([min, arr.max(rowData.map((d) => d.total))]);
+            x.domain(this.data.map((d) => d.month));
+            y.domain([min, max]);
 
             svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
             g.attr('width', width).attr('height', height);
-            const lastMonth = rowData[rowData.length - 1].month;
-            g.append('g').selectAll('.bar').data(rowData)
+            const lastMonth = this.data[this.data.length - 1].month;
+            g.append('g').selectAll('.bar').data(this.data)
                 .enter().append('rect')
                     .attr('x', (d) => x(d.month))
                     .attr('y', (d) => {
@@ -84,7 +79,7 @@ export default {
                     })
                     .attr('fill', (d) =>
                         d.month === lastMonth ?
-                            self.metricData.darkColor : self.metricData.lightColor
+                            self.graphModel.config.darkColor : self.graphModel.config.lightColor
                     );
             if (min < 0) {
                 g.append('line')
@@ -92,7 +87,7 @@ export default {
                     .attr('x2', width)
                     .attr('y1', y(0))
                     .attr('y2', y(0))
-                    .style('stroke', self.metricData.lightColor)
+                    .style('stroke', self.graphModel.config.lightColor)
                     .style('stroke-width', 0.5);
             }
 
@@ -100,7 +95,7 @@ export default {
                 .attr('transform', `translate(${
                                         x.bandwidth() / 2 - 3
                                     },${12})`)
-                .selectAll('.month').data(rowData)
+                .selectAll('.month').data(this.data)
                 .enter().append('text')
                     .attr('x', (d) => x(d.month))
                     .attr('y', height)
