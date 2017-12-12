@@ -18,8 +18,13 @@
                 <div>
                     <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
                     <span class="change label">
-                        <arrow-icon :value="changeMoM"/>
-                        {{changeMoM}} % month over month
+                        <span v-if="changeMoM">
+                            <arrow-icon :value="changeMoM"/>
+                            {{changeMoM}} % month over month
+                        </span>
+                        <span v-else>
+                            (no data last month)
+                        </span>
                     </span>
                 </div>
                 <metric-bar-widget
@@ -33,16 +38,22 @@
                     :graphModel="graphModel">
                 </metric-line-widget>
                 <div class="ui horizontal small statistic">
-                    <div class="value">
+                    <div class="value" v-if="changeYoY">
                         {{graphModel.formatNumberForMetric(lastYearAggregation)}}
                     </div>
-                    <div class="change label">
+                    <div class="change label" v-if="changeYoY">
                         <arrow-icon :value="changeYoY"/>
                         {{changeYoY}} % year over year
                     </div>
                 </div>
                 <div class="year total subdued">
-                    Year {{aggregationType}} ({{monthOneYearAgo.month.getFullYear()}})
+                    <span v-if="changeYoY">
+                        <span v-if="monthOneYearAgo">Year {{aggregationType}} ({{monthOneYearAgo.month.getFullYear()}})</span>
+                        <span v-else>{{aggregationType}} (all available data)</span>
+                    </span>
+                    <span v-else>
+                        (no data last year)
+                    </span>
                 </div>
             </div>
         </div>
@@ -123,7 +134,16 @@ export default {
             monthOneYearAgo: function () {
                 if (!this.lastMonth) { return null; }
 
-                return this.graphData[_.indexOf(this.graphData, this.lastMonth) - 12];
+                let last = _.indexOf(this.graphData, this.lastMonth);
+                const lastMonth = this.graphData[last].month;
+
+                while (last > 0) {
+                    last--;
+                    if (lastMonth - this.graphData[last].month >= 31536000000) {
+                        return this.graphData[last];
+                    }
+                }
+                return null;
             },
             lastYearAggregation: function () {
                 return this.graphModel.getLimitedAggregate(12);
@@ -136,11 +156,23 @@ export default {
 
                 const data = this.graphData;
                 const prev = data[data.length - 2];
+
+                if (!prev
+                    || !prev.total
+                    || this.lastMonth.month - prev.month > 2764800000) {
+                    return null;
+                }
+
                 const diff = this.lastMonth.total - prev.total;
                 return ((diff / prev.total) * 100).toFixed(2);
             },
             changeYoY: function () {
                 // TODO: We're showing more than the last year, but reporting YoY.  This can be confusing because the YoY might not match up visually with the graph (like for Unique Devices in Achinese).
+
+                if (!this.monthOneYearAgo
+                    || !this.monthOneYearAgo.total) {
+                    return null;
+                }
 
                 const diff = this.lastMonth.total - this.monthOneYearAgo.total;
                 return ((diff / this.monthOneYearAgo.total) * 100).toFixed(2);
