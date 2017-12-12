@@ -19,6 +19,10 @@ export default {
     name: 'bar-chart',
     props: ['graphModel', 'data'],
 
+    mounted () {
+        this.drawChart();
+    },
+
     watch: {
         data: function () {
             this.drawChart();
