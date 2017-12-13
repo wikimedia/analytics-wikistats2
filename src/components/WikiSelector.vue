@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 import sitematrix from '../apis/sitematrix';
 import SearchResults from './widgets/SearchResults';
 import _ from '../lodash-custom-bundle';
@@ -114,26 +116,33 @@ export default {
     methods: {
         initWithCurrentProject () {
             const siteProject = this.$store.state.project;
-            if (siteProject === "") return;
+            if (siteProject === '') { return; }
+
             sitematrix.getByProjectFamily().then(byFamily => {
                 this.byFamily = byFamily;
 
                 this.family = byFamily.find((family) => {
                     this.project = family.projects.find((project) => {
-                        return project.code === siteProject
+                        return project.code === siteProject;
                     });
-                    this.close();
                     return this.project;
-                })
-                this.searchDisplay = this.family.title + ' - ' + this.project.title;
-                this.mode = modes.project;
-                this.searchData = this.family.projects;
+                });
+                if (this.family && this.project) {
+                    this.searchDisplay = this.family.title + ' - ' + this.project.title;
+                    this.mode = modes.project;
+                    this.searchData = this.family.projects;
+                } else {
+                    this.searchDisplay = 'CLOSED: ' + (siteProject);
+                    this.mode = modes.family;
+                    this.searchData = byFamily;
+                }
+                Vue.nextTick(() => this.close());
             });
         },
         initTextWidthMeasurer () {
-            if (!$("#wikiselector-hidden-measurer").length) {
+            if (!$('#wikiselector-hidden-measurer').length) {
                 let div = document.createElement('div');
-                div.setAttribute("id", "wikiselector-hidden-measurer");
+                div.setAttribute('id', 'wikiselector-hidden-measurer');
                 document.body.appendChild(div);
             }
         },
