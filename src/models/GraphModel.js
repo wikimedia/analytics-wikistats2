@@ -38,7 +38,7 @@ class GraphModel {
     setData (data) {
         this.data = data;
 
-        if (this.config.type === 'list') {
+        if (['list', 'map'].includes(this.config.type)) {
             this.graphData = this.topXByY();
             return;
         }
@@ -118,7 +118,7 @@ class GraphModel {
 
         this.data.measure(x);
         const results = this.data.breakdown(y);
-        return _.take(_.sortBy(results, y).reverse(), limit || results.length);
+        return _.take(_.sortBy(results, (row) => row[y].total).reverse(), limit || results.length);
     }
 
     formatNumberForMetric (number) {
