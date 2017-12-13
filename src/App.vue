@@ -19,14 +19,24 @@
 </template>
 
 <script>
-import TopNav from './components/TopNav';
+
 import CentralNotice from './components/CentralNotice';
+import TopNav from './components/TopNav';
 import TopicExplorer from './components/TopicExplorer';
 import SiteLanguage from './components/SiteLanguage';
 import BottomFooter from './components/BottomFooter';
 import Dashboard from './components/dashboard/Dashboard';
-import Detail from './components/detail/Detail';
+
 import { mapState } from 'vuex';
+
+    /**
+    Although the specification for import() supports a dynamic importing of
+    modules in the browser runtime, webpack's require.ensure()
+    (which is what imports will translate to) is not dynamic and
+    requires a hardcoded string to work correctly.
+    webpackChunkName is not working, bundle is not getting named correctly
+    (but works otherwise)
+    **/
 
 export default {
     name: 'app',
@@ -36,8 +46,8 @@ export default {
         SiteLanguage,
         BottomFooter,
         Dashboard,
-        Detail,
-        CentralNotice
+        CentralNotice,
+        'detail': () => import(/* webpackChunkName: "detail" */'./components/detail/Detail'),
     },
     mounted () {
         this.isAdblockerOn() && this.warnAdBlocker();
