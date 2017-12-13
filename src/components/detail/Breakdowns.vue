@@ -31,11 +31,6 @@
                 {{bv.name}}
             </label>
         </div>
-
-        <label class="xui checkbox" v-for="bv in b.values">
-            <input type="checkbox" v-model="bv.on" :disabled="!b.on"/>
-            {{bv.name}}
-        </label>
     </div>
 </div>
 </template>

@@ -65,36 +65,6 @@ export default {
         this.drawChart();
     },
 
-    computed: {
-        selectedValue () {
-            if (!this.graphModel.getActiveBreakdown()) {
-                return this.hoveredPoint.total;
-            } else {
-                let l = [];
-                _.forEach(this.hoveredPoint.total, (value, key) => {
-                    if(this.graphModel.getActiveBreakdown().values.find(v => v.key === key).on){
-                        l.push([key, value]);
-                    }
-                });
-                return _.sortBy(l, (val) => val[1]).reverse();
-            }
-        },
-        rowData () {
-            return this.graphModel.getGraphData().map((row) => {
-                return {
-                    total: row.total,
-                    month: new Date(row.month)
-                };
-            });
-        }
-    },
-
-    data () {
-        return {
-            hoveredPoint: null
-        };
-    },
-
     watch: {
         data: function () {
             this.drawChart();

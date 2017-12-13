@@ -38,7 +38,7 @@ class GraphModel {
     setData (data) {
         this.data = data;
 
-        if (this.config.type === 'list') {
+        if (['list', 'map'].includes(this.config.type)) {
             this.graphData = this.topXByY();
             return;
         }
@@ -118,7 +118,7 @@ class GraphModel {
 
         this.data.measure(x);
         const results = this.data.breakdown(y);
-        return _.take(_.sortBy(results, y).reverse(), limit || results.length);
+        return _.take(_.sortBy(results, (row) => row[y].total).reverse(), limit || results.length);
     }
 
     formatNumberForMetric (number) {
@@ -127,29 +127,6 @@ class GraphModel {
         } else {
             return numeral(number).format('0,0a');
         }
-        const limit = Math.min(limitToLastN || values.length, values.length);
-        return _.take(values, limit);
-    }
-    topXByY (x, y) {
-        this.dimensionalData.measure(x);
-        return _.sortBy(this.dimensionalData.breakdown(y), y).reverse();
-    }
-    formatNumberForMetric (number) {
-        if (this.metricData.unit === 'bytes') {
-            return numeral(number).format('0,0b');
-        } else {
-            return numeral(number).format('0,0a');
-        }
-    }
-}
-
-function createDate(timestamp) {
-    if (timestamp.length <= 10) {
-        return new Date(timestamp.slice(0,4) + '-'
-                        + timestamp.slice(4,6) + '-'
-                        + timestamp.slice(6,8));
-    } else {
-        return new Date(timestamp);
     }
 }
 

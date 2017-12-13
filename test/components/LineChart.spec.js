@@ -65,9 +65,4 @@ describe('The line chart', () => {
     it('should generate an x axis', function () {
         expect($('.xAxisLabel', vm.$el).length).toBeGreaterThan(0);
     });
-
-    it('should generate an x axis', function () {
-        const xAxisClassName = '.xAxisLabel';
-        expect($(xAxisClassName, vm.$el).length).toBeGreaterThan(0);
-    });
 });
