@@ -30,7 +30,7 @@ export default {
 
     computed: {
         currentMonth () {
-            return config.months[new Date().getMonth() + 1];
+            return config.months[new Date().getMonth()];
         },
         sortedList () {
             return this.data.slice(0, 4);
