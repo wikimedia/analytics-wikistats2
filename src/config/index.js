@@ -148,7 +148,7 @@ export default {
         },
 
         'top-viewed-articles': {
-            endpoint: AQS_HOST + '/pageviews/top/{{project}}/{{access}}/2015/10/all-days'
+            endpoint: AQS_HOST + '/pageviews/top/{{project}}/{{access}}/{{year}}/{{month}}/all-days'
         },
 
         'new-pages': {

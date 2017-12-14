@@ -15,6 +15,7 @@ module.exports = {
             }
         },
         type: 'bars',
+        structure: 'timeseries',
         area: 'content',
         value: 'abs_bytes_diff',
         unit: 'bytes',
@@ -55,6 +56,7 @@ module.exports = {
             }
         },
         type: 'lines',
+        structure: 'timeseries',
         area: 'content',
         value: 'edited_pages',
         global: false,
@@ -102,6 +104,7 @@ module.exports = {
             }
         },
         type: 'bars',
+        structure: 'timeseries',
         area: 'content',
         unit: 'bytes',
         value: 'net_bytes_diff',

@@ -14,13 +14,27 @@ function labeledCrossProduct (obj) {
     }, [{}]);
 };
 
-const formatSi = format.format(".2s");
-
 function cloneDeep (c) {
     return JSON.parse(JSON.stringify(c));
+}
+
+function getLastFullMonth (yyyymmddDate) {
+    if (yyyymmddDate.length < 6) { return { year: 2017, month: 11 }; }
+
+    let year = parseInt(yyyymmddDate.slice(0, 4), 10);
+    let month = parseInt(yyyymmddDate.slice(4, 6), 10);
+
+    const lastFullDate = new Date(year, month - 1, -1);
+    const lastMonth = '' + (lastFullDate.getMonth() + 1);
+
+    return {
+        year: '' + lastFullDate.getFullYear(),
+        month: (lastMonth.length === 1 ? '0' : '') + lastMonth,
+    };
 }
 
 export default {
     labeledCrossProduct,
     cloneDeep,
+    getLastFullMonth,
 };

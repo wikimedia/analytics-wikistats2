@@ -6,6 +6,7 @@ module.exports = {
         question: 'What are the most viewed articles?',
         info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         type: 'list',
+        structure: 'top',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -39,6 +40,7 @@ module.exports = {
             }
         },
         type: 'lines',
+        structure: 'timeseries',
         area: 'reading',
         value: 'views',
         global: true,
@@ -59,6 +61,7 @@ module.exports = {
         question: 'How many unique devices access content?',
         info_url: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
         type: 'lines',
+        structure: 'timeseries',
         defaults: {
             unique: {
                 project: ['all-projects'],
