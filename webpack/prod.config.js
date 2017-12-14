@@ -9,6 +9,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = merge(baseConfig, {
     output: {
         filename: '[name].bundle.[chunkhash].js',
+        chunkFilename: '[name].[chunkhash].js',
         path: utils.resolve('dist')
     },
     module: {

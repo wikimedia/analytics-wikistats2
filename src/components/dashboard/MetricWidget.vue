@@ -66,6 +66,7 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 
+import _ from '../../lodash-custom-bundle';
 import MetricBarWidget from './MetricBarWidget'
 import MetricLineWidget from './MetricLineWidget'
 import MetricListWidget from './MetricListWidget'
