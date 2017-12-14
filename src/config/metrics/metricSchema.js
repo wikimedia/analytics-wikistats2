@@ -32,6 +32,11 @@ const metricSchema = {
         required: true,
         possibleValues: ['bars', 'lines', 'list']
     },
+    structure: {
+        type: 'string',
+        required: true,
+        possibleValues: ['top', 'timeseries']
+    },
     area: {
         type: 'string',
         required: true,

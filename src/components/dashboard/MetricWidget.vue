@@ -76,6 +76,7 @@ import ArrowIcon from '../ArrowIcon';
 
 import AQS from '../../apis/aqs';
 import config from '../../config';
+import utils from '../../utils';
 import GraphModel from '../../models/GraphModel';
 import RouterLink from '../RouterLink';
 
@@ -229,9 +230,14 @@ export default {
                 {
                     start: params.range[0],
                     end: params.range[1],
-                    granularity: params.granularity
+                    granularity: params.granularity,
+                    structure: params.metricConfig.structure,
                 }
             );
+
+            if (params.metricConfig.structure === 'top') {
+                Object.assign(commonParameters, utils.getLastFullMonth(commonParameters.end));
+            }
 
             let dataPromise = this.aqsApi.getData(uniqueParameters, commonParameters);
             this.overlayMessage = StatusOverlay.LOADING;
