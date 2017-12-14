@@ -5,7 +5,8 @@
                 "browsers": ["last 2 versions", "ie >= 10"]
             },
             "useBuiltIns": true,
-            "debug": true
+            "debug": true,
         }]
-    ]
+    ],
+    "plugins": ["dynamic-import-webpack"]
 }

@@ -17,6 +17,7 @@ module.exports = {
             }
         },
         type: 'lines',
+        structure: 'timeseries',
         area: 'contributing',
         value: 'editors',
         global: false,
@@ -64,6 +65,7 @@ module.exports = {
             }
         },
         type: 'lines',
+        structure: 'timeseries',
         area: 'contributing',
         value: 'edits',
         global: true,
@@ -103,6 +105,7 @@ module.exports = {
             }
         },
         type: 'bars',
+        structure: 'timeseries',
         area: 'contributing',
         value: 'new_pages',
         global: true,
@@ -139,6 +142,7 @@ module.exports = {
             }
         },
         type: 'bars',
+        structure: 'timeseries',
         area: 'contributing',
         value: 'new_registered_users',
         global: true,

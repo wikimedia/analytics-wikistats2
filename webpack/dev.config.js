@@ -6,6 +6,7 @@ const utils = require('./utils');
 module.exports = merge(baseConfig, {
     output: {
         filename: 'bundle.js',
+        chunkFilename: '[name].js',
         path: utils.resolve('dist-dev')
     },
     module: {
@@ -13,6 +14,7 @@ module.exports = merge(baseConfig, {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
+                exclude: /node_modules/,
                 include: [utils.resolve('src'), utils.resolve('test')]
             },
         ]

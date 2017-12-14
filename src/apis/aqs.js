@@ -50,6 +50,7 @@ class AQS {
             .map(p => Object.assign(p, commonParameters))
             .map(p => {
                 let url = apiConfig.endpoint;
+
                 url.match(/{{.*?}}/g)
                     .forEach((k) => {
                         const key = _.trim(k, '{}');
@@ -69,7 +70,6 @@ class AQS {
                     });
                 });
             });
-        const metricData = config.metricData(commonParameters.metric);
         return Promise.all(promises).then(data => {
             let validData = _.filter(data, d => !d.hasOwnProperty('error'));
             let formattedData = _.flatten(validData.map(d => d.items));
@@ -79,7 +79,7 @@ class AQS {
                 if (formattedData[0].results) {
                     formattedData = this.transformResults(formattedData);
                 }
-                if (metricData.type === 'list') {
+                if (commonParameters.structure === 'top') {
                     formattedData = this.formatTops(formattedData);
                 }
                 return new DimensionalData(formattedData);
@@ -126,5 +126,12 @@ class AQS {
         }, []);
     }
 }
+/*
+
+AQS only has data up to the previous month to the current, so when requesting
+the last data available we should check that we're not trying to get
+the current month (or later).
+
+*/
 
 export default AQS;

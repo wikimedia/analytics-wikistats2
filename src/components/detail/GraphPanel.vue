@@ -54,7 +54,7 @@
                 <p>{{graphModel.config.description}}. <a class='metric link' :href="graphModel.config.info_url" target="_blank">More info about this metric.</a></p>
             </div>
         </div>
-        <div class="ui center aligned subdued basic segment">
+        <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
             <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
