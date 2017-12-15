@@ -63,7 +63,7 @@ export default {
         },
         warnAdBlocker () {
             this.$store.state.centralNotice = {
-                message: 'Your ad blocker is preventing Wikistats from reaching the server. Disable it to be able to see all metrics correctly.',
+                message: 'Your ad blocker is preventing Wikistats from showing you metrics, because our API uses the word "pageview". There are no ads on any Wikimedia sites, but to see all metrics correctly you need to disable your ad blocker for this site.',
                 level: 'error'
             }
         }
