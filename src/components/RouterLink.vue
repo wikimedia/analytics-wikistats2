@@ -1,5 +1,5 @@
 <template>
-<a href="#" @click.prevent="commitState()" :class="highlightClass()">
+<a :href="linkPath()" @click="commitState($event)" :class="highlightClass()">
     <slot></slot>
 </a>
 </template>
@@ -13,9 +13,22 @@ export default {
         to: { type: Object, default: '' },
     },
     methods: {
-        commitState () {
-            if (!this.isCurrent()) {
-                this.$store.commit('resetNavigationState', this.to);
+        linkPath () {
+            // Note that href="linkPath()" is not used by the browser for regular clicks.
+            // The browser will only use it when opening links in a new tab, and also as
+            // a visual reference for the user when they hover the cursor over a link.
+            let root = window.location.pathname;
+            let redirectedState = router.getRedirectedState(this.to, routes) || this.to;
+            return router.getPathFromState(root, redirectedState, routes);
+        },
+        commitState (event) {
+            // If the user tries to open a link in a new tab, let the browser handle that.
+            // Otherwise, prevent the default request and navigate by directly changing the state.
+            if (!event.ctrlKey && !event.metaKey) {
+                event.preventDefault();
+                if (!this.isCurrent()) {
+                    this.$store.commit('resetNavigationState', this.to);
+                }
             }
         },
         highlightClass () {

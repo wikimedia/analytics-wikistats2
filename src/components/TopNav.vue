@@ -60,4 +60,7 @@ export default {
 .router-link-current {
     cursor: default;
 }
+.router-link-not-current {
+    color: #3366cc;
+}
 </style>
