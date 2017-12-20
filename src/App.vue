@@ -28,6 +28,7 @@ import BottomFooter from './components/BottomFooter';
 import Dashboard from './components/dashboard/Dashboard';
 
 import { mapState } from 'vuex';
+import numeral from 'numeral';
 
     /**
     Although the specification for import() supports a dynamic importing of
@@ -51,6 +52,7 @@ export default {
     },
     mounted () {
         this.isAdblockerOn() && this.warnAdBlocker();
+        this.setUpNumeralLocale();
     },
 
     methods: {
@@ -66,6 +68,21 @@ export default {
                 message: 'Your ad blocker is preventing Wikistats from showing you metrics, because our API uses the word "pageview". There are no ads on any Wikimedia sites, but to see all metrics correctly you need to disable your ad blocker for this site.',
                 level: 'error'
             }
+        },
+        setUpNumeralLocale() {
+            numeral.register('locale', 'international', {
+                delimiters: {
+                    thousands: '',
+                    decimal: '.'
+                },
+                abbreviations: {
+                    thousand: 'k',
+                    million: 'm',
+                    billion: 'g',
+                    trillion: 't'
+                }
+            });
+            numeral.locale('international');
         }
     },
     data () {

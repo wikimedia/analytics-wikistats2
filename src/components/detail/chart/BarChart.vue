@@ -13,7 +13,6 @@ import * as time from 'd3-time';
 import _ from 'lodash';
 
 import config from '../../../config';
-import utils from '../../../utils';
 
 export default {
     name: 'bar-chart',
