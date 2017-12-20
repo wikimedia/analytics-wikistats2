@@ -122,7 +122,7 @@ export default {
                     .style('stroke-width', 0.5);
             }
             const x = scales.scaleTime()
-                          .rangeRound([0, graphElement.node().getBBox().width])
+                          .rangeRound([0, width])
                           .domain(datespan);
             const xAxis = axes.axisBottom(x);
             g.append('g').attr('transform', `translate(0,${height})`)
