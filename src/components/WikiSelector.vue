@@ -169,11 +169,11 @@ export default {
         onBlur () {
             let fam = this.family;
             let proj = this.project;
-            setTimeout(() => {
+            Vue.nextTick(() => {
                 if (this.family === fam && proj === this.project) {
                     this.close();
                 };
-            }, 200);
+            });
         },
         onMouseOver () {
             let input = $('input', this.$el);

@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { mapState } from 'vuex';
 import _ from '../lodash-custom-bundle';
 import config from '../config'
@@ -99,9 +100,9 @@ export default {
             this.searchDisplay = '';
         },
         onBlur () {
-            setTimeout(() => {
+            Vue.nextTick(() => {
                 this.close();
-            }, 200);
+            });
         },
         changeHighlight (indexDiff) {
             if (this.$refs.searchResults) {
