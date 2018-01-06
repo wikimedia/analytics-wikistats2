@@ -2,8 +2,9 @@ module.exports = {
     'editors': {
         disabled: true,
         fullName: 'Editors',
-        description: 'Number of editors at a time period.',
+        description: 'The count of editors with one or more edits, including on redirect pages',
         question: 'How many editors are there?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Editors',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -51,8 +52,9 @@ module.exports = {
     },
     'edits': {
         fullName: 'Edits',
-        description: 'Number of wiki edits in a time period',
+        description: 'The count of edits (or revisions), including edits on redirects',
         question: 'How many edits have been made?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Edits',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -91,8 +93,9 @@ module.exports = {
     'new-pages': {
         disabled: true,
         fullName: 'New pages',
-        description: 'New pages is the page creations and page restores minus page deletions, measured monthly',
+        description: 'The count of new pages created, excluding pages being redirects',
         question: 'How many new pages each month?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/New_pages',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -130,8 +133,9 @@ module.exports = {
     },
     'new-registered-users': {
         fullName: 'New registered users',
-        description: 'Newly self-created registered users counts',
+        description: 'The count of newly self-created registered users',
         question: 'How many new users are there?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Newly_registered_user',
         defaults: {
             unique: {
                 project: ['all-projects']

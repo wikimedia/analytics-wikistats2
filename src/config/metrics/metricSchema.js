@@ -15,7 +15,7 @@ const metricSchema = {
         type: 'string',
         required: false
     },
-    info_url: {
+    infoUrl: {
         type: 'string',
         required: false
     },
