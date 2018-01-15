@@ -4,7 +4,7 @@ module.exports = {
         subtitle: 'Most viewed articles',
         description: 'Most viewed articles',
         question: 'What are the most viewed articles?',
-        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         type: 'list',
         structure: 'top',
         defaults: {
@@ -25,9 +25,9 @@ module.exports = {
     },
     'total-pageviews': {
         fullName: 'Total Page Views',
-        description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views.',
+        description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views',
         question: 'How many times are articles viewed?',
-        info_url: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -57,9 +57,9 @@ module.exports = {
     },
     'unique-devices': {
         fullName: 'Unique Devices',
-        description: 'How many distinct devices we have visiting a project in a given time period.',
+        description: 'How many distinct devices we have visiting a project in a given time period',
         question: 'How many unique devices access content?',
-        info_url: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
         type: 'lines',
         structure: 'timeseries',
         defaults: {

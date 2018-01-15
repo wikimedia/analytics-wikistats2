@@ -3,7 +3,8 @@
     <div class="ui clearing basic segment" v-if="graphModel">
         <div>
             <h2 class="ui left floated header">
-                <a class='metric link' :href="graphModel.config.info_url" target="_blank">
+                <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
+                   title="Click through to get a more detailed definition of this metric on the Research wiki">
                     {{graphModel.config.fullName || 'No data yet... '}}
                 </a>
                 <span class="subdued granularity">{{granularity}}</span>
@@ -51,7 +52,12 @@
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     {{changeOverRange}}% over this time range.
                 </h5>
-                <p>{{graphModel.config.description}}. <a class='metric link' :href="graphModel.config.info_url" target="_blank">More info about this metric.</a></p>
+                <p>{{graphModel.config.description}}.
+                    <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
+                       title="Click through to get a more detailed definition of this metric on the Research wiki">
+                        More info about this metric.
+                    </a>
+                </p>
             </div>
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">

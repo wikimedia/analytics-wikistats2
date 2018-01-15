@@ -1,8 +1,9 @@
 module.exports = {
     'absolute-bytes': {
         fullName: 'Absolute bytes diff',
-        description: 'Absolute sum of all diff bytes in a project',
-        question: 'How many bytes have been changed?',
+        description: 'The sum of the absolute differences in bytes made by each edit (or revision), including edits on redirects. In other words, counting negative differences as positive',
+        question: 'What are the total number of bytes added and removed?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Bytes#Absolute_Bytes_Difference',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -41,8 +42,9 @@ module.exports = {
     },
     'edited-pages': {
         fullName: 'Edited pages',
-        description: 'Number of pages edited',
+        description: 'The number of pages edited, excluding redirect pages',
         question: 'How many pages are edited?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Edited_pages',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -90,8 +92,9 @@ module.exports = {
     },
     'net-bytes': {
         fullName: 'Net bytes difference',
-        description: 'Net difference between current byte size of a project and last period\'s',
-        question: 'How did the size in bytes change since last period?',
+        description: 'The sum of the differences in bytes made by each edit (or revision), including edits on redirects',
+        question: 'How did the overall size in bytes change since last period?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Bytes#Net_Bytes_Difference',
         defaults: {
             unique: {
                 project: ['all-projects'],
