@@ -53,6 +53,19 @@ class GraphModel {
             const month = createDate(ts);
             return {month: month, total: row[yAxisValue]};
         });
+
+
+    }
+
+    /** Data for downloading as csv needs to be a flat key/value pair object **/
+    downloadData(){
+        let jsonData = JSON.parse(JSON.stringify(this.graphData));
+        // data is an array of objects that might be deeply nested (with more than 1 level)
+        let flatJSONData = []
+        _.forEach(jsonData, function(item){
+            flatJSONData.push(flatten(item));
+        });
+        return flatJSONData;
     }
 
     refreshData () {
@@ -138,6 +151,29 @@ function createDate(timestamp) {
     } else {
         return new Date(timestamp);
     }
+}
+
+/**
+* Convert an nested object in a set of flat key value pairs
+* {some: { a:1, b:2 }} will be converted to {some.a :1, some.b:2}
+**/
+function flatten(obj) {
+    let accumulator = {};
+
+    function _flatten(obj, keyPrefix) {
+
+         _.forEach(obj, function(value, key){
+
+            if (typeof(obj[key]) === 'object'){
+                _flatten(obj[key], key);
+
+            } else {
+                !keyPrefix ? accumulator[key] = value : accumulator[keyPrefix +'.'+ key] = value;
+            }
+        })
+    }
+    _flatten(obj);
+    return accumulator;
 }
 
 export default GraphModel;
