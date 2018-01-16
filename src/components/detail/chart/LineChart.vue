@@ -39,8 +39,7 @@ export default {
 
     data () {
         return {
-            hoveredPoint: null,
-            margin: {top: 6, right: 0, bottom: 20, left: 40}
+            hoveredPoint: null
         };
     },
 
@@ -88,11 +87,14 @@ export default {
             this.hoveredPoint = null;
 
             const root = d3.select(this.$el).select('.big'),
+                  margin = {top: 6, right: 0, bottom: 20, left: 40},
                   padding = 4;
 
             const svg = root.select('svg');
             svg.attr('width', 0).attr('height', 0);
-            const g = svg.select('.graph')
+            const g = svg.select('.graph').attr(
+                'transform', `translate(${margin.left},${margin.top})`
+            );
             g.selectAll('*').remove();
             let activeBreakdown = this.graphModel.activeBreakdown;
             const { min, max } = this.graphModel.getMinMax();
@@ -102,12 +104,12 @@ export default {
             // Generate the x and y scales that we'll use to calculate the line
             // and the two axes.
 
-            const width = n.offsetWidth - this.margin.left - this.margin.right;
+            const width = n.offsetWidth - margin.left - margin.right;
             let x = scales.scaleTime().rangeRound([0, width]);
             const dates = this.data.map((d) => d.month);
             x.domain(arr.extent(dates));
 
-            const height = n.offsetHeight - this.margin.top - this.margin.bottom - padding;
+            const height = n.offsetHeight - margin.top - margin.bottom - padding;
             let y = scales.scaleLinear().rangeRound([height, 0]);
             y.domain([min, max]);
 
@@ -188,7 +190,7 @@ export default {
             const xAxis = axes.axisBottom(x),
                   yAxis = axes.axisLeft(y).ticks(7)
                             .tickFormat(this.graphModel.formatNumberForMetric.bind(this.graphModel));
-            const yContainer = g.append('g')
+            g.append('g')
                 .call(yAxis)
                 .attr('class', 'yAxis')
                 .style('font-size', '13px')
@@ -203,9 +205,6 @@ export default {
                     .attr("dx", "-.8em")
                     .attr("dy", ".15em")
                     .attr("transform", "rotate(-45)");
-            g.attr(
-                'transform', `translate(${yContainer.node().getBBox().width},${this.margin.top})`
-            );
         },
 
         getColorForBreakdown (key) {

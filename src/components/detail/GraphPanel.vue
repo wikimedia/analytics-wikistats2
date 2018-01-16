@@ -78,7 +78,6 @@ import LineChart from './chart/LineChart';
 import TableChart from './chart/TableChart';
 import EmptyChart from './chart/EmptyChart';
 import StatusOverlay from '../StatusOverlay';
-import *  as d3Formatter from 'd3-dsv';
 
 export default {
     name: 'graph-panel',
@@ -153,10 +152,10 @@ export default {
             this.$emit('toggleFullscreen');
         },
         download () {
-            let csvData = d3Formatter.csvFormat(this.graphModel.downloadData());
+            const data = this.graphModel.graphData;
             let a = window.document.createElement('a');
-            a.href = window.URL.createObjectURL(new Blob([csvData], {type: 'text/csv'}));
-            a.download = this.graphModel.config.name + '.csv';
+            a.href = window.URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'text/json'}));
+            a.download = this.graphModel.config.name + '.json';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

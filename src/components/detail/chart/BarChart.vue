@@ -48,7 +48,9 @@ export default {
             root.selectAll('*').remove();
 
             const svg = root.append('svg'),
-                  g = svg.append('g');
+                  g = svg.append('g').attr(
+                    'transform', `translate(${margin.left + padding},${margin.top})`
+                  );
 
             const n = root.node();
             const activeDict = this.graphModel.getActiveBreakdownValues();
@@ -67,9 +69,6 @@ export default {
                 .style('font-size', '13px')
                 .style('font-family', 'Lato, "Open Sans"');
             const yAxisContainerWidth = yAxisContainer.node().getBBox().width;
-            g.attr(
-                'transform', `translate(${yAxisContainerWidth},${margin.top})`
-            );
 
             let width = n.offsetWidth - margin.left - margin.right - yAxisContainerWidth;
             let xW = scales.scaleBand()
