@@ -6,8 +6,8 @@
         </metric-placeholder-widget>
         <div v-else>
             <metric-list-widget
-                v-if="graphModel.config.type === 'list'"
                 :data="graphData"
+                v-if="graphModel.config.structure === 'top'"
                 :graphModel="graphModel">
             </metric-list-widget>
             <div v-else>
@@ -121,7 +121,7 @@ export default {
             graphData () {
                 if (!this.graphModel) { return []; }
 
-                if (this.graphModel.config.type === 'list') {
+                if (['map', 'list'].includes(this.graphModel.config.type)) {
                     return this.graphModel.graphData;
                 } else {
                     // normalize the data to look like the old data

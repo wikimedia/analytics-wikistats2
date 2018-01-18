@@ -37,13 +37,19 @@ class GraphModel {
 
     setData (data) {
         this.data = data;
-
-        if (['list', 'map'].includes(this.config.type)) {
-            this.graphData = this.topXByY();
-            return;
-        }
         const xAxisValue = 'timestamp';
         const yAxisValue = this.config.value;
+
+        if (this.config.structure === 'top') {
+            this.graphData = this.topXByY().map(row => {
+                row.total = {
+                    total: row[yAxisValue]
+                };
+                delete row[yAxisValue];
+                return row;
+            });
+            return;
+        }
 
         this.data.measure(xAxisValue);
         const rawValues = this.data.breakdown(yAxisValue, this.activeBreakdown.breakdownName);
@@ -53,6 +59,19 @@ class GraphModel {
             const month = createDate(ts);
             return {month: month, total: row[yAxisValue]};
         });
+
+
+    }
+
+    /** Data for downloading as csv needs to be a flat key/value pair object **/
+    downloadData(){
+        let jsonData = JSON.parse(JSON.stringify(this.graphData));
+        // data is an array of objects that might be deeply nested (with more than 1 level)
+        let flatJSONData = []
+        _.forEach(jsonData, function(item){
+            flatJSONData.push(flatten(item));
+        });
+        return flatJSONData;
     }
 
     refreshData () {
@@ -100,6 +119,14 @@ class GraphModel {
 
     getMinMax () {
         const activeDict = this.getActiveBreakdownValues();
+        if (this.config.structure === 'top') {
+            const sorted = _.sortBy(this.graphData, row => row.rank);
+            return {
+                min: sorted[sorted.length - 1].total.total,
+                max: sorted[0].total.total
+            }
+        }
+
         let min = 0;
         let max = 0;
 
@@ -118,7 +145,7 @@ class GraphModel {
 
         this.data.measure(x);
         const results = this.data.breakdown(y);
-        return _.take(_.sortBy(results, (row) => row[y].total).reverse(), limit || results.length);
+        return _.take(_.sortBy(results, (row) => row.rank), limit || results.length);
     }
 
     formatNumberForMetric (number) {
@@ -138,6 +165,29 @@ function createDate(timestamp) {
     } else {
         return new Date(timestamp);
     }
+}
+
+/**
+* Convert an nested object in a set of flat key value pairs
+* {some: { a:1, b:2 }} will be converted to {some.a :1, some.b:2}
+**/
+function flatten(obj) {
+    let accumulator = {};
+
+    function _flatten(obj, keyPrefix) {
+
+         _.forEach(obj, function(value, key){
+
+            if (typeof(obj[key]) === 'object'){
+                _flatten(obj[key], key);
+
+            } else {
+                !keyPrefix ? accumulator[key] = value : accumulator[keyPrefix +'.'+ key] = value;
+            }
+        })
+    }
+    _flatten(obj);
+    return accumulator;
 }
 
 export default GraphModel;

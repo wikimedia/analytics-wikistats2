@@ -46,16 +46,15 @@ class AQS {
         }
 
         let apiConfig = config.aqs[commonParameters.metric];
+        const metricConfig = config.metrics[commonParameters.metric];
         let promises = utils.labeledCrossProduct(uniqueParameters)
             .map(p => Object.assign(p, commonParameters))
             .map(p => {
                 let url = apiConfig.endpoint;
-
-                url.match(/{{.*?}}/g)
-                    .forEach((k) => {
-                        const key = _.trim(k, '{}');
-                        url = url.replace(k, p[key]);
-                    });
+                (url.match(/{{.*?}}/g) || []).forEach((k) => {
+                    const key = _.trim(k, '{}');
+                    url = url.replace(k, p[key]);
+                });
 
                 // console.info('getting ', url.replace(/https.*metrics\//, ''));
                 return new Promise((resolve, reject) => {
@@ -79,8 +78,8 @@ class AQS {
                 if (formattedData[0].results) {
                     formattedData = this.transformResults(formattedData);
                 }
-                if (commonParameters.structure === 'top') {
-                    formattedData = this.formatTops(formattedData);
+                if (metricConfig.structure === 'top') {
+                    formattedData = this.formatTops(formattedData, metricConfig.arrayName);
                 }
                 return new DimensionalData(formattedData);
             } else {
@@ -89,8 +88,8 @@ class AQS {
         });
     }
 
-    formatTops (data) {
-        return _.flatten(data.map(item => item.articles));
+    formatTops (data, column) {
+        return _.flatten(data.map(item => item[column]));
     }
 
 

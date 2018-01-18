@@ -2,30 +2,27 @@
 <div>
     <div class="ui search">
         <div class="ui icon input">
-            <input class="prompt" type="text" v-model="searchDisplay"
-                :placeholder="single ? 'Choose a Wiki' : 'Add another Wiki'"
-                @blur="onBlur"
-                @keyup.enter="select"
+            <input class="prompt" type="text" v-model="inputText"
+                ref="inputBox"
+                :placeholder="placeholder"
+                @click="open"
+                @keydown.up="navigateSearchResults(-1)"
+                @keydown.down="navigateSearchResults(1)"
+                @keyup.enter="selectSearchResult"
+                @blur="blur"
                 @keyup.esc="close"
-                @keydown.down="changeHighlight(1)"
-                @keydown.up="changeHighlight(-1)"
-                @click="clear"
-                @mouseover="onMouseOver"
-                @mouseleave="onMouseLeave"/>
-
+                @mouseover="animateLongTextRight"
+                @mouseleave="animateLongTextLeft"/>
             <i class="search icon"></i>
         </div>
-        <search-results v-if="showResults"
+        <search-results v-if="showSearchResults"
             ref="searchResults"
-            :data="searchData" :search="search"
-            subtitle="description"
-            @select="found"></search-results>
-    </div>
-    <div v-if="!single && addAnotherWiki">
-        <a @click.prevent="addAnotherWiki" href="#">Add another Wiki</a>
-        <div class="add wiki design">
-            "Add another Wiki" is not implemented in the prototype.  But you can see how it would work in <a target="_new" href="https://www.dropbox.com/sh/lfrn4lcjyqhou7o/AAAmzec_63b1UwaZCGFDw1gea?dl=0&preview=Detail+Page+Two+Wiki+comparison.png">the design here</a> and <a href="https://www.dropbox.com/sh/lfrn4lcjyqhou7o/AAAmzec_63b1UwaZCGFDw1gea?dl=0&preview=Wiki+Selector.png" target="_new">here</a>.
-        </div>
+            title="title"
+            subtitle="subtitle"
+            :maxResults="500"
+            :data="searchData"
+            :search="searchText"
+            @select="applySearchResult"></search-results>
     </div>
 </div>
 </template>
@@ -37,183 +34,280 @@ import sitematrix from '../apis/sitematrix';
 import SearchResults from './widgets/SearchResults';
 import _ from '../lodash-custom-bundle';
 
-
-const modes = {
-    family: 'Search through project families',
-    project: 'Select a sub-project or language',
-};
 const separator = ' – ';
 
+// When there is a wiki already specified in the state,
+// the wikiselector has to wait for the sitematrix
+// to be loaded before showing the project family and language.
+// Until then the loading placeholder will be shown.
+// After that, the regular typing placeholder will be shown.
+const placeholders = {
+    loading: 'Loading...',
+    typing: 'Type and choose a wiki...'
+};
+
+// Format object used as a parameter for the sitematrix API.
+// It will format the API responses to act like search results.
+const searchDataFormat = {
+    type: true,
+    code: true,
+    title: 'localName',
+    subtitle: 'name'
+};
 
 export default {
     name: 'wiki-selector',
-    props: { single: { type: Boolean, default: true } },
 
     data () {
         return {
-            searchBoxEl: null,
-            byFamily: [],
+            inputText: '',
+            showSearchResults: false,
             searchData: [],
-
-            // searchDisplay is what's seen in the text input
-            // result is the computed part of searchDisplay that's already set
-            // search is the computed string that's passed to search-results
-            searchDisplay: '',
-            family: null,
-            project: null,
-
-            mode: modes.family,
-            showResults: false,
-            addAnotherWiki: null
+            projectFamily: null,
+            language: null
         };
     },
 
     components: {
-        SearchResults,
+        SearchResults
     },
 
     mounted () {
-        this.searchBoxEl = $('input.prompt', this.$el);
-        this.initWithCurrentProject();
+        this.initWithCurrentWiki();
         this.initTextWidthMeasurer();
     },
 
     watch: {
         '$store.getters.mainState' () {
-            this.initWithCurrentProject();
+            this.initWithCurrentWiki();
         },
-        searchDisplay: function () {
-            if (this.project && !_.endsWith(this.searchDisplay, this.project.title)) {
-                this.project = null;
-            }
-            if (this.family && !_.startsWith(this.searchDisplay, this.result)) {
-                this.family = null;
-                this.mode = modes.family;
-                this.searchData = this.byFamily;
-                this.searchDisplay = _.trim(this.searchDisplay, separator);
-            }
-            if (!this.project) {
-                this.open();
 
-            // if both family and project are selected, broadcast the choice
-            } else if (this.family && this.project) {
-                const { family, project } = this;
-                this.$store.commit('setState', { project: project.code });
-                $('input', this.$el).blur();
+        inputText () {
+            // Help deleting the separator with a single keystroke.
+            if (!this.inputText.includes(separator) && (this.projectFamily || this.language)) {
+                this.projectFamily = null;
+                this.language = null;
+                this.inputText = this.inputText.replace(separator.slice(0, -1), '');
             }
+        },
+
+        projectFamily () {
+            this.updateSearchData();
+        },
+
+        language () {
+            this.updateSearchData();
         }
     },
 
     computed: {
-        search () {
-            return _.replace(this.searchDisplay, this.result, '');
+        searchText () {
+            if (this.inputText.includes(separator)) {
+                return this.inputText.split(separator)[1].trim();
+            } else {
+                return this.inputText.trim();
+            }
         },
-        result () {
-            return this.family ? `${this.family.title}${separator}` : '';
-        },
+        placeholder () {
+            if (this.inputText === '') {
+                if (!this.showSearchResults){
+                    return placeholders.loading;
+                } else {
+                    return placeholders.typing;
+                }
+            }
+            return '';
+        }
     },
 
     methods: {
-        initWithCurrentProject () {
-            const siteProject = this.$store.state.project;
-            if (siteProject === '') { return; }
-
-            sitematrix.getByProjectFamily().then(byFamily => {
-                this.byFamily = byFamily;
-
-                this.family = byFamily.find((family) => {
-                    this.project = family.projects.find((project) => {
-                        return project.code === siteProject;
-                    });
-                    return this.project;
-                });
-                if (this.family && this.project) {
-                    this.searchDisplay = this.family.title + ' - ' + this.project.title;
-                    this.mode = modes.project;
-                    this.searchData = this.family.projects;
+        initWithCurrentWiki () {
+            // Initialize the input text from the state project.
+            const stateProject = this.$store.state.project;
+            sitematrix.getWikiOrGroupFromHostname(stateProject).then(wikiInfo => {
+                if (wikiInfo) {
+                    if (wikiInfo.type === 'wikiGroup') {
+                        this.inputText = wikiInfo.localName;
+                    } else if (wikiInfo.type === 'specialWiki') {
+                        this.inputText = wikiInfo.name;
+                    } else { // regularWiki
+                        this.inputText = (
+                            wikiInfo.projectFamily.localName +
+                            separator +
+                            wikiInfo.language.localName
+                        );
+                    }
                 } else {
-                    this.searchDisplay = 'CLOSED: ' + (siteProject);
-                    this.mode = modes.family;
-                    this.searchData = byFamily;
+                    this.inputText = 'INVALID: ' + stateProject;
                 }
-                Vue.nextTick(() => this.close());
             });
         },
+
         initTextWidthMeasurer () {
+            // Create a hidden div for measuring the input text.
             if (!$('#wikiselector-hidden-measurer').length) {
                 let div = document.createElement('div');
                 div.setAttribute('id', 'wikiselector-hidden-measurer');
                 document.body.appendChild(div);
             }
         },
-        select () {
+
+        animateLongTextRight () {
+            // Measures input text.
+            const input = $(this.$refs.inputBox);
+            const inputPadding = (
+                parseFloat(input.css('padding-left')) +
+                parseFloat(input.css('padding-right'))
+            );
+            const inputBorder = parseFloat(input.css('border-width')) * 2;
+            const inputWidth = input.width() - inputPadding - inputBorder;
+            const measurer = $('#wikiselector-hidden-measurer');
+            measurer.css('font-size', input.css('font-size'));
+            measurer.html(input.val());
+
+            // Triggers animation if necessary.
+            if (inputWidth < measurer.width() && !input.is(':focus')) {
+                const offset = inputWidth - measurer.width();
+                input.animate({textIndent: offset}, 500);
+            }
+        },
+
+        animateLongTextLeft () {
+            $(this.$refs.inputBox).stop().animate({textIndent: 0}, 200);
+        },
+
+        stopLongTextAnimation () {
+            $(this.$refs.inputBox).stop().css('text-indent', 0);
+        },
+
+        open () {
+            // Open is called when the user clicks on the WikiSelector.
+            // If the WikiSelector is already open when receiving the click,
+            // this method shouldn't do anything.
+            if (!this.showSearchResults) {
+                this.stopLongTextAnimation();
+                this.inputText = '';
+                this.showSearchResults = true;
+                this.updateSearchData();
+            }
+        },
+
+        blur () {
+            // Do not close, if the blur click was made on the search results.
+            if (!this.$refs.searchResults.mouseHover) {
+                this.close();
+            }
+        },
+
+        close () {
+            $(this.$refs.inputBox).blur();
+            this.showSearchResults = false;
+            this.projectFamily = null;
+            this.language = null;
+            this.initWithCurrentWiki();
+            this.updateSearchData();
+        },
+
+        updateSearchData () {
+            if (this.showSearchResults) {
+                let dataPromise;
+
+                if (this.projectFamily && !this.language) {
+                    // Project family is already chosen.
+                    dataPromise = sitematrix.getLanguages(this.projectFamily.code, searchDataFormat);
+                } else if (this.language && !this.projectFamily) {
+                    // Language is already chosen.
+                    dataPromise = sitematrix.getProjectFamilies(this.language.code, searchDataFormat);
+                } else if (!this.projectFamily && !this.language) {
+                    // Neither project family nor language are chosen yet.
+                    dataPromise = this.getAllSearchData();
+                } else {
+                    dataPromise = Promise.resolve([]);
+                }
+                dataPromise.then(data => {
+                    this.searchData = data;
+                });
+            } else {
+                this.searchData = [];
+            }
+        },
+
+        getAllSearchData () {
+            return Promise.all([
+                sitematrix.getWikiGroups(searchDataFormat),
+                sitematrix.getProjectFamilies(null, searchDataFormat),
+                sitematrix.getLanguages(null, searchDataFormat),
+                sitematrix.getSpecialWikis({
+                    type: true,
+                    code: 'hostname',
+                    title: 'name',
+                    subtitle: 'hostname'
+                }),
+                sitematrix.getRegularWikis({
+                    type: true,
+                    code: 'hostname',
+                    title: 'hostname',
+                    subtitle: 'dbname'
+                })
+            ]).then(values => {
+                const [groups, projectFamilies, languages, specials, wikis] = values;
+                return _.concat(groups, projectFamilies, languages, specials, wikis);
+            });
+        },
+
+        navigateSearchResults (offset) {
+            if (this.$refs.searchResults) {
+                this.$refs.searchResults.changeHighlight(offset);
+            }
+        },
+
+        selectSearchResult () {
             if (this.$refs.searchResults) {
                 this.$refs.searchResults.selectHighlighted();
             }
         },
-        close () {
-            if (!this.searchDisplay) {
-                this.initWithCurrentProject();
-            }
-            this.showResults = false;
-        },
-        open () {
-            this.showResults = true;
-        },
-        clear () {
-            if (this.project) {
-                this.searchDisplay = '';
-            }
-            $('input', this.$el).stop().css('text-indent', 0);
-        },
-        onBlur () {
-            let fam = this.family;
-            let proj = this.project;
-            setTimeout(() => {
-                if (this.family === fam && proj === this.project) {
-                    this.close();
-                };
-            }, 200);
-        },
-        onMouseOver () {
-            let input = $('input', this.$el);
-            let measurer = $('#wikiselector-hidden-measurer');
-            measurer.css('font-size', input.css('font-size'));
-            measurer.html(input.val());
 
-            if (input.width() < measurer.width() && !input.is(':focus')) {
-                let offset = input.width() - measurer.width() + 1;
-                input.animate({textIndent: offset}, -10 * offset);
-            }
-        },
-        onMouseLeave () {
-            $('input', this.$el).stop().animate({textIndent: 0}, 200);
-        },
-        changeHighlight (indexDiff) {
-            if (this.$refs.searchResults) {
-                this.$refs.searchResults.changeHighlight(indexDiff);
-            }
-        },
-        found (wiki) {
-            if (this.mode === modes.family) {
-                this.family = wiki;
-                this.mode = modes.project;
-                this.searchDisplay = this.result;
-                this.searchData = wiki.projects;
-                // if  there's only one sub-project, just select it
-                if (this.searchData.length === 1) {
-                    this.found(this.searchData[0]);
+        applySearchResult (result) {
+            if (result.type === 'projectFamily') {
+                this.projectFamily = result;
+                if (this.language) {
+                    // If language was already chosen, commit the new state.
+                    this.commitProjectFamilyAndLanguage(this.projectFamily, this.language);
+                } else {
+                    // Otherwise, just update the input text.
+                    this.inputText = this.projectFamily.title + separator;
+                    $(this.$refs.inputBox).focus();
                 }
-
-            } else if (this.mode === modes.project) {
-                this.project = wiki;
-                this.searchDisplay = this.result + this.project.title;
-                this.close();
+            } else if (result.type === 'language') {
+                this.language = result;
+                if (this.projectFamily) {
+                    // If project family was already chosen, commit the new state.
+                    this.commitProjectFamilyAndLanguage(this.projectFamily, this.language);
+                } else {
+                    // Otherwise, just update the input text.
+                    this.inputText = this.language.title + separator;
+                    $(this.$refs.inputBox).focus();
+                }
+            } else { // wikiGroup, specialWiki or regularWiki
+                this.commitProject(result.code);
             }
-            this.searchBoxEl.focus();
+        },
+
+        commitProjectFamilyAndLanguage (projectFamily, language) {
+            sitematrix.getRegularWikiFromProjectFamilyAndLanguage(
+                projectFamily.code,
+                language.code
+            ).then(wiki => {
+                this.commitProject(wiki.hostname);
+            });
+        },
+
+        commitProject (project) {
+            this.$store.commit('setState', {project});
+            this.close();
         }
-    },
-}
+    }
+};
 </script>
 
 <style>

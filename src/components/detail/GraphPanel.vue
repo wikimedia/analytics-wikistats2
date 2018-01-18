@@ -3,7 +3,8 @@
     <div class="ui clearing basic segment" v-if="graphModel">
         <div>
             <h2 class="ui left floated header">
-                <a class='metric link' :href="graphModel.config.info_url" target="_blank">
+                <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
+                   title="Click through to get a more detailed definition of this metric on the Research wiki">
                     {{graphModel.config.fullName || 'No data yet... '}}
                 </a>
                 <span class="subdued granularity">{{granularity}}</span>
@@ -44,15 +45,23 @@
                 :graphModel="graphModel"
                 :data="graphModel.graphData">
             </component>
-            <div class="ui center aligned basic segment" v-if="graphModel.config.type !== 'list'">
-                <h5>
+            <div class="ui center aligned basic segment">
+                <h5 v-if="graphModel.config.type === 'timeseries'" >
                     {{graphModel.getAggregateLabel()}}:
                     {{graphModel.formatNumberForMetric(aggregate)}} {{graphModel.config.fullName}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     {{changeOverRange}}% over this time range.
                 </h5>
-                <p>{{graphModel.config.description}}. <a class='metric link' :href="graphModel.config.info_url" target="_blank">More info about this metric.</a></p>
+                <p>{{graphModel.config.description}}.
+                    <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
+                       title="Click through to get a more detailed definition of this metric on the Research wiki">
+                        More info about this metric.
+                    </a>
+                </p>
             </div>
+        </div>
+        <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
+            <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
             <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
@@ -77,7 +86,9 @@ import BarChart from './chart/BarChart';
 import LineChart from './chart/LineChart';
 import TableChart from './chart/TableChart';
 import EmptyChart from './chart/EmptyChart';
+import MapChart from './chart/MapChart';
 import StatusOverlay from '../StatusOverlay';
+import *  as d3Formatter from 'd3-dsv';
 
 export default {
     name: 'graph-panel',
@@ -88,21 +99,37 @@ export default {
         BarChart,
         LineChart,
         TableChart,
+        MapChart,
         EmptyChart,
         StatusOverlay
     },
     props: ['fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
+    data () {
+        return {
+            chartType: 'empty',
+            availableChartTypes: {
+                empty   : { chart: 'empty', icon: 'question' },
+                bar     : { chart: 'bar', icon: 'bar' },
+                line    : { chart: 'line', icon: 'line' },
+                map     : { chart: 'map', icon: 'globe' },
+                table   : { chart: 'table', icon: 'table' },
+            }
+        }
+    },
     computed: {
         chartTypes: function () {
-            return this.getChartTypes();
+            return !this.graphModel ? [] : {
+                map: ['map', 'table'],
+                bars: ['bar', 'table'],
+                lines: ['line', 'table'],
+                list: ['table'],
+            }[this.graphModel.config.type].map(k => this.availableChartTypes[k]);
         },
         chartIcon: function () {
-            return this.chartComponent.replace('-chart', '');
+            return this.availableChartTypes[this.chartType].icon;
         },
         chartComponent: function () {
-            if (this.chartType) return this.chartType + '-chart';
-            let chartTypes = this.getChartTypes();
-            return (chartTypes[0].chart || 'empty') + '-chart';
+            return this.chartType  + '-chart';
         },
         aggregate: function () {
             return this.graphModel && this.graphModel.getAggregate();
@@ -115,16 +142,13 @@ export default {
             return this.graphModel.activeBreakdown;
         },
     },
-    data () {
-        return {
-            chartType: null,
-            availableChartTypes: [
-                { chart: 'bar', icon: 'bar' },
-                { chart: 'line', icon: 'line' },
-                //{ chart: 'map', icon: 'globe' },
-                { chart: 'table', icon: 'table' },
-            ]
-        }
+
+    watch: {
+        chartTypes () {
+            if (this.chartTypes.length) {
+                this.changeChart(this.chartTypes[0]);
+            }
+        },
     },
 
     methods: {
@@ -140,22 +164,14 @@ export default {
         changeTimeRange (range) {
             this.$emit('changeTimeRange', range);
         },
-        getChartTypes () {
-            return this.availableChartTypes.filter((c) => {
-                if (!this.graphModel) { return false; }
-                if (c.chart === 'table') return true;
-                if (this.graphModel.config.type === 'bars') { return c.chart !== 'line'; }
-                if (this.graphModel.config.type === 'lines') { return c.chart === 'line'; }
-            });
-        },
         toggleFullscreen () {
             this.$emit('toggleFullscreen');
         },
         download () {
-            const data = this.graphModel.graphData;
+            let csvData = d3Formatter.csvFormat(this.graphModel.downloadData());
             let a = window.document.createElement('a');
-            a.href = window.URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'text/json'}));
-            a.download = this.graphModel.config.name + '.json';
+            a.href = window.URL.createObjectURL(new Blob([csvData], {type: 'text/csv'}));
+            a.download = this.graphModel.config.name + '.csv';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

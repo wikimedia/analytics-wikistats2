@@ -15,7 +15,7 @@ const metricSchema = {
         type: 'string',
         required: false
     },
-    info_url: {
+    infoUrl: {
         type: 'string',
         required: false
     },
@@ -49,6 +49,10 @@ const metricSchema = {
     value: {
         type: 'string',
         required: true
+    },
+    arrayName: {
+        type: 'string',
+        required: false
     },
     global: {
         type: 'boolean',

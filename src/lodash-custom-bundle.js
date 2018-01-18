@@ -1,5 +1,6 @@
 import assign from 'lodash/assign';
 import capitalize from 'lodash/capitalize';
+import concat from 'lodash/concat';
 import debounce from 'lodash/debounce';
 import endsWith from 'lodash/endsWith';
 import filter from 'lodash/filter';
@@ -14,6 +15,7 @@ import map from 'lodash/map';
 import max from 'lodash/max';
 import min from 'lodash/min';
 import pickBy from 'lodash/pickBy';
+import reduce from 'lodash/reduce';
 import replace from 'lodash/replace';
 import round from 'lodash/round';
 import sortBy from 'lodash/sortBy';
@@ -29,6 +31,7 @@ import zip from 'lodash/zip';
 export default {
     assign,
     capitalize,
+    concat,
     debounce,
     endsWith,
     filter,
@@ -43,6 +46,7 @@ export default {
     max,
     min,
     pickBy,
+    reduce,
     replace,
     round,
     sortBy,
