@@ -1,6 +1,5 @@
 module.exports = {
     'editors': {
-        disabled: true,
         fullName: 'Editors',
         description: 'The count of editors with one or more edits, including on redirect pages',
         question: 'How many editors are there?',
@@ -91,7 +90,6 @@ module.exports = {
         additive: true
     },
     'new-pages': {
-        disabled: true,
         fullName: 'New pages',
         description: 'The count of new pages created, excluding pages being redirects',
         question: 'How many new pages each month?',

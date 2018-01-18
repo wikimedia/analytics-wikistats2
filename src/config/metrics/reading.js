@@ -25,6 +25,7 @@ module.exports = {
         additive: true
     },
     'pageviews-by-country': {
+        disabled: true,
         fullName: 'Pageviews by Country',
         subtitle: 'Countries with the most views',
         description: 'Countries where this project is visited the most',

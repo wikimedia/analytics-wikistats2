@@ -56,7 +56,7 @@
 .map.legend {
     width: 300px;
     position: absolute;
-    bottom: 10px;
+    bottom: 120px;
     right: 10px;
     background-color: rgba(255,255,255,0.8);
 }

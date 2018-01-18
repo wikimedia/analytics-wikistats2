@@ -99,7 +99,7 @@ const mainMetricsByArea = [
             metrics: [
                 'total-pageviews',
                 'unique-devices',
-                'pageviews-by-country'
+                'top-viewed-articles'
             ]
         }
     },
@@ -128,7 +128,11 @@ const mainMetricsByArea = [
 ];
 
 
-const metrics = require('./metrics');
+const allMetrics = require('./metrics');
+const metrics = {};
+
+Object.keys(allMetrics).filter(k => !(allMetrics[k].disabled))
+    .forEach(k => metrics[k] = allMetrics[k]);
 
 const questions = Object.keys(metrics).map(k => ({
     id: k,

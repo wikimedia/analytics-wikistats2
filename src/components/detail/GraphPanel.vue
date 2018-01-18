@@ -101,17 +101,32 @@ export default {
         StatusOverlay
     },
     props: ['fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
+    data () {
+        return {
+            chartType: 'empty',
+            availableChartTypes: {
+                empty   : { chart: 'empty', icon: 'question' },
+                bar     : { chart: 'bar', icon: 'bar' },
+                line    : { chart: 'line', icon: 'line' },
+                map     : { chart: 'map', icon: 'globe' },
+                table   : { chart: 'table', icon: 'table' },
+            }
+        }
+    },
     computed: {
         chartTypes: function () {
-            return this.getChartTypes();
+            return !this.graphModel ? [] : {
+                map: ['map', 'table'],
+                bars: ['bar', 'table'],
+                lines: ['line', 'table'],
+                list: ['table'],
+            }[this.graphModel.config.type].map(k => this.availableChartTypes[k]);
         },
         chartIcon: function () {
-            return this.availableChartTypes.find(type => type.chart === this.chartComponent.replace('-chart', '')).icon;
+            return this.availableChartTypes[this.chartType].icon;
         },
         chartComponent: function () {
-            if (this.chartType) return this.chartType + '-chart';
-            let chartTypes = this.getChartTypes();
-            return (chartTypes[0].chart || 'empty') + '-chart';
+            return this.chartType  + '-chart';
         },
         aggregate: function () {
             return this.graphModel && this.graphModel.getAggregate();
@@ -124,16 +139,13 @@ export default {
             return this.graphModel.activeBreakdown;
         },
     },
-    data () {
-        return {
-            chartType: null,
-            availableChartTypes: [
-                { chart: 'bar', icon: 'bar' },
-                { chart: 'line', icon: 'line' },
-                { chart: 'map', icon: 'globe' },
-                { chart: 'table', icon: 'table' },
-            ]
-        }
+
+    watch: {
+        chartTypes () {
+            if (this.chartTypes.length) {
+                this.changeChart(this.chartTypes[0]);
+            }
+        },
     },
 
     methods: {
@@ -148,15 +160,6 @@ export default {
         },
         changeTimeRange (range) {
             this.$emit('changeTimeRange', range);
-        },
-        getChartTypes () {
-            return this.availableChartTypes.filter((c) => {
-                if (!this.graphModel) { return false; }
-                if (c.chart === 'table') return true;
-                if (c.chart === 'map') return true;
-                if (this.graphModel.config.type === 'bars') { return c.chart !== 'line'; }
-                if (this.graphModel.config.type === 'lines') { return c.chart === 'line'; }
-            });
         },
         toggleFullscreen () {
             this.$emit('toggleFullscreen');
