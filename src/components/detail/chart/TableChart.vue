@@ -16,9 +16,11 @@
                 <td>{{m.month|date}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
-            <tr v-if="graphModel.config.structure === 'top'" v-for="m in data">
+            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in data">
                 <td class="right aligned">{{m.total.total|thousands}}</td>
-                <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[graphModel.config.key]">{{m[graphModel.config.key].replace(/_/g, ' ')}}</a></td>
+                <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[graphModel.config.key]">
+                    {{elementName(i)}}
+                </a></td>
             </tr>
         </tbody>
     </table>
@@ -26,6 +28,7 @@
 </template>
 
 <script>
+import isoLookup from './MapChart/isoLookup'
 export default {
     name: 'table-chart',
     props: ['data', 'graphModel'],
@@ -39,6 +42,15 @@ export default {
     },
 
     methods: {
+        elementName (i) {
+            const rawName = this.data[i][this.graphModel.config.key].replace(/_/g, ' ');
+            if (this.graphModel.config.type === 'map') {
+                const result = isoLookup[rawName];
+                return (result && result.en) || rawName;
+            } else {
+                return rawName;
+            }
+        },
         setColors () {
             const headerCells = this.$el.querySelectorAll('th');
             let i = null;
