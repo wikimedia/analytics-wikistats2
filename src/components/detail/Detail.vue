@@ -7,6 +7,7 @@
     />
 
     <graph-panel
+        :granularity="dataParameters.granularity"
         ref="graphPanel"
         :graphModel="graphModel"
         :overlayMessage="overlayMessage"
@@ -82,7 +83,7 @@ export default {
             dataParameters () {
                 return {
                     range: this.range,
-                    granularity: this.range[1] - this.range[0] < 100000 ? 'daily' : 'monthly',
+                    granularity: getGranularityForRange(this.range),
 
                     breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
                 };
@@ -200,6 +201,14 @@ export default {
         }
     },
 };
+
+function getGranularityForRange (range) {
+    const start = utils.createDate(range[0]);
+    const end = utils.createDate(range[1]);
+    const millisecondsInSixMonths = 15552e6;
+    return end - start > millisecondsInSixMonths ? 'monthly' : 'daily';
+
+}
 </script>
 
 <style>

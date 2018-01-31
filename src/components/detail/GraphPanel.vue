@@ -63,9 +63,6 @@
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
             <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
         </div>
-        <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
-            <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
-        </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
     <div class="ui right floated icon button"

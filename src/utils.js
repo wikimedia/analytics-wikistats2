@@ -33,8 +33,19 @@ function getLastFullMonth (yyyymmddDate) {
     };
 }
 
+function createDate(timestamp) {
+    if (timestamp.length <= 10) {
+        return new Date(timestamp.slice(0,4) + '-'
+                        + timestamp.slice(4,6) + '-'
+                        + timestamp.slice(6,8));
+    } else {
+        return new Date(timestamp);
+    }
+}
+
 export default {
     labeledCrossProduct,
     cloneDeep,
     getLastFullMonth,
+    createDate,
 };

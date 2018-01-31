@@ -56,7 +56,7 @@ class GraphModel {
 
         this.graphData = rawValues.map((row) => {
             var ts = row.timestamp;
-            const month = createDate(ts);
+            const month = utils.createDate(ts);
             return {month: month, total: row[yAxisValue]};
         });
 
@@ -154,16 +154,6 @@ class GraphModel {
         } else {
             return numeral(number).format('0,0a');
         }
-    }
-}
-
-function createDate(timestamp) {
-    if (timestamp.length <= 10) {
-        return new Date(timestamp.slice(0,4) + '-'
-                        + timestamp.slice(4,6) + '-'
-                        + timestamp.slice(6,8));
-    } else {
-        return new Date(timestamp);
     }
 }
 

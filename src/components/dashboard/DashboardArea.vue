@@ -31,8 +31,8 @@ export default {
 
 <style scoped>
 .area .ui.top.attached.header {
-    background-color: #E8E8E8;
-    color: #4A4A4A;
+    background-color: #eaecf0;
+    color: #222;
     font-size: 18px;
     font-weight: normal;
     padding: 7px 21px;
