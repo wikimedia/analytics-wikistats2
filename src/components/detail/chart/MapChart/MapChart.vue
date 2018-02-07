@@ -107,14 +107,10 @@ export default {
             let self = this;
             let element = this.$el;
             borders.objects.countries.geometries = borders.objects.countries.geometries.map(f => {
-                // let countryCode = f.id;
-                // let countryName = isoLookup[countryCode].en;
-                // Remove the following two lines and uncomment the two above
-                // once the endpoint returns iso codes
-                let countryName = isoLookup[f.id];
-                let countryCode = countryName;
-
-                const number = this.dataByCountry[countryCode];
+                let countryISO = _.findKey(isoLookup, country => country.numericCode === f.id);
+                if (!countryISO) return Object.assign(f, {color: "#fff", number: null});
+                let countryName = isoLookup[countryISO].en;
+                const number = this.dataByCountry[countryISO];
                 f.properties = {
                     color: getColor(number, this.palette),
                     number: number,
