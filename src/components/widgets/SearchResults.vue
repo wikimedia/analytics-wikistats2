@@ -3,7 +3,7 @@
     <ul class="search results"
         @mouseenter="setMouseHover(true)"
         @mouseleave="setMouseHover(false)">
-        <li v-for="r in results"
+        <li v-for="r in displayedResults"
             @mouseenter="highlightResult(r)"
             @click="select(r)"
             :class="{ highlighted: highlightedResult === r }">
@@ -39,6 +39,8 @@ function searchInfo (haystack, needle, regexp) {
     return [matches, factor];
 }
 
+const defaultMaxResults = 50;
+
 export default {
     name: 'search-results',
 
@@ -53,8 +55,9 @@ export default {
             // The search results DOM element.
             container: null,
 
-            // The index of the highlighted result.
-            index: 0,
+            displayedResults: [],
+
+            maxResults: defaultMaxResults
         };
     },
 
@@ -69,14 +72,29 @@ export default {
         title: String,
 
         // (optional) (null) the field of each object in data to use as the secondary display string
-        subtitle: { type: String, required: false },
-
-        // (optional) (30) don't show more results than this
-        maxResults: { type: Number, default: 30 },
+        subtitle: { type: String, required: false }
     },
 
     mounted () {
         this.container = $('.search.results', this.$el);
+        this.initializeDisplayedResults();
+    },
+
+    updated () {
+        // Code at this level executes at the start of each component update.
+
+        Vue.nextTick(() => {
+            // Code at this level executes after the full component has been re-rendered.
+
+            if (this.maxResults < this.fullResults.length) {
+
+                // This timeout greatly improves time to first render of search results.
+                // It seems that Vue.nextTick() does not return control to the browser
+                // until all search data has been added to the displayed results. Thus,
+                // defeating the purpose of the optimization.
+                setTimeout(this.extendDisplayedResults, 0);
+            }
+        });
     },
 
     methods: {
@@ -87,7 +105,6 @@ export default {
         highlightResult (result) {
             if (result) {
                 this.highlightedResult = result;
-                this.index = this.results.findIndex(r => r === result);
                 Vue.nextTick(this.scrollToFitHighlight);
             }
         },
@@ -119,60 +136,66 @@ export default {
         },
 
         changeHighlight (indexDiff) {
-            this.index = Math.max(
+            let index = this.displayedResults.findIndex(r => r === this.highlightedResult);
+            index = Math.max(
                 Math.min(
-                    this.index + indexDiff,
-                    this.$props.maxResults - 1,
-                    this.results.length - 1
+                    index + indexDiff,
+                    this.maxResults - 1,
+                    this.displayedResults.length - 1
                 ),
                 0
             );
-            this.highlightResult(this.results[this.index]);
+            this.highlightResult(this.displayedResults[index]);
         },
+
+        initializeDisplayedResults () {
+            this.maxResults = defaultMaxResults;
+            this.displayedResults = _.take(this.fullResults, this.maxResults);
+            this.container.scrollTop(0);
+            this.highlightResult(this.displayedResults[0]);
+        },
+
+        extendDisplayedResults () {
+            this.maxResults = this.maxResults + defaultMaxResults;
+            const newSlice = this.fullResults.slice(this.displayedResults.length, this.maxResults);
+            this.displayedResults.push(...newSlice);
+        }
     },
 
     watch: {
-        results: function () {
-            this.container.scrollTop(0);
-            this.highlightResult(this.results[0]);
-        },
+        fullResults: function () {
+            this.initializeDisplayedResults();
+        }
     },
 
     computed: {
-        results: function () {
+        fullResults: function () {
             const {
                 search,
                 data = [],
-                title = 'title',
-                subtitle,
-                maxResults
-
+                title,
+                subtitle
             } = this.$props;
 
-            if (!search) { return _.take(data, maxResults); }
+            if (!search) { return data; }
             const s = makeRegex(search);
 
-            // For some reason, lodash's _.chain() method would throw errors when
-            // trying to chain filter operations to it. Super-ugly, but...
-            return _.take(
-                _.sortBy(
-                    _.filter(
-                        _.map(
-                            data,
-                            d => {
-                                const [titleMatches, titleFactor] = searchInfo(d[title], search, s);
-                                const [subtitleMatches, subtitleFactor] = searchInfo(d[subtitle], search, s);
-                                return Object.assign({
-                                    matches: titleMatches || subtitleMatches,
-                                    factor: Math.min(titleFactor, subtitleFactor)
-                                }, d);
-                            }
-                        ),
-                        d => d.matches
+            return _.sortBy(
+                _.filter(
+                    _.map(
+                        data,
+                        d => {
+                            const [titleMatches, titleFactor] = searchInfo(d[title], search, s);
+                            const [subtitleMatches, subtitleFactor] = searchInfo(d[subtitle], search, s);
+                            return Object.assign({
+                                matches: titleMatches || subtitleMatches,
+                                factor: Math.min(titleFactor, subtitleFactor)
+                            }, d);
+                        }
                     ),
-                    d => d.factor
+                    d => d.matches
                 ),
-                maxResults
+                d => d.factor
             );
         }
     }
@@ -196,8 +219,6 @@ ul.search.results {
     max-height: 400px;
     overflow-y: auto;
 
-    border-radius: 4px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
     border: solid 1px #dededf;
 }
 

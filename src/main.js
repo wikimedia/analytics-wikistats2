@@ -8,7 +8,7 @@ import './lato/lato.css';
 
 import store from './store';
 import router from './router';
-import routes from './router/routes'
+import routes from './router/routes';
 import numeral from 'numeral';
 import dateformat from 'dateformat';
 
@@ -16,7 +16,9 @@ Vue.config.productionTip = false;
 
 const thousands = n => numeral(n).format('0,0');
 const kmb = n => numeral(n).format('0,0a')
-const filterRange = (filter, str) => filter(parseInt(str.split('-')[0])) + '-' + filter(parseInt(str.split('-')[1]))
+const filterRange = (filter, str) => {
+    return filter(parseInt(str.split('-')[0])).toUpperCase() + '→' + filter(parseInt(str.split('-')[1])).toUpperCase();
+};
 // Register filters
 Vue.filter('thousands', (n) => {
     if (typeof n === 'string' && n.indexOf('-') > -1) {

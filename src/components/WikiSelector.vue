@@ -19,7 +19,6 @@
             ref="searchResults"
             title="title"
             subtitle="subtitle"
-            :maxResults="500"
             :data="searchData"
             :search="searchText"
             @select="applySearchResult"></search-results>
@@ -62,6 +61,7 @@ export default {
         return {
             inputText: '',
             showSearchResults: false,
+            sitematrixData: null,
             searchData: [],
             projectFamily: null,
             language: null
@@ -233,26 +233,39 @@ export default {
         },
 
         getAllSearchData () {
-            return Promise.all([
-                sitematrix.getWikiGroups(searchDataFormat),
-                sitematrix.getProjectFamilies(null, searchDataFormat),
-                sitematrix.getLanguages(null, searchDataFormat),
-                sitematrix.getSpecialWikis({
-                    type: true,
-                    code: 'hostname',
-                    title: 'name',
-                    subtitle: 'hostname'
-                }),
-                sitematrix.getRegularWikis({
-                    type: true,
-                    code: 'hostname',
-                    title: 'hostname',
-                    subtitle: 'dbname'
-                })
-            ]).then(values => {
-                const [groups, projectFamilies, languages, specials, wikis] = values;
-                return _.concat(groups, projectFamilies, languages, specials, wikis);
-            });
+            // No need to go through all the promise parsing code more than once.
+            // This saves about ~10 ms of execution time (profiled with console.time).
+            // We probably we can benefit from this pattern of locally caching data
+            // rather that re-resolve the chain of promises elsewhere.
+
+            if (this.sitematrixData){
+                return Promise.resolve(this.sitematrixData);
+            }  else {
+
+                return Promise.all([
+                    sitematrix.getWikiGroups(searchDataFormat),
+                    sitematrix.getProjectFamilies(null, searchDataFormat),
+                    sitematrix.getLanguages(null, searchDataFormat),
+                    sitematrix.getSpecialWikis({
+                        type: true,
+                        code: 'hostname',
+                        title: 'name',
+                        subtitle: 'hostname'
+                    }),
+                    sitematrix.getRegularWikis({
+                        type: true,
+                        code: 'hostname',
+                        title: 'hostname',
+                        subtitle: 'dbname'
+                    })
+
+                ]).then(values => {
+                    const [groups, projectFamilies, languages, specials, wikis] = values;
+
+                    this.sitematrixData = _.concat(groups, projectFamilies, languages, specials, wikis);
+                    return this.sitematrixData;
+                });
+            }
         },
 
         navigateSearchResults (offset) {

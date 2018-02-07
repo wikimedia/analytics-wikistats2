@@ -12,7 +12,7 @@
             &nbsp;
             <td class="label">
                 <a v-on:click.stop target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + item[graphModel.config.key]">
-                    {{item[graphModel.config.key].replace(/_/g, ' ')}}
+                    {{elementName(i)}}
                 </a>
             </td>
         </tr>
@@ -23,6 +23,7 @@
 <script>
 import Vue from 'vue';
 import config from '../../config';
+import isoLookup from '../detail/chart/MapChart/isoLookup';
 
 export default {
     name: 'metric-list-widget',
@@ -37,6 +38,16 @@ export default {
         },
         sortedList () {
             return this.data.slice(0, 4);
+        }
+    },
+    methods: {
+        elementName (i) {
+            const rawName = this.sortedList[i][this.graphModel.config.key].replace(/_/g, ' ');
+            if (this.graphModel.config.type === 'map') {
+                return isoLookup[rawName].en;
+            } else {
+                return rawName;
+            }
         }
     }
 };
@@ -65,15 +76,18 @@ export default {
 .widget.list a:hover {
     color: #6289D8;
 }
-.widget.list tr:last-child { border: none; }
+.widget.list tr:last-child { 
+    border: none; 
+    max-width: 200px;
+}
 .widget.list .number {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 600;
 }
 .widget.list .label {
     font-size: 20px;
     font-weight: normal;
-    max-width: 200px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
