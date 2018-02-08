@@ -41,7 +41,6 @@ module.exports = {
   "CM": {"en": "Cameroon", "numericCode": "120"},
   "CA": {"en": "Canada", "numericCode": "124"},
   "CV": {"en": "Cape Verde", "numericCode": "132"},
-  "CW": {"en": "Curaçao", "numericCode": "528"},
   "KY": {"en": "Cayman Islands", "numericCode": "136"},
   "CF": {"en": "Central African Republic", "numericCode": "140"},
   "TD": {"en": "Chad", "numericCode": "148"},
