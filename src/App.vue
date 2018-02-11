@@ -29,6 +29,7 @@ import Dashboard from './components/dashboard/Dashboard';
 
 import { mapState } from 'vuex';
 import numeral from 'numeral';
+import * as locales from 'numeral/locales';
 
     /**
     Although the specification for import() supports a dynamic importing of
@@ -40,7 +41,9 @@ import numeral from 'numeral';
     **/
 
 export default {
+
     name: 'app',
+
     components: {
         TopNav,
         TopicExplorer,
@@ -70,19 +73,30 @@ export default {
             }
         },
         setUpNumeralLocale() {
-            numeral.register('locale', 'international', {
-                delimiters: {
-                    thousands: '',
-                    decimal: '.'
-                },
-                abbreviations: {
-                    thousand: 'k',
-                    million: 'm',
-                    billion: 'g',
-                    trillion: 't'
+            //locale recognition, rudimentary, from navigator.language if defined
+            // webpack does not have locale support out of the box
+            // but numeral locales are 8k compressed thus importing them all
+            if (navigator.language){
+
+                var locale = navigator.language.toLowerCase();
+
+                numeral.locale(locale);
+
+                // it might not exist as instead of "en-us"
+                // numeral defines "en", live with this for now
+                // change later to use navigators convention http://www.ietf.org/rfc/bcp/bcp47.txt
+                if (!numeral.localeData()){
+                    // try again with an abbreviated version
+                    numeral.locale(locale.split( '-' )[0]);
                 }
-            });
-            numeral.locale('international');
+
+                if (!numeral.localeData()){
+                    // set to english, browser might be set
+                    // to a locale numeral does not have
+                    numeral.locale("en-gb")
+                }
+
+            }
         }
     },
     data () {
@@ -94,7 +108,7 @@ export default {
         'project',
         'mainComponent',
         'topicsMinimized',
-    ]),
+    ])
 };
 </script>
 

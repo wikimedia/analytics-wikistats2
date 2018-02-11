@@ -16,6 +16,7 @@ import config from '../../../config';
 
 export default {
     name: 'bar-chart',
+
     props: ['graphModel', 'data'],
 
     mounted () {
@@ -40,6 +41,14 @@ export default {
                 return;
             }
 
+            let unitFilter;
+            if (this.graphModel.config.unit === "bytes"){
+                unitFilter = this.$options.filters.bytes;
+            }
+            else {
+                unitFilter = this.$options.filters.kmb;
+            }
+
             const root = d3.select(this.$el),
                   margin = {top: 6, right: 0, bottom: 20, left: 40},
                   padding = 4;
@@ -61,7 +70,7 @@ export default {
             let y = scales.scaleLinear().range([height, 0]);
             y.domain([min, max]);
             const yAxis = axes.axisLeft(y).ticks(7)
-                            .tickFormat(this.graphModel.formatNumberForMetric.bind(this.graphModel));
+                            .tickFormat(unitFilter);
             const yAxisContainer = g.append('g')
                 .call(yAxis)
                 .style('font-size', '13px')

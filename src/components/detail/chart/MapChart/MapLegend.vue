@@ -25,7 +25,6 @@
 </template>
 
 <script type="text/javascript">
-    import numeral from 'numeral';
     import config from '../../../../config';
     export default {
         name: 'map-legend',
@@ -46,9 +45,8 @@
         methods: {
             getBucketValue (i) {
                 const bucketMin = this.min + i * (this.max - this.min) / this.palette.length;
-                return numeral(bucketMin).format('0,0a')
-            },
-            numeral: numeral
+                return this.$options.filters.kmb(bucketMin);
+            }
         }
     }
 </script>

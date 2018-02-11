@@ -57,9 +57,6 @@ export default {
         }
     },
     computed: {
-        formattedNumber () {
-            return this.graphModel.formatNumberForMetric(this.currentHover.number);
-        },
         palette () {
             if (!this.data.length) return
             const colorPalette = d3_color[{

@@ -13,7 +13,7 @@
             <div v-else>
                 <div class="ui medium statistic">
                     <div class="label">{{graphModel.config.fullName}}</div>
-                    <div class="value">{{graphModel.formatNumberForMetric(lastMonth.total)}}</div>
+                    <div class="value" >{{ (lastMonth.total)| bytesOrKmb(unit) }}</div>
                 </div>
                 <div>
                     <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
@@ -39,7 +39,7 @@
                 </metric-line-widget>
                 <div class="ui horizontal small statistic">
                     <div class="value" v-if="changeYoY">
-                        {{graphModel.formatNumberForMetric(lastYearAggregation)}}
+                        {{lastYearAggregation| bytesOrKmb(unit) }}
                     </div>
                     <div class="change label" v-if="changeYoY">
                         <arrow-icon :value="changeYoY"/>
@@ -86,6 +86,7 @@ let aqsApi = new AQS();
 export default {
     name: 'metric-widget',
     props: ['metric', 'area'],
+
     data () {
         return {
             graphModel: null,
@@ -184,6 +185,11 @@ export default {
             },
             aggregationType: function () {
                 return this.graphModel.getAggregateLabel();
+            },
+            unit: function(){
+                    if (this.graphModel.config.unit ){
+                        return this.graphModel.config.unit;
+                    }
             }
         }
     ),

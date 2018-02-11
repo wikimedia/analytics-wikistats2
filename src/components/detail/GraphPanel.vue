@@ -46,9 +46,9 @@
                 :data="graphModel.graphData">
             </component>
             <div class="ui center aligned basic segment">
-                <h5 v-if="graphModel.config.type === 'timeseries'" >
+                <h5 v-if="graphModel.config.structure === 'timeseries'" >
                     {{graphModel.getAggregateLabel()}}:
-                    {{graphModel.formatNumberForMetric(aggregate)}} {{graphModel.config.fullName}}
+                    {{ aggregate | bytesOrKmb(unit)}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     {{changeOverRange}}% over this time range.
                 </h5>
@@ -89,6 +89,7 @@ import *  as d3Formatter from 'd3-dsv';
 
 export default {
     name: 'graph-panel',
+
     components: {
         ArrowIcon,
         TimeRangeSelector,
@@ -100,6 +101,7 @@ export default {
         EmptyChart,
         StatusOverlay
     },
+
     props: ['fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
     data () {
         return {
@@ -138,6 +140,12 @@ export default {
         activeBreakdown: function () {
             return this.graphModel.activeBreakdown;
         },
+        unit: function(){
+                    if (this.graphModel.config.unit ){
+                        return this.graphModel.config.unit;
+                    }
+        }
+
     },
 
     watch: {
