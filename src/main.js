@@ -15,7 +15,7 @@ import dateformat from 'dateformat';
 Vue.config.productionTip = false;
 
 const thousands = n => numeral(n).format('0,0');
-const kmb = n => numeral(n).format('0,0a')
+const kmb = n => numeral(n).format('0,0a').toUpperCase();
 const filterRange = (filter, str) => {
     return filter(parseInt(str.split('-')[0])).toUpperCase() + '→' + filter(parseInt(str.split('-')[1])).toUpperCase();
 };
@@ -27,7 +27,7 @@ Vue.filter('thousands', (n) => {
 });
 Vue.filter('kmb', (n) => {
     if (typeof n === 'string' && n.indexOf('-') > -1) {
-        return filterRange(kmb, n);
+        return filterRange(kmb, n).toUpperCase();
     } else return kmb(n);
 });
 Vue.filter('date', (date) => dateformat(date, 'yyyy-mm-dd'));

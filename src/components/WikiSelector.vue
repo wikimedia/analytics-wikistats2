@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
-
 import sitematrix from '../apis/sitematrix';
 import SearchResults from './widgets/SearchResults';
 import _ from '../lodash-custom-bundle';
