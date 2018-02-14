@@ -11,9 +11,13 @@
             <td class="number">{{item.total.total | kmb}}</td>
             &nbsp;
             <td class="label">
-                <a v-on:click.stop target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + item[graphModel.config.key]">
+
+                <a v-if="graphModel.config.type !== 'map'" v-on:click.stop target="_blank" :href="getLink(item)">
                     {{elementName(i)}}
                 </a>
+                <span v-else>
+                    {{elementName(i)}}
+                </span>
             </td>
         </tr>
     </table>
@@ -48,6 +52,10 @@ export default {
             } else {
                 return rawName;
             }
+        },
+
+        getLink (item) {
+            return '\/\/' + this.$store.state.project + '/wiki/' + item[this.graphModel.config.key];
         }
     }
 };

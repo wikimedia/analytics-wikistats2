@@ -17,10 +17,16 @@
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
             <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in data">
-                <td class="right aligned">{{m.total.total|thousands}}</td>
-                <td><a target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[graphModel.config.key]">
-                    {{elementName(i)}}
-                </a></td>
+                <td v-if="graphModel.config.type !== 'map'" class="right aligned">{{m.total.total|thousands}}</td>
+                <td v-else class="right aligned">{{m.total.total|kmb}}</td>
+                <td>
+                    <a v-if="graphModel.config.type !== 'map'" target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[graphModel.config.key]">
+                        {{elementName(i)}}
+                    </a>
+                    <span v-else>
+                        {{elementName(i)}}
+                    </span>
+                </td>
             </tr>
         </tbody>
     </table>

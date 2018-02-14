@@ -4,11 +4,12 @@
         <svg>
             <rect v-for="(color, i) in palette"
                   :style="{
-                      fill: color,
-                      x: (padding + i * boxSize) + 'px',
-                      width: boxSize + 'px',
-                      height: boxHeight + 'px'
+                      fill: color
                   }"
+                  :x="padding + i * boxSize"
+                  :y="0"
+                  :width="boxSize"
+                  :height="boxHeight"
             />
             <text v-for="(color, i) in palette"
                   :y="boxHeight + 10"

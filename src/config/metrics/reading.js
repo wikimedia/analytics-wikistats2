@@ -25,9 +25,9 @@ module.exports = {
         additive: true
     },
     'pageviews-by-country': {
-        fullName: 'Pageviews by Country',
+        fullName: 'Page Views by Country',
         subtitle: 'Countries with the most views',
-        description: 'Countries where this project is visited the most',
+        description: 'Countries where this project is visited the most. Those countries with less than 100 views are not reported and are blank in the map.',
         question: 'Where are the project\'s visitors coming from?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         type: 'map',
