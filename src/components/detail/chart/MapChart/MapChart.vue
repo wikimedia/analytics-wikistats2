@@ -99,7 +99,7 @@ export default {
                 });
             const zoom = getZoomBehavior(paths, path, projection);
             svg.call(zoom);
-            zoom.translateTo(svg, 220, -50);
+            zoom.translateTo(svg, 120, -50);
             zoom.scaleTo(svg, 0.8)
             if (this.data.length > 0) {
                 this.drawChoropleth();
