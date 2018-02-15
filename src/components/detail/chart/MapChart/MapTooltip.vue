@@ -1,5 +1,5 @@
 <template>
-<div :style="{top: (y + 3) + 'px', left: (x + 3) + 'px'}" class="tooltip">
+<div :style="{top: (y + 14) + 'px', left: (x + 10) + 'px'}" class="tooltip">
     <h3 class="place">
         {{name}}
     </h3>

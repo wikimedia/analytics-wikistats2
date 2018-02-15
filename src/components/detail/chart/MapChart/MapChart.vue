@@ -97,7 +97,10 @@ export default {
                 .attr('class', function (feature) {
                     return 'country ' + feature.id;
                 });
-            svg.call(getZoomBehavior(paths, path, projection));
+            const zoom = getZoomBehavior(paths, path, projection);
+            svg.call(zoom);
+            zoom.translateTo(svg, 120, -50);
+            zoom.scaleTo(svg, 0.8)
             if (this.data.length > 0) {
                 this.drawChoropleth();
             }
@@ -165,12 +168,17 @@ function darkenColorBy (color, percentageToDarkenBy) {
 }
 
 function getZoomBehavior (features, path, projection) {
-    return zoom.zoom().on('zoom', function() {
+    const zoomBehavior = zoom.zoom().scaleExtent([0.8, 8]);
+    zoomBehavior.on('zoom', function() {
+        const scale = d3.event.transform.k
+        const x = d3.event.transform.x;
+        const y = d3.event.transform.y;
         features.attr('transform','translate(' +
-            d3.event.transform.x +','+d3.event.transform.y + ')scale(' + d3.event.transform.k + ')');
+            x +','+ y + ')scale(' + scale + ')');
         features.selectAll('path')
             .attr('d', path.projection(projection));
     });
+    return zoomBehavior;
 };
 
 </script>
