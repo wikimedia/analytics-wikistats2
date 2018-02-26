@@ -100,9 +100,9 @@ export default {
             this.searchDisplay = '';
         },
         onBlur () {
-            Vue.nextTick(() => {
+            if (this.$refs.searchResults && !this.$refs.searchResults.mouseHover) {
                 this.close();
-            });
+            }
         },
         changeHighlight (indexDiff) {
             if (this.$refs.searchResults) {
@@ -113,6 +113,7 @@ export default {
             this.selectedTopic = topic;
             this.searchDisplay = topic.question;
             this.go();
+            this.close();
         },
         minimizeTopics (minimize) {
             this.$store.commit('setState', { topicsMinimized: minimize });
