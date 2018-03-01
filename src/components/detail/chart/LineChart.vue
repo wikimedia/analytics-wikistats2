@@ -84,6 +84,7 @@ export default {
                 return;
             }
 
+
             // We make sure that any selected point in a previous chart is cleared
             this.hoveredPoint = null;
 
@@ -184,10 +185,19 @@ export default {
         },
 
         addAxes (x, y, g) {
+
+            let unitFilter;
+            if (this.graphModel.config.unit == "bytes"){
+                unitFilter = this.$options.filters.bytes;
+            }
+            else {
+                unitFilter = this.$options.filters.kmb;
+            }
+
             const height = y.range()[0];
             const xAxis = axes.axisBottom(x),
                   yAxis = axes.axisLeft(y).ticks(7)
-                            .tickFormat(this.graphModel.formatNumberForMetric.bind(this.graphModel));
+                            .tickFormat(unitFilter);
             const yContainer = g.append('g')
                 .call(yAxis)
                 .attr('class', 'yAxis')

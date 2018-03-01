@@ -1,14 +1,15 @@
 import _ from '../lodash-custom-bundle';
-import numeral from 'numeral';
 import utils from '../utils';
 
 class GraphModel {
     constructor (configuration) {
+
         this.config = configuration;
 
         if (this.config.type === 'list') {
             return;
         }
+
 
         this.breakdowns = utils.cloneDeep(this.config.breakdowns || []);
         // insert a "total" breakdown as a default breakdown
@@ -33,6 +34,7 @@ class GraphModel {
         */
 
         this.graphData = [];
+
     }
 
     setData (data) {
@@ -147,14 +149,6 @@ class GraphModel {
         const results = this.data.breakdown(y);
         return _.take(_.sortBy(results, (row) => row.rank), limit || results.length);
     }
-
-    formatNumberForMetric (number) {
-        if (this.config.unit === 'bytes') {
-            return numeral(number).format('0,0b');
-        } else {
-            return numeral(number).format('0,0a');
-        }
-    }
 }
 
 /**
@@ -179,5 +173,6 @@ function flatten(obj) {
     _flatten(obj);
     return accumulator;
 }
+
 
 export default GraphModel;

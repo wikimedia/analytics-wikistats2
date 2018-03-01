@@ -1,6 +1,6 @@
 {
     "name": "wikistats",
-    "version": "2.1.10",
+    "version": "2.1.11",
     "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
     "main": "index.js",
     "scripts": {
@@ -58,15 +58,16 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/milimetric/wikistats-prototype.git"
+        "url": "git+https://github.com/wikimedia/analytics-wikistats2"
     },
     "keywords": [
         "Mediawiki",
         "Wikimedia",
         "Wikistats",
+        "Wikipedia",
         "Stats"
     ],
-    "author": "Dan Andreescu, Francisco Dans, Marcel Ruiz Forns",
+    "author": "Dan Andreescu, Francisco Dans, Marcel Ruiz Forns, Nuria Ruiz",
     "license": "MIT",
     "homepage": "https://github.com/milimetric/wikistats-prototype#readme"
 }
