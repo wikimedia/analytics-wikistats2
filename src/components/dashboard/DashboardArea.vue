@@ -1,15 +1,21 @@
 <template>
-<div class="area" :class="area.id">
-    <div class="ui top attached header">
+<div class='area' :class='area.id'>
+    <div class='ui top attached header'>
         {{area.name}}
     </div>
-    <div class="ui attached basic segment">
-        <div :class="gridClass" class="ui column grid">
+    <div class='ui attached basic segment'>
+        <div :class='gridClass'
+            class='ui column grid'
+            v-touch:swipe.left='onLeftSwipe'
+            v-touch:swipe.right='onRightSwipe'>
             <metric-widget
-                v-for="m in area.metrics.slice(0, getAvailableMetricSlots(width))"
-                :key="m"
-                :metric="{ name: m }"
-                :area="area.id">
+                v-for='(m, i) in area.metrics'
+                v-if='!isPending(i)'
+                :key='m'
+                :metric='{ name: m }'
+                :area='area.id'
+                :pending='isPending(i)'
+                :position='i'>
             </metric-widget>
         </div>
     </div>
@@ -18,22 +24,24 @@
 
 <script>
 import MetricWidget from './MetricWidget';
+import { mapState } from 'vuex';
 
 export default {
     name: 'dashboard-area',
     props: ['area'],
     data() {
         return {
-            width: this.$store.state.width,
-            resizeTimer: null //I don't like this.
+            carouselSteps: 0,
+            resizeTimer: null,
+            width: 1024
         };
     },
 
     watch: {
-        '$store.state.width'() {
+        appWidth() {
             clearTimeout(this.resizeTimer);
             this.resizeTimer = setTimeout(() => {
-                this.width = this.$store.state.width;
+                this.width = this.appWidth;
             }, 200);
         }
     },
@@ -60,11 +68,27 @@ export default {
             }
 
             return availableSlots;
+        },
+        isPending(i) {
+            return !(
+                i <
+                    this.getAvailableMetricSlots(this.width) +
+                        this.carouselSteps && i >= this.carouselSteps
+            );
+        },
+        onLeftSwipe(){
+            this.carouselSteps = Math.min(this.carouselSteps + 1, this.area.metrics.length - 1);
+        },
+        onRightSwipe(){
+            this.carouselSteps = Math.max(this.carouselSteps - 1, 0);
         }
 
     },
 
     computed: {
+        appWidth: mapState([
+            'width'
+        ]).width,
         gridClass() {
             return {
                 1: 'one',
@@ -73,6 +97,9 @@ export default {
                 4: 'four'
             }[this.getAvailableMetricSlots(this.width)];
         }
+    },
+    mounted () {
+        this.width = this.appWidth;
     },
 
     components: {
@@ -88,6 +115,9 @@ export default {
     font-size: 18px;
     font-weight: normal;
     padding: 7px 21px;
+}
+.ui.column.grid {
+    flex-wrap: nowrap;
 }
 
 .area .header {
@@ -114,7 +144,7 @@ export default {
 .content {
 }
 
-@media(max-width: 450px) {
+@media (max-width: 450px) {
     .area {
         margin: 1em;
     }
