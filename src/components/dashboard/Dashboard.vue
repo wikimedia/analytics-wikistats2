@@ -2,7 +2,7 @@
 <section class="widgets">
     <div class="ui clearing basic top segment">
         <h2 class="ui left floated header">Monthly Overview</h2>
-        <h5 class="ui right floated header">
+        <h5 class="ui right floated header wikiselector">
             <wiki-selector :single="true"></wiki-selector>
         </h5>
     </div>
@@ -62,5 +62,19 @@ export default {
     height: 48px;
     color: #4A4A4A;
     font-size: 16px;
+}
+@media(max-width: 450px) {
+    .wikiselector {
+        width: 100%;
+    }
+
+    .widgets .left.floated.header {
+        font-size: 20px;
+        font-weight: 800;
+        margin-left: 1em;
+    }
+    .widgets > .ui.clearing.basic.segment {
+        padding: 0;
+    }
 }
 </style>

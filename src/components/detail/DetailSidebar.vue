@@ -18,9 +18,10 @@
     <!--p v-if="otherMetrics.length > 1">
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
     </p-->
+    <div class="ui clearing divider"></div>
 
-    <breakdowns 
-        v-if="graphModel 
+    <breakdowns
+        v-if="graphModel
               && graphModel.breakdowns
               && graphModel.breakdowns.length > 1"
         :graphModel = "graphModel"
@@ -70,6 +71,7 @@ export default {
 .left.panel {
     background-color: #D8D8D8;
     min-width: 242px;
+    padding: 1em;
 }
 .left.panel h3.header {
     font-size: 16px;

@@ -24,6 +24,8 @@
         "semantic-ui": "^2.2.11",
         "topojson-client": "^3.0.0",
         "vue": "^2.2.1",
+        "vue-mq": "^0.1.0",
+        "vue-resize": "^0.4.3",
         "vuex": "^2.3.1",
         "wmui-base": "wikimedia/WikimediaUI-Base"
     },

@@ -4,14 +4,14 @@
 
         <span class="xui grey corner button">
             <i class="ui info circle icon"/>
-            Explore Topics
+            <span>Explore Topics</span>
             <i class="ui chevron down icon"/>
         </span>
     </div>
     <div class="ui grey inverted segment animateable topic searcher" :class="{down: !topicsMinimized}">
 
         <i class="ui info circle icon"/>
-        Explore Topics
+        <span>Explore Topics</span>
 
         <div class="ui search">
             <div class="ui icon input">
@@ -36,7 +36,7 @@
         </div>
 
         <!--div class="ui blue button" @click="go">Go</div-->
-        <span class="xui right floated link" @click="minimizeTopics(true)">
+        <span v-if="!topicsMinimized" class="xui right floated link" @click="minimizeTopics(true)">
             <i class="ui up chevron icon"/>
         </span>
     </div>
@@ -199,6 +199,21 @@ export default {
 .ui.blue.button {
     background-color: #3366cc!important;
     width: 78px;
+}
+
+@media(max-width: 450px) {
+    .xui.grey.corner.button {
+        width: 100vw;
+        margin-left: -1px;
+        border-radius: 0;
+    }
+    .slide.transition.container {
+        margin: 0;
+    }
+    .xui.link {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 </style>

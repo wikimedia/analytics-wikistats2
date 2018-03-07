@@ -1,6 +1,6 @@
 <template>
 <div>
-    <table :class="graphModel.config.area" class="ui table">
+    <table :class="graphModel.config.area" class="ui table unstackable">
         <thead>
             <tr v-if="graphModel.config.structure === 'timeseries'">
                 <th>Date</th>
@@ -12,11 +12,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in data">
+            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in (mobile? data.slice(0, 30): data)">
                 <td>{{m.month|ISOdateUTC}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
-            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in data">
+            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in (mobile? data.slice(0, 30): data)">
                 <td v-if="graphModel.config.type !== 'map'" class="right aligned">{{m.total.total|thousands}}</td>
                 <td v-else class="right aligned">{{m.total.total|kmb}}</td>
                 <td>
@@ -45,6 +45,12 @@ export default {
 
     updated () {
         this.setColors();
+    },
+
+    computed: {
+        mobile(){
+            return this.$mq == 'mobile';
+        }
     },
 
     methods: {

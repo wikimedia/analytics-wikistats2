@@ -1,6 +1,5 @@
 <template>
 <div v-if="graphModel">
-    <div class="ui clearing divider"></div>
 
     <h3 class="header">Filter and Split</h3>
 

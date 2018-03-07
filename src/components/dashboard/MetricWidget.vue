@@ -16,7 +16,7 @@
                     <div class="value" >{{ (lastMonth.total)| bytesOrKmb(unit) }}</div>
                 </div>
                 <div>
-                    <span class="subdued">{{ (lastMonth.month) | getMonthLabel(months) }}</span>
+                    <span class="subdued">{{getMonthValue(lastMonth.month)}}</span>
                     <span class="change label">
                         <span v-if="changeMoM">
                             <arrow-icon :value="changeMoM"/>
@@ -72,6 +72,7 @@ import MetricLineWidget from './MetricLineWidget'
 import MetricListWidget from './MetricListWidget'
 import StatusOverlay from '../StatusOverlay'
 import MetricPlaceholderWidget from './MetricPlaceholderWidget'
+import TimeRangeSelector from '../TimeRangeSelector';
 import ArrowIcon from '../ArrowIcon';
 
 import AQS from '../../apis/aqs';
@@ -81,8 +82,6 @@ import GraphModel from '../../models/GraphModel';
 import RouterLink from '../RouterLink';
 
 let aqsApi = new AQS();
-
-let defaultRange = utils.getDefaultTimeRange();
 
 export default {
     name: 'metric-widget',
@@ -115,7 +114,7 @@ export default {
                     area: this.area,
                     metric: this.metric.name,
                     metricConfig: config.metricData(this.metric.name),
-                    range: defaultRange,
+                    range: TimeRangeSelector.getDefaultTimeRange(),
                     granularity: 'monthly',
                 };
             },
@@ -136,7 +135,6 @@ export default {
             },
 
             monthOneYearAgo: function () {
-
                 if (!this.lastMonth) { return null; }
 
                 let last = _.indexOf(this.graphData, this.lastMonth);
@@ -154,10 +152,10 @@ export default {
                 return this.graphModel.getLimitedAggregate(12);
             },
             lastMonth: function () {
-                return  _.last(this.graphData);
-
+                return _.last(this.graphData);
             },
             changeMoM: function () {
+                if (!this.lastMonth) { return null; }
 
                 const data = this.graphData;
                 const prev = data[data.length - 2];
@@ -192,29 +190,30 @@ export default {
                     if (this.graphModel.config.unit ){
                         return this.graphModel.config.unit;
                     }
-            },
-            months: function(){
-                return config.months;
             }
         }
     ),
 
     mounted () {
         this.aqsApi = new AQS();
-        this.loadData(this.params);
+        this.loadData();
     },
 
-   watch: {
+    watch: {
         params () {
+            this.graphModel = null;
             // allow the placeholders to reset before loading new data
-             this.loadData(this.params);
+            Vue.nextTick(() => this.loadData());
         },
     },
 
     methods: {
+        getMonthValue (date) {
+            return config.months[date.getMonth() + 1];
+        },
 
-
-        loadData (params) {
+        loadData () {
+            const params = this.params;
 
             if (this.disabled) {
                 this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
@@ -264,9 +263,16 @@ export default {
 </script>
 
 <style>
+.two .widget.column {
+    width: 49.32%!important;
+}
+.one .widget.column {
+    width: 100%!important;
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
 .widget.column {
     width: 32.6666666666%!important;
-    height: 265px;
     margin-left: 0.3333333333%;
     margin-right: 0.3333333333%;
     background-color: #ffffff;
