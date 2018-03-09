@@ -10,6 +10,9 @@ import store from './store';
 import router from './router';
 import routes from './router/routes';
 import numeral from 'numeral';
+
+// we might need to move away from dateformat and use moment.js
+// when we do localization
 import dateformat from 'dateformat';
 
 Vue.config.productionTip = false;
@@ -38,8 +41,17 @@ Vue.filter('kmb', (n) => {
     } else return kmb(n);
 });
 Vue.filter('bytes', (n) => bytes(n) );
-Vue.filter('date', (date) => dateformat(date, 'yyyy-mm-dd'));
+Vue.filter('ISOdateUTC', (date) => dateformat(date, 'yyyy-mm-dd', 'UTC'));
 Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : ''));
+
+// months is an array of strings that would need to be localized
+Vue.filter('getMonthLabel', (date, months, abbridged) => {
+    if (abbridged) {
+        return months[date.getUTCMonth() + 1][0];
+    } else {
+       return months[date.getUTCMonth() + 1];
+    }
+})
 
 Vue.filter('bytesOrKmb', (n , unit) => {
     if (unit === 'bytes') {

@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import _ from '../../lodash-custom-bundle';
 import Vue from 'vue';
 import config from '../../config';
 import isoLookup from '../detail/chart/MapChart/isoLookup';
@@ -35,10 +36,10 @@ export default {
 
     computed: {
         lastMonth () {
-            var lastMonthDate = new Date();
-            lastMonthDate.setDate(1);
-            lastMonthDate.setMonth(lastMonthDate.getMonth()-1);
-            return config.months[new Date().getMonth() + 1];
+            let graphModel = this.graphModel;
+            let date =_.last(graphModel.graphData);
+            date = date.month;
+            return config.months[date.getUTCMonth() + 1];
         },
         sortedList () {
             return this.data.slice(0, 4);
@@ -84,8 +85,8 @@ export default {
 .widget.list a:hover {
     color: #6289D8;
 }
-.widget.list tr:last-child { 
-    border: none; 
+.widget.list tr:last-child {
+    border: none;
     max-width: 200px;
 }
 .widget.list .number {
