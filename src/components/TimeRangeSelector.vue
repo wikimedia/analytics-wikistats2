@@ -10,40 +10,80 @@
 
 <script>
 import dateFormat from 'dateformat';
+import utils from '../utils';
 
 export default {
     name: 'time-range-selector',
+
+    props: ['lastMonth'],
+
     data () {
         return {
             activeRange: '2-Year'
         }
     },
+
     methods: {
         changeTimeRange (e) {
+
             this.activeRange = e.target.textContent;
-            let d = new Date();
-            let beginningOfThisMonth = new Date();
-            beginningOfThisMonth.setDate(1);
-            const now = dateFormat(new Date(), "yyyymmddhh");
+            const last = this.lastMonth;
+
+            // by convention end of the interval is today's UTC date
+            // this could better but abiding to this for now
+            const now = utils.createNowUTCDate();
+
+            const lastMonthAvailable = dateFormat(now, "yyyymmddhh");
             const ranges = {
                 'All': () => {
-                    return ['1980010100', now]
+                    return ['1980010100', lastMonthAvailable]
                 },
                 '2-Year': () => {
-                    d.setYear(d.getFullYear() - 2)
-                    return [dateFormat(d, "yyyymmddhh"), now]
+                    let d = utils.createNowUTCDate();
+                    d.setTime(last.getTime());
+                    d.setYear(d.getUTCFullYear() - 2)
+
+                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
                 },
                 '1-Year': () => {
-                    d.setYear(d.getFullYear() - 1)
-                    return [dateFormat(d, "yyyymmddhh"), now]
+                    let d = utils.createNowUTCDate();
+                    d.setTime(last.getTime());
+
+                    d.setYear(d.getUTCFullYear() - 1)
+                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
                 },
                 '3-Month': () => {
-                    d.setMonth(d.getMonth() - 3)
-                    return [dateFormat(d, "yyyymmddhh"), now]
+                    let d = utils.createNowUTCDate();
+                    d.setTime(last.getTime());
+
+                    let currentMonth = d.getUTCMonth();
+                    // months start at 0
+                    if (currentMonth>=3){
+                        d.setUTCMonth(d.getUTCMonth() - 3);
+                    } else {
+                        d.setYear(d.getUTCFullYear() - 1);
+                        currentMonth = currentMonth + 12;
+                        d.setUTCMonth(currentMonth-3);
+                    }
+
+                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
                 },
                 '1-Month': () => {
-                    d.setMonth(d.getMonth() - 1)
-                    return [dateFormat(d, "yyyymmddhh"), now]
+                    let d = utils.createNowUTCDate();
+                    d.setTime(last.getTime());
+
+                    d.setUTCMonth(d.getUTCMonth() - 1)
+                    let currentMonth = d.getUTCMonth();
+                    // months start at 0
+                    if (currentMonth>=1){
+                        d.setUTCMonth(d.getUTCMonth() - 1);
+                    } else {
+                        d.setYear(d.getUTCFullYear() - 1)
+                        currentMonth = currentMonth + 12;
+                        d.setUTCMonth(currentMonth-1);
+                    }
+
+                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
                 }
             };
             this.$emit('changeTimeRange', ranges[this.activeRange]());
@@ -52,14 +92,8 @@ export default {
             if (range === this.activeRange) return 'ui button active';
             return 'ui button';
         }
-    },
-    getDefaultTimeRange () {
-        const end = new Date();
-        const start = new Date();
-        start.setYear(end.getFullYear() - 2);
-        return [dateFormat(start, 'yyyymmdd00'),
-                dateFormat(end, 'yyyymmdd00')];
     }
+
 }
 </script>
 

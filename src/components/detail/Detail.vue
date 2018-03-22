@@ -27,7 +27,6 @@ import StatusOverlay from '../StatusOverlay';
 import MetricsModal from './MetricsModal';
 import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
-import TimeRangeSelector from '../TimeRangeSelector';
 
 import config from '../../config';
 import utils from '../../utils';
@@ -37,6 +36,9 @@ import AQS from '../../apis/aqs';
 
 import sitematrix from '../../apis/sitematrix';
 import dateformat from 'dateformat';
+
+
+let defaultRange = utils.getDefaultTimeRange();
 
 export default {
     name: 'detail',
@@ -61,7 +63,7 @@ export default {
             otherMetrics: [],
 
             overlayMessage: null,
-            range: TimeRangeSelector.getDefaultTimeRange(),
+            range: defaultRange,
         };
     },
 

@@ -1,7 +1,7 @@
 <template>
     <div :class="notice.level" class="central notice">
-        <p class="message">
-            {{notice.message}}
+        <p class="message" v-for="line in notice.message.split('\n')">
+            {{line}}
         </p>
         <i@click="hide" class="close icon large inverted"></i>
     </div>
@@ -29,14 +29,17 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 40px;
+        height: 48px;
         background-color: #CC0000;
         z-index: 20;
     }
     .central.notice p {
         text-align: center;
         color: #fff;
-        line-height: 40px;
+        line-height: 10px;
+        margin-top: 4px;
+        margin-left: 10%;
+        margin-right: 10%;
     }
 
     .central.notice.warn {

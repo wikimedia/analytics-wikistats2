@@ -61,7 +61,9 @@
             </div>
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
-            <time-range-selector v-on:changeTimeRange='changeTimeRange'></time-range-selector>
+            <time-range-selector
+                v-on:changeTimeRange='changeTimeRange'
+                :lastMonth ='lastMonth'></time-range-selector>
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
@@ -86,6 +88,7 @@ import EmptyChart from './chart/EmptyChart';
 import MapChart from './chart/MapChart';
 import StatusOverlay from '../StatusOverlay';
 import *  as d3Formatter from 'd3-dsv';
+import _ from 'lodash';
 
 export default {
     name: 'graph-panel',
@@ -144,6 +147,12 @@ export default {
                     if (this.graphModel.config.unit ){
                         return this.graphModel.config.unit;
                     }
+        },
+        lastMonth: function(){
+            // graphModel might be empty when passed from parent component, careful
+            if (this.graphModel && this.graphModel.graphData.length > 0){
+                return _.last(this.graphModel.graphData).month;
+            }
         }
 
     },
@@ -154,6 +163,7 @@ export default {
                 this.changeChart(this.chartTypes[0]);
             }
         },
+
     },
 
     methods: {
@@ -180,7 +190,7 @@ export default {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-        }
+        },
     }
 }
 </script>

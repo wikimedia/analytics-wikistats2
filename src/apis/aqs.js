@@ -88,8 +88,25 @@ class AQS {
         });
     }
 
+    /*
+    INPUT:
+    {project: "es.wikipedia", access: "all-access", year: "2018", month: "02", countries: Array(223)}
+
+    OUTPUT:
+        Array with 223 items:
+    [
+        {country: "MX", views: "100000000-999999999", rank: 1, timestamp: 1517443200000}
+        {country: "ES", views: "100000000-999999999", rank: 2, timestamp: 1517443200000}
+        {country: "CO", views: "100000000-999999999", rank: 3, timestamp: 1517443200000}
+        {country: "AR", views: "10000000-99999999",   rank: 4, timestamp: 1517443200000}
+    ]
+    */
     formatTops (data, column) {
-        return _.flatten(data.map(item => item[column]));
+        const timestamp = utils.getUTCTimestampFromYearMonth(data[0].year, data[0].month);
+
+        const flatData = _.flatten(data.map(item => item[column]));
+
+        return flatData.map(item => Object.defineProperty(item, 'timestamp', {value: timestamp, writable:false} ))
     }
 
 

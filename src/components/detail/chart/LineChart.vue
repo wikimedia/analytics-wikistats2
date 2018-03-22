@@ -1,7 +1,7 @@
 <template>
 <div class="graphContainer">
     <div v-if="hoveredPoint" class="valuePopup">
-        <b>{{formatDate(hoveredPoint.month)}}</b>
+        <b>{{hoveredPoint.month | ISOdateUTC }}</b>
         <ul v-for="b in this.selectedValue" class="breakdown">
             <li>
                 <b><span :style="{ color: b.color }">{{b.name}}</span></b>
@@ -180,9 +180,7 @@ export default {
             svg.attr('width', n.offsetWidth + padding).attr('height', n.offsetHeight);
         },
 
-        formatDate(date) {
-            return dateformat(date, "yyyy-mm-dd");
-        },
+
 
         addAxes (x, y, g) {
 
