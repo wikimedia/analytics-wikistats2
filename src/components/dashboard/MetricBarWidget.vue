@@ -37,6 +37,8 @@ export default {
 
         drawChart () {
 
+            const monthLabelFilter  = this.$options.filters.getMonthLabel;
+
             const self = this;
 
             const root = d3.select(this.$el).select('.bar-chart'),
@@ -100,13 +102,10 @@ export default {
                     .attr('x', (d) => x(d.month))
                     .attr('y', height)
                     .text((d) => {
-                        return self.getMonthValue(d.month);
+                        return monthLabelFilter(d.month, config.months, true);
                     }).style('fill', '#898989')
                       .style('font-size', '9px')
                       .style('font-family', 'Lato');
-        },
-        getMonthValue (date) {
-            return config.months[date.getMonth() + 1][0];
         }
     }
 }

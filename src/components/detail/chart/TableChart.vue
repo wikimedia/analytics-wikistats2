@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in data">
-                <td>{{m.month|date}}</td>
+                <td>{{m.month|ISOdateUTC}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
             <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in data">
