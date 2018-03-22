@@ -16,6 +16,10 @@ import dateformat from 'dateformat';
 // when we do localization
 import dateformat from 'dateformat';
 
+// we might need to move away from dateformat and use moment.js
+// when we do localization
+import dateformat from 'dateformat';
+
 Vue.config.productionTip = false;
 
 // use locale-driven formatting for thousands
