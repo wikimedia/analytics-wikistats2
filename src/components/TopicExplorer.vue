@@ -4,14 +4,14 @@
 
         <span class="xui grey corner button">
             <i class="ui info circle icon"/>
-            <span>Explore Topics</span>
+            <span>Explore topics</span>
             <i class="ui chevron down icon"/>
         </span>
     </div>
     <div class="ui grey inverted segment animateable topic searcher" :class="{down: !topicsMinimized}">
 
         <i class="ui info circle icon"/>
-        <span>Explore Topics</span>
+        <span>Explore topics</span>
 
         <div class="ui search">
             <div class="ui icon input">
