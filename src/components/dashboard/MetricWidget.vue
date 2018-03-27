@@ -186,7 +186,7 @@ export default {
                 return !this.params.metricConfig.global && this.$store.state.project === config.ALL_PROJECTS;
             },
             aggregationType: function () {
-                return this.graphModel.getAggregateLabel();
+                return this.graphModel.getAggregateLabel().toLowerCase();
             },
             unit: function(){
                     if (this.graphModel.config.unit ){

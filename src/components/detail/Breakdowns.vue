@@ -1,7 +1,7 @@
 <template>
 <div v-if="graphModel">
 
-    <h3 class="header">Filter and Split</h3>
+    <h3 class="header">Filter and split</h3>
 
     <div v-for="b, i in graphModel.breakdowns" class="breakdown">
         <div class="ui toggle checkbox">
@@ -12,11 +12,11 @@
                 :value="b">
             <label :for="'breakdown' + b.breakdownName">
                 <span v-if="b.total">
-                    Overall <strong>{{b.name}}</strong>
+                    Overall <strong>{{b.name.toLowerCase()}}</strong>
                     <i class="help circle icon" title="See the overall total"/>
                 </span>
                 <span v-else>
-                    Split by <strong>{{b.name}}</strong>
+                    Split by <strong>{{b.name.toLowerCase()}}</strong>
                     <i class="help circle icon" title="Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes."/>
                 </span>
             </label>
