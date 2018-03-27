@@ -43,16 +43,25 @@ export default {
             const DEFAULT_CARD_SIZE = 316;
             const MIN_DESKTOP_APP_WIDTH = 1024;
             const SIDE_PADDING = 56;
+
             width = width / Math.max(1, window.devicePixelRatio - 1);
+
+            width = Math.round(width);
+
+            let availableSlots = 1;
+
             if (width >= MIN_DESKTOP_APP_WIDTH) {
-                return Math.floor(width / DEFAULT_CARD_SIZE);
+                availableSlots = Math.floor(width / DEFAULT_CARD_SIZE);
             } else if (
                 width - SIDE_PADDING >
                 2 * (MIN_DESKTOP_APP_WIDTH - SIDE_PADDING) / 3
             ) {
-                return 2;
-            } else return 1;
+                availableSlots = 2;
+            }
+
+            return availableSlots;
         }
+
     },
 
     computed: {
