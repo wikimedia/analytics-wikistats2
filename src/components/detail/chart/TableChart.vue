@@ -1,6 +1,7 @@
 <template>
 <div>
     <table :class="graphModel.config.area" class="ui table unstackable">
+        <caption align="bottom" @click="advancePage()" class = "morerows" colspan="10">Load more rows...</caption>
         <thead>
             <tr v-if="graphModel.config.structure === 'timeseries'">
                 <th>Date</th>
@@ -12,11 +13,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in (mobile? data.slice(0, 30): data)">
+            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in valuesShown(data, currentPage)">
                 <td>{{m.month|ISOdateUTC}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
-            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in (mobile? data.slice(0, 30): data)">
+            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in valuesShown(data, currentPage)">
                 <td v-if="graphModel.config.type !== 'map'" class="right aligned">{{m.total.total|thousands}}</td>
                 <td v-else class="right aligned">{{m.total.total|kmb}}</td>
                 <td>
@@ -38,6 +39,11 @@ import isoLookup from './MapChart/isoLookup'
 export default {
     name: 'table-chart',
     props: ['data', 'graphModel'],
+    data () {
+        return {
+            currentPage: 0
+        }
+    },
 
     mounted () {
         this.setColors();
@@ -55,7 +61,8 @@ export default {
 
     methods: {
         elementName (i) {
-            const rawName = this.data[i][this.graphModel.config.key].replace(/_/g, ' ');
+            const data = this.valuesShown(this.data, this.currentPage);
+            const rawName = data[i][this.graphModel.config.key].replace(/_/g, ' ');
             if (this.graphModel.config.type === 'map') {
                 const result = isoLookup[rawName];
                 return (result && result.en) || rawName;
@@ -70,6 +77,15 @@ export default {
             for (let i = 0; i < headerCells.length; i++) {
                 headerCells[i].style = `background-color: ${this.graphModel.config.darkColor};`;
             }
+        },
+        valuesShown(data, page){
+            if (data){
+                const itemsPerPage = this.mobile ? 10 : 20;
+                return data.slice(0, page * itemsPerPage + itemsPerPage);
+            }
+        },
+        advancePage(){
+            this.currentPage++;
         }
     }
 }
@@ -85,5 +101,12 @@ td a {
 }
 td.right.aligned {
     text-align: right;
+}
+.morerows {
+    background-color: lightgray;
+    text-align: center!important;
+    cursor: pointer;
+    height: 40px;
+    line-height: 40px;
 }
 </style>
