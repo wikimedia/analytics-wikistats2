@@ -65,7 +65,7 @@ export default {
     margin-left: 8px;
 }
 .ui.floating.dropdown.button {
-    width: calc(100vw - 2em);
+    width: calc(100vw - 3em);
     background: #f8f8f8;
 }
 .dropdown.icon {

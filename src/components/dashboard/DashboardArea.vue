@@ -1,21 +1,21 @@
 <template>
-<div class='area' :class='area.id'>
-    <div class='ui top attached header'>
+<div class="area" :class="area.id">
+    <div class="ui top attached header">
         {{area.name}}
     </div>
-    <div class='ui attached basic segment'>
-        <div :class='gridClass'
-            class='ui column grid'
-            v-touch:swipe.left='onLeftSwipe'
-            v-touch:swipe.right='onRightSwipe'>
+    <div class="ui attached basic segment">
+        <div :class="gridClass"
+            class="ui column grid"
+            v-touch:swipe.left="onLeftSwipe"
+            v-touch:swipe.right="onRightSwipe">
             <metric-widget
-                v-for='(m, i) in area.metrics'
-                v-if='!isPending(i)'
-                :key='m'
-                :metric='{ name: m }'
-                :area='area.id'
-                :pending='isPending(i)'
-                :position='i'>
+                v-for="(m, i) in area.metrics"
+                v-if="!isPending(i)"
+                :key="m"
+                :metric="{ name: m }"
+                :area="area.id"
+                :position="i"
+                :parentWidgetCount="getAvailableMetricSlots(width)">
             </metric-widget>
         </div>
     </div>
@@ -52,7 +52,9 @@ export default {
             const MIN_DESKTOP_APP_WIDTH = 1024;
             const SIDE_PADDING = 56;
 
-            width = width / Math.max(1, window.devicePixelRatio - 1);
+            const devicePixelRatio =  window.devicePixelRatio || 0;
+
+            width = width / Math.max(1, devicePixelRatio -1);
 
             width = Math.round(width);
 

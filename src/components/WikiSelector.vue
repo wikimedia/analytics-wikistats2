@@ -336,6 +336,9 @@ export default {
 }
 
 @media(max-width: 450px) {
+    .ui.right.floated.header.wikiselector {
+        margin-top: 0;
+    }
     .widgets .ui.input > input {
         width: 91vw!important;
         margin-left: 1em;

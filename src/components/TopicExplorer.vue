@@ -10,8 +10,11 @@
     </div>
     <div class="ui grey inverted segment animateable topic searcher" :class="{down: !topicsMinimized}">
 
-        <i class="ui info circle icon"/>
-        <span>Explore topics</span>
+        <span v-if="!topicsMinimized" class="xui link" @click="minimizeTopics(true)">
+            <i class="ui info circle icon"/>
+            <span>Explore topics</span>
+            <i class="ui up chevron icon"/>
+        </span>
 
         <div class="ui search">
             <div class="ui icon input">
@@ -34,11 +37,6 @@
                 subtitle="metric"
                 @select="found"></search-results>
         </div>
-
-        <!--div class="ui blue button" @click="go">Go</div-->
-        <span v-if="!topicsMinimized" class="xui right floated link" @click="minimizeTopics(true)">
-            <i class="ui up chevron icon"/>
-        </span>
     </div>
 </div>
 </template>
@@ -165,9 +163,6 @@ export default {
     color: #ffffff;
 }
 .xui.link {
-    float: right;
-    margin: -20px -30px 0 0;
-    padding: 30px;
     cursor: pointer;
 }
 .ui.inverted.segment {
@@ -216,4 +211,16 @@ export default {
     }
 }
 
+@media(max-width: 1000px) {
+    .ui.segment.topic.searcher {
+        padding: 10px;
+    }
+    .xui.link {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .topic.searcher .ui.search {
+        width: 97%;
+    }
+}
 </style>

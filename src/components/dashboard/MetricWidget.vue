@@ -1,5 +1,5 @@
 <template>
-<div class="widget column">
+<div class="widget column" :class="{last: this.isLast()}">
     <router-link :to="{project, area, metric: metric.name}">
         <metric-placeholder-widget
             v-if="!graphModel">
@@ -88,7 +88,7 @@ let defaultRange = utils.getDefaultTimeRange();
 
 export default {
     name: 'metric-widget',
-    props: ['metric', 'area', 'position'],
+    props: ['metric', 'area', 'position', 'parentWidgetCount'],
     data () {
         return {
             graphModel: null,
@@ -267,6 +267,10 @@ export default {
                 this.graphModel.setData(dimensionalData);
             });
         },
+
+        isLast() {
+            return this.position === this.parentWidgetCount - 1;
+        }
     },
 };
 </script>
@@ -285,6 +289,7 @@ export default {
     width: 100%!important;
     margin-left: 0!important;
     margin-right: 0!important;
+    right: 1px;
 }
 .widget.column {
     width: 32.6666666666%!important;
@@ -307,7 +312,7 @@ export default {
 }
 
 .widget.column:first-child { margin-left: 0; margin-right: 0.6666666666%; }
-.widget.column:last-child { margin-left: 0.6666666666%; margin-right: 0%; }
+.widget.column.last { margin-left: 0.6666666666%; margin-right: 0%; }
 
 .ui.medium.statistic > .label {
     text-transform: capitalize;

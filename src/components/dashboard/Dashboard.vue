@@ -75,6 +75,8 @@ export default {
     }
     .widgets > .ui.clearing.basic.segment {
         padding: 0;
+        padding-top: 10px;
+        margin-top: 0;
     }
 }
 </style>

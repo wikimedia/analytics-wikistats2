@@ -2,7 +2,7 @@
 <div>
     <section class="detail container" :class="{ area, fullscreen }">
         <detail-sidebar
-            v-if="!mobile && !fullscreen"
+            v-if="!compact && !fullscreen"
             :otherMetrics="otherMetrics"
             :graphModel="graphModel"
         />
@@ -16,7 +16,7 @@
             @toggleFullscreen="toggleFullscreen"
         />
     </section>
-    <div v-if="mobile" class="container breakdowns">
+    <div v-if="compact || fullscreen" class="container breakdowns">
         <breakdowns
             v-if="graphModel
                   && graphModel.breakdowns
@@ -107,6 +107,10 @@ export default {
 
             mobile () {
                 return this.$mq === 'mobile';
+            },
+
+            compact () {
+                return ['mobile', 'compact'].indexOf(this.$mq) > -1;
             }
         }
     ),

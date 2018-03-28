@@ -5,7 +5,7 @@
         <top-nav :wikiCode="project"></top-nav>
     </section>
     <section class="ui attached content segment animate">
-        <topic-explorer v-if="!mobile || (mobile && mainComponent==='dashboard')"></topic-explorer>
+        <topic-explorer v-if="!mobile"></topic-explorer>
 
         <component :is="mainComponent"></component>
     </section>
@@ -43,6 +43,7 @@ Vue.use(Vue2TouchEvents)
 Vue.use(VueMq, {
   breakpoints: {
     mobile: 450,
+    compact: 750,
     tablet: 1000,
     lg: Infinity,
   }
@@ -150,20 +151,17 @@ a.router-link-current { font-weight: bold; color: #72777d }
 
 .ui.top.attached.clearing.segment {
     border-bottom: 4px solid #4A4A4A;
-    padding: 35px 44px;
+    padding: 35px 32px 35px 44px;
     /* has to have room under it to fit topic selector animation */
     z-index: 10;
 }
 @media(max-width: 450px) {
     .ui.top.attached.clearing.segment {
-        border-bottom: 4px solid #4A4A4A;
-        padding: 20px 20px;
+        padding: 20px 0 20px 20px;
         /* has to have room under it to fit topic selector animation */
-        z-index: 10;
     }
     .ui.attached.content.segment.animate {
         padding: 0;
-        margin: 0;
     }
 }
 .ui.attached.content.segment {

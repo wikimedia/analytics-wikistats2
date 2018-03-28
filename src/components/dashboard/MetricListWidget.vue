@@ -64,6 +64,8 @@ export default {
 
 <style>
 .widget.list {
+    table-layout: fixed;
+    width: 100%;
     list-style: none;
     font-size: 1.4em;
     padding: 0;
@@ -94,6 +96,7 @@ export default {
     font-weight: 600;
 }
 .widget.list .label {
+    width: 65%;
     font-size: 20px;
     font-weight: normal;
     max-width: 150px;

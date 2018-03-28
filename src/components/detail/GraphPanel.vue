@@ -268,7 +268,7 @@ export default {
         margin-top: 0;
     }
     .ui.icon.input{
-        width: calc(100vw - 2em);
+        width: calc(100vw - 3em);
     }
     .ui.buttons > .ui.button {
         padding: 10px;
