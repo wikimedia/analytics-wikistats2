@@ -15,6 +15,7 @@ import map from 'lodash/map';
 import max from 'lodash/max';
 import min from 'lodash/min';
 import pickBy from 'lodash/pickBy';
+import range from 'lodash/range';
 import reduce from 'lodash/reduce';
 import replace from 'lodash/replace';
 import round from 'lodash/round';
@@ -46,6 +47,7 @@ export default {
     max,
     min,
     pickBy,
+    range,
     reduce,
     replace,
     round,
