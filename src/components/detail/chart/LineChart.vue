@@ -102,8 +102,7 @@ export default {
 
             // Generate the x and y scales that we'll use to calculate the line
             // and the two axes.
-
-            const width = n.offsetWidth - this.margin.left - this.margin.right;
+            let width = n.offsetWidth - this.margin.left - this.margin.right - padding*2;
             let x = scales.scaleTime().rangeRound([0, width]);
             const dates = this.data.map((d) => d.month);
             x.domain(arr.extent(dates));
@@ -176,8 +175,7 @@ export default {
             this.addAxes(x, y, g);
 
             // Final resizing to include the axes
-
-            svg.attr('width', n.offsetWidth + padding).attr('height', n.offsetHeight);
+            svg.attr('width', n.offsetWidth + padding).attr('height', g.node().getBBox().height + this.margin.top);
         },
 
 
@@ -301,9 +299,7 @@ export default {
 <style>
 .big.line.chart {
     min-height: 386px;
-    min-width: 700px;
 }
-.fullscreen .big.line.chart { min-height: 492px; }
 .pointCircle {
     stroke-width: 1px;
     fill-opacity: 0;
@@ -326,5 +322,11 @@ export default {
 
 .breakdown {
     white-space: nowrap;
+}
+@media(max-width: 450px) {
+    .big.line.chart {
+        min-height: 250px;
+        width: calc(100vw - 2em);
+    }
 }
 </style>

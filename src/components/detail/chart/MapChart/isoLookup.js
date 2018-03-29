@@ -248,5 +248,5 @@ module.exports = {
   "YE": {"en": "Yemen", "numericCode": "887"},
   "ZM": {"en": "Zambia", "numericCode": "894"},
   "ZW": {"en": "Zimbabwe", "numericCode": "716"},
-  "--": {"en": "--", "numericCode": "---"},
+  "--": {"en": "Unknown", "numericCode": "---"},
 }

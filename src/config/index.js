@@ -99,7 +99,8 @@ const mainMetricsByArea = [
             metrics: [
                 'total-pageviews',
                 'unique-devices',
-                'pageviews-by-country'
+                'pageviews-by-country',
+                'top-viewed-articles'
             ]
         }
     },

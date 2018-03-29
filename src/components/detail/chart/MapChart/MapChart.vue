@@ -128,6 +128,7 @@ export default {
                     const diagonalHatch = d3.select('#diagonalHatch')
                     d3.select(diagonalHatch.node().firstChild).style('fill', d.properties.color);
                     d3.select(this).attr('fill', 'url(#diagonalHatch)');
+                    const svgBBox = svg.node().getBBox();
                     self.currentHover = {
                         name: d.properties.name,
                         number: d.properties.number,
@@ -167,9 +168,17 @@ function darkenColorBy (color, percentageToDarkenBy) {
 function getZoomBehavior (features, path, projection) {
     const zoomBehavior = zoom.zoom().scaleExtent([0.8, 8]);
     zoomBehavior.on('zoom', function() {
+        const extentBBox = features._parents[0].getBBox();
+        const width = extentBBox.width;
+        const height = extentBBox.height;
         const scale = d3.event.transform.k
-        const x = d3.event.transform.x;
-        const y = d3.event.transform.y;
+        /*
+        These two operations constrain the map viewport to the bounding box that contains land. Since we
+        deal directly with projected topojson arcs, and not with global latitudes and longitudes, we need
+        constants in pixels to limit the view's boundaries. Hence the 200, 400, 600 constants.
+        */
+        const x = Math.min(width / 2 * (scale - 1) + 200, Math.max(width / 2 * (1 - scale) - 600, d3.event.transform.x));;
+        const y = Math.min(height / 2 * (scale - 1) + 400 * scale, Math.max(height / 2 * (1 - scale) - 400 * scale, d3.event.transform.y));
         features.attr('transform','translate(' +
             x +','+ y + ')scale(' + scale + ')');
         features.selectAll('path')
@@ -182,9 +191,9 @@ function getZoomBehavior (features, path, projection) {
 
 <style type="text/css">
 
-    .map svg {
+    .map.canvas {
         width: 100%;
-        height: 500px;
+        min-height: 500px;
         margin-bottom:40px;
     }
 
@@ -192,5 +201,10 @@ function getZoomBehavior (features, path, projection) {
         stroke: #555;
         stroke-width: 0.5px;
         vector-effect: non-scaling-stroke;
+    }
+    @media(max-width: 450px) {
+        .map.canvas {
+            min-height: 250px;
+        }
     }
 </style>

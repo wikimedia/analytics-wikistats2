@@ -1,5 +1,5 @@
 <template>
-<div class="widget column">
+<div class="widget column" :class="{last: this.isLast()}">
     <router-link :to="{project, area, metric: metric.name}">
         <metric-placeholder-widget
             v-if="!graphModel">
@@ -59,6 +59,7 @@
         </div>
     </router-link>
     <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
+    <carousel-position v-if="mobile" :numberOfDots="metricsInArea.length" :currentPosition="position"></carousel-position>
 </div>
 </template>
 
@@ -70,6 +71,7 @@ import _ from '../../lodash-custom-bundle';
 import MetricBarWidget from './MetricBarWidget'
 import MetricLineWidget from './MetricLineWidget'
 import MetricListWidget from './MetricListWidget'
+import CarouselPosition from './CarouselPosition'
 import StatusOverlay from '../StatusOverlay'
 import MetricPlaceholderWidget from './MetricPlaceholderWidget'
 import ArrowIcon from '../ArrowIcon';
@@ -86,8 +88,7 @@ let defaultRange = utils.getDefaultTimeRange();
 
 export default {
     name: 'metric-widget',
-    props: ['metric', 'area'],
-
+    props: ['metric', 'area', 'position', 'parentWidgetCount'],
     data () {
         return {
             graphModel: null,
@@ -102,7 +103,8 @@ export default {
         MetricPlaceholderWidget,
         StatusOverlay,
         ArrowIcon,
-        RouterLink
+        RouterLink,
+        CarouselPosition
     },
 
     computed: Object.assign(
@@ -186,7 +188,7 @@ export default {
                 return !this.params.metricConfig.global && this.$store.state.project === config.ALL_PROJECTS;
             },
             aggregationType: function () {
-                return this.graphModel.getAggregateLabel();
+                return this.graphModel.getAggregateLabel().toLowerCase();
             },
             unit: function(){
                     if (this.graphModel.config.unit ){
@@ -195,20 +197,24 @@ export default {
             },
             months: function(){
                 return config.months;
+            },
+            mobile () {
+                return this.$mq === 'mobile';
+            },
+            metricsInArea(){
+                return config.areaData().find(a => a.state.id === this.area).state.metrics;
             }
         }
     ),
 
     mounted () {
-        this.aqsApi = new AQS();
         this.loadData(this.params);
     },
 
    watch: {
         params () {
-            // allow the placeholders to reset before loading new data
-             this.loadData(this.params);
-        },
+                this.loadData(this.params);
+        }
     },
 
     methods: {
@@ -220,6 +226,8 @@ export default {
                 this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
                 return;
             }
+
+            this.aqsApi = new AQS();
 
             const defaults = params.metricConfig.defaults || {
                 unique: {},
@@ -259,11 +267,30 @@ export default {
                 this.graphModel.setData(dimensionalData);
             });
         },
+
+        isLast() {
+            return this.position === this.parentWidgetCount - 1;
+        }
     },
 };
 </script>
 
 <style>
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+.two .widget.column {
+    width: 49.32%!important;
+}
+.one .widget.column {
+    width: 100%!important;
+    margin-left: 0!important;
+    margin-right: 0!important;
+    right: 1px;
+}
 .widget.column {
     width: 32.6666666666%!important;
     height: 265px;
@@ -285,7 +312,7 @@ export default {
 }
 
 .widget.column:first-child { margin-left: 0; margin-right: 0.6666666666%; }
-.widget.column:last-child { margin-left: 0.6666666666%; margin-right: 0%; }
+.widget.column.last { margin-left: 0.6666666666%; margin-right: 0%; }
 
 .ui.medium.statistic > .label {
     text-transform: capitalize;

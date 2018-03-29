@@ -1,8 +1,14 @@
 <template>
 <section class="graph panel">
-    <div class="ui clearing basic segment" v-if="graphModel">
+    <div v-if="graphModel && mobile" class="metrics">
+        <metrics-dropdown :metric="graphModel.config" :granularity="granularity"/>
+    </div>
+    <div v-if="mobile" class="metrics wikis">
+        <wiki-selector :single="false"></wiki-selector>
+    </div>
+    <div class="ui clearing basic segment graph" v-if="graphModel">
         <div>
-            <h2 class="ui left floated header">
+            <h2 v-if="!mobile" class="ui left floated header">
                 <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
                    title="Click through to get a more detailed definition of this metric on the Research wiki">
                     {{graphModel.config.fullName || 'No data yet... '}}
@@ -12,11 +18,11 @@
 
             <div class="ui right floated basic fudge segment">
                 <simple-legend
-                    v-if="activeBreakdown && chartComponent !== 'table-chart'"
+                    v-if="!mobile && activeBreakdown && chartComponent !== 'table-chart'"
                     class="simple legend"
                     :breakdown="activeBreakdown">
                 </simple-legend>
-                <div class="ui right floated icon buttons">
+                <div v-if="!mobile" class="ui right floated icon buttons">
 
                     <button @click="download" class="ui icon button" title="Download">
                         <i class="download icon"></i>
@@ -65,15 +71,10 @@
                 v-on:changeTimeRange='changeTimeRange'
                 :lastMonth ='lastMonth'></time-range-selector>
         </div>
-        <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
-            <time-range-selector
-                v-on:changeTimeRange='changeTimeRange'
-                :lastMonth ='lastMonth'></time-range-selector>
-        </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
     <div class="ui right floated icon button"
-         v-if="!overlayMessage"
+         v-if="!mobile && !overlayMessage"
         @click="toggleFullscreen"
         :title="fullscreen ? 'minimize the graph and show controls' : 'maximize the graph and hide controls'">
 
@@ -83,6 +84,8 @@
 </template>
 
 <script>
+import WikiSelector from '../WikiSelector'
+import MetricsDropdown from '../MetricsDropdown'
 import ArrowIcon from '../ArrowIcon';
 import TimeRangeSelector from '../TimeRangeSelector';
 import SimpleLegend from './SimpleLegend';
@@ -107,7 +110,9 @@ export default {
         TableChart,
         MapChart,
         EmptyChart,
-        StatusOverlay
+        StatusOverlay,
+        MetricsDropdown,
+        WikiSelector
     },
 
     props: ['fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
@@ -149,15 +154,18 @@ export default {
             return this.graphModel.activeBreakdown;
         },
         unit: function(){
-                    if (this.graphModel.config.unit ){
-                        return this.graphModel.config.unit;
-                    }
+            if (this.graphModel.config.unit ){
+                return this.graphModel.config.unit;
+            }
         },
         lastMonth: function(){
             // graphModel might be empty when passed from parent component, careful
             if (this.graphModel && this.graphModel.graphData.length > 0){
                 return _.last(this.graphModel.graphData).month;
             }
+        },
+        mobile: function () {
+            return this.$mq === 'mobile';
         }
 
     },
@@ -201,6 +209,13 @@ export default {
 </script>
 
 <style>
+.metrics {
+    padding: 1em;
+    background: #d8d8d8;
+}
+.ui.clearing.basic.segment.graph {
+    padding: 25px 18px 18px 18px;
+}
 .graph.panel {
     background-color: #FFFFFF;
     flex: 1;
@@ -246,5 +261,21 @@ export default {
 }
 .metric.link:hover {
     color: #6289D8;
+}
+
+@media(max-width: 450px) {
+    .ui.clearing.basic.segment.graph {
+        padding-top: 0;
+        margin-top: 0;
+    }
+    .ui.icon.input{
+        width: calc(100vw - 3em);
+    }
+    .ui.buttons > .ui.button {
+        padding: 10px;
+    }
+    .wikis {
+        background: #fff;
+    }
 }
 </style>

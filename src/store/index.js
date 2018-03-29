@@ -10,8 +10,9 @@ export default new Vuex.Store({
         area: '',
         metric: '',
         mainComponent: '',
-        topicsMinimized: true,
+        topicsMinimized: false,
         centralNotice: null,
+        width: null
     },
     getters: {
         // Do not add mainComponent to mainState
@@ -23,6 +24,7 @@ export default new Vuex.Store({
                 metric: state.metric,
             };
         },
+        getWidth: state => state.width
     },
     mutations: {
         // Sets all poperties passed, and leaves the others as they were.

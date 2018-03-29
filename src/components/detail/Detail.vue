@@ -1,21 +1,30 @@
 <template>
-<section class="detail container" :class="{ area, fullscreen }">
-    <detail-sidebar
-        v-if="!fullscreen"
-        :otherMetrics="otherMetrics"
-        :graphModel="graphModel"
-    />
-
-    <graph-panel
-        :granularity="dataParameters.granularity"
-        ref="graphPanel"
-        :graphModel="graphModel"
-        :overlayMessage="overlayMessage"
-        @changeTimeRange="setTimeRange"
-        :fullscreen="fullscreen"
-        @toggleFullscreen="toggleFullscreen"
-    />
-</section>
+<div>
+    <section class="detail container" :class="{ area, fullscreen }">
+        <detail-sidebar
+            v-if="!compact && !fullscreen"
+            :otherMetrics="otherMetrics"
+            :graphModel="graphModel"
+        />
+        <graph-panel
+            :granularity="dataParameters.granularity"
+            ref="graphPanel"
+            :graphModel="graphModel"
+            :overlayMessage="overlayMessage"
+            @changeTimeRange="setTimeRange"
+            :fullscreen="fullscreen"
+            @toggleFullscreen="toggleFullscreen"
+        />
+    </section>
+    <div v-if="compact || fullscreen" class="container breakdowns">
+        <breakdowns
+            v-if="graphModel
+                  && graphModel.breakdowns
+                  && graphModel.breakdowns.length > 1"
+            :graphModel="graphModel"
+        />
+    </div>
+</div>
 </template>
 
 <script>
@@ -27,6 +36,9 @@ import StatusOverlay from '../StatusOverlay';
 import MetricsModal from './MetricsModal';
 import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
+import TimeRangeSelector from '../TimeRangeSelector';
+import MetricsDropdown from '../MetricsDropdown';
+import Breakdowns from './Breakdowns'
 
 import config from '../../config';
 import utils from '../../utils';
@@ -45,7 +57,9 @@ export default {
     components: {
         MetricsModal,
         GraphPanel,
-        DetailSidebar
+        DetailSidebar,
+        MetricsDropdown,
+        Breakdowns
     },
     data () {
         return {
@@ -90,6 +104,14 @@ export default {
                     breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
                 };
             },
+
+            mobile () {
+                return this.$mq === 'mobile';
+            },
+
+            compact () {
+                return ['mobile', 'compact'].indexOf(this.$mq) > -1;
+            }
         }
     ),
 
@@ -219,9 +241,6 @@ function getGranularityForRange (range) {
     display: flex;
     align-items: stretch;
 }
-.panel {
-    padding: 25px 18px 18px 18px;
-}
 
 .clearing.basic.segment { padding: 0; }
 .xui.checkbox {
@@ -271,5 +290,14 @@ function getGranularityForRange (range) {
 
 .add.wiki.design {
     display: none;
+}
+
+@media(max-width: 500px) {
+    .detail.container {
+        margin: 0!important;
+    }
+    .container.breakdowns {
+        padding: 1em;
+    }
 }
 </style>

@@ -1,6 +1,6 @@
 {
     "name": "wikistats",
-    "version": "2.1.12",
+    "version": "2.2.0",
     "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
     "main": "index.js",
     "scripts": {
@@ -24,6 +24,9 @@
         "semantic-ui": "^2.2.11",
         "topojson-client": "^3.0.0",
         "vue": "^2.2.1",
+        "vue-mq": "^0.1.0",
+        "vue-resize": "^0.4.3",
+        "vue2-touch-events": "^1.0.0",
         "vuex": "^2.3.1",
         "wmui-base": "wikimedia/WikimediaUI-Base"
     },

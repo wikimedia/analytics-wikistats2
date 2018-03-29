@@ -79,8 +79,7 @@ export default {
             g.attr(
                 'transform', `translate(${yAxisContainerWidth},${margin.top})`
             );
-
-            let width = n.offsetWidth - margin.left - margin.right - yAxisContainerWidth;
+            let width = this.$el.offsetWidth - 75;
             let xW = scales.scaleBand()
                            .range([0, width])
                            .domain(dates)
@@ -153,6 +152,13 @@ export default {
 </script>
 
 <style>
-.big.bar.chart { min-height: 386px; min-width: 700px; }
 .fullscreen .big.bar.chart { min-height: 492px; }
+.big.bar.chart {
+    min-height: 386px;
+}
+@media(max-width: 450px) {
+    .big.bar.chart {
+        min-height: 250px;
+    }
+}
 </style>
