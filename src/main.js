@@ -41,7 +41,7 @@ Vue.filter('kmb', (n) => {
     } else return kmb(n);
 });
 Vue.filter('bytes', (n) => bytes(n) );
-Vue.filter('ISOdateUTC', (date) => dateformat(date, 'yyyy-mm-dd', 'UTC'));
+Vue.filter('ISOdateUTC', (date) => dateformat(date, 'yyyy-mm-dd', true));
 Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : ''));
 
 // months is an array of strings that would need to be localized

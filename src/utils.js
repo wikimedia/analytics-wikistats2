@@ -45,18 +45,28 @@ function createDate(timestamp) {
        date =  new Date(timestamp);
     }
 
+    // returns a timestamp, not a date object
      date = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
      date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
 
-     return new Date(date);
+    let tmp = new Date();
+    // SetTime takes an integer represented
+    // by a number of milliseconds since January 1, 1970, 00:00:00 UTC.
+    // when you print this date to see its true UTC value you need to use .toUTCString
+    tmp.setTime(date);
+    return tmp;
 }
 
 // returns current time in UTC
 function createNowUTCDate(){
     let date = new Date();
+
+    // returns a timestamp, not a date object
     date = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
     date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-    return new Date(date);
+    let tmp = new Date();
+    tmp.setTime(date);
+    return tmp;
 }
 
 /**
@@ -89,8 +99,8 @@ function getDefaultTimeRange() {
     start.setUTCFullYear(startYear);
     start.setUTCDate(1);
 
-    return [dateformat(start, 'yyyymmdd00'),
-                dateformat(end, 'yyyymmdd00')];
+    return [dateformat(start, 'yyyymmdd00', true),
+                dateformat(end, 'yyyymmdd00', true )];
 }
 
 export default {
