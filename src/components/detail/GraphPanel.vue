@@ -13,7 +13,7 @@
                    title="Click through to get a more detailed definition of this metric on the Research wiki">
                     {{graphModel.config.fullName || 'No data yet... '}}
                 </a>
-                <span class="subdued granularity">{{granularity}}</span>
+                <span v-if="graphModel && graphModel.graphData" class="subdued granularity">{{month || granularity}}</span>
             </h2>
 
             <div class="ui right floated basic fudge segment">
@@ -95,6 +95,7 @@ import TableChart from './chart/TableChart';
 import EmptyChart from './chart/EmptyChart';
 import MapChart from './chart/MapChart';
 import StatusOverlay from '../StatusOverlay';
+import config from '../../config';
 import *  as d3Formatter from 'd3-dsv';
 import _ from 'lodash';
 
@@ -129,6 +130,11 @@ export default {
         }
     },
     computed: {
+        month: function () {
+            if (this.graphModel.config.structure == 'top' && this.lastMonth) {
+                return this.$options.filters.getMonthLabel(this.lastMonth, config.months);
+            }
+        },
         chartTypes: function () {
             return !this.graphModel ? [] : {
                 map: ['map', 'table'],
