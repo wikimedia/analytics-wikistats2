@@ -97,9 +97,9 @@ const mainMetricsByArea = [
             id: 'reading',
             name: 'Reading',
             metrics: [
-                'total-pageviews',
+                'total-page-views',
                 'unique-devices',
-                'pageviews-by-country',
+                'page-views-by-country',
                 'top-viewed-articles'
             ]
         }
@@ -121,8 +121,8 @@ const mainMetricsByArea = [
             name: 'Content',
             metrics: [
                 'edited-pages',
-                'net-bytes',
-                'absolute-bytes'
+                'net-bytes-difference',
+                'absolute-bytes-diff'
             ]
         }
     }
@@ -153,7 +153,7 @@ export default {
     },
 
     aqs: {
-        'total-pageviews': {
+        'total-page-views': {
             method: 'getAggregatedPageviews',
             endpoint: AQS_HOST + '/pageviews/aggregate/{{project}}/{{access}}/{{agent_type}}/{{granularity}}/{{start}}/{{end}}'
         },
@@ -167,7 +167,7 @@ export default {
             endpoint: AQS_HOST + '/pageviews/top/{{project}}/{{access}}/{{year}}/{{month}}/all-days'
         },
 
-        'pageviews-by-country': {
+        'page-views-by-country': {
             endpoint: AQS_HOST + '/pageviews/top-by-country/{{project}}/{{access}}/{{year}}/{{month}}'
         },
 
@@ -191,11 +191,11 @@ export default {
             endpoint: AQS_HOST + '/edited-pages/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{activity_level}}/{{granularity}}/{{start}}/{{end}}'
         },
 
-        'net-bytes': {
+        'net-bytes-difference': {
             endpoint: AQS_HOST + '/bytes-difference/net/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
         },
 
-        'absolute-bytes': {
+        'absolute-bytes-diff': {
             endpoint: AQS_HOST + '/bytes-difference/absolute/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
         }
     },

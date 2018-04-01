@@ -1,5 +1,5 @@
 module.exports = {
-    'absolute-bytes': {
+    'absolute-bytes-diff': {
         fullName: 'Absolute bytes diff',
         description: 'The sum of the absolute differences in bytes made by each edit (or revision), including edits on redirects. In other words, counting negative differences as positive',
         question: 'What are the total number of bytes added and removed?',
@@ -12,7 +12,7 @@ module.exports = {
             },
             common: {
                 granularity: 'monthly',
-                metric: 'absolute-bytes'
+                metric: 'absolute-bytes-diff'
             }
         },
         type: 'bars',
@@ -90,7 +90,7 @@ module.exports = {
         }],
         additive: true
     },
-    'net-bytes': {
+    'net-bytes-difference': {
         fullName: 'Net bytes difference',
         description: 'The sum of the differences in bytes made by each edit (or revision), including edits on redirects',
         question: 'How did the overall size in bytes change since last period?',
@@ -103,7 +103,7 @@ module.exports = {
             },
             common: {
                 granularity: 'monthly',
-                metric: 'net-bytes'
+                metric: 'net-bytes-difference'
             }
         },
         type: 'bars',
