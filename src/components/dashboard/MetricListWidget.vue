@@ -96,7 +96,7 @@ export default {
     font-weight: 600;
 }
 .widget.list .label {
-    width: 65%;
+    width: 60%;
     font-size: 20px;
     font-weight: normal;
     max-width: 150px;
