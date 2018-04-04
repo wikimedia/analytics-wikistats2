@@ -166,7 +166,7 @@ function darkenColorBy (color, percentageToDarkenBy) {
 }
 
 function getZoomBehavior (features, path, projection) {
-    const zoomBehavior = zoom.zoom().scaleExtent([0.8, 8]);
+    const zoomBehavior = zoom.zoom().scaleExtent([0.8, 8]).translateExtent([[-100,-500],[1000, 800]]);
     zoomBehavior.on('zoom', function() {
         const extentBBox = features._parents[0].getBBox();
         const width = extentBBox.width;

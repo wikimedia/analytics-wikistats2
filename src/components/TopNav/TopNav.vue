@@ -62,6 +62,7 @@ export default {
     font-size: 25px;
     font-family: "Helvetica Neue",Helvetica,Lato,"Open Sans";
     color: black;
+    font-weight: 500;
 }
 .link.header {
     padding-top: 20px;

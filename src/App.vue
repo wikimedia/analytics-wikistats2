@@ -143,6 +143,19 @@ export default {
 
 <style>
 
+html{
+    margin:0;
+    padding:0;
+    overflow: hidden;
+}
+body{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
 a:visited { color: #6289D8; }
 a { font-weight: normal; color: #3366cc; }
 a.router-link-current { font-weight: bold; color: #72777d }

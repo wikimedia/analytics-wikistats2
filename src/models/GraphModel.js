@@ -188,6 +188,40 @@ function flatten(obj) {
 }
 
 /**
+* Stateless function that pivots the data
+**/
+function topXByY (data, config) {
+        const x = config.key;
+        const y = config.value;
+
+        data.measure(x);
+        const results = data.breakdown(y);
+        return _.take(_.sortBy(results, (row) => row.rank), results.length);
+}
+/**
+* Convert an nested object in a set of flat key value pairs
+* {some: { a:1, b:2 }} will be converted to {some.a :1, some.b:2}
+**/
+function flatten(obj) {
+    let accumulator = {};
+
+    function _flatten(obj, keyPrefix) {
+
+         _.forEach(obj, function(value, key){
+
+            if (typeof(obj[key]) === 'object'){
+                _flatten(obj[key], key);
+
+            } else {
+                !keyPrefix ? accumulator[key] = value : accumulator[keyPrefix +'.'+ key] = value;
+            }
+        })
+    }
+    _flatten(obj);
+    return accumulator;
+}
+
+/**
 * Convert an nested object in a set of flat key value pairs
 * {some: { a:1, b:2 }} will be converted to {some.a :1, some.b:2}
 **/

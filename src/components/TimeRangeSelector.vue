@@ -29,11 +29,16 @@ export default {
             this.activeRange = e.target.textContent;
             const last = this.lastMonth;
 
+
             // by convention end of the interval is today's UTC date
             // this could better but abiding to this for now
             const now = utils.createNowUTCDate();
 
-            const lastMonthAvailable = dateFormat(now, "yyyymmddhh");
+            const lastMonthAvailable = dateFormat(now, "yyyymmdd00", true);
+
+            // the monthly requests for apis have to be inclusive of the whole
+            // month to return data for that month.
+
             const ranges = {
                 'All': () => {
                     return ['1980010100', lastMonthAvailable]
@@ -43,14 +48,14 @@ export default {
                     d.setTime(last.getTime());
                     d.setYear(d.getUTCFullYear() - 2)
 
-                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
+                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
                 },
                 '1-Year': () => {
                     let d = utils.createNowUTCDate();
                     d.setTime(last.getTime());
 
                     d.setYear(d.getUTCFullYear() - 1)
-                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
+                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
                 },
                 '3-Month': () => {
                     let d = utils.createNowUTCDate();
@@ -66,13 +71,12 @@ export default {
                         d.setUTCMonth(currentMonth-3);
                     }
 
-                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
+                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
                 },
                 '1-Month': () => {
                     let d = utils.createNowUTCDate();
                     d.setTime(last.getTime());
 
-                    d.setUTCMonth(d.getUTCMonth() - 1)
                     let currentMonth = d.getUTCMonth();
                     // months start at 0
                     if (currentMonth>=1){
@@ -83,7 +87,7 @@ export default {
                         d.setUTCMonth(currentMonth-1);
                     }
 
-                    return [dateFormat(d, "yyyymmddhh"), lastMonthAvailable ]
+                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
                 }
             };
             this.$emit('changeTimeRange', ranges[this.activeRange]());
