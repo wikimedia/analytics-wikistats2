@@ -5,11 +5,11 @@ class GraphModel {
     constructor (configuration) {
 
         this.config = configuration;
+        this.graphData = [];
 
         if (this.config.type === 'list') {
             return;
         }
-
 
         this.breakdowns = utils.cloneDeep(this.config.breakdowns || []);
         // insert a "total" breakdown as a default breakdown
@@ -32,9 +32,6 @@ class GraphModel {
             breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
         });
         */
-
-        this.graphData = [];
-
     }
 
     setData (data) {
