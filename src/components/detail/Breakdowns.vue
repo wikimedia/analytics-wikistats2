@@ -12,11 +12,11 @@
                 :value="b">
             <label :for="'breakdown' + b.breakdownName">
                 <span v-if="b.total">
-                    Overall <strong>{{b.name.toLowerCase()}}</strong>
+                    Overall <strong>{{b.name.toLocaleLowerCase()}}</strong>
                     <i class="help circle icon" title="See the overall total"/>
                 </span>
                 <span v-else>
-                    Split by <strong>{{b.name.toLowerCase()}}</strong>
+                    Split by <strong>{{b.name.toLocaleLowerCase()}}</strong>
                     <i class="help circle icon" title="Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes."/>
                 </span>
             </label>
