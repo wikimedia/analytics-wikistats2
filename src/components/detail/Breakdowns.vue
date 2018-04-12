@@ -52,7 +52,7 @@
 <style>
 .breakdown .ui.toggle.checkbox > label { cursor: pointer!important; padding-left: 4em; }
 .ui.toggle.checkbox { margin-top: 10px; }
-.ui.toggle.checkbox input:checked ~ label:before {
-    background-color: #227634!important;
+.ui.toggle.checkbox input:focus:checked ~ label:before {
+    background-color: #2185D0 !important;
 }
 </style>
