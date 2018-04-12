@@ -119,6 +119,12 @@ class GraphModel {
         return _.take(values, limit);
     }
 
+    getChangeOverRange () {
+        const data = this.getAggregatedValues();
+        if (data[0] == 0 || data.length == 0) return null;
+        return ((data[data.length - 1] - data[0]) / data[0] * 100).toFixed(2);
+    }
+
     getActiveBreakdownValues () {
         const actives = this.activeBreakdown.values.filter(bv => bv.on).map(bv => bv.key);
         return actives.reduce((r, a) => { r[a] = true; return r; }, {});
