@@ -38,7 +38,7 @@
                                  v-for="t in chartTypes" :key="t.chart"
                                  @click="changeChart(t)">
                                  <i :class="t.icon" class="chart icon"></i>
-                                 {{t.chart}}
+                                 {{t.chart | capitalize}}
                              </div>
                         </div>
                     </div>

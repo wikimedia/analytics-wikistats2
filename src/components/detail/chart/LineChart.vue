@@ -4,7 +4,7 @@
         <b>{{hoveredPoint.month | ISOdateUTC }}</b>
         <ul v-for="b in this.selectedValue" class="breakdown">
             <li>
-                <b><span :style="{ color: b.color }">{{b.name}}</span></b>
+                <b><span :style="{ color: b.color }">{{b.name | capitalize}}</span></b>
                 <span>{{b.value | thousands}}</span>
             </li>
         </ul>
