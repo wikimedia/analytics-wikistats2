@@ -4,7 +4,7 @@
         <span v-for="b, i in breakdown.values" v-if="b.on">
             <span class="color swatch"
                   :style="{ 'background-color': getColor(b.key) }"></span>
-            {{b.name}}
+            {{b.name | capitalize}}
         </span>
     </span>
 </span>

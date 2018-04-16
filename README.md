@@ -1,72 +1,57 @@
-Style Guide
-===========
+# Wikistats 2.0
+[Wikistats](http://stats.wikimedia.org/) is the public statistics website of the Wikimedia Foundation. Its main purpose is to add context and motivate our editor community by providing a set of metrics through which users can see the impact of their contributions in the projects they are a part of.
 
-=CSS=
-Scoped or not?  Check bundled output for a v-for loop rendering multiple child components with both scoped and not scoped style tags.
+In [Wikistats 2.0](https://stats.wikimedia.org/v2) we are not only updating the website interface but we are also providing new access to all our edit data in an analytics-friendly form. The transition of relying on static, precomputed datasets generated periodically into APIs querying our data lake improves drastically (and fundamentally changes) the way, time and resources it takes to calculate edit metrics both for the WMF and the community.
 
-=Components=
-Use single file components and keep them small
-Use JSDoc syntax at the top of every script component
+## Local install for development
+### Cloning the project
+The minimum requirements to install the Wikistats UI are Node.js (with the npm package manager) and Git. The project is hosted in a [Phabricator repository](https://phabricator.wikimedia.org/source/wikistats/)
+```
+git clone https://gerrit.wikimedia.org/r/analytics/wikistats2
+npm install
+```
 
-=File Structure=
-For components, mirror the natural view hierarchy, so a page is a folder, categories of child components are sub-folders, and so on.
-For logic, such as models and data transformations, separate folders:
-    * models
-    * transformations
-    * apis
+### Third-party UI elements
+Wikistats uses many components from the Semantic UI library, which requires a special initialization with gulp when installing the project:
+```
+npm install -g gulp
+cd semantic
+gulp build
+```
 
-=Project Plan=
-
-* Finish current work for basic version
-**(F) NEW: clicking on dashboard widget takes you to detail page without top nav area selected (I am pretty convinced we need to just globally use $store.getters.projectCode
-**(M) Main logo should link to the dashboard
-**(M) This bug is carried over from the prototype - we need to only highlight the area that we're in, so we have to de-highlight the Dashboard link, kind of tricky with the router
-** Going back to the main screen sometimes shows 0 as the Total pageviews and doesn't display any data (I think when switching wikis and navigating a lot on the Detail page?
-
-* Clean up any code that needs help
-**(M) don't set $store.state directly - example: App.vue
-**(M) area and metric getters don't make sense in the store, we already have them in the state
-**(M) setProject doesn't make sense as an action, we can just setState or make a specific mutation
-**(F) 4 tests are still failing - we can remove them if they're too hard to refactor but we should make sure they're not showing a mistake
-
-* Nice to have
-**(D) It would be nice to have a util function that returns something we can pass to router.push.  The signature could be util.getNewURL({ project, area, metric, options })
-**(D) CSS variables
-
-
-* Working time: 14:00 -> 17:00 CEST
-* Schema: Metric configuration for UI
-* Vertical Slice Decision: Active Editors, Pageviews, Unique Devices, Total Articles
-* Schema: Metric query to the API
-* URI Scheme for AQS, mock it return fake data for initial work?
-* URI Scheme for front-end (how we make things bookmarkable)
-* Decide how to implement the various widgets (like dashboard vs. detail ones, different visualizations, does it make sense together)
-* Mechanical: implement all widgets
-* Mechanical: reuse (by breaking up)? most of the dashboard and detail from prototype?
-* Schema: Site configuration objects: personal preferences, saved wiki selection, etc., default site config, etc.
-* Mechanical: CSS structure
-* Internationalization: simple layer of abstraction on top of raw text
-
-
-##Wikistats 2 Frontend
-
-**To build the dev bundle and watch file changes**
-
+### Generating the bundle
+Last, you need to generate the Javascript bundle that contains the Wikistats project, its dependencies and the stylesheets. Assuming you want a development environment, you should run:
 ```
 npm run dev
 ```
+This command will set up a watcher that will rebuild the bundle each time a project file changes. The production environment won't minify the bundle so that code is readable within the browser developer tools. This will generate the static site in ./dist-dev within your wikistats repository directory. In order to see the built site you need a simple http server such as python's SimpleHTTPServer
+```
+python -m SimpleHTTPServer 5000
+```
+The application should be now working in `localhost:5000`
 
-**To run tests, watching file changes**
-
+## Tests
+Tests are located in the `test` directory. We use Jasmine as our testing library and Karma as the test runner. Running the following:
 ```
 npm test
 ```
+will initialize a karma watcher that will run the webpack bundler each time a test change, and evaluate the whole test suite, printing out any failures in the console. Beware the by default, npm test will use Google Chrome as the testing browser. If you're using a different browser or environment you should change it in `karma.conf.js`
+Additionally, there are smoke tests to be performed with each significant change to the codebase, which are described in [Analytics/Wikistats 2/Smoke testing](https://wikitech.wikimedia.org/wiki/Analytics/Wikistats_2/Smoke_Testing).
 
-##Building
+## Bug report and Feature request
+Please fill this [Phabricator template](https://phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&projectPHIDs=Analytics-Wikistats,Analytics) to report a bug or request a new feature.
 
-* Lodash customized to just what we need:
+## Contributing and Deployment
+Please read through our [contributing guidelines](https://wikitech.wikimedia.org/wiki/Analytics/Wikistats_2#Contributing_and_Deployment). Included are directions for code reviews, and notes on deployment.
 
-```
-npm i -g lodash-cli
-lodash include=assign,capitalize,debounce,filter,flatten,forEach,indexOf,kebabCase,last,take,transform
-```
+## Built With
+- [Vue.js](https://vuejs.org/) - The web framework used
+- [d3](https://d3js.org/) - Version 4+ for visualizations
+- [CrossFilter](https://github.com/crossfilter/crossfilter) - For exploring large multivariate datasets in the browser
+
+## Community
+Get updates on Wikistats 2.0 development and chat with the project maintainers and community members.
+- Chat with community members on [IRC](https://webchat.freenode.net/) server, in the `#wikimedia-analytics` channel.
+
+## Copyright
+All data, charts, and other content is available under the [Creative Commons CC0 dedication](https://creativecommons.org/publicdomain/zero/1.0/).

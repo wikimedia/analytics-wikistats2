@@ -12,11 +12,11 @@
                 :value="b">
             <label :for="'breakdown' + b.breakdownName">
                 <span v-if="b.total">
-                    Overall <strong>{{b.name.toLowerCase()}}</strong>
+                    Overall <strong>{{b.name.toLocaleLowerCase()}}</strong>
                     <i class="help circle icon" title="See the overall total"/>
                 </span>
                 <span v-else>
-                    Split by <strong>{{b.name.toLowerCase()}}</strong>
+                    Split by <strong>{{b.name.toLocaleLowerCase()}}</strong>
                     <i class="help circle icon" title="Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes."/>
                 </span>
             </label>
@@ -52,7 +52,7 @@
 <style>
 .breakdown .ui.toggle.checkbox > label { cursor: pointer!important; padding-left: 4em; }
 .ui.toggle.checkbox { margin-top: 10px; }
-.ui.toggle.checkbox input:checked ~ label:before {
-    background-color: #227634!important;
+.ui.toggle.checkbox input:focus:checked ~ label:before {
+    background-color: #2185D0 !important;
 }
 </style>

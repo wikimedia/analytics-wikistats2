@@ -24,7 +24,7 @@ module.exports = {
         global: false,
         additive: true
     },
-    'pageviews-by-country': {
+    'page-views-by-country': {
         fullName: 'Page Views by Country',
         subtitle: 'Countries with the most views',
         description: 'Countries where this project is visited the most. Those countries with less than 100 views are not reported and are blank in the map.',
@@ -37,7 +37,7 @@ module.exports = {
                 access: ['all-access']
             },
             common: {
-                metric: 'pageviews-by-country',
+                metric: 'page-views-by-country',
                 granularity: 'monthly'
             }
         },
@@ -49,7 +49,7 @@ module.exports = {
         structure: 'top',
         additive: true
     },
-    'total-pageviews': {
+    'total-page-views': {
         fullName: 'Total Page Views',
         description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views',
         question: 'How many times are articles viewed?',
@@ -60,7 +60,7 @@ module.exports = {
                 access: ['all-access']
             },
             common: {
-                metric: 'total-pageviews',
+                metric: 'total-page-views',
                 agent_type: 'user',
                 granularity: 'monthly'
             }
