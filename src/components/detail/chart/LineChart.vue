@@ -1,13 +1,11 @@
 <template>
 <div class="graphContainer">
-    <div v-if="hoveredPoint" class="valuePopup">
+    <div v-if="hoveredPoint" class="line valuePopup">
         <b>{{hoveredPoint.month | ISOdateUTC }}</b>
-        <ul v-for="b in this.selectedValue" class="breakdown">
-            <li>
-                <b><span :style="{ color: b.color }">{{b.name | capitalize}}</span></b>
-                <span>{{b.value | thousands}}</span>
-            </li>
-        </ul>
+        <div v-for="b in this.selectedValue" class="breakdown">
+            <b><span :style="{ color: b.color }">{{b.name | capitalize}}</span></b>
+            <span>{{b.value | thousands}}</span>
+        </div>
     </div>
     <div class="big line chart">
         <svg>
@@ -220,7 +218,8 @@ export default {
 
 
         onGraphMouseMove (e) {
-            const newPos = e.layerX - d3.select('.yAxis').node().getBBox().width;
+            const leftDistFromContainer = e.pageX - this.$el.getBoundingClientRect().left
+            const newPos = leftDistFromContainer - d3.select('.yAxis').node().getBBox().width;
             d3.select('line')
                 .style('display', 'unset');
             d3.select('line')
@@ -310,14 +309,21 @@ export default {
     fill-opacity: 0;
 }
 
-.valuePopup {
+.line.valuePopup {
     text-align: right;
     position: absolute;
-    background-color:rgba(255, 255, 255, 0.7);
+    background-color:rgba(255, 255, 255);
     padding: 5px;
     top: 50px;
-    right: 10px;
+    left: 40%;
     min-width: 20%;
+    border: solid lightgray 1px;
+    padding: 12px;
+    box-shadow: 2px 2px 5px lightgray;
+}
+
+.line.valuePopup:hover {
+    background-color:rgba(255, 255, 255, 0.7);
 }
 
 .breakdown {
