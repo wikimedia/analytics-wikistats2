@@ -1,5 +1,6 @@
 module.exports = {
     'top-viewed-articles': {
+        disabled: false,
         fullName: 'Top Viewed Articles',
         subtitle: 'Most viewed articles',
         description: 'Most viewed articles',
@@ -25,6 +26,7 @@ module.exports = {
         additive: true
     },
     'page-views-by-country': {
+        disabled: false,
         fullName: 'Page Views by Country',
         subtitle: 'Countries with the most views',
         description: 'Countries where this project is visited the most. Those countries with less than 100 views are not reported and are blank in the map.',
@@ -50,6 +52,7 @@ module.exports = {
         additive: true
     },
     'total-page-views': {
+        disabled: false,
         fullName: 'Total Page Views',
         description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views',
         question: 'How many times are articles viewed?',
@@ -82,6 +85,7 @@ module.exports = {
         additive: true
     },
     'unique-devices': {
+        disabled: false,
         fullName: 'Unique Devices',
         description: 'How many distinct devices we have visiting a project in a given time period',
         question: 'How many unique devices access content?',

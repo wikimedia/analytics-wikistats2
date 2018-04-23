@@ -50,9 +50,6 @@ import titleMixin from '../../mixins/title-mixin.js';
 
 let defaultRange = utils.getDefaultTimeRange();
 
-
-let defaultRange = utils.getDefaultTimeRange();
-
 export default {
     name: 'detail',
     components: {
