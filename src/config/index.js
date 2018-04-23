@@ -104,7 +104,7 @@ const mainMetricsByArea = [
             ]
         }
     },
-    {
+    /*{
         state: {
             id: 'contributing',
             name: 'Contributing',
@@ -125,7 +125,7 @@ const mainMetricsByArea = [
                 'absolute-bytes-diff'
             ]
         }
-    }
+    }*/
 ];
 
 
