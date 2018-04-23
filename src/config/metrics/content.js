@@ -1,5 +1,6 @@
 module.exports = {
     'absolute-bytes-diff': {
+        disabled: false,
         fullName: 'Absolute bytes diff',
         description: 'The sum of the absolute differences in bytes made by each edit (or revision), including edits on redirects. In other words, counting negative differences as positive',
         question: 'What are the total number of bytes added and removed?',
@@ -41,6 +42,7 @@ module.exports = {
         additive: false
     },
     'edited-pages': {
+        disabled: false,
         fullName: 'Edited pages',
         description: 'The number of pages edited, excluding redirect pages',
         question: 'How many pages are edited?',
@@ -91,6 +93,7 @@ module.exports = {
         additive: true
     },
     'net-bytes-difference': {
+        disabled: false,
         fullName: 'Net bytes difference',
         description: 'The sum of the differences in bytes made by each edit (or revision), including edits on redirects',
         question: 'How did the overall size in bytes change since last period?',

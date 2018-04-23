@@ -52,11 +52,16 @@
                 :data="graphModel.graphData">
             </component>
             <div class="ui center aligned basic segment">
-                <h5 v-if="graphModel.config.structure === 'timeseries'" >
+                <h5 v-if="graphModel.config.structure === 'timeseries'">
                     {{graphModel.getAggregateLabel()}}:
                     {{ aggregate | bytesOrKmb(unit)}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
-                    {{changeOverRange}}% over this time range.
+                    <span v-if="changeOverRange">
+                        {{changeOverRange}}% over this time range.
+                    </span>
+                    <span v-else>
+                        % change cannot be calculated over this time range.
+                    </span>
                 </h5>
                 <p>{{graphModel.config.description}}.
                     <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
@@ -153,8 +158,7 @@ export default {
             return this.graphModel && this.graphModel.getAggregate();
         },
         changeOverRange: function () {
-            const data = this.graphModel.getAggregatedValues();
-            return ((data[data.length - 1] - data[0]) / data[0] * 100).toFixed(2);
+            return this.graphModel.getChangeOverRange();
         },
         activeBreakdown: function () {
             return this.graphModel.activeBreakdown;
