@@ -20,7 +20,7 @@ import config from '../../config';
 
 import DashboardArea from './DashboardArea';
 import WikiSelector from '../WikiSelector';
-
+import titleMixin from '../../mixins/title-mixin.js';
 
 export default {
     name: 'dashboard',
@@ -28,6 +28,8 @@ export default {
         DashboardArea,
         WikiSelector,
     },
+
+    mixins: [titleMixin],
 
     data: function () {
         return {
@@ -39,6 +41,7 @@ export default {
         this.areas = config.areaData();
         $('body').scrollTop(0);
     },
+
 };
 </script>
 

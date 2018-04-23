@@ -34,7 +34,6 @@ import { mapState } from 'vuex';
 
 import WikiSelector from '../WikiSelector';
 import Breakdowns from './Breakdowns';
-import sitematrix from '../../apis/sitematrix';
 import RouterLink from '../RouterLink';
 
 import '../../../semantic/dist/components/modal';

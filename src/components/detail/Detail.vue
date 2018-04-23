@@ -46,9 +46,7 @@ import utils from '../../utils';
 import GraphModel from '../../models/GraphModel';
 import AQS from '../../apis/aqs';
 
-import sitematrix from '../../apis/sitematrix';
-import dateformat from 'dateformat';
-
+import titleMixin from '../../mixins/title-mixin.js';
 
 let defaultRange = utils.getDefaultTimeRange();
 
@@ -61,6 +59,9 @@ export default {
         MetricsDropdown,
         Breakdowns
     },
+
+    mixins: [titleMixin],
+
     data () {
         return {
             graphModel: null,
