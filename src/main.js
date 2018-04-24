@@ -10,35 +10,6 @@ import store from './store';
 import router from './router';
 import routes from './router/routes';
 import numeral from 'numeral';
-import dateformat from 'dateformat';
-
-// we might need to move away from dateformat and use moment.js
-// when we do localization
-import dateformat from 'dateformat';
-
-// we might need to move away from dateformat and use moment.js
-// when we do localization
-import dateformat from 'dateformat';
-
-// we might need to move away from dateformat and use moment.js
-// when we do localization
-import dateformat from 'dateformat';
-
-// we might need to move away from dateformat and use moment.js
-// when we do localization
-import dateformat from 'dateformat';
-
-// we might need to move away from dateformat and use moment.js
-// when we do localization
-import dateformat from 'dateformat';
-
-// we might need to move away from dateformat and use moment.js
-// when we do localization
-import dateformat from 'dateformat';
-
-// we might need to move away from dateformat and use moment.js
-// when we do localization
-import dateformat from 'dateformat';
 
 // we might need to move away from dateformat and use moment.js
 // when we do localization
