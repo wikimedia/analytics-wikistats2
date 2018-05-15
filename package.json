@@ -28,7 +28,7 @@
         "vue-resize": "^0.4.3",
         "vue2-touch-events": "^1.0.0",
         "vuex": "^2.3.1",
-        "wmui-base": "wikimedia/WikimediaUI-Base"
+        "wmui-base": "wikimedia/wikimedia-ui-base"
     },
     "devDependencies": {
         "babel-core": "^6.25.0",

@@ -77,10 +77,10 @@ export default {
                   margin = {top: 6, right: 0, bottom: 20, left: 40},
                   padding = 4;
 
-            const svg = root.select('svg'),
-                  g = svg.select('g');
-
-            // clean out any previous chart
+            const svg = root.select('svg');
+            const g = svg.select('.graph')
+            // clean up after old chart
+            svg.attr('width', 0).attr('height', 0);
             g.selectAll('*').remove();
 
             const n = root.node();
@@ -231,7 +231,6 @@ export default {
     content: '';
     width: 0;
     height: 0;
-    
 }
 .bar.valuePopup.right:after {
     left: -10px;
