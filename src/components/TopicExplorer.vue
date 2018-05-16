@@ -80,7 +80,7 @@ export default {
 
         go () {
             const t = this.selectedTopic;
-            this.$store.commit('setState', { area: t.area, metric: _.kebabCase(t.metric) });
+            this.$store.commit('metric', { area: t.area, metric: _.kebabCase(t.metric) });
         },
 
         select () {
@@ -114,7 +114,7 @@ export default {
             this.close();
         },
         minimizeTopics (minimize) {
-            this.$store.commit('setState', { topicsMinimized: minimize });
+            this.$store.commit('topicExplorer', { minimize });
         },
     },
 }

@@ -27,7 +27,7 @@ export default {
             if (!event.ctrlKey && !event.metaKey) {
                 event.preventDefault();
                 if (!this.isCurrent()) {
-                    this.$store.commit('resetNavigationState', this.to);
+                    this.$store.commit('reload', this.to);
                 }
             }
         },
