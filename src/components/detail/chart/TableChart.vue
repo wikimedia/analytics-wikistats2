@@ -1,7 +1,7 @@
 <template>
 <div>
     <table :class="graphModel.config.area" class="ui table unstackable">
-        <caption align="bottom" @click="advancePage()" class = "morerows" colspan="10">Load more rows...</caption>
+        <caption align="bottom" @click="advancePage()" v-if="loadMoreRows" class="morerows" colspan="10">Load more rows...</caption>
         <thead>
             <tr v-if="graphModel.config.structure === 'timeseries'">
                 <th>Date</th>
@@ -13,11 +13,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in valuesShown(data, currentPage)">
+            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in valuesShown">
                 <td>{{m.month|ISOdateUTC}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
-            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in valuesShown(data, currentPage)">
+            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in valuesShown">
                 <td v-if="graphModel.config.type !== 'map'" class="right aligned">{{m.total.total|thousands}}</td>
                 <td v-else class="right aligned">{{m.total.total|kmb}}</td>
                 <td>
@@ -56,13 +56,26 @@ export default {
     computed: {
         mobile(){
             return this.$mq == 'mobile';
+        },
+        totalItems(){
+            const itemsPerPage = this.mobile ? 10 : 20;
+            return this.currentPage * itemsPerPage + itemsPerPage;
+        },
+        valuesShown(){
+            if (this.data){
+                return this.data.slice(0, this.totalItems);
+            }
+        },
+        loadMoreRows(){
+            if (this.data && this.totalItems < this.data.length){
+                return true;
+            }
         }
     },
 
     methods: {
         elementName (i) {
-            const data = this.valuesShown(this.data, this.currentPage);
-            const rawName = data[i][this.graphModel.config.key].replace(/_/g, ' ');
+            const rawName = this.valuesShown[i][this.graphModel.config.key].replace(/_/g, ' ');
             if (this.graphModel.config.type === 'map') {
                 const result = isoLookup[rawName];
                 return (result && result.en) || rawName;
@@ -76,12 +89,6 @@ export default {
 
             for (let i = 0; i < headerCells.length; i++) {
                 headerCells[i].style = `background-color: ${this.graphModel.config.darkColor};`;
-            }
-        },
-        valuesShown(data, page){
-            if (data){
-                const itemsPerPage = this.mobile ? 10 : 20;
-                return data.slice(0, page * itemsPerPage + itemsPerPage);
             }
         },
         advancePage(){
