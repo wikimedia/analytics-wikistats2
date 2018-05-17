@@ -117,7 +117,7 @@ export default {
                     area: this.area,
                     metric: this.metric.name,
                     metricConfig: config.metricData(this.metric.name),
-                    range: defaultRange,
+                    timeRange: defaultRange,
                     granularity: 'monthly',
                 };
             },
@@ -244,8 +244,8 @@ export default {
                 {},
                 defaults.common,
                 {
-                    start: params.range[0],
-                    end: params.range[1],
+                    start: params.timeRange.start,
+                    end: params.timeRange.end,
                     granularity: params.granularity,
                     structure: params.metricConfig.structure,
                 }

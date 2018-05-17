@@ -1,10 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import detail from './detail';
+
 const navigationStateKeys = ['project', 'area', 'metric', 'mainComponent'];
 
 Vue.use(Vuex);
 export default new Vuex.Store({
+    modules: {
+        detail,
+    },
     state: {
         project: '',
         area: '',

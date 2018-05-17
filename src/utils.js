@@ -99,8 +99,11 @@ function getDefaultTimeRange() {
     start.setUTCFullYear(startYear);
     start.setUTCDate(1);
 
-    return [dateformat(start, 'yyyymmdd00', true),
-                dateformat(end, 'yyyymmdd00', true )];
+    return {
+        name: '2-Year',
+        start: dateformat(start, 'yyyymmdd00', true),
+        end: dateformat(end, 'yyyymmdd00', true ),
+    };
 }
 
 export default {

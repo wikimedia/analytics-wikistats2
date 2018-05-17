@@ -72,9 +72,7 @@
             </div>
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
-            <time-range-selector
-                v-on:changeTimeRange='changeTimeRange'
-                :lastMonth ='lastMonth'></time-range-selector>
+            <time-range-selector :lastMonth ='lastMonth'></time-range-selector>
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
@@ -103,6 +101,8 @@ import StatusOverlay from '../StatusOverlay';
 import config from '../../config';
 import *  as d3Formatter from 'd3-dsv';
 import _ from 'lodash';
+import { mapState } from 'vuex';
+import Vue from 'vue';
 
 export default {
     name: 'graph-panel',
@@ -121,10 +121,9 @@ export default {
         WikiSelector
     },
 
-    props: ['fullscreen', 'graphModel', 'overlayMessage', 'granularity'],
+    props: ['graphModel', 'overlayMessage', 'granularity'],
     data () {
         return {
-            chartType: 'empty',
             availableChartTypes: {
                 empty   : { chart: 'empty', icon: 'question' },
                 bar     : { chart: 'bar', icon: 'bar' },
@@ -134,53 +133,61 @@ export default {
             }
         }
     },
-    computed: {
-        month: function () {
-            if (this.graphModel.config.structure == 'top' && this.lastMonth) {
-                return this.$options.filters.getMonthLabel(this.lastMonth, config.months);
+    computed: Object.assign(
+        mapState('detail', [
+            'fullscreen',
+            'chartType',
+        ]), {
+            month: function () {
+                if (this.graphModel.config.structure == 'top' && this.lastMonth) {
+                    return this.$options.filters.getMonthLabel(this.lastMonth, config.months);
+                }
+            },
+            chartTypes: function () {
+                return !this.graphModel ? [] : {
+                    map: ['map', 'table'],
+                    bars: ['bar', 'table'],
+                    lines: ['line', 'table'],
+                    list: ['table'],
+                }[this.graphModel.config.type].map(k => this.availableChartTypes[k]);
+            },
+            chartIcon: function () {
+                return this.availableChartTypes[this.chartType].icon;
+            },
+            chartComponent: function () {
+                return this.chartType  + '-chart';
+            },
+            aggregate: function () {
+                return this.graphModel && this.graphModel.getAggregate();
+            },
+            changeOverRange: function () {
+                return this.graphModel.getChangeOverRange();
+            },
+            activeBreakdown: function () {
+                return this.graphModel.activeBreakdown;
+            },
+            unit: function(){
+                if (this.graphModel.config.unit ){
+                    return this.graphModel.config.unit;
+                }
+            },
+            lastMonth: function(){
+                // graphModel might be empty when passed from parent component, careful
+                if (this.graphModel && this.graphModel.graphData.length > 0){
+                    return _.last(this.graphModel.graphData).month;
+                }
+            },
+            mobile: function () {
+                return this.$mq === 'mobile';
             }
-        },
-        chartTypes: function () {
-            return !this.graphModel ? [] : {
-                map: ['map', 'table'],
-                bars: ['bar', 'table'],
-                lines: ['line', 'table'],
-                list: ['table'],
-            }[this.graphModel.config.type].map(k => this.availableChartTypes[k]);
-        },
-        chartIcon: function () {
-            return this.availableChartTypes[this.chartType].icon;
-        },
-        chartComponent: function () {
-            return this.chartType  + '-chart';
-        },
-        aggregate: function () {
-            return this.graphModel && this.graphModel.getAggregate();
-        },
-        changeOverRange: function () {
-            return this.graphModel.getChangeOverRange();
-        },
-        activeBreakdown: function () {
-            return this.graphModel.activeBreakdown;
-        },
-        unit: function(){
-            if (this.graphModel.config.unit ){
-                return this.graphModel.config.unit;
-            }
-        },
-        lastMonth: function(){
-            // graphModel might be empty when passed from parent component, careful
-            if (this.graphModel && this.graphModel.graphData.length > 0){
-                return _.last(this.graphModel.graphData).month;
-            }
-        },
-        mobile: function () {
-            return this.$mq === 'mobile';
         }
-    },
+    ),
 
     watch: {
         chartTypes () {
+            // NOTE: if we wanted to keep the chartType selection we could do this:
+            // if (this.chartTypes.length && !this.chartTypes.find(m => m.chart === this.chartType)) {
+            // but this is unintuitive when switching between metrics with only table charts for example
             if (this.chartTypes.length) {
                 this.changeChart(this.chartTypes[0]);
             }
@@ -196,13 +203,11 @@ export default {
             }
         },
         changeChart (t) {
-            this.chartType = t.chart;
-        },
-        changeTimeRange (range) {
-            this.$emit('changeTimeRange', range);
+            this.$store.commit('detail/chartType', {chartType: t.chart});
         },
         toggleFullscreen () {
-            this.$emit('toggleFullscreen');
+            this.$store.commit('detail/fullscreen', { fullscreen: !this.fullscreen });
+            Vue.nextTick(() => this.redrawGraph());
         },
         download () {
             let csvData = d3Formatter.csvFormat(this.graphModel.downloadData());
