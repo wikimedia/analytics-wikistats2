@@ -5,6 +5,7 @@ module.exports = {
         description: 'The count of editors with one or more edits, including on redirect pages',
         question: 'How many editors are there?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Editors',
+        tooltip: 'The count of editors with one or more edits, including on redirect pages. The metric can be split and filtered by Editor Type, Page Type, and Activity Level.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -56,6 +57,7 @@ module.exports = {
         description: 'The count of edits (or revisions), including edits on redirects',
         question: 'How many edits have been made?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Edits',
+        tooltip: 'The count of edits (or revisions), including edits on redirects. The metric can be split and filtered by Editor Type and Page Type.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -97,6 +99,7 @@ module.exports = {
         description: 'The count of new pages created, excluding pages being redirects',
         question: 'How many new pages each month?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/New_pages',
+        tooltip: 'The count of new pages created, excluding pages being redirects. We measure this by adding up the creations and restores of old pages, and subtracting the page deletions for a given month. The metric can be split and filtered by Editor Type and Page Type.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -138,6 +141,7 @@ module.exports = {
         description: 'The count of newly self-created registered users',
         question: 'How many new users are there?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Newly_registered_user',
+        tooltip: 'Newly registered user is a standardized user class used to measure number of new users signing up on a given wiki project for the first time. It is used as a proxy for user acquisition.',
         defaults: {
             unique: {
                 project: ['all-projects']
