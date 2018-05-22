@@ -84,6 +84,7 @@ export default {
         mapState('detail', [
             'fullscreen',
             'timeRange',
+            'breakdown',
         ]), {
 
             metricParameters () {
@@ -142,14 +143,18 @@ export default {
     },
 
     methods: {
-        buildGraphModel () {
-            const params = this.metricParameters;
+        buildGraphModel (params) {
+            params = params || this.metricParameters;
 
             this.graphModel = new GraphModel(params.metricConfig);
 
             this.otherMetrics = Object.keys(config.metrics)
                 .filter((m) => config.metrics[m].area === params.area)
                 .map((m) => Object.assign(config.metrics[m], { name: m }));
+
+            if (this.breakdown) {
+                this.graphModel.activateBreakdownIfAvailable(this.breakdown);
+            }
         },
 
         loadData () {

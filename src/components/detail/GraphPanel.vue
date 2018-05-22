@@ -185,10 +185,7 @@ export default {
 
     watch: {
         chartTypes () {
-            // NOTE: if we wanted to keep the chartType selection we could do this:
-            // if (this.chartTypes.length && !this.chartTypes.find(m => m.chart === this.chartType)) {
-            // but this is unintuitive when switching between metrics with only table charts for example
-            if (this.chartTypes.length) {
+            if (this.chartTypes.length && !this.chartTypes.find(m => m.chart === this.chartType)) {
                 this.changeChart(this.chartTypes[0]);
             }
         },

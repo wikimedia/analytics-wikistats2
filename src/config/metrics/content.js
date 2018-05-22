@@ -24,7 +24,7 @@ module.exports = {
         unit: 'bytes',
         global: true,
         breakdowns: [{
-            name: 'User type',
+            name: 'Editor type',
             breakdownName: 'editor_type',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
@@ -119,7 +119,7 @@ module.exports = {
         value: 'net_bytes_diff',
         global: true,
         breakdowns: [{
-            name: 'User type',
+            name: 'Editor type',
             breakdownName: 'editor_type',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
