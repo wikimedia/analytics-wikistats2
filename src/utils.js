@@ -106,6 +106,18 @@ function getDefaultTimeRange() {
     };
 }
 
+function getGranularity (start, end) {
+    const millisecondsInSixMonths = 15552e6;
+    return createDate(end) - createDate(start) > millisecondsInSixMonths ? 'monthly' : 'daily';
+
+}
+
+function getDateFormatFromData (data) {
+    if (!(data && data.length && data[0].month)) { return 'yyyy-mm'; }
+    return getGranularity(data[0].month, data[data.length - 1].month) === 'monthly' ?
+        'yyyy-mm' : 'yyyy-mm-dd';
+}
+
 export default {
     labeledCrossProduct,
     cloneDeep,
@@ -113,5 +125,7 @@ export default {
     createDate,
     getUTCTimestampFromYearMonth,
     createNowUTCDate,
-    getDefaultTimeRange
+    getDefaultTimeRange,
+    getGranularity,
+    getDateFormatFromData,
 };

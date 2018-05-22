@@ -99,8 +99,7 @@ export default {
             dataParameters () {
                 return {
                     timeRange: this.timeRange,
-                    granularity: getGranularityForRange(this.timeRange),
-
+                    granularity: utils.getGranularity(this.timeRange.start, this.timeRange.end),
                     breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
                 };
             },
@@ -218,14 +217,6 @@ export default {
         },
     },
 };
-
-function getGranularityForRange (timeRange) {
-    const start = utils.createDate(timeRange.start);
-    const end = utils.createDate(timeRange.end);
-    const millisecondsInSixMonths = 15552e6;
-    return end - start > millisecondsInSixMonths ? 'monthly' : 'daily';
-
-}
 </script>
 
 <style>

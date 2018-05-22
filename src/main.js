@@ -40,7 +40,7 @@ Vue.filter('kmb', (n) => {
     } else return kmb(n);
 });
 Vue.filter('bytes', (n) => bytes(n) );
-Vue.filter('ISOdateUTC', (date) => dateformat(date, 'yyyy-mm-dd', true));
+Vue.filter('ISOdateUTC', (date, format) => dateformat(date, format || 'yyyy-mm-dd', true));
 Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : ''));
 Vue.filter('capitalize', (str) => str.charAt(0).toLocaleUpperCase() + str.slice(1));
 

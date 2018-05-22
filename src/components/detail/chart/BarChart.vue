@@ -1,7 +1,7 @@
 <template>
 <div class="graphContainer">
     <div v-if="hoveredBar" class="bar valuePopup" :style="getPopupPosition(hoveredBar)" :class="popupOrientation(hoveredBar)">
-        <b>{{hoveredBar.month | ISOdateUTC }}</b>
+        <b>{{hoveredBar.month | ISOdateUTC(granularityFormat) }}</b>
         <div><b><span :style="{ color: hoveredBar.color }">{{hoveredBar.key}}</span></b>
         <span>{{hoveredBar.value | thousands}}</span></div>
     </div>
@@ -25,6 +25,8 @@ import * as arr from 'd3-array';
 import * as axes from 'd3-axis';
 import * as format from 'd3-format';
 import * as time from 'd3-time';
+
+import utils from '../../../utils';
 import _ from 'lodash';
 
 import config from '../../../config';
@@ -38,6 +40,13 @@ export default {
         return {
             hoveredBar: null
         };
+    },
+
+    computed: {
+
+        granularityFormat () {
+            return utils.getDateFormatFromData(this.data);
+        },
     },
 
     mounted () {
