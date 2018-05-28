@@ -6,6 +6,7 @@ module.exports = {
         description: 'Most viewed articles',
         question: 'What are the most viewed articles?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'list',
         structure: 'top',
         defaults: {
@@ -29,9 +30,10 @@ module.exports = {
         disabled: false,
         fullName: 'Page Views by Country',
         subtitle: 'Countries with the most views',
-        description: 'Countries where this project is visited the most. Those countries with less than 100 views are not reported and are blank in the map.',
+        description: 'Countries where this project is visited the most. Those countries with less than 100 views are not reported and are blank in the map',
         question: 'Where are the project\'s visitors coming from?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'map',
         defaults: {
             unique: {
@@ -57,6 +59,7 @@ module.exports = {
         description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views',
         question: 'How many times are articles viewed?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -90,6 +93,7 @@ module.exports = {
         description: 'How many distinct devices we have visiting a project in a given time period',
         question: 'How many unique devices access content?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
+        tooltip: 'Unique Devices metric tell us how many distinct devices we have visiting our web properties in a given time period. The Analytics team counts unique devices per project per day and month in a way that does not uniquely identify, fingerprint or otherwise track users.',
         type: 'lines',
         structure: 'timeseries',
         defaults: {

@@ -19,6 +19,10 @@ const metricSchema = {
         type: 'string',
         required: false
     },
+    tooltip: {
+        type: 'string',
+        required: false
+    },
     disabled: {
         type: 'boolean',
         required: false

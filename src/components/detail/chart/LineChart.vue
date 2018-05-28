@@ -90,9 +90,11 @@ export default {
                   padding = 4;
 
             const svg = root.select('svg');
-            svg.attr('width', 0).attr('height', 0);
             const g = svg.select('.graph')
+            // clean up after old chart
+            svg.attr('width', 0).attr('height', 0);
             g.selectAll('*').remove();
+
             let activeBreakdown = this.graphModel.activeBreakdown;
             const { min, max } = this.graphModel.getMinMax();
 

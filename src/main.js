@@ -20,11 +20,10 @@ Vue.config.productionTip = false;
 // use locale-driven formatting for thousands
 const thousands = n => numeral(n).format('');
 const kmb = (n) => {
-    let units = numeral(n).format('0,0a');
+    let units = numeral(n).format('0[.]0[0]a');
     return units.toUpperCase();
-
 }
-const bytes = n => numeral(n).format('0,0b');
+const bytes = n => numeral(n).format('0[.]0[0] b');
 const filterRange = (filter, str) => {
     return filter(parseInt(str.split('-')[0])).toUpperCase() + '→' + filter(parseInt(str.split('-')[1])).toUpperCase();
 };

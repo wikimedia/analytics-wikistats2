@@ -10,7 +10,7 @@
         <div>
             <h2 v-if="!mobile" class="ui left floated header">
                 <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
-                   title="Click through to get a more detailed definition of this metric on the Research wiki">
+                   :title="graphModel.config.tooltip">
                     {{graphModel.config.fullName || 'No data yet... '}}
                 </a>
                 <span v-if="graphModel && graphModel.graphData" class="subdued granularity">{{month || granularity}}</span>
@@ -65,7 +65,7 @@
                 </h5>
                 <p>{{graphModel.config.description}}.
                     <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
-                       title="Click through to get a more detailed definition of this metric on the Research wiki">
+                       :title="graphModel.config.tooltip">
                         More info about this metric.
                     </a>
                 </p>
