@@ -1,20 +1,19 @@
 <template>
 <div class="app">
     <central-notice v-if="$store.state.centralNotice" />
-    <section class="ui top attached clearing segment">
+    <header class="ui top attached clearing segment">
         <top-nav :wikiCode="project"></top-nav>
-    </section>
-    <section class="ui attached content segment animate">
+    </header>
+    <main class="ui attached content segment animate">
         <topic-explorer v-if="!mobile"></topic-explorer>
-
         <component :is="mainComponent"></component>
-    </section>
-    <section v-if="languages.length > 1" class="ui attached language segment">
+    </main>
+    <div v-if="languages.length > 1" class="ui attached language segment">
         <site-language :languages="languages"></site-language>
-    </section>
-    <section class="ui attached footer segment">
+    </div>
+    <footer class="ui attached footer segment">
         <bottom-footer></bottom-footer>
-    </section>
+    </footer>
     <resize-observer @notify="handleResize" />
 </div>
 </template>
