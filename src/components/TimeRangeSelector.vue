@@ -1,16 +1,15 @@
 <template>
     <div class="ui buttons">
-        <button v-on:click='changeTimeRange' :class="isActive('All')">All</button>
-        <button v-on:click='changeTimeRange' :class="isActive('2-Year')">2-Year</button>
-        <button v-on:click='changeTimeRange' :class="isActive('1-Year')">1-Year</button>
-        <button v-on:click='changeTimeRange' :class="isActive('3-Month')">3-Month</button>
-        <button v-on:click='changeTimeRange' :class="isActive('1-Month')">1-Month</button>
+        <button v-for="r in rangeNames"
+                @click="changeTimeRange(r)"
+                class="ui button" :class="{ active: isActive(r) }">{{r}}</button>
     </div>
 </template>
 
 <script>
 import dateFormat from 'dateformat';
 import utils from '../utils';
+import { mapState } from 'vuex';
 
 export default {
     name: 'time-range-selector',
@@ -19,82 +18,74 @@ export default {
 
     data () {
         return {
-            activeRange: '2-Year'
-        }
+            rangeNames: ['All', '2-Year', '1-Year', '3-Month', '1-Month'],
+        };
     },
 
-    methods: {
-        changeTimeRange (e) {
+    computed: mapState('detail', [
+        'timeRange',
+    ]),
 
-            this.activeRange = e.target.textContent;
+    methods: {
+        getRangeFromName (name) {
             const last = this.lastMonth;
 
-
             // by convention end of the interval is today's UTC date
-            // this could better but abiding to this for now
+            // this could be better (how?)
             const now = utils.createNowUTCDate();
+            const lastMonthAvailable = dateFormat(now, 'yyyymmdd00', true);
 
-            const lastMonthAvailable = dateFormat(now, "yyyymmdd00", true);
+            let start = '1980010100';
 
-            // the monthly requests for apis have to be inclusive of the whole
-            // month to return data for that month.
+            if (name !== 'All') {
+                let d = utils.createNowUTCDate();
+                d.setTime(last.getTime());
 
-            const ranges = {
-                'All': () => {
-                    return ['1980010100', lastMonthAvailable]
-                },
-                '2-Year': () => {
-                    let d = utils.createNowUTCDate();
-                    d.setTime(last.getTime());
+                // the monthly requests for apis have to be inclusive of the whole
+                // month to return data for that month.
+                if (name === '2-Year') {
                     d.setYear(d.getUTCFullYear() - 2)
-
-                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
-                },
-                '1-Year': () => {
-                    let d = utils.createNowUTCDate();
-                    d.setTime(last.getTime());
-
+                } else if (name === '1-Year') {
                     d.setYear(d.getUTCFullYear() - 1)
-                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
-                },
-                '3-Month': () => {
-                    let d = utils.createNowUTCDate();
-                    d.setTime(last.getTime());
-
+                } else if (name === '3-Month') {
                     let currentMonth = d.getUTCMonth();
+
                     // months start at 0
-                    if (currentMonth>=3){
+                    if (currentMonth >= 3){
                         d.setUTCMonth(d.getUTCMonth() - 3);
                     } else {
                         d.setYear(d.getUTCFullYear() - 1);
                         currentMonth = currentMonth + 12;
-                        d.setUTCMonth(currentMonth-3);
+                        d.setUTCMonth(currentMonth - 3);
                     }
-
-                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
-                },
-                '1-Month': () => {
-                    let d = utils.createNowUTCDate();
-                    d.setTime(last.getTime());
-
+                } else if (name === '1-Month') {
                     let currentMonth = d.getUTCMonth();
+
                     // months start at 0
-                    if (currentMonth>=1){
+                    if (currentMonth >= 1){
                         d.setUTCMonth(d.getUTCMonth() - 1);
                     } else {
                         d.setYear(d.getUTCFullYear() - 1)
                         currentMonth = currentMonth + 12;
-                        d.setUTCMonth(currentMonth-1);
+                        d.setUTCMonth(currentMonth - 1);
                     }
-
-                    return [dateFormat(d, "yyyymmdd00", true), lastMonthAvailable ]
                 }
+
+                start = dateFormat(d, 'yyyymmdd00', true);
+            }
+
+            return {
+                name,
+                start: start,
+                end: lastMonthAvailable
             };
-            this.$emit('changeTimeRange', ranges[this.activeRange]());
         },
-        isActive (range) {
-            if (range === this.activeRange) return 'ui button active';
-            return 'ui button';
+        changeTimeRange (rangeName) {
+
+            this.$store.commit('detail/timeRange', { timeRange: this.getRangeFromName(rangeName) });
+        },
+        isActive (rangeName) {
+            return rangeName === this.timeRange.name;
         }
     }
 

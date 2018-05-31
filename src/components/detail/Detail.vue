@@ -11,9 +11,6 @@
             ref="graphPanel"
             :graphModel="graphModel"
             :overlayMessage="overlayMessage"
-            @changeTimeRange="setTimeRange"
-            :fullscreen="fullscreen"
-            @toggleFullscreen="toggleFullscreen"
         />
     </section>
     <div v-if="compact || fullscreen" class="container breakdowns">
@@ -48,8 +45,6 @@ import AQS from '../../apis/aqs';
 
 import titleMixin from '../../mixins/title-mixin.js';
 
-let defaultRange = utils.getDefaultTimeRange();
-
 export default {
     name: 'detail',
     components: {
@@ -66,7 +61,6 @@ export default {
         return {
             graphModel: null,
 
-            fullscreen: false,
             areasWithMetrics: config.areasWithMetrics,
 
             defaultMetrics: {
@@ -78,7 +72,6 @@ export default {
             otherMetrics: [],
 
             overlayMessage: null,
-            range: defaultRange,
         };
     },
 
@@ -87,7 +80,12 @@ export default {
             'area',
             'metric',
             'project',
+        ]),
+        mapState('detail', [
+            'fullscreen',
+            'timeRange',
         ]), {
+
             metricParameters () {
                 return {
                     project: this.project,
@@ -99,8 +97,8 @@ export default {
 
             dataParameters () {
                 return {
-                    range: this.range,
-                    granularity: getGranularityForRange(this.range),
+                    timeRange: this.timeRange,
+                    granularity: getGranularityForRange(this.timeRange),
 
                     breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
                 };
@@ -119,7 +117,9 @@ export default {
     watch: {
         overlayMessage () {
             // when we display an error or loading in full-screen, the overlay doesn't show and causes a broken interface
-            if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) { this.fullscreen = false; }
+            if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) {
+                this.$store.commit('detail/fullscreen', { fullscreen: false });
+            }
         },
 
         metricParameters () {
@@ -128,6 +128,7 @@ export default {
 
         dataParameters: {
             handler () {
+                this.$store.commit('detail/breakdown', { breakdown: this.dataParameters.breakdown });
                 this.loadData();
             },
             deep: true,
@@ -173,8 +174,8 @@ export default {
                     {},
                     defaults.common,
                     {
-                        start: params.range[0],
-                        end: params.range[1],
+                        start: params.timeRange.start,
+                        end: params.timeRange.end,
                         granularity: params.granularity,
                         structure: params.metricConfig.structure,
                     }
@@ -210,26 +211,12 @@ export default {
                 });
             }
         },
-
-        changeChart (t) {
-            this.chartType = t.chart;
-            this.chartIcon = t.icon;
-        },
-
-        toggleFullscreen () {
-            this.fullscreen = !this.fullscreen;
-            Vue.nextTick(() => this.$refs.graphPanel.redrawGraph());
-        },
-
-        setTimeRange (newRange) {
-            this.range = newRange;
-        }
     },
 };
 
-function getGranularityForRange (range) {
-    const start = utils.createDate(range[0]);
-    const end = utils.createDate(range[1]);
+function getGranularityForRange (timeRange) {
+    const start = utils.createDate(timeRange.start);
+    const end = utils.createDate(timeRange.end);
     const millisecondsInSixMonths = 15552e6;
     return end - start > millisecondsInSixMonths ? 'monthly' : 'daily';
 
