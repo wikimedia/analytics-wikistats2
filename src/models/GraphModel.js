@@ -130,6 +130,17 @@ class GraphModel {
         return actives.reduce((r, a) => { r[a] = true; return r; }, {});
     }
 
+    activateBreakdownIfAvailable (breakdown) {
+        const found = _.find(this.breakdowns, b => b.breakdownName === breakdown.breakdownName);
+        if (found) {
+            found.values.forEach(bv => {
+                const foundValue = _.find(breakdown.values, x => x.key === bv.key);
+                bv.on = foundValue ? foundValue.on : false;
+            });
+            this.activeBreakdown = found;
+        }
+    }
+
     getMinMax () {
         const activeDict = this.getActiveBreakdownValues();
         if (this.config.structure === 'top') {

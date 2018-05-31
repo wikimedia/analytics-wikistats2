@@ -149,11 +149,11 @@ class Router {
         // Subscribe to changes on the application state.
         store.watch(
             () => {
-                return store.getters.mainState
+                return store.getters.stateForURL
             },
-            (mainState) => {
-                mainState = _.pickBy(mainState, (property) => property !== '');
-                let redirectedState = getRedirectedState(mainState, routes);
+            (stateForURL) => {
+                stateForURL = _.pickBy(stateForURL, (property) => property !== '');
+                let redirectedState = getRedirectedState(stateForURL, routes);
                 if (redirectedState) {
                     // Update the application state with the redirect
                     // without propagating the change to browser history
@@ -162,11 +162,11 @@ class Router {
                 } else {
                     // Update only the main component and the browser's location.
                     store.commit('navigate', {
-                        component: getMainComponentFromState(mainState, routes)
+                        component: getMainComponentFromState(stateForURL, routes)
                     });
-                    if (!_.isEqual(windowObject.history.state, mainState)) {
-                        let path = getPathFromState(root, mainState, routes);
-                        windowObject.history.pushState(mainState, '', path);
+                    if (!_.isEqual(windowObject.history.state, stateForURL)) {
+                        let path = getPathFromState(root, stateForURL, routes);
+                        windowObject.history.pushState(stateForURL, '', path);
                     }
                 }
             },

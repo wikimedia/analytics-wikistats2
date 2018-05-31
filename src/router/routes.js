@@ -24,6 +24,7 @@ const routes = [
     ['/:project', { mainComponent: 'dashboard' }],
     ['/:project/:area', { redirect: getDefaultMetricPath }],
     ['/:project/:area/:metric', { mainComponent: 'detail' }],
+    ['/:project/:area/:metric/:detail', { mainComponent: 'detail' }],
 ];
 
 /**
