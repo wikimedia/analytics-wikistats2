@@ -164,7 +164,7 @@ describe('Router', function () {
             '/#/foo/bar',
         );
         expect(storeMock.commit).toHaveBeenCalledWith(
-            'resetNavigationState',
+            'reload',
             {foo: 'foo', bar: 'bar', mainComponent: 'foo-bar'},
         );
     });
@@ -184,8 +184,8 @@ describe('Router', function () {
         watchCallback(newState);
 
         expect(storeMock.commit).toHaveBeenCalledWith(
-            'setState',
-            {mainComponent: 'foo-bar'},
+            'navigate',
+            {component: 'foo-bar'},
         );
         expect(windowMock.history.pushState).toHaveBeenCalledWith(
             {foo: 'foo', bar: 'bar'},
@@ -210,7 +210,7 @@ describe('Router', function () {
         watchCallback(newState);
 
         expect(storeMock.commit).toHaveBeenCalledWith(
-            'resetNavigationState',
+            'reload',
             {foo: 'foo', bar: 'bar', qux: 'qux'},
         );
     });
@@ -227,7 +227,7 @@ describe('Router', function () {
         windowMock.onpopstate({state: newState});
 
         expect(storeMock.commit).toHaveBeenCalledWith(
-            'resetNavigationState',
+            'reload',
             {foo: 'foo', bar: 'bar'},
         );
     });

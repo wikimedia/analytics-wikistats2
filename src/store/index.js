@@ -27,15 +27,24 @@ export default new Vuex.Store({
         getWidth: state => state.width
     },
     mutations: {
-        // Sets all poperties passed, and leaves the others as they were.
-        setState (state, arg) {
-            Object.keys(arg).forEach(k => state[k] = arg[k]);
+        navigate (state, arg) {
+            state.mainComponent = arg.component;
         },
         // Sets all poperties passed, and sets any remaining navigation properties to empty string.
-        resetNavigationState (state, arg) {
+        reload (state, arg) {
             navigationStateKeys.forEach(k => state[k] = '');
             state.activeBreakdown = null;
             Object.keys(arg).forEach(k => state[k] = arg[k]);
+        },
+        project (state, arg) {
+            state.project = arg.project;
+        },
+        metric (state, arg) {
+            state.area = arg.area;
+            state.metric = arg.metric;
+        },
+        topicExplorer (state, arg) {
+            state.topicsMinimized = arg.minimize;
         },
     },
 });

@@ -314,7 +314,7 @@ export default {
         },
 
         commitProject (project) {
-            this.$store.commit('setState', {project});
+            this.$store.commit('project', {project});
             this.close();
         }
     }
