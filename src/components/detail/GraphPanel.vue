@@ -61,7 +61,8 @@
                 v-if="graphModel"
                 :is="chartComponent"
                 :graphModel="graphModel"
-                :data="adjustedGraphData">
+                :data="adjustedGraphData"
+                :annotations="annotations">
             </component>
             <div class="ui center aligned basic segment">
                 <h5 v-if="graphModel.config.structure === 'timeseries'">
@@ -79,6 +80,13 @@
                     <a class="metric link" :href="graphModel.config.infoUrl" target="_blank"
                        :title="graphModel.config.tooltip">
                         More info about this metric.
+                    </a>
+                </p>
+                <p>
+                    You can
+                    <a class="metric link" :href="annotationsLink" target="_blank"
+                       title="Annotations for this data">
+                        see or add annotations for this data on this wiki article.
                     </a>
                 </p>
             </div>
@@ -137,7 +145,7 @@ export default {
         WikiSelector
     },
 
-    props: ['graphModel', 'overlayMessage', 'granularity'],
+    props: ['graphModel', 'overlayMessage', 'granularity', 'annotations', 'annotationsLink'],
 
     computed: Object.assign(
         mapState(['detail']),
@@ -307,6 +315,7 @@ export default {
         background: #fff;
     }
 }
+
 .permalink {
     width: 300px !important;
     margin-left: -260px !important;
@@ -321,5 +330,18 @@ export default {
 }
 .permalink i {
     line-height: 6px;
+}
+
+g.annotation-note {
+}
+g.annotation g.annotation-note, g.annotation g.annotation-connector {
+    visibility: hidden;
+}
+g.annotation:hover g.annotation-note, g.annotation:hover g.annotation-connector {
+    visibility: visible;
+}
+g.annotation .annotation-note-bg {
+    fill-opacity: 1;
+    fill: #efefff;
 }
 </style>

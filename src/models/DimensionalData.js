@@ -81,7 +81,12 @@ class DimensionalData {
         this.addDimension(measure);
         let breakDownMap;
         const allItems = this.getAllItems();
-        if (allItems[0].rank){
+        if (!allItems.length) {
+            // TODO: follow-up with a fix to this, it's a side-effect not
+            // considered by a previous change in the timeRange
+            throw 'Invalid request, no data returned';
+        }
+        if (allItems[0].rank) {
             return allItems;
         }
         if (!secondColumn) {

@@ -26,7 +26,12 @@ import * as arr from 'd3-array';
 import * as axes from 'd3-axis';
 import * as format from 'd3-format';
 import * as time from 'd3-time';
+import {
+    // TODO: Decide which type to use here, circles seem clumsy but the hover is nicer
+    annotationCustomType, annotationBadge, annotationCalloutCircle, annotation,
+} from 'd3-svg-annotation'
 
+import { groupIfOverlapping } from '../../../models/Annotations';
 import utils from '../../../utils';
 import _ from 'lodash';
 
@@ -35,9 +40,12 @@ import config from '../../../config';
 export default {
     name: 'bar-chart',
     props: ['graphModel', 'data'],
+
     data () {
         return {
-            hoveredBar: null
+            hoveredBar: null,
+            x: null,
+            y: null,
         };
     },
     computed: {
@@ -54,17 +62,67 @@ export default {
         },
     },
     methods: {
+
+        transformAndAddAnnotations (annotations) {
+
+            const horizontal = this.x.range()[1],
+                  vertical = this.y.range()[0],
+                  activeKeys = this.graphModel.activeBreakdown.values.filter(bv => bv.on).map(bv => bv.key),
+                  barWidth = this.x.bandwidth() / activeKeys.length,
+                  diameter = 28;
+
+            const preparedAnnotations =  groupIfOverlapping(
+                annotations.map(m => {
+                    const px = this.x(m.date) + (barWidth * (activeKeys.indexOf(m.breakdownValue) + 0.5)),
+                          py = this.y(m.value) || vertical,
+                          tooRight = px > horizontal - 120,
+                          tooLow = py > vertical - 100;
+
+                    return {
+                        subject: {
+                            radius: diameter / 2,
+                            radiusPadding: 2,
+                        },
+                        color: '#225588',
+                        dx: tooRight ? -20 : 20,
+                        dy: tooLow ? -50 : 50,
+                        x: px,
+                        y: py,
+                        breakdownValue: m.breakdownValue,
+                        note: {
+                            bgPadding: 10,
+                            label: m.label,
+                            title: m.title,
+                        },
+                    };
+                }),
+                28,
+            );
+
+            this.addAnnotations(
+                this.getRoot().select('svg').select('.graph'),
+                preparedAnnotations,
+                this.x,
+                this.y,
+            );
+        },
+
         // PUBLIC: used by parent components
         redraw () {
             this.drawChart();
         },
+
+        getRoot () {
+            return d3.select(this.$el).select('.big');
+        },
+
         drawChart () {
             if (!this.data || !this.data.length) {
                 return;
             }
 
             let unitFilter;
-            if (this.graphModel.config.unit === "bytes"){
+            if (this.graphModel.config.unit === 'bytes'){
                 unitFilter = this.$options.filters.bytes;
             }
             else {
@@ -120,7 +178,7 @@ export default {
             let self = this;
             graphElement.selectAll('.bar').data(this.data)
                 .enter().selectAll('.minibar').data((d) => {
-                    const newData = this.graphModel.activeBreakdown.values
+                    return this.graphModel.activeBreakdown.values
                         .filter(b => b.on)
                         .map((b, i) => ({
                             month: d.month,
@@ -130,8 +188,6 @@ export default {
                             width: xW.bandwidth() / Object.keys(activeDict).length,
                             index: i
                         }));
-
-                    return newData;
                 }).enter().append('rect')
                     .attr('x', (d) => {
                         return xW(d.month) + d.index * d.width;
@@ -181,13 +237,20 @@ export default {
                 .attr('class','x-axis-labels')
                 .style('font-size', '13px')
                 .style('font-family', 'Lato, "Open Sans"')
-                .selectAll("text")
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", ".15em")
-                    .attr("transform", "rotate(-45)");
+                .selectAll('text')
+                    .style('text-anchor', 'end')
+                    .attr('dx', '-.8em')
+                    .attr('dy', '.15em')
+                    .attr('transform', 'rotate(-45)');
             svg.attr('width', n.offsetWidth).attr('height', g.node().getBBox().height + margin.top);
+
             n.onmouseout = this.onGraphMouseOut.bind(this);
+
+            // we need the scales to help add things like annotations later
+            this.x = xW;
+            this.y = y;
+
+            this.graphModel.afterAnnotations(this.transformAndAddAnnotations);
         },
         onGraphMouseOut (e) {
             this.hoveredBar = null;
@@ -199,7 +262,80 @@ export default {
         },
         getPopupArrowStyle (bar) {
           return { borderBottom: 'solid 3px ' + bar.color, borderRight: 'solid 3px ' + bar.color }
-        }
+        },
+
+        addAnnotations (g, annotations) {
+            const customCircle = annotationCustomType(annotationCalloutCircle, {
+                className: 'customCalloutCircle',
+                connector: {
+                    end: 'arrow',
+                    type: 'line',
+                },
+                note: {
+                    align: 'dynamic',
+                    lineType: 'horizontal',
+                },
+            });
+
+            const makeAnnotations = annotation()
+                .editMode(false)
+                .type(customCircle)
+                .annotations(annotations);
+
+            g.append('g')
+                .attr('class', 'annotation-group')
+                .call(makeAnnotations);
+        },
+
+        /*
+        -- alternative annotation style - put this here
+        addAnnotations (g, annotations) {
+
+            const type2 = annotationCustomType(annotationBadge, {
+                className: 'customBadge',
+            });
+
+            const makeAnnotations = annotation()
+                .editMode(false)
+                .type(type2)
+                .annotations(annotations);
+
+            g.append('g')
+                .attr('class', 'annotation-group')
+                .call(makeAnnotations);
+        },
+
+        -- and replace this part of annotation transform:
+
+            const vertical = this.y.range()[0],
+                  diameter = 28,
+                  activeKeys = this.graphModel.activeBreakdown.values.filter(bv => bv.on).map(bv => bv.key),
+                  barWidth = this.x.bandwidth() / activeKeys.length;
+
+
+             const preparedAnnotations = groupIfOverlapping(
+                annotations.map(m => {
+                    const px = this.x(m.date) + (barWidth * (activeKeys.indexOf(m.breakdownValue) + 0.5)),
+                          py = this.y(m.value) || vertical;
+
+                    console.log(m.title, m.breakdownValue, barWidth, px, py, this.y(m.value), m.value)
+
+                    return {
+                        subject: {
+                            radius: diameter / 2,
+                            text: (m.title || 'A').substring(0, 1),
+                            y: 'bottom',
+                        },
+                        color: '#E8336D',
+                        x: px,
+                        y: py,
+                    };
+                }),
+                this.x,
+                this.x.range()[1],
+                28,
+            );
+        */
     }
 }
 </script>

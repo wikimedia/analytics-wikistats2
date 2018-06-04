@@ -24,7 +24,11 @@ import * as arr from 'd3-array'
 import * as axes from 'd3-axis'
 import * as time from 'd3-time'
 import * as shape from 'd3-shape'
+import {
+    annotationCustomType, annotationCalloutCircle, annotation,
+} from 'd3-svg-annotation'
 
+import { groupIfOverlapping } from '../../../models/Annotations';
 import utils from '../../../utils';
 import _ from 'lodash';
 
@@ -42,7 +46,9 @@ export default {
             hoveredPointLeft: null,
             hoveredPointColor: null,
             hoveredPointColor: null,
-            margin: {top: 6, right: 0, bottom: 20, left: 40}
+            margin: {top: 6, right: 0, bottom: 20, left: 40},
+            x: null,
+            y: null,
         };
     },
 
@@ -75,14 +81,58 @@ export default {
     watch: {
         data: function () {
             this.drawChart();
-        }
+        },
     },
 
     methods: {
 
+        transformAndAddAnnotations (annotations) {
+
+            const horizontal = this.x.range()[1],
+                  vertical = this.y.range()[0],
+                  diameter = 28;
+
+            const preparedAnnotations = groupIfOverlapping(
+                annotations.map(m => {
+                    const px = this.x(m.date),
+                          py = this.y(m.value),
+                          tooRight = px > horizontal - 120,
+                          tooLow = py > vertical - 100;
+
+                    return {
+                        subject: {
+                            radius: diameter / 2,
+                            radiusPadding: 2,
+                        },
+                        color: '#4488aa',
+                        dx: tooRight ? -20 : 20,
+                        dy: tooLow ? -50 : 50,
+                        x: px,
+                        y: py,
+                        breakdownValue: m.breakdownValue,
+                        note: {
+                            bgPadding: 10,
+                            label: m.label,
+                            title: m.title,
+                        },
+                    };
+                }),
+                28,
+            );
+
+            this.addAnnotations(
+                this.getRoot().select('svg').select('.graph'),
+                preparedAnnotations,
+            );
+        },
+
         // PUBLIC: used by parent components
         redraw () {
             this.drawChart();
+        },
+
+        getRoot () {
+            return d3.select(this.$el).select('.big');
         },
 
         drawChart () {
@@ -94,29 +144,29 @@ export default {
             // We make sure that any selected point in a previous chart is cleared
             this.hoveredPoint = null;
 
-            const root = d3.select(this.$el).select('.big'),
+            const root = this.getRoot(),
                   padding = 4;
 
             const svg = root.select('svg');
-            const g = svg.select('.graph')
+            const g = svg.select('.graph');
             // clean up after old chart
             svg.attr('width', 0).attr('height', 0);
             g.selectAll('*').remove();
 
-            let activeBreakdown = this.graphModel.activeBreakdown;
+            const activeBreakdown = this.graphModel.activeBreakdown;
             const { min, max } = this.graphModel.getMinMax();
 
             const n = root.node();
 
             // Generate the x and y scales that we'll use to calculate the line
             // and the two axes.
-            let width = n.offsetWidth - this.margin.left - this.margin.right - padding*2;
-            let x = scales.scaleTime().rangeRound([0, width]);
+            const width = n.offsetWidth - this.margin.left - this.margin.right - padding*2;
+            const x = scales.scaleTime().rangeRound([0, width]);
             const dates = this.data.map((d) => d.month);
             x.domain(arr.extent(dates));
 
             const height = n.offsetHeight - this.margin.top - this.margin.bottom - padding;
-            let y = scales.scaleLinear().rangeRound([height, 0]);
+            const y = scales.scaleLinear().rangeRound([height, 0]);
             y.domain([min, max]);
 
             // Resize the parent svg element so that it envelops the whole content
@@ -124,7 +174,7 @@ export default {
             svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
 
             n.onmousemove = this.onGraphMouseMove;
-            n.onmouseout = this.onGraphMouseOut.bind(this);
+            n.onmouseout = this.onGraphMouseOut;
 
 
             const line = shape.line()
@@ -180,14 +230,18 @@ export default {
 
             // Final resizing to include the axes
             svg.attr('width', n.offsetWidth + padding).attr('height', g.node().getBBox().height + this.margin.top);
+
+            // we need the scales to help add things like annotations later
+            this.x = x;
+            this.y = y;
+
+            this.graphModel.afterAnnotations(this.transformAndAddAnnotations);
         },
-
-
 
         addAxes (x, y, g) {
 
             let unitFilter;
-            if (this.graphModel.config.unit == "bytes"){
+            if (this.graphModel.config.unit == 'bytes'){
                 unitFilter = this.$options.filters.bytes;
             }
             else {
@@ -207,12 +261,12 @@ export default {
                 .call(xAxis)
                 .style('font-size', '13px')
                 .style('font-family', 'Lato, "Open Sans"')
-                .selectAll("text")
-                    .style("text-anchor", "end")
+                .selectAll('text')
+                    .style('text-anchor', 'end')
                     .attr('class', 'xAxisLabel')
-                    .attr("dx", "-.8em")
-                    .attr("dy", ".15em")
-                    .attr("transform", "rotate(-45)");
+                    .attr('dx', '-.8em')
+                    .attr('dy', '.15em')
+                    .attr('transform', 'rotate(-45)');
             g.attr(
                 'transform', `translate(${yContainer.node().getBBox().width},${this.margin.top})`
             );
@@ -307,7 +361,31 @@ export default {
                 .attr('y2', 0)
                 .style('stroke', 'gray')
                 .style('stroke-width', 1);
-        }
+        },
+
+        addAnnotations (g, annotations) {
+            const customCircle = annotationCustomType(annotationCalloutCircle, {
+                className: 'customCalloutCircle',
+                connector: {
+                    end: 'arrow',
+                    type: 'line',
+                },
+                note: {
+                    align: 'dynamic',
+                    lineType: 'horizontal',
+                },
+            });
+
+            const makeAnnotations = annotation()
+                .editMode(false)
+                .type(customCircle)
+                .annotations(annotations);
+
+            g.append('g')
+                .attr('class', 'annotation-group')
+                .call(makeAnnotations)
+                .on('mouseover', this.onGraphMouseOut);
+        },
     }
 }
 </script>

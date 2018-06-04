@@ -6,6 +6,9 @@ class GraphModel {
 
         this.config = configuration;
         this.graphData = [];
+        // After getting data, set this to a promise that fetches annotations with the api
+        // The graphs can then use afterAnnotations to add a callback
+        this.annotationPromise = null;
 
         if (this.config.type === 'list') {
             return;
@@ -163,7 +166,11 @@ class GraphModel {
         return { min, max };
     }
 
-
+    afterAnnotations (callback) {
+        if (this.annotationPromise) {
+            this.annotationPromise.then(callback);
+        }
+    }
 
 }
 

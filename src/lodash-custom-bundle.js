@@ -1,4 +1,5 @@
 import assign from 'lodash/assign';
+import camelCase from 'lodash/camelCase';
 import capitalize from 'lodash/capitalize';
 import concat from 'lodash/concat';
 import debounce from 'lodash/debounce';
@@ -33,6 +34,7 @@ import zip from 'lodash/zip';
 
 export default {
     assign,
+    camelCase,
     capitalize,
     concat,
     debounce,

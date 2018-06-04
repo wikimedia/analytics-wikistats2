@@ -11,6 +11,7 @@
             :granularity="dataParameters.granularity"
             ref="graphPanel"
             :graphModel="graphModel"
+            :annotationsLink="annotationsLink"
             :overlayMessage="overlayMessage"
         />
     </section>
@@ -44,6 +45,7 @@ import utils from '../../utils';
 
 import GraphModel from '../../models/GraphModel';
 import AQS from '../../apis/aqs';
+import AnnotationApi from '../../apis/annotation';
 
 import titleMixin from '../../mixins/title-mixin.js';
 
@@ -62,6 +64,7 @@ export default {
     data () {
         return {
             graphModel: null,
+            annotationsLink: null,
 
             areasWithMetrics: config.areasWithMetrics,
 
@@ -140,6 +143,7 @@ export default {
     mounted () {
         $('body').scrollTop(0);
         this.aqsApi = new AQS();
+        this.annotationApi = new AnnotationApi();
         Vue.nextTick(() => this.buildGraphModel());
     },
 
@@ -204,7 +208,7 @@ export default {
                     uniqueParameters[params.breakdown.breakdownName] = breakdownKeys;
                 }
 
-                let dataPromise = this.aqsApi.getData(uniqueParameters, commonParameters);
+                const dataPromise = this.aqsApi.getData(uniqueParameters, commonParameters);
                 this.overlayMessage = StatusOverlay.LOADING;
 
                 dataPromise.catch((req, status, error) => {
@@ -213,7 +217,11 @@ export default {
                 dataPromise.then(dimensionalData => {
                     this.overlayMessage = null;
                     this.graphModel.setData(dimensionalData);
+
+                    this.graphModel.annotationPromise = this.annotationApi.getAnnotations(this.graphModel);
+                    this.annotationsLink = config.annotationHumanPath(this.metric);
                 });
+
             }
         },
     },
