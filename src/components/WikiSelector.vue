@@ -2,6 +2,7 @@
 <div>
     <div class="ui search">
         <div class="ui icon input">
+            <label hidden for="inputText">{{placeholder}}</label>
             <input class="prompt" type="text" v-model="inputText"
                 ref="inputBox"
                 :placeholder="placeholder"
