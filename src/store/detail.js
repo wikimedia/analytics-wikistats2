@@ -9,8 +9,8 @@ const defaultState = {
 };
 
 const TOP_LEVEL     = '|',
-      SECOND_LEVEL  = ';',
-      THIRD_LEVEL   = ',';
+      SECOND_LEVEL  = '~',
+      THIRD_LEVEL   = '*';
 
 function writeToURL (detail) {
     // simpler: return encodeURIComponent(JSON.stringify(detail));
