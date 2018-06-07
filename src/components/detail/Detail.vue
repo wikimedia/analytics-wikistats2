@@ -92,7 +92,7 @@ export default {
                     project: this.project,
                     area: this.area,
                     metric: this.metric,
-                    metricConfig: config.metricData(this.metric),
+                    metricConfig: config.metricConfig(this.metric),
                 };
             },
 

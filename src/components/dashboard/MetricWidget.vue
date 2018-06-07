@@ -28,12 +28,12 @@
                     </span>
                 </div>
                 <metric-bar-widget
-                    v-if="graphModel.config.type === 'bars'"
+                    v-if="graphModel.config.additive"
                     :data="graphData"
                     :graphModel="graphModel">
                 </metric-bar-widget>
                 <metric-line-widget
-                    v-else-if="graphModel.config.type === 'lines'"
+                    v-else
                     :data="graphData"
                     :graphModel="graphModel">
                 </metric-line-widget>
@@ -116,7 +116,7 @@ export default {
                     project: this.project,
                     area: this.area,
                     metric: this.metric.name,
-                    metricConfig: config.metricData(this.metric.name),
+                    metricConfig: config.metricConfig(this.metric.name),
                     timeRange: defaultRange,
                     granularity: 'monthly',
                 };

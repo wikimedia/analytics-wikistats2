@@ -122,17 +122,7 @@ export default {
     },
 
     props: ['graphModel', 'overlayMessage', 'granularity'],
-    data () {
-        return {
-            availableChartTypes: {
-                empty   : { chart: 'empty', icon: 'question' },
-                bar     : { chart: 'bar', icon: 'bar' },
-                line    : { chart: 'line', icon: 'line' },
-                map     : { chart: 'map', icon: 'globe' },
-                table   : { chart: 'table', icon: 'table' },
-            }
-        }
-    },
+
     computed: Object.assign(
         mapState('detail', [
             'fullscreen',
@@ -144,15 +134,10 @@ export default {
                 }
             },
             chartTypes: function () {
-                return !this.graphModel ? [] : {
-                    map: ['map', 'table'],
-                    bars: ['bar', 'table'],
-                    lines: ['line', 'table'],
-                    list: ['table'],
-                }[this.graphModel.config.type].map(k => this.availableChartTypes[k]);
+                return !this.graphModel ? [] : config.getChartTypes(this.graphModel.config);
             },
             chartIcon: function () {
-                return this.availableChartTypes[this.chartType].icon;
+                return config.availableChartTypes[this.chartType].icon;
             },
             chartComponent: function () {
                 return this.chartType  + '-chart';
@@ -182,15 +167,6 @@ export default {
             }
         }
     ),
-
-    watch: {
-        chartTypes () {
-            if (this.chartTypes.length && !this.chartTypes.find(m => m.chart === this.chartType)) {
-                this.changeChart(this.chartTypes[0]);
-            }
-        },
-
-    },
 
     methods: {
         // PUBLIC: used by parent components

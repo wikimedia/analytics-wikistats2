@@ -68,6 +68,6 @@ new Vue({
     template: '<App/>',
     components: { App },
     mounted () {
-        new router.Router(store, routes);
+        new router.Router(store, routes.routes);
     },
 });

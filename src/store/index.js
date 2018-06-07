@@ -5,7 +5,7 @@ import detail from './detail';
 import _ from '../lodash-custom-bundle';
 
 const navigationStateKeys = ['project', 'area', 'metric', 'mainComponent'];
-const complexStateKeys = {'detail': detail.readFromURL};
+const complexStateAdapters = {'detail': detail.readFromURL};
 
 Vue.use(Vuex);
 export default new Vuex.Store({
@@ -31,12 +31,7 @@ export default new Vuex.Store({
         }),
         stateForURL: (state, getters) => {
             let forURL = Object.assign({}, getters.mainState);
-
-            // only expose the detail to the URL if the metric is specified,
-            //   so that the other routes like /:project don't break
-            if (!(_.isEmpty(state.metric))) {
-                forURL.detail = detail.writeToURL(state.detail);
-            }
+            forURL.detail = detail.writeToURL(state.detail);
             return forURL;
         },
         getWidth: state => state.width
@@ -48,9 +43,9 @@ export default new Vuex.Store({
         // Sets all poperties passed, and sets any remaining navigation properties to empty string.
         reload (state, arg) {
             navigationStateKeys.forEach(k => state[k] = '');
-            //Object.assign(state.detail, detail.defaultState);
+            this.commit('detail/reset');
             Object.keys(arg).forEach(k => {
-                const readFromURL = complexStateKeys[k] || (x => x);
+                const readFromURL = complexStateAdapters[k] || (x => x);
                 state[k] = readFromURL(arg[k]);
             });
         },

@@ -1,4 +1,5 @@
 import _ from '../lodash-custom-bundle';
+import userPreferences from './routes';
 
 /**
  * Tries to match the given path with the given route.
@@ -143,6 +144,7 @@ class Router {
         let path = windowObject.location.hash.replace('#', '') || '/';
         let state = getStateFromPath(path, routes);
         windowObject.history.replaceState(state, '', getPathFromState(root, state, routes));
+        userPreferences.updateUserPreferences(state);
         let mainComponent = getMainComponentFromState(state, routes);
         store.commit('reload', Object.assign({mainComponent}, state));
 
@@ -167,6 +169,7 @@ class Router {
                     if (!_.isEqual(windowObject.history.state, stateForURL)) {
                         let path = getPathFromState(root, stateForURL, routes);
                         windowObject.history.pushState(stateForURL, '', path);
+                        userPreferences.updateUserPreferences(stateForURL);
                     }
                 }
             },

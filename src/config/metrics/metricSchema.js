@@ -34,7 +34,7 @@ const metricSchema = {
     type: {
         type: 'string',
         required: true,
-        possibleValues: ['bars', 'lines', 'list']
+        possibleValues: ['time', 'map', 'list']
     },
     structure: {
         type: 'string',
