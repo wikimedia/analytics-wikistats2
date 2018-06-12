@@ -218,8 +218,6 @@ export default {
     },
 
     methods: {
-
-
         loadData (params) {
 
             if (this.disabled) {
@@ -299,9 +297,8 @@ export default {
     background-color: #ffffff;
     border: 1px solid #d4d4d5;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-
     color: #000!important;
-    padding: 13px 22px!important;
+    padding: 17px 22px!important;
 }
 .widget.column, .widget.column .status.overlay {
     border-radius: 0 0 10px 10px;
@@ -323,7 +320,7 @@ export default {
 }
 .ui.medium.statistic > .value {
     text-align: left;
-    font-size: 50px!important;
+    font-size: 46px!important;
     font-weight: bold!important;
 }
 .ui.medium.statistic {
@@ -331,7 +328,7 @@ export default {
 }
 .ui.small.horizontal.statistic > .value {
     text-align: left;
-    font-size: 25px!important;
+    font-size: 21px!important;
     font-weight: bold!important;
 }
 .ui.small.horizontal.statistic > .label {
@@ -339,13 +336,11 @@ export default {
     text-transform: none;
     font-size: 13px;
 }
-
 .change.label {
     color: #4a4a4a!important;
     font-style: italic;
     font-weight: 400;
 }
-
 .ui.horizontal.statistic {
     margin: 4px 2px 2px 2px;
 }
