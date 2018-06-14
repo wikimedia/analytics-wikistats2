@@ -13,7 +13,7 @@
             <div v-else>
                 <div class="ui medium statistic">
                     <div class="label">{{graphModel.config.fullName}}</div>
-                    <div class="value" >{{ (lastMonth.total)| bytesOrKmb(unit) }}</div>
+                    <div class="value">{{ (lastMonth.total)| bytesOrKmb(unit) }}</div>
                 </div>
                 <div>
                     <span class="subdued">{{ (lastMonth.month) | getMonthLabel(months) }}</span>
@@ -312,7 +312,7 @@ export default {
 .widget.column.last { margin-left: 0.6666666666%; margin-right: 0%; }
 
 .ui.medium.statistic > .label {
-    text-transform: capitalize;
+    text-transform: none;
     text-align: left;
     font-size: 24px;
     font-weight: 500;

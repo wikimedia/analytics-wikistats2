@@ -1,7 +1,7 @@
 module.exports = {
     'top-viewed-articles': {
         disabled: false,
-        fullName: 'Top Viewed Articles',
+        fullName: 'Top viewed articles',
         subtitle: 'Most viewed articles',
         description: 'Most viewed articles',
         question: 'What are the most viewed articles?',
@@ -28,7 +28,7 @@ module.exports = {
     },
     'page-views-by-country': {
         disabled: false,
-        fullName: 'Page Views by Country',
+        fullName: 'Page views by country',
         subtitle: 'Countries with the most views',
         description: 'Countries where this project is visited the most. Those countries with less than 100 views are not reported and are blank in the map',
         question: 'Where are the project\'s visitors coming from?',
@@ -55,7 +55,7 @@ module.exports = {
     },
     'total-page-views': {
         disabled: false,
-        fullName: 'Total Page Views',
+        fullName: 'Total page views',
         description: 'Page views on Wikimedia projects count the viewing of article content.  In this data we try to exclude bot traffic and focus on human user page views',
         question: 'How many times are articles viewed?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
@@ -89,7 +89,7 @@ module.exports = {
     },
     'unique-devices': {
         disabled: false,
-        fullName: 'Unique Devices',
+        fullName: 'Unique devices',
         description: 'How many distinct devices we have visiting a project in a given time period',
         question: 'How many unique devices access content?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Unique_Devices',
