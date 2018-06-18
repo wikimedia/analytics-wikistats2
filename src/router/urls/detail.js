@@ -19,6 +19,9 @@ function writeToURL (detail) {
 function readFromURL (encoded) {
     // simpler: return JSON.parse(decodeURIComponent(encoded));
     if (encoded == '') return {};
+    // decode the URI because some user agents, like iOS Chrome,
+    // will automatically encode some characters, like "|"
+    encoded = decodeURIComponent(encoded);
     const parts = encoded.split(TOP_LEVEL);
     const rangeParts = parts[2].split(SECOND_LEVEL);
     const breakdownParts = parts[3].split(SECOND_LEVEL);
