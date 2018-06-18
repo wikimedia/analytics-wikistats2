@@ -11,9 +11,6 @@
             ref="graphPanel"
             :graphModel="graphModel"
             :overlayMessage="overlayMessage"
-            @changeTimeRange="setTimeRange"
-            :fullscreen="fullscreen"
-            @toggleFullscreen="toggleFullscreen"
         />
     </section>
     <div v-if="compact || fullscreen" class="container breakdowns">
@@ -48,8 +45,6 @@ import AQS from '../../apis/aqs';
 
 import titleMixin from '../../mixins/title-mixin.js';
 
-let defaultRange = utils.getDefaultTimeRange();
-
 export default {
     name: 'detail',
     components: {
@@ -66,7 +61,6 @@ export default {
         return {
             graphModel: null,
 
-            fullscreen: false,
             areasWithMetrics: config.areasWithMetrics,
 
             defaultMetrics: {
@@ -78,7 +72,6 @@ export default {
             otherMetrics: [],
 
             overlayMessage: null,
-            range: defaultRange,
         };
     },
 
@@ -87,21 +80,26 @@ export default {
             'area',
             'metric',
             'project',
+        ]),
+        mapState('detail', [
+            'fullscreen',
+            'timeRange',
+            'breakdown',
         ]), {
+
             metricParameters () {
                 return {
                     project: this.project,
                     area: this.area,
                     metric: this.metric,
-                    metricConfig: config.metricData(this.metric),
+                    metricConfig: config.metricConfig(this.metric),
                 };
             },
 
             dataParameters () {
                 return {
-                    range: this.range,
-                    granularity: getGranularityForRange(this.range),
-
+                    timeRange: this.timeRange,
+                    granularity: utils.getGranularity(this.timeRange.start, this.timeRange.end),
                     breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
                 };
             },
@@ -119,7 +117,9 @@ export default {
     watch: {
         overlayMessage () {
             // when we display an error or loading in full-screen, the overlay doesn't show and causes a broken interface
-            if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) { this.fullscreen = false; }
+            if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) {
+                this.$store.commit('detail/fullscreen', { fullscreen: false });
+            }
         },
 
         metricParameters () {
@@ -128,6 +128,7 @@ export default {
 
         dataParameters: {
             handler () {
+                this.$store.commit('detail/breakdown', { breakdown: this.dataParameters.breakdown });
                 this.loadData();
             },
             deep: true,
@@ -141,14 +142,18 @@ export default {
     },
 
     methods: {
-        buildGraphModel () {
-            const params = this.metricParameters;
+        buildGraphModel (params) {
+            params = params || this.metricParameters;
 
             this.graphModel = new GraphModel(params.metricConfig);
 
             this.otherMetrics = Object.keys(config.metrics)
                 .filter((m) => config.metrics[m].area === params.area)
                 .map((m) => Object.assign(config.metrics[m], { name: m }));
+
+            if (this.breakdown) {
+                this.graphModel.activateBreakdownIfAvailable(this.breakdown);
+            }
         },
 
         loadData () {
@@ -173,8 +178,8 @@ export default {
                     {},
                     defaults.common,
                     {
-                        start: params.range[0],
-                        end: params.range[1],
+                        start: params.timeRange.start,
+                        end: params.timeRange.end,
                         granularity: params.granularity,
                         structure: params.metricConfig.structure,
                     }
@@ -210,20 +215,6 @@ export default {
                 });
             }
         },
-
-        changeChart (t) {
-            this.chartType = t.chart;
-            this.chartIcon = t.icon;
-        },
-
-        toggleFullscreen () {
-            this.fullscreen = !this.fullscreen;
-            Vue.nextTick(() => this.$refs.graphPanel.redrawGraph());
-        },
-
-        setTimeRange (newRange) {
-            this.range = newRange;
-        }
     },
 };
 
@@ -262,7 +253,7 @@ function getGranularityForRange (range) {
     border: solid 2px #cdcdcd!important;
     font-size: 13px;
     font-weight: 500;
-    color: #9b9b9b!important;
+    color: #54595d!important;
     padding: 5px 9px;
     cursor: pointer;
 }

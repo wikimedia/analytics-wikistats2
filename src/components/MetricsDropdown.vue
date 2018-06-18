@@ -48,7 +48,7 @@ export default {
         },
         goToMetric(area, metric) {
             if (metric !== this.metric.defaults.common.metric)
-            this.$store.commit('resetNavigationState', {
+            this.$store.commit('reload', {
                 project: this.$store.state.project,
                 metric: metric,
                 area: area

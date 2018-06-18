@@ -2,7 +2,7 @@
 <div>
     <router-link :to="{project: $store.state.project}">
         <div class="wikititle ui left floated header">
-            <img class="ui mini image" src="../../assets/Wikimedia-logo.svg">
+            <img class="ui mini image" src="../../assets/Wikimedia-logo.svg" alt="Wikimedia">
             <span class="text">Wikimedia Statistics</span>
         </div>
     </router-link>

@@ -18,7 +18,7 @@ module.exports = {
                 metric: 'editors'
             }
         },
-        type: 'lines',
+        type: 'time',
         structure: 'timeseries',
         area: 'contributing',
         value: 'editors',
@@ -49,7 +49,7 @@ module.exports = {
                 { name: '100 or more edits', key: '100..-edits', on: true }
             ]
         }],
-        additive: true
+        additive: false
     },
     'edits': {
         disabled: false,
@@ -69,7 +69,7 @@ module.exports = {
                 granularity: 'monthly'
             }
         },
-        type: 'lines',
+        type: 'time',
         structure: 'timeseries',
         area: 'contributing',
         value: 'edits',
@@ -111,7 +111,7 @@ module.exports = {
                 metric: 'new-pages'
             }
         },
-        type: 'bars',
+        type: 'time',
         structure: 'timeseries',
         area: 'contributing',
         value: 'new_pages',
@@ -133,7 +133,7 @@ module.exports = {
                 { name: 'Non content', on: true, key: 'non-content' }
             ]
         }],
-        additive: false
+        additive: true
     },
     'new-registered-users': {
         disabled: false,
@@ -151,11 +151,11 @@ module.exports = {
                 metric: 'new-registered-users'
             }
         },
-        type: 'bars',
+        type: 'time',
         structure: 'timeseries',
         area: 'contributing',
         value: 'new_registered_users',
         global: true,
-        additive: false
+        additive: true
     },
 };

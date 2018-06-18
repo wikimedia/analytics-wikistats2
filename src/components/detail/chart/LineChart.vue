@@ -1,7 +1,7 @@
 <template>
 <div class="graphContainer">
     <div v-if="hoveredPoint" class="line valuePopup">
-        <b>{{hoveredPoint.month | ISOdateUTC }}</b>
+        <b>{{hoveredPoint.month | ISOdateUTC(granularityFormat) }}</b>
         <div v-for="b in this.selectedValue" class="breakdown">
             <b><span :style="{ color: b.color }">{{b.name | capitalize}}</span></b>
             <span>{{b.value | thousands}}</span>
@@ -24,9 +24,7 @@ import * as axes from 'd3-axis'
 import * as time from 'd3-time'
 import * as shape from 'd3-shape'
 
-import dateformat from 'dateformat';
 import utils from '../../../utils';
-
 import _ from 'lodash';
 
 import config from '../../../config'
@@ -57,6 +55,10 @@ export default {
                 }
             });
             return _.sortBy(l, d => d.value).reverse();
+        },
+
+        granularityFormat () {
+            return utils.getDateFormatFromData(this.data);
         },
     },
 

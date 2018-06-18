@@ -17,14 +17,14 @@ module.exports = {
                 metric: 'absolute-bytes-diff'
             }
         },
-        type: 'bars',
+        type: 'time',
         structure: 'timeseries',
         area: 'content',
         value: 'abs_bytes_diff',
         unit: 'bytes',
         global: true,
         breakdowns: [{
-            name: 'User type',
+            name: 'Editor type',
             breakdownName: 'editor_type',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
@@ -40,7 +40,7 @@ module.exports = {
                 { name: 'Non content', on: true, key: 'non-content' }
             ]
         }],
-        additive: false
+        additive: true
     },
     'edited-pages': {
         disabled: false,
@@ -61,7 +61,7 @@ module.exports = {
                 metric: 'edited-pages'
             }
         },
-        type: 'lines',
+        type: 'time',
         structure: 'timeseries',
         area: 'content',
         value: 'edited_pages',
@@ -92,7 +92,7 @@ module.exports = {
                 { name: '100 or more edits', key: '100..-edits', on: true }
             ]
         }],
-        additive: true
+        additive: false
     },
     'net-bytes-difference': {
         disabled: false,
@@ -112,14 +112,14 @@ module.exports = {
                 metric: 'net-bytes-difference'
             }
         },
-        type: 'bars',
+        type: 'time',
         structure: 'timeseries',
         area: 'content',
         unit: 'bytes',
         value: 'net_bytes_diff',
         global: true,
         breakdowns: [{
-            name: 'User type',
+            name: 'Editor type',
             breakdownName: 'editor_type',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
@@ -135,6 +135,6 @@ module.exports = {
                 { name: 'Non content', on: true, key: 'non-content' }
             ]
         }],
-        additive: false
+        additive: true
     },
 };

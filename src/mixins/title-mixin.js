@@ -34,7 +34,7 @@ export default {
 
                 if (wikiInfo.name) {
 
-                    title = " - " + wikiInfo.name;
+                    title = title + " - " + wikiInfo.name;
                 } else if (wikiInfo.language.localName) {
                     title = title + " - " + wikiInfo.language.localName +" "+ wikiInfo.projectFamily.localName;
                 }

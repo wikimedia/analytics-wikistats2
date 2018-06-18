@@ -1,4 +1,5 @@
 import _ from '../lodash-custom-bundle';
+import userPreferences from './routes';
 
 /**
  * Tries to match the given path with the given route.
@@ -143,30 +144,32 @@ class Router {
         let path = windowObject.location.hash.replace('#', '') || '/';
         let state = getStateFromPath(path, routes);
         windowObject.history.replaceState(state, '', getPathFromState(root, state, routes));
+        userPreferences.updateUserPreferences(state);
         let mainComponent = getMainComponentFromState(state, routes);
-        store.commit('resetNavigationState', Object.assign({mainComponent}, state));
+        store.commit('reload', Object.assign({mainComponent}, state));
 
         // Subscribe to changes on the application state.
         store.watch(
             () => {
-                return store.getters.mainState
+                return store.getters.stateForURL
             },
-            (mainState) => {
-                mainState = _.pickBy(mainState, (property) => property !== '');
-                let redirectedState = getRedirectedState(mainState, routes);
+            (stateForURL) => {
+                stateForURL = _.pickBy(stateForURL, (property) => property !== '');
+                let redirectedState = getRedirectedState(stateForURL, routes);
                 if (redirectedState) {
                     // Update the application state with the redirect
                     // without propagating the change to browser history
                     // or updating the main component.
-                    store.commit('resetNavigationState', redirectedState);
+                    store.commit('reload', redirectedState);
                 } else {
                     // Update only the main component and the browser's location.
-                    store.commit('setState', {
-                        mainComponent: getMainComponentFromState(mainState, routes)
+                    store.commit('navigate', {
+                        component: getMainComponentFromState(stateForURL, routes)
                     });
-                    if (!_.isEqual(windowObject.history.state, mainState)) {
-                        let path = getPathFromState(root, mainState, routes);
-                        windowObject.history.pushState(mainState, '', path);
+                    if (!_.isEqual(windowObject.history.state, stateForURL)) {
+                        let path = getPathFromState(root, stateForURL, routes);
+                        windowObject.history.pushState(stateForURL, '', path);
+                        userPreferences.updateUserPreferences(stateForURL);
                     }
                 }
             },
@@ -175,7 +178,7 @@ class Router {
         // Subscribe to changes on the browser's location.
         windowObject.onpopstate = function (event) {
             if (event.state) {
-                store.commit('resetNavigationState', event.state);
+                store.commit('reload', event.state);
             }
         };
     }

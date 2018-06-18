@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in valuesShown">
-                <td>{{m.month|ISOdateUTC}}</td>
+                <td>{{m.month | ISOdateUTC(granularityFormat)}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
             <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in valuesShown">
@@ -36,6 +36,8 @@
 
 <script>
 import isoLookup from './MapChart/isoLookup'
+import utils from '../../../utils'
+
 export default {
     name: 'table-chart',
     props: ['data', 'graphModel'],
@@ -70,7 +72,10 @@ export default {
             if (this.data && this.totalItems < this.data.length){
                 return true;
             }
-        }
+        },
+        granularityFormat () {
+            return utils.getDateFormatFromData(this.data);
+        },
     },
 
     methods: {

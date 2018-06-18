@@ -28,12 +28,12 @@
                     </span>
                 </div>
                 <metric-bar-widget
-                    v-if="graphModel.config.type === 'bars'"
+                    v-if="graphModel.config.additive"
                     :data="graphData"
                     :graphModel="graphModel">
                 </metric-bar-widget>
                 <metric-line-widget
-                    v-else-if="graphModel.config.type === 'lines'"
+                    v-else
                     :data="graphData"
                     :graphModel="graphModel">
                 </metric-line-widget>
@@ -116,8 +116,8 @@ export default {
                     project: this.project,
                     area: this.area,
                     metric: this.metric.name,
-                    metricConfig: config.metricData(this.metric.name),
-                    range: defaultRange,
+                    metricConfig: config.metricConfig(this.metric.name),
+                    timeRange: defaultRange,
                     granularity: 'monthly',
                 };
             },
@@ -218,8 +218,6 @@ export default {
     },
 
     methods: {
-
-
         loadData (params) {
 
             if (this.disabled) {
@@ -244,8 +242,8 @@ export default {
                 {},
                 defaults.common,
                 {
-                    start: params.range[0],
-                    end: params.range[1],
+                    start: params.timeRange.start,
+                    end: params.timeRange.end,
                     granularity: params.granularity,
                     structure: params.metricConfig.structure,
                 }
@@ -299,9 +297,11 @@ export default {
     background-color: #ffffff;
     border: 1px solid #d4d4d5;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-
     color: #000!important;
-    padding: 13px 22px!important;
+    padding: 17px 22px!important;
+}
+.widget.column, .widget.column .status.overlay {
+    border-radius: 0 0 10px 10px;
 }
 .widget.column, .widget.column .status.overlay {
     border-radius: 0 0 10px 10px;
@@ -323,7 +323,7 @@ export default {
 }
 .ui.medium.statistic > .value {
     text-align: left;
-    font-size: 50px!important;
+    font-size: 46px!important;
     font-weight: bold!important;
 }
 .ui.medium.statistic {
@@ -331,7 +331,7 @@ export default {
 }
 .ui.small.horizontal.statistic > .value {
     text-align: left;
-    font-size: 25px!important;
+    font-size: 21px!important;
     font-weight: bold!important;
 }
 .ui.small.horizontal.statistic > .label {
@@ -339,17 +339,15 @@ export default {
     text-transform: none;
     font-size: 13px;
 }
-
 .change.label {
     color: #4a4a4a!important;
     font-style: italic;
     font-weight: 400;
 }
-
 .ui.horizontal.statistic {
     margin: 4px 2px 2px 2px;
 }
 .subdued {
-    color: #9b9b9b;
+    color: #72777d;
 }
 </style>

@@ -128,6 +128,15 @@ const mainMetricsByArea = [
     },
 ];
 
+const availableChartTypes = {
+    empty   : { chart: 'empty', icon: 'question' },
+    bar     : { chart: 'bar', icon: 'bar' },
+    line    : { chart: 'line', icon: 'line' },
+    map     : { chart: 'map', icon: 'globe' },
+    table   : { chart: 'table', icon: 'table' },
+};
+
+
 
 const allMetrics = require('./metrics');
 const metrics = {};
@@ -201,7 +210,7 @@ export default {
     },
 
     // site config
-    metricData (metricName) {
+    metricConfig (metricName) {
         return _.assign(
             metrics[metricName],
             { lightColor: lightColor[metrics[metricName].area] },
@@ -213,6 +222,18 @@ export default {
         return key === 'total' ?
             colors[area][colors[area].length - 1] :
             qualitativeScale[breakdown.values.length][breakdown.values.indexOf(breakdown.values.find(value => value.key === key))];
+    },
+
+    getChartTypes (metricConfig) {
+        return {
+            map: ['map', 'table'],
+            time: (
+                metricConfig.additive ?
+                ['bar', 'line', 'table'] :
+                ['line', 'bar', 'table']
+            ),
+            list: ['table'],
+        }[metricConfig.type].map(k => availableChartTypes[k])
     },
 
     areas () {
@@ -243,5 +264,6 @@ export default {
     questions,
     areasWithMetrics,
     months,
-    buckets
+    buckets,
+    availableChartTypes,
 };

@@ -99,8 +99,23 @@ function getDefaultTimeRange() {
     start.setUTCFullYear(startYear);
     start.setUTCDate(1);
 
-    return [dateformat(start, 'yyyymmdd00', true),
-                dateformat(end, 'yyyymmdd00', true )];
+    return {
+        name: '2-Year',
+        start: dateformat(start, 'yyyymmdd00', true),
+        end: dateformat(end, 'yyyymmdd00', true ),
+    };
+}
+
+function getGranularity (start, end) {
+    const millisecondsInSixMonths = 15552e6;
+    return createDate(end) - createDate(start) > millisecondsInSixMonths ? 'monthly' : 'daily';
+
+}
+
+function getDateFormatFromData (data) {
+    if (!(data && data.length && data[0].month)) { return 'yyyy-mm'; }
+    return getGranularity(data[0].month, data[data.length - 1].month) === 'monthly' ?
+        'yyyy-mm' : 'yyyy-mm-dd';
 }
 
 export default {
@@ -110,5 +125,7 @@ export default {
     createDate,
     getUTCTimestampFromYearMonth,
     createNowUTCDate,
-    getDefaultTimeRange
+    getDefaultTimeRange,
+    getGranularity,
+    getDateFormatFromData,
 };

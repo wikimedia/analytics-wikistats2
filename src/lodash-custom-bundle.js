@@ -9,6 +9,7 @@ import flatten from 'lodash/flatten';
 import forEach from 'lodash/forEach';
 import indexOf from 'lodash/indexOf';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 import kebabCase from 'lodash/kebabCase';
 import last from 'lodash/last';
 import map from 'lodash/map';
@@ -41,6 +42,7 @@ export default {
     forEach,
     indexOf,
     isEqual,
+    isEmpty,
     kebabCase,
     last,
     map,
