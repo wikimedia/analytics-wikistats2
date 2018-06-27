@@ -17,8 +17,8 @@ const months = [
 ];
 
 const colors = {
-    contributing: ['#C4CDDF', '#99AFD9', '#6582BA', '#2A4B8D'],
     reading: ['#C8F0E7', '#77D8C2', '#00AF89', '#03745C'],
+    contributing: ['#C4CDDF', '#99AFD9', '#6582BA', '#2A4B8D'],
     content: ['#FFF1C6', '#F9DF90', '#FFCC33', '#DDAD1C']
 };
 
@@ -59,13 +59,13 @@ const stableColorIndexes = {
 };
 
 const lightColor = {
-    contributing: colors.contributing[0],
     reading: colors.reading[0],
+    contributing: colors.contributing[0],
     content: colors.content[1]
 };
 const darkColor = {
-    contributing: colors.contributing[3],
     reading: colors.reading[3],
+    contributing: colors.contributing[3],
     content: colors.content[3]
 };
 
@@ -75,7 +75,7 @@ const areasWithMetrics = _.transform(questions, function (result, q) {
     if (!area) {
         area = {
             name: q.a,
-            order: { contributing: 1, reading: 2, content: 3 }[q.a],
+            order: { reading: 1, contributing: 2, content: 3 }[q.a],
             color: colors[q.a][1],
             metrics: []
         };
@@ -135,7 +135,6 @@ const availableChartTypes = {
     map     : { chart: 'map', icon: 'globe' },
     table   : { chart: 'table', icon: 'table' },
 };
-
 
 
 const allMetrics = require('./metrics');
@@ -243,8 +242,8 @@ export default {
         });
         const areaList = [
             { path: '', name: 'Dashboard' },
-            { path: 'contributing', name: 'Contributing' },
             { path: 'reading', name: 'Reading' },
+            { path: 'contributing', name: 'Contributing' },
             { path: 'content', name: 'Content' },
         ].filter(
             (area) => area.path === '' || areasFromMetrics.has(area.path)

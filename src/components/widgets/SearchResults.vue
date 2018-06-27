@@ -210,20 +210,19 @@ ul.search.results {
     background-color: #ffffff;
     color: #1b1c1d;
     font-size: 18px;
-
     padding: 0;
     margin-top: 8px;
-
     width: 100%;
     height: 212px;
     max-height: 400px;
     overflow-y: auto;
-
     border: solid 1px #dededf;
 }
-
 ul.search.results li {
     padding: 6px 14px;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 ul.search.results li:first-child {
     padding-top: 12px;
@@ -231,14 +230,18 @@ ul.search.results li:first-child {
 ul.search.results li:last-child {
     padding-bottom: 12px;
 }
-
 ul.search.results li.highlighted {
     background-color: #ffe1ee;
     cursor: pointer;
 }
-
 ul.search.results span.subtitle {
     font-size: 14px;
     color: #555;
+    font-weight: 500;
+    background-color: #f6f6f6;
+    border: 1px solid #D8D8D8;
+    border-radius: 2px;
+    padding: 3px 6px;
+    white-space: nowrap;
 }
 </style>

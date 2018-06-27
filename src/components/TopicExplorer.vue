@@ -34,11 +34,6 @@
                 subtitle="metric"
                 @select="found"></search-results>
         </div>
-
-        <!--div class="ui blue button" @click="go">Go</div-->
-        <span class="xui right floated link" @click="minimizeTopics(true)">
-            <i class="ui up chevron icon"/>
-        </span>
     </div>
 </div>
 </template>

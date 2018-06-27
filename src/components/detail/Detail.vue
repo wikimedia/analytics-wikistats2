@@ -217,14 +217,6 @@ export default {
         },
     },
 };
-
-function getGranularityForRange (range) {
-    const start = utils.createDate(range[0]);
-    const end = utils.createDate(range[1]);
-    const millisecondsInSixMonths = 15552e6;
-    return end - start > millisecondsInSixMonths ? 'monthly' : 'daily';
-
-}
 </script>
 
 <style>
