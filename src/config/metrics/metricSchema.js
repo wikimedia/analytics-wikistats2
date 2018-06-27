@@ -54,6 +54,10 @@ const metricSchema = {
         type: 'string',
         required: true
     },
+    valueTitle: {
+        type: 'string',
+        required: false
+    },
     arrayName: {
         type: 'string',
         required: false

@@ -36,17 +36,6 @@ const qualitativeScale = {
     "11": [ "#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", "#E68310", "#008695", "#CF1C90", "#f97b72", "#4b4b8f", "#A5AA99" ]
 };
 
-const buckets = [
-    '100-999',
-    '1000-9999',
-    '10000-99999',
-    '100000-999999',
-    '1000000-9999999',
-    '10000000-99999999',
-    '100000000-999999999',
-    '1000000000-9999999999'
-]
-
 const stableColorIndexes = {
     'Lightly Active': 0,
     'Active': 1,
@@ -263,6 +252,5 @@ export default {
     questions,
     areasWithMetrics,
     months,
-    buckets,
     availableChartTypes,
 };

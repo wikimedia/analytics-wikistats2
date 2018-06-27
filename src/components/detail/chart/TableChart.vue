@@ -8,7 +8,7 @@
                 <th class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{v.name | capitalize}}</th>
             </tr>
             <tr v-if="graphModel.config.structure === 'top'">
-                <th class="right aligned">{{graphModel.config.value | capitalize}}</th>
+                <th class="right aligned">{{(graphModel.config.valueTitle || graphModel.config.value) | capitalize}}</th>
                 <th>Name</th>
             </tr>
         </thead>

@@ -45,7 +45,8 @@ module.exports = {
                 granularity: 'monthly'
             }
         },
-        value: 'views',
+        value: 'views_ceil',
+        valueTitle: 'page views',
         key: 'country',
         arrayName: 'countries',
         area: 'reading',

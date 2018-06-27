@@ -18,7 +18,7 @@
 
             <div class="ui right floated basic fudge segment">
                 <simple-legend
-                    v-if="!mobile && activeBreakdown && chartComponent !== 'table-chart'"
+                    v-if="!mobile && activeBreakdown && chartComponent !== 'table-chart' && chartComponent !== 'map-chart'"
                     class="simple legend"
                     :breakdown="activeBreakdown">
                 </simple-legend>

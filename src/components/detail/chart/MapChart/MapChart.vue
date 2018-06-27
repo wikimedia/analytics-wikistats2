@@ -1,16 +1,16 @@
-<template>
+ <template>
 <div class="map container">
     <map-tooltip v-if="currentHover"
         :x="currentHover.x"
         :y="currentHover.y"
-        :unit="graphModel.config.value"
+        :unit="graphModel.config.valueTitle || graphModel.config.value"
         :number="currentHover.number"
         :name="currentHover.name"
     />
     <map-legend
         v-if="data"
         :title="graphModel.config.fullName"
-        :palette="palette"
+        :scale="colorScale"
     />
     <svg class="map canvas">
         <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4">
@@ -57,15 +57,20 @@ export default {
         }
     },
     computed: {
-        palette () {
-            if (!this.data.length) return
-            const colorPalette = d3_color[{
-                "reading": "schemeGreens",
-                "contributing": "schemeBlues",
-                "content": "schemeOranges"
-            }[this.graphModel.config.area]];
+        colorScale (){
+            if (!this.data.length) return;
+            const colorPalette = d3_color.interpolateGnBu;
             let max = this.graphModel.getMinMax().max;
-            return colorPalette[Math.max(3, config.buckets.indexOf(max) + 1)];
+            let min = this.graphModel.getMinMax().min;
+            const d3s = scales.scaleLog()
+                    .domain([min, max])
+                    .range([0,1]);
+            const scale = (number) => {
+                return colorPalette(d3s(number));
+            };
+            scale.min = min;
+            scale.max = max;
+            return scale;
         },
         dataByCountry () {
             return this.data.reduce((p,c) => {
@@ -112,7 +117,7 @@ export default {
                 let countryName = isoLookup[countryISO].en;
                 const number = this.dataByCountry[countryISO];
                 f.properties = {
-                    color: getColor(number, this.palette),
+                    color: getColor(number, this.colorScale),
                     number: number,
                     name: countryName
                 };
@@ -144,9 +149,10 @@ export default {
     }
 };
 
-function getColor (number, palette) {
+function getColor (number, colorScale) {
     if (typeof number === 'undefined') { return '#fff'; }
-    return palette[config.buckets.indexOf(number)];
+    const color = colorScale(number);
+    return color;
 }
 
 function darkenColorBy (color, percentageToDarkenBy) {
@@ -177,7 +183,7 @@ function getZoomBehavior (features, path, projection) {
         deal directly with projected topojson arcs, and not with global latitudes and longitudes, we need
         constants in pixels to limit the view's boundaries. Hence the 200, 400, 600 constants.
         */
-        const x = Math.min(width / 2 * (scale - 1) + 200, Math.max(width / 2 * (1 - scale) - 600, d3.event.transform.x));;
+        const x = Math.min(width / 2 * (scale - 1) + 200, Math.max(width / 2 * (1 - scale) - 600, d3.event.transform.x));
         const y = Math.min(height / 2 * (scale - 1) + 400 * scale, Math.max(height / 2 * (1 - scale) - 400 * scale, d3.event.transform.y));
         features.attr('transform','translate(' +
             x +','+ y + ')scale(' + scale + ')');
