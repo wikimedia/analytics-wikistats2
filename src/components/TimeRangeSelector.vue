@@ -2,7 +2,9 @@
     <div class="ui buttons">
         <button v-for="r in rangeNames"
                 @click="changeTimeRange(r)"
-                class="ui button" :class="{ active: isActive(r) }">{{r}}</button>
+                class="ui button"
+                :class="{ active: isActive(r) }"
+                :disabled="isFrozen(r)">{{r}}</button>
     </div>
 </template>
 
@@ -10,11 +12,12 @@
 import dateFormat from 'dateformat';
 import utils from '../utils';
 import { mapState } from 'vuex';
+import config from '../config';
 
 export default {
     name: 'time-range-selector',
 
-    props: ['lastMonth'],
+    props: ['lastMonth', 'frozen'],
 
     data () {
         return {
@@ -35,12 +38,11 @@ export default {
             const now = utils.createNowUTCDate();
             const lastMonthAvailable = dateFormat(now, 'yyyymmdd00', true);
 
-            let start = '1980010100';
+            let start = dateFormat(config.startTimestamp, 'yyyymmdd00', true);
 
             if (name !== 'All') {
                 let d = utils.createNowUTCDate();
                 d.setTime(last.getTime());
-
                 // the monthly requests for apis have to be inclusive of the whole
                 // month to return data for that month.
                 if (name === '2-Year') {
@@ -70,10 +72,8 @@ export default {
                         d.setUTCMonth(currentMonth - 1);
                     }
                 }
-
                 start = dateFormat(d, 'yyyymmdd00', true);
             }
-
             return {
                 name,
                 start: start,
@@ -81,14 +81,16 @@ export default {
             };
         },
         changeTimeRange (rangeName) {
-
             this.$store.commit('detail/timeRange', { timeRange: this.getRangeFromName(rangeName) });
         },
         isActive (rangeName) {
             return rangeName === this.timeRange.name;
+        },
+        isFrozen (rangeName) {
+            if (this.frozen && !this.isActive(rangeName)) {
+                return true;
+            }
         }
     }
-
 }
 </script>
-

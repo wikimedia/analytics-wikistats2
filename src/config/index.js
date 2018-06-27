@@ -58,6 +58,7 @@ const darkColor = {
     content: colors.content[3]
 };
 
+const startTimestamp = '1980-01-01T00:00:00Z';
 
 const areasWithMetrics = _.transform(questions, function (result, q) {
     let area = result.find((a) => a.name === q.a);
@@ -168,6 +169,10 @@ export default {
             endpoint: AQS_HOST + '/pageviews/top-by-country/{{project}}/{{access}}/{{year}}/{{month}}'
         },
 
+        'legacy-page-views': {
+            endpoint: AQS_HOST + '/legacy/pagecounts/aggregate/{{project}}/{{access-site}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
         'new-pages': {
             endpoint: AQS_HOST + '/edited-pages/new/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
         },
@@ -253,4 +258,5 @@ export default {
     areasWithMetrics,
     months,
     availableChartTypes,
+    startTimestamp
 };

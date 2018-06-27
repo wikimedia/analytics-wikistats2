@@ -59,7 +59,7 @@ function getMergedDetail (metric) {
 
     const defaults = {
         chartType: config.getChartTypes(metricConfig)[0].chart,
-        timeRange: utils.getDefaultTimeRange(),
+        timeRange: utils.getDefaultTimeRange(metricConfig),
         fullscreen: false,
         breakdown: {values: [{key: 'total', on: true}]},
     };
@@ -73,7 +73,7 @@ function getMergedDetail (metric) {
     }
     const preferences = {
         chartType: getUserPreference(['chartType', metricConfig.type]),
-        timeRange: getUserPreference(['timeRange']),
+        timeRange: getUserPreference(['timeRange', metricConfig.legacy]),
         fullscreen: getUserPreference(['fullscreen']),
         breakdown,
     };
@@ -113,7 +113,7 @@ function updateUserPreferences (state) {
         if (chartTypeWasAChoice) {
             setUserPreference(['chartType', metricConfig.type], detail.chartType);
         }
-        setUserPreference(['timeRange'], detail.timeRange);
+        setUserPreference(['timeRange', metricConfig.legacy], detail.timeRange);
         if (!detail.breakdown.breakdownName && metricConfig.breakdowns) {
             metricConfig.breakdowns.forEach((b) => {
                 delUserPreference(['breakdown', b.breakdownName]);
