@@ -125,6 +125,23 @@ function getDateFormatFromData (data) {
         'yyyy-mm' : 'yyyy-mm-dd';
 }
 
+function fillInMissingDates (dates) {
+    const startDate = dates[0];
+    const endDate = dates[dates.length - 1];
+    const granularity = getGranularity(startDate, endDate);
+    const updatedDates = [];
+    const currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+        updatedDates.push(new Date(currentDate));
+        if (granularity === 'monthly') {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        } else if (granularity === "daily") {
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+    }
+    return updatedDates;
+}
+
 export default {
     labeledCrossProduct,
     cloneDeep,
@@ -135,4 +152,5 @@ export default {
     getDefaultTimeRange,
     getGranularity,
     getDateFormatFromData,
+    fillInMissingDates
 };

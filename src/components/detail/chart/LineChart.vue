@@ -144,8 +144,10 @@ export default {
                                                     }
                                                 ]
             */
-
-            Object.keys(this.data[0].total)
+            Object.keys(
+                _.reduce(this.data, (acc, elem) => {
+                    return Object.assign(acc, elem.total);
+                }, {}))
                 .filter(key => key in activeDict)
                 .map((breakdownName) => {
                     return this.data.map((row) => {
@@ -154,10 +156,9 @@ export default {
                             total: row.total[breakdownName],
                             key: breakdownName
                         };
-                    });
+                    }).filter(elem => typeof elem.total === 'number');
                 })
                 .forEach(breakdown => {
-
                     // We need to find each breakdown's corresponding colour from the config
                     bColor = config.getColorForBreakdown(activeBreakdown, breakdown[0].key, this.graphModel.config.area);
                     g.append('path').datum(breakdown)
