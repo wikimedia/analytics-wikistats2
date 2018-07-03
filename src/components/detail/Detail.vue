@@ -5,6 +5,7 @@
             v-if="!compact && !fullscreen"
             :otherMetrics="otherMetrics"
             :graphModel="graphModel"
+            :disableBreakdowns="overlayMessage"
         />
         <graph-panel
             :granularity="dataParameters.granularity"
@@ -19,6 +20,7 @@
                   && graphModel.breakdowns
                   && graphModel.breakdowns.length > 1"
             :graphModel="graphModel"
+            :disableBreakdowns="overlayMessage"
         />
     </div>
 </div>
@@ -161,7 +163,6 @@ export default {
 
             if (!params.metricConfig.global && params.project === config.ALL_PROJECTS) {
                 this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
-
             } else {
                 const defaults = params.metricConfig.defaults || {
                     unique: {},
