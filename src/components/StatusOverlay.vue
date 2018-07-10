@@ -8,7 +8,7 @@
     </div>
 </div>
 </template>
-<script type="text/javascript">
+<script>
 
 // The status overlay is present in any component that requires
 // asynchronous loading of data. The overlay informs the user of
@@ -73,24 +73,22 @@ export default StatusOverlay;
 
 </script>
 
-<style type="text/css">
-    .status.overlay {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.92);
-    }
-
-    .status .container {
-        text-align: center;
-        margin: 15%;
-    }
-
-    .overlay.text {
-        text-align: center;
-        margin-top: 5px;
-        font-size: 18px;
-    }
+<style>
+.status.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.92);
+}
+.status .container {
+    text-align: center;
+    margin: 15%;
+}
+.overlay.text {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 18px;
+}
 </style>
