@@ -55,6 +55,7 @@ export default new Vuex.Store({
         metric (state, arg) {
             state.area = arg.area;
             state.metric = arg.metric;
+            this.commit('detail/reset');
         },
         topicExplorer (state, arg) {
             state.topicsMinimized = arg.minimize;
