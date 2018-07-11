@@ -53,10 +53,7 @@ module.exports = {
                 granularity: 'monthly'
             }
         },
-        value: 'views_ceil',
-        valueTitle: 'page views',
-        key: 'country',
-        arrayName: 'countries',
+        value: 'count',
         area: 'reading',
         global: true,
         breakdowns: [{
@@ -88,7 +85,8 @@ module.exports = {
                 granularity: 'monthly'
             }
         },
-        value: 'views',
+        value: 'views_ceil',
+        valueTitle: 'page views',
         key: 'country',
         arrayName: 'countries',
         area: 'reading',

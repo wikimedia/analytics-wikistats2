@@ -95,7 +95,6 @@ export default {
             const n = root.node();
             const activeDict = this.graphModel.getActiveBreakdownValues();
             let dates = this.data.map((d) => new Date(Date.parse(d.month)));
-            dates = utils.fillInMissingDates(dates);
             const datespan = arr.extent(dates);
 
             const { min, max } = this.graphModel.getMinMax();
