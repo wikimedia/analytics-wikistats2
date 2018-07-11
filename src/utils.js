@@ -83,7 +83,7 @@ function getDefaultTimeRange(metricConfig) {
     const end = createNowUTCDate();
     let start;
     if (metricConfig.legacy) {
-        start = new Date(Date.parse(config.startTimestamp));
+        start = new Date(config.startDate);
         return {
             name: 'All',
             start: dateformat(start, 'yyyymmdd00', true),

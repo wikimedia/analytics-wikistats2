@@ -58,7 +58,7 @@ const darkColor = {
     content: colors.content[3]
 };
 
-const startTimestamp = '1980-01-01T00:00:00Z';
+const startDate = Date.parse('1980-01-01T00:00:00Z');
 
 const areasWithMetrics = _.transform(questions, function (result, q) {
     let area = result.find((a) => a.name === q.a);
@@ -258,5 +258,5 @@ export default {
     areasWithMetrics,
     months,
     availableChartTypes,
-    startTimestamp
+    startDate,
 };

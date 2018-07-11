@@ -38,7 +38,7 @@ export default {
             const now = utils.createNowUTCDate();
             const lastMonthAvailable = dateFormat(now, 'yyyymmdd00', true);
 
-            let start = dateFormat(config.startTimestamp, 'yyyymmdd00', true);
+            let start = dateFormat(config.startDate, 'yyyymmdd00', true);
 
             if (name !== 'All') {
                 let d = utils.createNowUTCDate();
