@@ -1,6 +1,5 @@
-
 import dateformat from 'dateformat';
-
+import config from './config';
 
 function labeledCrossProduct (obj) {
     let explodedKeys = Object.keys(obj).map(k => obj[k].map(o => {
@@ -74,15 +73,24 @@ function createNowUTCDate(){
 **/
 function getUTCTimestampFromYearMonth(year, month){
     //months start at zero
-    return Date.UTC(year, month-1, 1,0, 0,0);
+    return Date.UTC(year, month - 1, 1, 0, 0, 0);
 }
 
 /**
 * Time range we would use to fetch data
 **/
-function getDefaultTimeRange() {
+function getDefaultTimeRange(metricConfig) {
     const end = createNowUTCDate();
-    const start = createNowUTCDate();
+    let start;
+    if (metricConfig.legacy) {
+        start = new Date(config.startDate);
+        return {
+            name: 'All',
+            start: dateformat(start, 'yyyymmdd00', true),
+            end: dateformat(end, 'yyyymmdd00', true ),
+        };
+    }
+    start = createNowUTCDate();
     start.setUTCFullYear(end.getUTCFullYear() - 2);
 
     // substract 1 from current month as wikistats data is
@@ -90,10 +98,10 @@ function getDefaultTimeRange() {
     let startMonth = start.getUTCMonth();
     let startYear = start.getUTCFullYear();
     if (startMonth > 0) {
-        startMonth = startMonth-1;
+        startMonth = startMonth - 1;
     } else {
         startMonth = 12;
-        startYear = startYear -1;
+        startYear = startYear - 1;
     }
     start.setUTCMonth(startMonth);
     start.setUTCFullYear(startYear);
@@ -109,7 +117,6 @@ function getDefaultTimeRange() {
 function getGranularity (start, end) {
     const millisecondsInSixMonths = 15552e6;
     return createDate(end) - createDate(start) > millisecondsInSixMonths ? 'monthly' : 'daily';
-
 }
 
 function getDateFormatFromData (data) {

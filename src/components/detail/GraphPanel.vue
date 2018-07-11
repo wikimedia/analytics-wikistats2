@@ -18,7 +18,7 @@
 
             <div class="ui right floated basic fudge segment">
                 <simple-legend
-                    v-if="!mobile && activeBreakdown && chartComponent !== 'table-chart'"
+                    v-if="!mobile && activeBreakdown && chartComponent !== 'table-chart' && chartComponent !== 'map-chart'"
                     class="simple legend"
                     :breakdown="activeBreakdown">
                 </simple-legend>
@@ -64,7 +64,7 @@
                     </span>
                 </h5>
                 <p>{{graphModel.config.description}}.
-                    <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
+                    <a class="metric link" :href="graphModel.config.infoUrl" target="_blank"
                        :title="graphModel.config.tooltip">
                         More info about this metric.
                     </a>
@@ -72,7 +72,10 @@
             </div>
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
-            <time-range-selector :lastMonth ='lastMonth'></time-range-selector>
+            <time-range-selector
+                :lastMonth="lastMonth"
+                :frozen="graphModel.config.legacy">
+            </time-range-selector>
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>

@@ -94,7 +94,7 @@ export default {
 
             const n = root.node();
             const activeDict = this.graphModel.getActiveBreakdownValues();
-            let dates = this.data.map((d) => new Date(Date.parse(d.month)));
+            let dates = this.data.map((d) => d.month);
             const datespan = arr.extent(dates);
 
             const { min, max } = this.graphModel.getMinMax();
@@ -152,7 +152,7 @@ export default {
                         }
                     })
                     .attr('width', (d) => d.width)
-                    .attr('height', (d) => Math.abs(y(d.value) - y(0)))
+                    .attr('height', (d) => d.value ? Math.abs(y(d.value) - y(0)) : 0)
                     .attr('fill', (d) => d.color)
                     .on('mouseover', function (d) {
                         const diagonalHatch = d3.select('#diagonalHatch')

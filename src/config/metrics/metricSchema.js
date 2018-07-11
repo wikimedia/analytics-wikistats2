@@ -41,6 +41,10 @@ const metricSchema = {
         required: true,
         possibleValues: ['top', 'timeseries']
     },
+    legacy: {
+        type: 'boolean',
+        required: false
+    },
     area: {
         type: 'string',
         required: true,
@@ -53,6 +57,10 @@ const metricSchema = {
     value: {
         type: 'string',
         required: true
+    },
+    valueTitle: {
+        type: 'string',
+        required: false
     },
     arrayName: {
         type: 'string',

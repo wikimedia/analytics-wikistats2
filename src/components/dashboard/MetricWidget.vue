@@ -112,12 +112,13 @@ export default {
             'project'
         ]), {
             params () {
+                const metricConfig = config.metricConfig(this.metric.name);
                 return {
                     project: this.project,
                     area: this.area,
                     metric: this.metric.name,
-                    metricConfig: config.metricConfig(this.metric.name),
-                    timeRange: defaultRange,
+                    metricConfig: metricConfig,
+                    timeRange: utils.getDefaultTimeRange(metricConfig),
                     granularity: 'monthly',
                 };
             },

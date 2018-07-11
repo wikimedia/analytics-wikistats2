@@ -1,24 +1,20 @@
 <template>
-    <div v-if="palette" class = "map legend">
+    <div v-if="scale" class = "map legend">
         <h4 class = "title">{{title}}</h4>
         <svg>
-            <rect v-for="(color, i) in palette"
+            <rect v-for="(bound, i) in boundaries.slice(0, boundaries.length - 1)"
                   :style="{
-                      fill: color
+                      fill: scale(boundaries[i + 1])
                   }"
                   :x="padding + i * boxSize"
                   :y="0"
                   :width="boxSize"
                   :height="boxHeight"
             />
-            <text v-for="(color, i) in palette"
+            <text v-for="(bound, i) in boundaries"
                   :y="boxHeight + 10"
                   :x="padding + i * boxSize">
-                {{parseInt(buckets[i].split('-')[0]) | kmb}}
-            </text>
-            <text :y="boxHeight + 10"
-                  :x="padding + palette.length * boxSize">
-                {{parseInt(buckets[palette.length - 1].split('-')[1]) | kmb}}
+                {{parseInt(bound) | kmb}}
             </text>
         </svg>
     </div>
@@ -26,12 +22,25 @@
 
 <script type="text/javascript">
     import config from '../../../../config';
+    import * as scales from 'd3-scale';
     export default {
         name: 'map-legend',
-        props: ['title', 'palette', 'min', 'max'],
+        props: ['title', 'scale'],
         computed: {
             boxSize () {
-                return (this.width - this.padding * 2) / this.palette.length;
+                return (this.width - this.padding * 2) / this.buckets;
+            },
+            boundaries () {
+                let boundaries = [this.scale.min];
+                const buckets = this.buckets;
+                const inverseScale = scales.scaleLog()
+                    .domain([this.scale.min, this.scale.max])
+                    .range([0,1]).invert;
+                for (let i = 0; i < buckets; i++) {
+                    let rightBound = inverseScale((i + 1) / buckets);
+                    boundaries.push(rightBound);
+                }
+                return boundaries;
             }
         },
         data () {
@@ -39,13 +48,7 @@
                 width: 300,
                 padding: 15,
                 boxHeight: 15,
-                buckets: config.buckets
-            }
-        },
-        methods: {
-            getBucketValue (i) {
-                const bucketMin = this.min + i * (this.max - this.min) / this.palette.length;
-                return this.$options.filters.kmb(bucketMin);
+                buckets: 8
             }
         }
     }

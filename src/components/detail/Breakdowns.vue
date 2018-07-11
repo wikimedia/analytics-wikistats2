@@ -4,12 +4,13 @@
     <h3 class="header">Filter and split</h3>
 
     <div v-for="b, i in graphModel.breakdowns" class="breakdown">
-        <div class="ui toggle checkbox">
+        <div class="ui radio checkbox">
             <input
                 type="radio"
                 :id="'breakdown' + b.breakdownName"
                 v-model="graphModel.activeBreakdown"
-                :value="b">
+                :value="b"
+                :disabled="disableBreakdowns">
             <label :for="'breakdown' + b.breakdownName">
                 <span v-if="b.total">
                     Overall <strong>{{b.name.toLocaleLowerCase()}}</strong>
@@ -25,8 +26,7 @@
         <div v-if="!b.total && isActive(b)">
             <label class="xui checkbox" :class="{active: isActive(b)}"
                    v-for="bv in b.values">
-
-                <input type="checkbox" v-model="bv.on" :disabled="!isActive(b)"/>
+                <input type="checkbox" v-model="bv.on" :disabled="!isActive(b) || disableBreakdowns"/>
                 {{bv.name}}
             </label>
         </div>
@@ -39,7 +39,7 @@
 
     export default {
         name: 'breakdowns',
-        props: ['graphModel'],
+        props: ['graphModel', 'disableBreakdowns'],
 
         methods: {
             isActive (b) {
@@ -50,9 +50,6 @@
 </script>
 
 <style>
-.breakdown .ui.toggle.checkbox > label { cursor: pointer!important; padding-left: 4em; }
-.ui.toggle.checkbox { margin-top: 10px; }
-.ui.toggle.checkbox input:focus:checked ~ label:before {
-    background-color: #2185D0 !important;
-}
+.breakdown .ui.radio.checkbox > label { cursor: pointer!important; padding-left: 1.7em; }
+.ui.radio.checkbox { margin-top: 10px; }
 </style>
