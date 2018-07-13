@@ -126,13 +126,13 @@ export default {
     border: none;
 }
 .area.contributing .header {
-    border-bottom: 2px solid #c4cddf;
+    border-bottom: 2px solid #D4E6F1;
 }
 .area.reading .header {
-    border-bottom: 2px solid #b8e9de;
+    border-bottom: 2px solid #D1F2EB;
 }
 .area.content .header {
-    border-bottom: 2px solid #fff1c6;
+    border-bottom: 2px solid #F9E79F;
 }
 
 .ui.attached.basic.segment {

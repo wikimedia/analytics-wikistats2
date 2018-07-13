@@ -163,14 +163,9 @@ export default {
                     bColor = config.getColorForBreakdown(activeBreakdown, breakdown[0].key, this.graphModel.config.area);
                     g.append('path').datum(breakdown)
                         .attr('d', line)
-                        .style('stroke', '#000')
-                        .style('stroke-width', '3px')
-                        .style('fill', 'none');
-                    g.append('path').datum(breakdown)
-                        .attr('d', line)
                         .attr('class', 'statLine breakdownLine')
                         .style('stroke', bColor)
-                        .style('stroke-width', '2px')
+                        .style('stroke-width', '3px')
                         .style('fill', 'none');
                 });
 
