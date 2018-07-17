@@ -23,7 +23,11 @@ const kmb = (n) => {
     let units = numeral(n).format('0[.]0[0]a');
     return units.toUpperCase();
 }
-const bytes = n => numeral(n).format('0[.]0[0] b');
+const bytes = n => {
+    let f = '';
+    if (n < 0) f = '-';
+    return f + numeral(Math.abs(n)).format('0[.]0[0] b');
+};
 const filterRange = (filter, str) => {
     return filter(parseInt(str.split('-')[0])).toUpperCase() + '→' + filter(parseInt(str.split('-')[1])).toUpperCase();
 };
