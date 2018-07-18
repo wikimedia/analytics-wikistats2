@@ -18,7 +18,8 @@
             <path d="M-1,1 l2,-2
                      M0,4 l4,-4
                      M3,5 l2,-2"
-                  style="stroke:black; stroke-width:1" />
+                  style="stroke:black; stroke-width:1"
+            />
         </pattern>
         <g class="map group">
         </g>
@@ -100,13 +101,14 @@ export default {
                     return 'country ' + feature.id;
                 });
             const zoom = getZoomBehavior(paths, path, projection);
-            svg.call(zoom);
+            svg.call(zoom).on('wheel', function() {
+                d3.event.preventDefault();
+            });
             zoom.translateTo(svg, 120, -50);
             zoom.scaleTo(svg, 0.8)
             if (this.data.length > 0) {
                 this.drawChoropleth();
             }
-
         },
         drawChoropleth () {
             let self = this;
@@ -172,12 +174,12 @@ function darkenColorBy (color, percentageToDarkenBy) {
 }
 
 function getZoomBehavior (features, path, projection) {
-    const zoomBehavior = zoom.zoom().scaleExtent([0.8, 8]).translateExtent([[-100,-500],[1000, 800]]);
+    const zoomBehavior = zoom.zoom().scaleExtent([0.8, 8]).translateExtent([[-100,-300],[1000, 800]]);
     zoomBehavior.on('zoom', function() {
         const extentBBox = features._parents[0].getBBox();
         const width = extentBBox.width;
         const height = extentBBox.height;
-        const scale = d3.event.transform.k
+        const scale = d3.event.transform.k;
         /*
         These two operations constrain the map viewport to the bounding box that contains land. Since we
         deal directly with projected topojson arcs, and not with global latitudes and longitudes, we need
@@ -192,25 +194,22 @@ function getZoomBehavior (features, path, projection) {
     });
     return zoomBehavior;
 };
-
 </script>
 
-<style type="text/css">
-
+<style>
+.map.canvas {
+    width: 100%;
+    min-height: 500px;
+    margin-bottom:40px;
+}
+.country {
+    stroke: #555;
+    stroke-width: 0.5px;
+    vector-effect: non-scaling-stroke;
+}
+@media(max-width: 450px) {
     .map.canvas {
-        width: 100%;
-        min-height: 500px;
-        margin-bottom:40px;
+        min-height: 250px;
     }
-
-    .country {
-        stroke: #555;
-        stroke-width: 0.5px;
-        vector-effect: non-scaling-stroke;
-    }
-    @media(max-width: 450px) {
-        .map.canvas {
-            min-height: 250px;
-        }
-    }
+}
 </style>
