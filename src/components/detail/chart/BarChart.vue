@@ -1,9 +1,10 @@
 <template>
 <div class="graphContainer">
-    <div v-if="hoveredBar" class="bar valuePopup" :style="getPopupPosition(hoveredBar)" :class="popupOrientation(hoveredBar)">
+    <div v-if="hoveredBar" class="bar valuePopup" :style="getPopupStyle(hoveredBar)">
         <b>{{hoveredBar.month | ISOdateUTC(granularityFormat) }}</b>
         <div><b><span :style="{ color: hoveredBar.color }">{{hoveredBar.key}}</span></b>
         <span>{{hoveredBar.value | thousands}}</span></div>
+        <div class="tooltipArrow"><div class="tooltipAfter" :style="getPopupArrowStyle(hoveredBar)"></div></div>
     </div>
     <div class="big bar chart">
         <svg>
@@ -33,39 +34,30 @@ import config from '../../../config';
 
 export default {
     name: 'bar-chart',
-
     props: ['graphModel', 'data'],
-
     data () {
         return {
             hoveredBar: null
         };
     },
-
     computed: {
-
         granularityFormat () {
             return utils.getDateFormatFromData(this.data);
         },
     },
-
     mounted () {
         this.drawChart();
     },
-
     watch: {
         data: function () {
             this.drawChart();
         },
     },
-
     methods: {
-
         // PUBLIC: used by parent components
         redraw () {
             this.drawChart();
         },
-
         drawChart () {
             if (!this.data || !this.data.length) {
                 return;
@@ -87,6 +79,7 @@ export default {
                   padding = 4;
 
             const svg = root.select('svg');
+
             const g = svg.select('.graph')
             // clean up after old chart
             svg.attr('width', 0).attr('height', 0);
@@ -123,7 +116,6 @@ export default {
             svg.attr('width', n.offsetWidth).attr('height', n.offsetHeight);
 
             let graphElement = g.append('g');
-
             y.domain([min, max]);
             let self = this;
             graphElement.selectAll('.bar').data(this.data)
@@ -160,9 +152,10 @@ export default {
                         d3.select(this).attr('fill', 'url(#diagonalHatch)');
                         self.hoveredBar = d;
                         const containerBB = self.$el.getBoundingClientRect();
+                        const graphPanelBB = self.$parent.$el.getBoundingClientRect();
                         const barBB = this.getBoundingClientRect();
-                        self.hoveredBar.left = barBB.left - containerBB.left + margin.left;
-                        self.hoveredBar.top = barBB.top - containerBB.top + barBB.height;
+                        self.hoveredBar.left = barBB.left - graphPanelBB.left + self.hoveredBar.width/2;
+                        self.hoveredBar.top = barBB.top - containerBB.top;
                         self.hoveredBar.right = containerBB.right - barBB.right + margin.left;
                     })
                     .on('mouseout', function (d) {
@@ -194,29 +187,18 @@ export default {
                     .attr("dy", ".15em")
                     .attr("transform", "rotate(-45)");
             svg.attr('width', n.offsetWidth).attr('height', g.node().getBBox().height + margin.top);
-            // n.onmouseout = this.onGraphMouseOut.bind(this);
-
+            n.onmouseout = this.onGraphMouseOut.bind(this);
         },
         onGraphMouseOut (e) {
             this.hoveredBar = null;
         },
-        popupOrientation (bar) {
-            if (bar.left > this.$el.getBoundingClientRect().width/2) {
-                return {
-                    'left': true
-                }
-            } else {
-                return {
-                    'right': true
-                }
-            }
+        getPopupStyle (bar) {
+          // 80 is half of valuePopup width
+          return { top: bar.top - 65 + 'px', left: bar.left - 80 + 'px', border: 'solid 1px ' + bar.color,
+                  borderBottom: 'solid 3px ' + bar.color }
         },
-        getPopupPosition (bar) {
-            if (bar.left > this.$el.getBoundingClientRect().width / 2) {
-                return {top: (bar.top / 2) + 'px', right: bar.right + 'px'}
-            } else {
-                return {top: (bar.top / 2) + 'px', left: bar.left + 'px'}
-            }
+        getPopupArrowStyle (bar) {
+          return { borderBottom: 'solid 3px ' + bar.color, borderRight: 'solid 3px ' + bar.color }
         }
     }
 }
@@ -228,31 +210,47 @@ export default {
     min-height: 386px;
 }
 .bar.valuePopup {
-    text-align: right;
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+    text-align: center;
+    color: #2C2C2C;
     position: absolute;
-    background-color:rgba(255, 255, 255, 0.7);
+    background-color: white;
+    border-radius: 4px;
     padding: 5px;
-    min-width: 20%;
+    width: 160px;
+    height: 75px;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.4);
 }
-.bar.valuePopup:after{
-    position: absolute;
-    top: 30%;
+.bar.valuePopup:after {
     content: '';
+    position: absolute;
+    top: 100%;
     width: 0;
     height: 0;
 }
-.bar.valuePopup.right:after {
-    left: -10px;
-    border-right: solid 10px rgba(255, 255, 255, 0.7);
-    border-bottom: solid 10px transparent;
-    border-top: solid 10px transparent;
+.tooltipArrow {
+    width: 50px;
+    height: 25px;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
 }
-.bar.valuePopup.left:after {
-    right: -10px;
-    border-left: solid 10px rgba(255, 255, 255, 0.7);
-    border-bottom: solid 10px transparent;
-    border-top: solid 10px transparent;
+.tooltipArrow > .tooltipAfter {
+    content: "";
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    top: 0;
+    left: 50%;
+    background-color: white;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
 }
+
 @media(max-width: 450px) {
     .big.bar.chart {
         min-height: 250px;
