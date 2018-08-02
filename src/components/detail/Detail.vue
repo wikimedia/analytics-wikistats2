@@ -100,8 +100,8 @@ export default {
 
             dataParameters () {
                 return {
-                    timeRange: this.timeRange,
-                    granularity: utils.getGranularity(this.timeRange.start, this.timeRange.end),
+                    timeRange: utils.getRequestInterval(this.timeRange),
+                    granularity: utils.getGranularity(this.timeRange),
                     breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
                 };
             },

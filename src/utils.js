@@ -1,4 +1,4 @@
-import dateformat from 'dateformat';
+import dateFormat from 'dateformat';
 import config from './config';
 
 function labeledCrossProduct (obj) {
@@ -76,53 +76,53 @@ function getUTCTimestampFromYearMonth(year, month){
     return Date.UTC(year, month - 1, 1, 0, 0, 0);
 }
 
-/**
-* Time range we would use to fetch data
-**/
-function getDefaultTimeRange(metricConfig) {
-    const end = createNowUTCDate();
-    let start;
-    if (metricConfig.legacy) {
-        start = new Date(config.startDate);
-        return {
-            name: 'All',
-            start: dateformat(start, 'yyyymmdd00', true),
-            end: dateformat(end, 'yyyymmdd00', true ),
-        };
-    }
-    start = createNowUTCDate();
-    start.setUTCFullYear(end.getUTCFullYear() - 2);
-
-    // substract 1 from current month as wikistats data is
-    // one month  (or more) delayed from current month
-    let startMonth = start.getUTCMonth();
-    let startYear = start.getUTCFullYear();
-    if (startMonth > 0) {
-        startMonth = startMonth - 1;
+function getGranularity (timeRange) {
+    if (timeRange.name) {
+        return ['1-Month', '3-Month'].includes(timeRange.name) ? 'daily' : 'monthly';
     } else {
-        startMonth = 12;
-        startYear = startYear - 1;
+        const millisecondsInSixMonths = 15552e6;
+        return timeRange.end - timeRange.start > millisecondsInSixMonths ? 'monthly' : 'daily';
     }
-    start.setUTCMonth(startMonth);
-    start.setUTCFullYear(startYear);
-    start.setUTCDate(1);
-
-    return {
-        name: '2-Year',
-        start: dateformat(start, 'yyyymmdd00', true),
-        end: dateformat(end, 'yyyymmdd00', true ),
-    };
 }
 
-function getGranularity (start, end) {
-    const millisecondsInSixMonths = 15552e6;
-    return createDate(end) - createDate(start) > millisecondsInSixMonths ? 'monthly' : 'daily';
+function getDefaultTimeRange (metricConfig) {
+    return {name: metricConfig.legacy ? 'All' : '2-Year'};
+}
+
+function getRequestInterval (timeRange) {
+    const format = 'yyyymmdd00';
+    var startDate, endDate;
+
+    if (timeRange.name) {
+        endDate = createNowUTCDate();
+        if (timeRange.name === 'All') {
+            startDate = config.startDate;
+        } else {
+            const monthsAgo = ['2-Year', '1-Year'].includes(timeRange.name) ? 28 : 7;
+            startDate = new Date(endDate);
+            startDate.setUTCMonth(endDate.getUTCMonth() - monthsAgo);
+        }
+    } else {
+        startDate = timeRange.start;
+        endDate = timeRange.end;
+    }
+
+    return {
+        start: dateFormat(startDate, format, true),
+        end: dateFormat(endDate, format, true)
+    };
 }
 
 function getDateFormatFromData (data) {
     if (!(data && data.length && data[0].month)) { return 'yyyy-mm'; }
     return getGranularity(data[0].month, data[data.length - 1].month) === 'monthly' ?
         'yyyy-mm' : 'yyyy-mm-dd';
+}
+
+function adjustGraphData (graphData, timeRangeName) {
+    if (!timeRangeName || timeRangeName === 'All') { return graphData; }
+    const maxElements = {'2-Year': 24, '1-Year': 12, '3-Month': 92, '1-Month': 31};
+    return graphData.slice(Math.max(graphData.length - maxElements[timeRangeName], 0));
 }
 
 export default {
@@ -132,7 +132,9 @@ export default {
     createDate,
     getUTCTimestampFromYearMonth,
     createNowUTCDate,
-    getDefaultTimeRange,
     getGranularity,
+    getDefaultTimeRange,
+    getRequestInterval,
     getDateFormatFromData,
+    adjustGraphData
 };

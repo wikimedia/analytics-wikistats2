@@ -24,9 +24,21 @@
                 </simple-legend>
                 <div v-if="!mobile" class="ui right floated icon buttons">
 
+
                     <button @click="download" class="ui icon button" title="Download">
                         <i class="download icon"></i>
                     </button>
+                    <div class="ui icon button simple dropdown" title="Permalink">
+                        <i class="chain icon"></i>
+                        <div class="menu permalink">
+                            <div class="ui right labeled input">
+                                <input type="text" :value="permalinkURL" readonly ref="permalinkText">
+                                <button @click="copyPermalink" class="ui icon button" title="Copy to clipboard">
+                                    <i class="copy icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="ui simple dropdown right labeled icon button"
                          title="Change Chart">
                         <i class="ui dropdown icon"/>
@@ -49,7 +61,7 @@
                 v-if="graphModel"
                 :is="chartComponent"
                 :graphModel="graphModel"
-                :data="graphModel.graphData">
+                :data="adjustedGraphData">
             </component>
             <div class="ui center aligned basic segment">
                 <h5 v-if="graphModel.config.structure === 'timeseries'">
@@ -73,7 +85,6 @@
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
             <time-range-selector
-                :lastMonth="lastMonth"
                 :frozen="graphModel.config.legacy">
             </time-range-selector>
         </div>
@@ -102,6 +113,8 @@ import EmptyChart from './chart/EmptyChart';
 import MapChart from './chart/MapChart';
 import StatusOverlay from '../StatusOverlay';
 import config from '../../config';
+import utils from '../../utils';
+import detailUtils from '../../router/urls/detail';
 import *  as d3Formatter from 'd3-dsv';
 import _ from 'lodash';
 import { mapState } from 'vuex';
@@ -127,9 +140,11 @@ export default {
     props: ['graphModel', 'overlayMessage', 'granularity'],
 
     computed: Object.assign(
+        mapState(['detail']),
         mapState('detail', [
             'fullscreen',
             'chartType',
+            'timeRange'
         ]), {
             month: function () {
                 if (this.graphModel.config.structure == 'top' && this.lastMonth) {
@@ -167,6 +182,27 @@ export default {
             },
             mobile: function () {
                 return this.$mq === 'mobile';
+            },
+            adjustedGraphData: function () {
+                if (this.graphModel.config.type === 'time') {
+                    return utils.adjustGraphData(this.graphModel.graphData, this.timeRange.name);
+                } else {
+                    return this.graphModel.graphData;
+                }
+            },
+            permalinkURL: function () {
+                if (this.adjustedGraphData.length > 0) {
+                    const specificDetail = Object.assign({}, this.detail);
+                    const startDate = new Date(this.adjustedGraphData[0].month);
+                    const endDate = new Date(this.adjustedGraphData[this.adjustedGraphData.length - 1].month);
+                    if (utils.getGranularity(this.timeRange) === 'monthly') {
+                        endDate.setUTCMonth(endDate.getUTCMonth() + 1);
+                    }
+                    specificDetail.timeRange = {start: startDate, end: endDate};
+                    const permalink = window.location.href;
+                    const specificDetailString = detailUtils.writeToURL(specificDetail);
+                    return permalink.slice(0, permalink.lastIndexOf('/') + 1) + specificDetailString;
+                }
             }
         }
     ),
@@ -193,6 +229,10 @@ export default {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        },
+        copyPermalink () {
+            this.$refs.permalinkText.select();
+            document.execCommand("copy");
         },
     }
 }
@@ -266,5 +306,20 @@ export default {
     .wikis {
         background: #fff;
     }
+}
+.permalink {
+    width: 300px !important;
+    margin-left: -260px !important;
+}
+.permalink .ui.right.labeled.input {
+    margin: 10px !important;
+}
+.permalink input {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+.permalink i {
+    line-height: 6px;
 }
 </style>
