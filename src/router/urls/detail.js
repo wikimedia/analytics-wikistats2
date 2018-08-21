@@ -1,6 +1,9 @@
+import dateFormat from 'dateformat';
+
 const TOP_LEVEL     = '|',
       SECOND_LEVEL  = '~',
-      THIRD_LEVEL   = '*';
+      THIRD_LEVEL   = '*',
+      DATE_FORMAT   = 'yyyy-mm-dd';
 
 function writeToURL (detail) {
     // simpler: return encodeURIComponent(JSON.stringify(detail));
@@ -8,7 +11,10 @@ function writeToURL (detail) {
     return [
         detail.fullscreen ? 'full' : 'normal',
         detail.chartType,
-        [detail.timeRange.name, detail.timeRange.start, detail.timeRange.end].join(SECOND_LEVEL),
+        detail.timeRange.name ? detail.timeRange.name : [
+            dateFormat(detail.timeRange.start, DATE_FORMAT, true),
+            dateFormat(detail.timeRange.end, DATE_FORMAT, true)
+        ].join(SECOND_LEVEL),
         detail.breakdown ? [
             detail.breakdown.breakdownName,
             detail.breakdown.values.filter(bv => bv.on).map(bv => bv.key).join(THIRD_LEVEL),
@@ -17,7 +23,6 @@ function writeToURL (detail) {
 }
 
 function readFromURL (encoded) {
-    // simpler: return JSON.parse(decodeURIComponent(encoded));
     if (encoded == '') return {};
     // decode the URI because some user agents, like iOS Chrome,
     // will automatically encode some characters, like "|"
@@ -29,10 +34,9 @@ function readFromURL (encoded) {
     return {
         fullscreen: parts[0] === 'full',
         chartType: parts[1],
-        timeRange: {
-            name: rangeParts[0],
-            start: rangeParts[1],
-            end: rangeParts[2],
+        timeRange: rangeParts.length === 1 ? {name: rangeParts[0]} : {
+            start: Date.parse(rangeParts[0]),
+            end: Date.parse(rangeParts[1])
         },
         breakdown: breakdownParts ? {
             breakdownName: breakdownParts[0],

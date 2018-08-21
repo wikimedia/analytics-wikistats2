@@ -127,9 +127,13 @@ export default {
                 if (['map', 'list'].includes(this.graphModel.config.type)) {
                     return this.graphModel.graphData;
                 } else {
+                    // Adjust the data to the expected size and then
                     // normalize the data to look like the old data
                     // if building breakdowns into the widgets, look here first
-                    return this.graphModel.graphData.map(d => ({
+                    return utils.adjustGraphData(
+                        this.graphModel.graphData,
+                        this.params.timeRange.name
+                    ).map(d => ({
                         month: d.month,
                         total: d.total.total,
                     }));
@@ -237,12 +241,13 @@ export default {
                     project: [params.project]
                 },
             );
+            const requestInterval = utils.getRequestInterval(params.timeRange);
             const commonParameters = Object.assign(
                 {},
                 defaults.common,
                 {
-                    start: params.timeRange.start,
-                    end: params.timeRange.end,
+                    start: requestInterval.start,
+                    end: requestInterval.end,
                     granularity: params.granularity,
                     structure: params.metricConfig.structure,
                 }
