@@ -1,40 +1,41 @@
 <template>
 <section class="page-footer">
     <div class="img-container">
-        <img class="wikimedia-logo" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Wikimedia-logo-V.svg"
+        <img class="wikimedia-logo" src="//upload.wikimedia.org/wikipedia/commons/f/f3/Wikimedia-logo-V.svg"
         alt="wikimedia-logo">
     </div>
     <div class="list-container list-documentation">
         <h5 class="list-heading">Documentation</h5>
         <ul class="list-content">
-            <li><a target="_blank" href="https://wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">About Wikistats</a></li>
-            <li><a target="_blank" href="https://wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Technology">Technology</a></li>
-            <li><a target="_blank" href="https://wikitech.wikimedia.org/wiki/Analytics#Datasets">Data it uses</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">About Wikistats</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Technology">Technology</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics#Datasets">Data it uses</a></li>
+            <li><a target="_blank" href="//foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">Privacy Policy</a></li>
         </ul>
     </div>
     <div class="list-container list-contributing">
         <h5 class="list-heading">Contributing</h5>
         <ul class="list-content">
-            <li><a target="_blank" href="https://wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Contributing_and_Deployment">Contributing guide</a></li>
-            <li><a target="_blank" href="https://phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&amp;projectPHIDs=Analytics-Wikistats,Analytics">Report a bug</a></li>
-            <li><a target="_blank" href="https://phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20New%20Feature&projectPHIDs=Analytics-Wikistats,Analytics">New feature</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Contributing_and_Deployment">Contributing guide</a></li>
+            <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&amp;projectPHIDs=Analytics-Wikistats,Analytics">Report a bug</a></li>
+            <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20New%20Feature&projectPHIDs=Analytics-Wikistats,Analytics">New feature</a></li>
         </ul>
     </div>
     <div class="list-container list-community">
         <h5 class="list-heading">Community</h5>
         <ul class="list-content">
-            <li><a target="_blank" href="https://phabricator.wikimedia.org/tag/analytics-wikistats/">Phabricator</a></li>
-            <li><a target="_blank" href="https://github.com/wikimedia/analytics-wikistats2">Github</a></li>
-            <li><a target="_blank" href="https://webchat.freenode.net/?channels=#wikimedia-analytics">IRC</a></li>
+            <li><a target="_blank" href="//phabricator.wikimedia.org/tag/analytics-wikistats/">Phabricator</a></li>
+            <li><a target="_blank" href="//github.com/wikimedia/analytics-wikistats2">Github</a></li>
+            <li><a target="_blank" href="//webchat.freenode.net/?channels=#wikimedia-analytics">IRC</a></li>
         </ul>
     </div>
     <div class="bottom-footer-container">
         <div class="credit">
-            Designed by <a target="_blank" href="http://aislinngrigas.com/about/"><span class="base-footer">Aislinn Grigas</span></a>
+            Designed by <a target="_blank" href="//aislinngrigas.com/about/"><span class="base-footer">Aislinn Grigas</span></a>
         </div>
         <div class="copyright">
             All data, charts, and other content is available under the
-            <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/"><span class="base-footer">Creative Commons CC0 dedication</span></a>.
+            <a target="_blank" href="//creativecommons.org/publicdomain/zero/1.0/"><span class="base-footer">Creative Commons CC0 dedication</span></a>.
         </div>
     </div>
 </section>
