@@ -21,6 +21,11 @@ const matrix = $.ajax({
     cache: true
 });
 
+const siteIsSelectable = (site) => {
+    if ('private' in site) return false;
+    return true;
+}
+
 // Iterates over the sitematrix and creates a data structure
 // for easy retrieval of project family data:
 //   {
@@ -45,7 +50,7 @@ const projectFamilies = matrix.then(matrixData => {
     return _.transform(matrixData.sitematrix, (projectFamilyAcc, languageGroup, key) => {
         if (key !== 'count' && key !== 'specials') {
             languageGroup.site.forEach(site => {
-                if (!site.private && !site.closed) {
+                if (siteIsSelectable(site)) {
                     const languageCode = languageCodeFix[languageGroup.code] || languageGroup.code;
                     const siteCode = site.code === 'wiki' ? 'wikipedia' : site.code;
                     const wikiInfo = {
@@ -117,9 +122,7 @@ const projectFamilies = matrix.then(matrixData => {
 const languages = matrix.then(matrixData => {
     return _.transform(matrixData.sitematrix, (languageAcc, languageGroup, key) => {
         if (key !== 'count' && key !== 'specials') {
-            const validSites = languageGroup.site.filter(site => {
-                return !site.private && !site.closed;
-            });
+            const validSites = languageGroup.site.filter(siteIsSelectable);
             if (validSites.length > 0) {
                 const languageCode = languageCodeFix[languageGroup.code] || languageGroup.code;
                 const name = _.capitalize(languageGroup.name);
@@ -160,27 +163,29 @@ const languages = matrix.then(matrixData => {
 const specials = matrix.then(matrixData => {
     return projectFamilies.then(projectFamilies => {
         return _.sortBy(
-            matrixData.sitematrix.specials.map(site => {
-                // The wiki's sitename is used as localName for special wikis.
-                // However, some wikis have confusing sitenames, like: www.wikidata.org,
-                // that has the sitename 'Wikipedia'. If a special site has a sitename
-                // that fully matches an existing project family, then it uses the site
-                // code instead of the sitename.
-                const projectFamilyWithSameName = _.find(
-                    Object.values(projectFamilies),
-                    projectFamily => {
-                        return projectFamily.name.toLowerCase() === site.sitename.toLowerCase();
-                    }
-                );
-                return {
-                    type: 'specialWiki',
-                    code: site.code,
-                    name: projectFamilyWithSameName ? _.capitalize(site.code) : site.sitename,
-                    dbname: site.dbname,
-                    hostname: stripUrl(site.url)
-                };
-            }),
-            'localName'
+            matrixData.sitematrix.specials
+                .filter(siteIsSelectable)
+                .map(site => {
+                    // The wiki's sitename is used as localName for special wikis.
+                    // However, some wikis have confusing sitenames, like: www.wikidata.org,
+                    // that has the sitename 'Wikipedia'. If a special site has a sitename
+                    // that fully matches an existing project family, then it uses the site
+                    // code instead of the sitename.
+                    const projectFamilyWithSameName = _.find(
+                        Object.values(projectFamilies),
+                        projectFamily => {
+                            return projectFamily.name.toLowerCase() === site.sitename.toLowerCase();
+                        }
+                    );
+                    return {
+                        type: 'specialWiki',
+                        code: site.code,
+                        name: projectFamilyWithSameName ? _.capitalize(site.code) : site.sitename,
+                        dbname: site.dbname,
+                        hostname: stripUrl(site.url)
+                    };
+                }),
+                'localName'
         );
     });
 });
