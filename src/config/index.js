@@ -101,7 +101,8 @@ const mainMetricsByArea = [
             metrics: [
                 'new-registered-users',
                 'edits',
-                'editors'
+                'editors',
+                'pages-to-date',
             ]
         }
     },
@@ -176,6 +177,10 @@ export default {
         },
 
         'new-pages': {
+            endpoint: AQS_HOST + '/edited-pages/new/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'pages-to-date': {
             endpoint: AQS_HOST + '/edited-pages/new/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
         },
 

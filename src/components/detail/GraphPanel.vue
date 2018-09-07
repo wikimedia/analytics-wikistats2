@@ -93,7 +93,7 @@
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
             <time-range-selector
-                :frozen="graphModel.config.legacy">
+                :frozen="graphModel.config.frozen">
             </time-range-selector>
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>

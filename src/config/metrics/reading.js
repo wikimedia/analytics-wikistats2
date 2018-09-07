@@ -42,7 +42,7 @@ module.exports = {
         tooltip: 'Legacy page views on Wikimedia projects count the viewing of article content from January 2008 to July 2016. The main difference compared to current page view data is the lack of filtering of self-reported bots, thus automated and human traffic are reported together.',
         type: 'time',
         structure: 'timeseries',
-        legacy: true,
+        frozen: true,
         defaults: {
             unique: {
                 project: ['all-projects'],

@@ -86,7 +86,7 @@ function getGranularity (timeRange) {
 }
 
 function getDefaultTimeRange (metricConfig) {
-    return {name: metricConfig.legacy ? 'All' : '2-Year'};
+    return {name: metricConfig.frozen ? 'All' : '2-Year'};
 }
 
 function getRequestInterval (timeRange) {

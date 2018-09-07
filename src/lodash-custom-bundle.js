@@ -6,6 +6,7 @@ import debounce from 'lodash/debounce';
 import endsWith from 'lodash/endsWith';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import flatten from 'lodash/flatten';
 import forEach from 'lodash/forEach';
 import indexOf from 'lodash/indexOf';
@@ -41,6 +42,7 @@ export default {
     endsWith,
     filter,
     find,
+    findIndex,
     flatten,
     forEach,
     indexOf,

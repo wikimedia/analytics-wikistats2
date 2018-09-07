@@ -45,8 +45,7 @@ describe('The line chart', () => {
 
     it('should generate as many lines as breakdowns selected', () => {
         graphModel.activeBreakdown = graphModel.breakdowns[1];
-        // refresh data (not ideal)
-        graphModel.refreshData();
+        graphModel.setData(graphModel.data);
 
         const vm = new Vue({
             template: '<div><test :graphModel="graphModel" :data="graphModel.graphData"></test></div>',

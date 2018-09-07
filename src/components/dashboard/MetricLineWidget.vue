@@ -54,7 +54,8 @@ export default {
                   height = n.offsetHeight - margin.top - margin.bottom - padding,
                   min = Math.min(0, arr.min(this.data.map((d) => d.total))),
                   x = scales.scaleTime().rangeRound([0, width]),
-                  y = scales.scaleLinear().rangeRound([height, min]);
+                  lineWidth = 2,
+                  y = scales.scaleLinear().rangeRound([height, min + lineWidth]);
 
             x.domain(arr.extent(this.data.map((d) => d.month)));
             y.domain([0, arr.max(this.data.map((d) => d.total))]);
@@ -90,7 +91,7 @@ export default {
             g.append('path').datum(this.data)
                 .attr('d', line)
                 .style('fill', 'none')
-                .style('stroke-width', '2')
+                .style('stroke-width', lineWidth)
                 .style('stroke', this.graphModel.config.darkColor);
         }
     }

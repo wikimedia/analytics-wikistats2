@@ -27,6 +27,14 @@ class GraphModel {
         })
         this.activeBreakdown = this.breakdowns[0];
 
+        // Unless we are modifying the dataset (i.e. with a cumulative metric),
+        // datasetFunction returns the same data it's passed.
+        this.datasetFunction = arg => arg;
+
+        if (this.config.cumulative) {
+            this.datasetFunction = GraphModel.ACCUMULATE;
+        }
+
         // TODO: maybe make this dynamic when the breakdown is activated?
         // Remove dimension values that have no data.
         /*
@@ -39,8 +47,6 @@ class GraphModel {
 
     setData (data) {
         this.data = data;
-
-
 
         const xAxisValue = 'timestamp';
         const yAxisValue = this.config.value;
@@ -59,10 +65,10 @@ class GraphModel {
             });
             return;
         } else {
-           this.data.measure(xAxisValue);
-            const rawValues = this.data.breakdown(yAxisValue, this.activeBreakdown.breakdownName);
-
-
+            this.data.measure(xAxisValue);
+            const rawValues = this.datasetFunction(
+                this.data.breakdown(yAxisValue, this.activeBreakdown.breakdownName)
+            );
             this.graphData = rawValues.map((row) => {
                 var ts = row.timestamp;
                 const month = utils.createDate(ts);
@@ -82,10 +88,6 @@ class GraphModel {
             flatJSONData.push(flatten(item));
         });
         return flatJSONData;
-    }
-
-    refreshData () {
-        this.setData(this.data);
     }
 
     get area () {
@@ -172,7 +174,28 @@ class GraphModel {
         }
     }
 
+    static ACCUMULATE (rawValues) {
+        return rawValues.reduce((p, c) => {
+            const valueName = Object.keys(rawValues[0]).filter(key => key != 'timestamp')[0];
+            const newValue = {
+                timestamp: c.timestamp
+            }
+            newValue[valueName] = {};
+            const splits = rawValues[0][valueName];
+            for (const split in splits) {
+                const lastValue = p[p.length - 1];
+                if (lastValue) {
+                    newValue[valueName][split] = lastValue[valueName][split] + c[valueName][split];
+                } else {
+                    newValue[valueName][split] = c[valueName][split];
+                }
+            }
+            p.push(newValue);
+            return p;
+        }, []);
+    }
 }
+
 
 /**
 * Stateless function that pivots the data

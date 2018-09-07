@@ -41,7 +41,11 @@ const metricSchema = {
         required: true,
         possibleValues: ['top', 'timeseries']
     },
-    legacy: {
+    frozen: {
+        type: 'boolean',
+        required: false
+    },
+    cumulative: {
         type: 'boolean',
         required: false
     },

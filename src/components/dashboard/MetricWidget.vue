@@ -241,7 +241,8 @@ export default {
                     project: [params.project]
                 },
             );
-            const requestInterval = utils.getRequestInterval(params.timeRange);
+            const getAll = params.metricConfig.cumulative;
+            const requestInterval = utils.getRequestInterval(getAll ? {name: 'All'} : params.timeRange);
             const commonParameters = Object.assign(
                 {},
                 defaults.common,
