@@ -102,7 +102,13 @@ class AQS {
     ]
     */
     formatTops (data, column) {
-        const timestamp = utils.getUTCTimestampFromYearMonth(data[0].year, data[0].month);
+        let timestamp;
+        // Some metrics carry a timestamp, others a year and month.
+        if (data[0].timestamp) {
+            timestamp = utils.createDate(data[0].timestamp);
+        } else {
+            timestamp = utils.getUTCTimestampFromYearMonth(data[0].year, data[0].month);
+        }
 
         const flatData = _.flatten(data.map(item => item[column]));
 

@@ -99,8 +99,9 @@ const mainMetricsByArea = [
             id: 'contributing',
             name: 'Contributing',
             metrics: [
-                'new-registered-users',
                 'edits',
+                'new-registered-users',
+                'top-editors',
                 'editors',
                 'pages-to-date',
                 'top-edited-pages'
@@ -211,6 +212,10 @@ export default {
 
         'top-edited-pages': {
             endpoint: AQS_HOST + '/edited-pages/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/all-days'
+        },
+
+        'top-editors': {
+            endpoint: AQS_HOST + '/editors/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/all-days'
         }
     },
 

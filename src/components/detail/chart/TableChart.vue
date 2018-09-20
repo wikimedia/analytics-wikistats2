@@ -21,7 +21,7 @@
                 <td v-if="graphModel.config.type !== 'map'" class="right aligned">{{m.total.total|thousands}}</td>
                 <td v-else class="right aligned">{{m.total.total|kmb}}</td>
                 <td>
-                    <a v-if="graphModel.config.type !== 'map'" target="_blank" :href="'\/\/' + $store.state.project + '/wiki/' + m[graphModel.config.key]">
+                    <a v-if="graphModel.config.type !== 'map'" target="_blank" :href="generateLink(m[graphModel.config.key])">
                         {{elementName(i)}}
                     </a>
                     <span v-else>
@@ -98,6 +98,14 @@ export default {
         },
         advancePage(){
             this.currentPage++;
+        },
+        generateLink (elementName) {
+            const transformation = {
+                'user_text': (e) => '\/\/' + this.$store.state.project + '/wiki/User:' + e
+            }[this.graphModel.config.key];
+            if (transformation) {
+                return transformation(elementName);
+            } else return '\/\/' + this.$store.state.project + '/wiki/' + elementName;
         }
     }
 }

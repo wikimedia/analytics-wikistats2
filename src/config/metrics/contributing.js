@@ -202,6 +202,50 @@ module.exports = {
         global: true,
         additive: true
     },
+    'top-editors': {
+        disabled: false,
+        fullName: 'Top editors',
+        subtitle: 'Most prolific users',
+        description: 'Most prolific editors',
+        question: 'Who are the users that edit the most articles?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Top_editors',
+        type: 'list',
+        structure: 'top',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                editor_type: ['all-editor-types'],
+                page_type: ['all-page-types']
+            },
+            common: {
+                metric: 'top-editors',
+                granularity: 'monthly'
+            }
+        },
+        breakdowns: [{
+            name: 'Editor type',
+            breakdownName: 'editor_type',
+            values: [
+                { name: 'Anonymous', on: true, key: 'anonymous' },
+                { name: 'Group bot', on: true, key: 'group-bot' },
+                { name: 'Name bot', on: true, key: 'name-bot' },
+                { name: 'User', on: true, key: 'user' },
+            ]
+        },{
+            name: 'Page type',
+            breakdownName: 'page_type',
+            values: [
+                { name: 'Content', on: true, key: 'content' },
+                { name: 'Non content', on: true, key: 'non-content' }
+            ]
+        }],
+        value: 'edits',
+        key: 'user_text',
+        arrayName: 'top',
+        area: 'contributing',
+        global: false,
+        additive: false
+    },
     'top-edited-pages': {
         disabled: false,
         fullName: 'Top edited pages',
@@ -244,6 +288,6 @@ module.exports = {
         arrayName: 'top',
         area: 'contributing',
         global: false,
-        additive: true
+        additive: false
     }
 };
