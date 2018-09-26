@@ -1,6 +1,7 @@
 <template>
 <div class="graphContainer">
-    <div v-if="hoveredPoint" class="line valuePopup">
+    <div v-if="hoveredPoint" class="line valuePopup"  :style="{ top: hoveredPointTop - 65 + 'px', left: hoveredPointLeft - 80 + 'px', border: 'solid 1px ' + hoveredPointColor,
+                  borderBottom: 'solid 3px ' + hoveredPointColor }">
         <b>{{hoveredPoint.month | ISOdateUTC(granularityFormat) }}</b>
         <div v-for="b in this.selectedValue" class="breakdown">
             <b><span :style="{ color: b.color }">{{b.name | capitalize}}</span></b>
@@ -35,7 +36,12 @@ export default {
 
     data () {
         return {
+            // This is dirty, but vue won't update the component according to hoveredPoint's properties
             hoveredPoint: null,
+            hoveredPointTop: null,
+            hoveredPointLeft: null,
+            hoveredPointColor: null,
+            hoveredPointColor: null,
             margin: {top: 6, right: 0, bottom: 20, left: 40}
         };
     },
@@ -254,9 +260,20 @@ export default {
                 .attr('y', 0)
                 .attr('height', height)
                 .attr('width', invisibleBarWidth)
-                .on('mouseover', function (d) {
+                .on('mousemove', function (d) {
                     $(this).siblings().show();
                     self.hoveredPoint = d;
+                    const containerBB = self.$el.getBoundingClientRect();
+                    const graphPanelBB = self.$parent.$el.getBoundingClientRect();
+                    const pointBB = this.getBoundingClientRect();
+                    const containerHeight = containerBB.height;
+                    if (d3.event.layerY > containerHeight / 2) {
+                        self.hoveredPointTop = containerHeight / 4;
+                    } else {
+                        self.hoveredPointTop = 3 * (containerHeight / 4);
+                    }
+                    self.hoveredPointLeft = pointBB.left - graphPanelBB.left + invisibleBarWidth / 2;
+                    self.hoveredPointRight = containerBB.right - pointBB.right + self.margin.left;
                 })
                 .on('mouseout', function () {
                     $(this).siblings().hide();
@@ -312,7 +329,7 @@ export default {
 .line.valuePopup {
     text-align: right;
     position: absolute;
-    background-color:rgba(255, 255, 255);
+    background-color:rgba(255, 255, 255, 1);
     padding: 5px;
     top: 50px;
     left: 40%;
@@ -320,10 +337,6 @@ export default {
     border: solid lightgray 1px;
     padding: 12px;
     box-shadow: 2px 2px 5px lightgray;
-}
-
-.line.valuePopup:hover {
-    background-color:rgba(255, 255, 255, 0.7);
 }
 
 .breakdown {
