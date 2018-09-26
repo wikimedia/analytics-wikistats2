@@ -19,6 +19,7 @@ export default new Vuex.Store({
         mainComponent: '',
         topicsMinimized: false,
         centralNotice: null,
+        selectingTime: false,
         width: null
     },
     getters: {
@@ -62,5 +63,8 @@ export default new Vuex.Store({
         topicExplorer (state, arg) {
             state.topicsMinimized = arg.minimize;
         },
+        selectingTime (state, arg) {
+            state.selectingTime = arg.selectingTime;
+        }
     },
 });

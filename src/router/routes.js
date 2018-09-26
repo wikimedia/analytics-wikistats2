@@ -57,12 +57,12 @@ function getDefaultMetricPath (params) {
 function getMergedDetail (metric) {
     // Merges the metric default configuration with user preferences.
     const metricConfig = config.metricConfig(metric);
-
     const defaults = {
         chartType: config.getChartTypes(metricConfig)[0].chart,
         timeRange: utils.getDefaultTimeRange(metricConfig),
         fullscreen: false,
         breakdown: {values: [{key: 'total', on: true}]},
+        granularity: 'monthly'
     };
 
     let breakdown;

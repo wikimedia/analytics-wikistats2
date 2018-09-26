@@ -87,6 +87,9 @@ export default {
     opacity: 1;
     animation-name: fadeInOpacity;
     animation-duration: 0.5s;
+    max-height: 70vh;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 @keyframes fadeInOpacity {

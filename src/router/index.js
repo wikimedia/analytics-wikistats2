@@ -52,7 +52,6 @@ function matchPath (route, info, path) {
  * the match in the form of a application state.
  */
 function getStateFromPath (path, routes) {
-
     if (path in stateFromPathCache) {
 
         return stateFromPathCache[path];
@@ -169,7 +168,6 @@ function getMainComponentFromState (state, routes) {
  * with any redirect routes.
  */
 function getPathFromState (root, state, routes) {
-
     var cacheKey = JSON.stringify(state);
 
     if (cacheKey in pathFromStateCache){
@@ -191,6 +189,12 @@ function getPathFromState (root, state, routes) {
     return root;
 
 
+}
+
+function flushCaches () {
+    stateFromPathCache = {};
+    matchStateCache = {};
+    pathFromStateCache = {};
 }
 
 
@@ -259,6 +263,7 @@ export default {
     getPathFromState,
     Router,
     //for unit tests
+    flushCaches,
     matchState,
     matchPath,
     getStateFromPath,

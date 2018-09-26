@@ -1,6 +1,7 @@
 import _ from '../lodash-custom-bundle';
 import utils from '../utils';
 import config from 'Src/config';
+import TimeRange from 'Src/models/TimeRange';
 import StatusOverlay from 'Src/components/StatusOverlay';
 import AQS from 'Src/apis/aqs';
 import AnnotationApi from 'Src/apis/annotation';
@@ -10,14 +11,16 @@ const breakdownChecks = {
 };
 
 class GraphModel {
-    constructor (configuration) {
-        this.config = configuration;
+    constructor (project, metric) {
+        this.config = config.metricConfig(metric);
+        this.project = project;
         this.graphData = [];
         this.status = null;
+        this.timeRange = TimeRange.getDefaultTimeRange(this.config);
+        this.granularity = 'monthly';
         // After getting data, set this to a promise that fetches annotations with the api
         // The graphs can then use afterAnnotations to add a callback
         this.annotationPromise = null;
-        this.annotationApi = new AnnotationApi();
 
         this.breakdowns = utils.cloneDeep(this.config.breakdowns || []);
         // insert a "total" breakdown as a default breakdown
@@ -39,95 +42,110 @@ class GraphModel {
         if (this.config.cumulative) {
             this.datasetFunction = GraphModel.ACCUMULATE;
         }
+    }
 
-        // TODO: maybe make this dynamic when the breakdown is activated?
-        // Remove dimension values that have no data.
-        /*
-        this.breakdowns.forEach(breakdown => {
-            const dimensionValues = this.data.getDimensionValues(breakdown.breakdownName);
-            breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
-        });
-        */
+    getFormattedTimeRange () {
+        return this.timeRange.getFormattedTimeRange(this.granularity, this.config.structure);
+    }
+
+    setTimeRange (range) {
+        this.timeRange = range;
+        this.loadData();
+    }
+
+    setGranularity (granularity) {
+        this.granularity = granularity;
+        this.loadData();
+    }
+
+    setProject (project) {
+        this.project = project;
+        this.loadData();
     }
 
     loadData (settings) {
-        const project = settings.project;
-        if (this.metricNotGlobalAndAllProjectsSelected(project)) {
-            this.status = StatusOverlay.NON_GLOBAL(this.config.fullName);
-            return;
-        } else if (this.metricNotFamilyGlobalAndFamilySelected(project)) {
-            this.status = StatusOverlay.NON_GLOBAL_FAMILY(this.config.fullName, project);
-            return;
-        }
-        if (!this.breakdownAllowed(project) && this.activeBreakdown.name !== 'Total') {
-            this.preventUnallowedBreakdown();
-        }
-        const aqsApi = new AQS();
-        const defaults = this.config.defaults || {
-            unique: {},
-            common: {}
-        };
-        let uniqueParameters = Object.assign(
-            {},
-            defaults.unique,
-            {
-                project: [project]
-            }
-        );
-        const getAll = this.config.cumulative;
-        const requestInterval = utils.getRequestInterval(getAll ? {name: 'All'} : settings.timeRange);
-        const commonParameters = Object.assign(
-            {},
-            defaults.common,
-            {
-                start: requestInterval.start,
-                end: requestInterval.end,
-                granularity: settings.granularity,
-                structure: this.config.structure,
-            }
-        );
-        if (this.config.structure === 'top') {
-            Object.assign(commonParameters, utils.getLastFullMonth(commonParameters.end));
-        }
-        const breakdown = this.activeBreakdown;
-        if (breakdown && !breakdown.total) {
-            let breakdownKeys = breakdown.values.filter(bv => bv.on).map(bv => bv.key);
-
-            // in this case, the user de-selected the last value, toggle back to Total
-            if (!breakdownKeys.length) {
-                // also re-select everything otherwise this will loop
-                // to see what I mean, try deleting the next line and de-selecting all values
-                breakdown.values.forEach(bv => bv.on = true);
-                this.activeBreakdown = this.breakdowns[0];
+        // Debouncing avoids requesting data additional times unnecessarily
+        // when we're changing several attributes at the same time (granularity, range, etc).
+        if(!this.debounced) this.debounced = _.debounce(() => {
+            if (this.metricNotGlobalAndAllProjectsSelected(this.project)) {
+                this.status = StatusOverlay.NON_GLOBAL(this.config.fullName);
+                return;
+            } else if (this.metricNotFamilyGlobalAndFamilySelected(this.project)) {
+                this.status = StatusOverlay.NON_GLOBAL_FAMILY(this.config.fullName, this.project);
                 return;
             }
-            uniqueParameters[breakdown.breakdownName] = breakdownKeys;
-        }
-
-        let dataPromise = aqsApi.getData(uniqueParameters, commonParameters);
-        this.status = StatusOverlay.LOADING;
-
-        dataPromise.catch((req, status, error) => {
-            this.status = StatusOverlay.getMessageForStatus(req.status);
-        });
-        dataPromise.then(dimensionalData => {
-            if (dimensionalData.getAllItems().length === 0) {
-                this.status = StatusOverlay.NO_DATA;
+            if (!this.breakdownAllowed(this.project) && this.activeBreakdown.name !== 'Total') {
+                this.preventUnallowedBreakdown();
             }
-            this.status = null;
-            this.setData(dimensionalData);
-            if (settings.annotations) {
-                this.annotationPromise = this.annotationApi.getAnnotations(this);
+            const aqsApi = new AQS();
+            const defaults = this.config.defaults || {
+                unique: {},
+                common: {}
+            };
+            let uniqueParameters = Object.assign(
+                {},
+                defaults.unique,
+                {
+                    project: [this.project]
+                }
+            );
+            const getAll = this.config.cumulative;
+            const requestInterval = this.timeRange;
+            const commonParameters = Object.assign(
+                {},
+                defaults.common,
+                {
+                    start: requestInterval.start,
+                    end: requestInterval.end,
+                    granularity: this.granularity,
+                    structure: this.config.structure,
+                    timeRange: this.timeRange
+                }
+            );
+            if (this.config.structure === 'top') {
+                Object.assign(commonParameters, utils.getLastFullMonth(commonParameters.end));
             }
-        });
+            const breakdown = this.activeBreakdown;
+            if (breakdown && !breakdown.total) {
+                let breakdownKeys = breakdown.values.filter(bv => bv.on).map(bv => bv.key);
+
+                // in this case, the user de-selected the last value, toggle back to Total
+                if (!breakdownKeys.length) {
+                    // also re-select everything otherwise this will loop
+                    // to see what I mean, try deleting the next line and de-selecting all values
+                    breakdown.values.forEach(bv => bv.on = true);
+                    this.activeBreakdown = this.breakdowns[0];
+                    return;
+                }
+                uniqueParameters[breakdown.breakdownName] = breakdownKeys;
+            }
+
+            let dataPromise = aqsApi.getData(uniqueParameters, commonParameters);
+            this.status = StatusOverlay.LOADING;
+
+            dataPromise.catch((req, status, error) => {
+                this.status = StatusOverlay.getMessageForStatus(req.status);
+            });
+            dataPromise.then(dimensionalData => {
+                if (dimensionalData.getAllItems().length === 0) {
+                    this.status = StatusOverlay.NO_DATA;
+                }
+                this.status = null;
+                this.setData(dimensionalData);
+                if (settings && settings.annotations !== false) {
+                    this.annotationPromise = new AnnotationApi().getAnnotations(this);
+                }
+            });
+        }, 1)
+        this.debounced();
     }
 
     metricNotFamilyGlobalAndFamilySelected (project) {
         return (!this.config.globalFamily && utils.isProjectFamily(project));
     }
 
-    metricNotGlobalAndAllProjectsSelected (project) {
-        return (!this.config.global && project === config.ALL_PROJECTS);
+    metricNotGlobalAndAllProjectsSelected () {
+        return (!this.config.global && this.project === config.ALL_PROJECTS);
     }
 
     preventUnallowedBreakdown () {
@@ -167,14 +185,19 @@ class GraphModel {
             const rawValues = this.datasetFunction(
                 this.data.breakdown(yAxisValue, this.activeBreakdown.breakdownName)
             );
-            this.graphData = rawValues.map((row) => {
+            this.graphData = this.cutForTimerange(rawValues.map((row) => {
                 var ts = row.timestamp;
                 const month = utils.createDate(ts);
                 return {month: month, total: row[yAxisValue]};
-            });
+            }), this.timeRange);
 
         }
 
+    }
+
+    cutForTimerange (data, timeRange) {
+        if (!timeRange) return data;
+        return data.filter(item => item.month >= timeRange.start && item.month <= timeRange.end);
     }
 
     /** Data for downloading as csv needs to be a flat key/value pair object **/

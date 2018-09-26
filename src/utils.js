@@ -1,5 +1,6 @@
 import dateFormat from 'dateformat';
 import config from './config';
+import TimeRange from 'Src/models/TimeRange';
 
 function labeledCrossProduct (obj) {
     let explodedKeys = Object.keys(obj).map(k => obj[k].map(o => {
@@ -19,13 +20,8 @@ function cloneDeep (c) {
     return JSON.parse(JSON.stringify(c));
 }
 
-function getLastFullMonth (yyyymmddDate) {
-    if (yyyymmddDate.length < 6) { return { year: 2017, month: 11 }; }
-
-    let year = parseInt(yyyymmddDate.slice(0, 4), 10);
-    let month = parseInt(yyyymmddDate.slice(4, 6), 10);
-
-    const lastFullDate = new Date(getUTCTimestampFromYearMonth(year, month - 1));
+function getLastFullMonth (date) {
+    const lastFullDate = new Date(new Date(date).setMonth(new Date(date).getUTCMonth() - 1));
     const lastMonth = '' + (lastFullDate.getUTCMonth() + 1);
 
     return {
@@ -86,7 +82,12 @@ function getGranularity (timeRange) {
 }
 
 function getDefaultTimeRange (metricConfig) {
-    return { name: metricConfig.frozen || '2-Year' };
+    const structure = metricConfig.structure;
+    if (structure === 'top') {
+        return new TimeRange('last-month');
+    } else {
+        return new TimeRange('2-year');
+    }
 }
 
 function getRequestInterval (timeRange) {
@@ -107,8 +108,8 @@ function getRequestInterval (timeRange) {
     }
 
     return {
-        start: dateFormat(startDate, format, true),
-        end: dateFormat(endDate, format, true)
+        start: startDate,
+        end: endDate
     };
 }
 
@@ -128,6 +129,14 @@ function isProjectFamily (project) {
     return project.match(/all-wik[a-z]+-projects/);
 }
 
+function dateFormatForGranularity (date, granularity) {
+    if (granularity === 'monthly') {
+        return dateFormat(date, "mmm yyyy", true);
+    } else if (granularity === 'daily') {
+        return dateFormat(date, "d mmm yyyy", true);
+    }
+}
+
 export default {
     labeledCrossProduct,
     cloneDeep,
@@ -140,5 +149,6 @@ export default {
     getRequestInterval,
     getDateFormatFromData,
     adjustGraphData,
-    isProjectFamily
+    isProjectFamily,
+    dateFormatForGranularity
 };

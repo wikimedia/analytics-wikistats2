@@ -22,6 +22,7 @@ module.exports = {
         area: 'reading',
         value: 'views',
         global: true,
+        knownStart: '2016-01-01',
         breakdowns: [{
             name: 'Access method',
             breakdownName: 'access',
@@ -42,7 +43,6 @@ module.exports = {
         tooltip: 'Legacy page views on Wikimedia projects count the viewing of article content from January 2008 to July 2016. The main difference compared to current page view data is the lack of filtering of self-reported bots, thus automated and human traffic are reported together.',
         type: 'time',
         structure: 'timeseries',
-        frozen: 'All',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -64,6 +64,8 @@ module.exports = {
                 { name: 'Desktop Site', on: true, key: 'desktop-site' }
             ]
         }],
+        knownStart: '2007-12-01',
+        knownEnd: '2016-08-01',
         additive: true
     },
     'page-views-by-country': {
@@ -75,7 +77,6 @@ module.exports = {
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'map',
-        frozen:'1-Month',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -95,6 +96,7 @@ module.exports = {
                 { name: 'Mobile Web', on: true, key: 'mobile-web' }
             ]
         }],
+        knownStart: '2016-01-01',
         value: 'views_ceil',
         valueTitle: 'page views',
         key: 'country',
@@ -123,6 +125,7 @@ module.exports = {
                 granularity: 'monthly'
             }
         },
+        knownStart: '2016-01-01',
         value: 'devices',
         area: 'reading',
         global: false,
@@ -148,7 +151,7 @@ module.exports = {
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'list',
         structure: 'top',
-        frozen:'1-Month',
+        knownStart: '2016-01-01',
         defaults: {
             unique: {
                 project: ['all-projects'],

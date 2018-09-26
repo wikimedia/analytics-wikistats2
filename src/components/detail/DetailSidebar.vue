@@ -5,6 +5,16 @@
         <wiki-selector :single="false"></wiki-selector>
     </div>
 
+    <div class="time" v-if="graphModel">
+        <div @click="toggleTimeSelection" class="ui label">
+            <i class="calendar alternate icon"></i>
+            {{formattedDateRange}}
+        </div>
+    </div>
+    <div class="time" v-if="graphModel">
+        <div @click="switchGranularity" v-if="graphModel && graphModel.graphData" class="ui label">{{graphModel.granularity}}</div>
+    </div>
+
     <div class="ui clearing divider"></div>
 
     <h3 class="header">Metrics</h3>
@@ -19,7 +29,6 @@
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
     </p-->
     <div class="ui clearing divider"></div>
-
     <breakdowns :graphModel="graphModel" v-if="graphModel && graphModel.breakdownAllowed(project)"/>
 </section>
 </template>
@@ -30,6 +39,8 @@ import { mapState } from 'vuex';
 import WikiSelector from '../WikiSelector';
 import Breakdowns from './Breakdowns';
 import RouterLink from '../RouterLink';
+
+import utils from 'Src/utils'
 
 import '../../../semantic/dist/components/modal';
 import '../../../semantic/dist/components/dimmer';
@@ -49,14 +60,26 @@ export default {
         Breakdowns,
         RouterLink,
     },
-    computed: mapState([
+    computed: Object.assign(mapState([
         'project',
         'area',
-    ]),
+        'selectingTime'
+    ]), {
+        formattedDateRange () {
+            return this.graphModel.getFormattedTimeRange();
+        }
+    }),
     methods: {
-        viewMoreMetrics () {
-            $('.ui.metrics.modal', this.$el).modal('show');
+        toggleTimeSelection () {
+            const toggled = !this.selectingTime;
+            this.$store.commit('selectingTime', { selectingTime: toggled });
         },
+        switchGranularity () {
+            const granularities = ['monthly', 'daily'];
+            const currentGranularityIndex = granularities.indexOf(this.graphModel.granularity);
+            const nextGranularity = granularities[(currentGranularityIndex + 1) % granularities.length];
+            this.$store.commit('detail/granularity', {granularity: nextGranularity});
+        }
     }
 };
 </script>
@@ -94,5 +117,16 @@ export default {
 }
 .left.panel .ui.clearing.divider {
     margin-bottom: 2px;
+}
+.time {
+    margin-top: 5px;
+}
+.time > .ui.label {
+    cursor: pointer;
+    border: solid 0.5px #999;
+    text-transform: capitalize;
+}
+.time > div:hover {
+    background-color: #ccc;
 }
 </style>

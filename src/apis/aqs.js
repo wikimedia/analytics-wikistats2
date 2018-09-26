@@ -43,8 +43,6 @@ class AQS {
      */
     getData (uniqueParameters, commonParameters) {
         let tries = 3;
-        let year = commonParameters.year;
-        let month = commonParameters.month;
         return new Promise((resolve, reject) => {
             const attemptGettingData = () => {
                 const uncheckedPromise = this.requestData(
@@ -62,10 +60,7 @@ class AQS {
                         dimensionalData.getAllItems().length === 0 &&
                         tries--
                     ) {
-                        commonParameters = Object.assign(
-                            commonParameters,
-                            getFormattedPreviousMonth(year, month)
-                        );
+                        commonParameters.timeRange.goBackOneMonth();
                         attemptGettingData();
                     } else resolve(dimensionalData); // The promise is now checked 🍻
                 });
@@ -79,11 +74,16 @@ class AQS {
         if (!commonParameters.metric) {
             return new Promise(() => new DimensionalData());
         }
-        const format = 'yyyymmdd00';
-        commonParameters.start = dateFormat(utils.createDate(commonParameters.start), format, true);
-        commonParameters.end = dateFormat(utils.createDate(commonParameters.end), format, true);
-        let apiConfig = config.aqs[commonParameters.metric];
+        const timeRange = commonParameters.timeRange;
+        [commonParameters.start, commonParameters.end] = timeRange.getRangeForURL();
+        commonParameters.year = timeRange.getYear();
+        commonParameters.month = timeRange.getPaddedMonth();
+        commonParameters.day = commonParameters.granularity === 'daily' ? timeRange.getPaddedDay() : 'all-days';
+        const apiConfig = config.aqs[commonParameters.metric];
         const metricConfig = config.metrics[commonParameters.metric];
+        if (metricConfig.cumulative === true) {
+            commonParameters.start = '1980010100';
+        }
         let promises = utils.labeledCrossProduct(uniqueParameters)
             .map(p => Object.assign(p, commonParameters))
             .map(p => {
@@ -120,7 +120,7 @@ class AQS {
                 }
                 return new DimensionalData(formattedData);
             } else {
-                throw 'None of the API requests have returned any data.';
+                return new DimensionalData([]);
             }
         });
     }
@@ -185,17 +185,6 @@ class AQS {
             }))
         }, []);
     }
-}
-
-const getFormattedPreviousMonth = (year, month) => {
-    month = parseInt(month) - 1;
-    year = parseInt(year);
-    if (month === 0) {
-        month = 12;
-        year = year - 1;
-    }
-    if (month < 10) month = '0' + month;
-    return {year: '' + year, month: '' + month};
 }
 
 export default AQS;

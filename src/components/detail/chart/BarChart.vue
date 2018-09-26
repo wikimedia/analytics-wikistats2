@@ -124,7 +124,6 @@ export default {
             if (!this.graphModel.graphData || !this.graphModel.graphData.length) {
                 return;
             }
-
             let unitFilter;
             if (this.graphModel.config.unit === 'bytes'){
                 unitFilter = this.$options.filters.bytes;
@@ -167,7 +166,7 @@ export default {
             g.attr(
                 'transform', `translate(${yAxisContainerWidth},${margin.top})`
             );
-            let width = this.$el.offsetWidth - 75;
+            let width = this.$el.offsetWidth - margin.left;
             let xW = scales.scaleBand()
                            .range([0, width])
                            .domain(dates)

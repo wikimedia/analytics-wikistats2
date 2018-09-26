@@ -2,6 +2,7 @@ import assign from 'lodash/assign';
 import camelCase from 'lodash/camelCase';
 import capitalize from 'lodash/capitalize';
 import concat from 'lodash/concat';
+import debounce from 'lodash/debounce';
 import endsWith from 'lodash/endsWith';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
@@ -15,7 +16,9 @@ import kebabCase from 'lodash/kebabCase';
 import last from 'lodash/last';
 import map from 'lodash/map';
 import max from 'lodash/max';
+import maxBy from 'lodash/maxBy';
 import min from 'lodash/min';
+import minBy from 'lodash/minBy';
 import pickBy from 'lodash/pickBy';
 import range from 'lodash/range';
 import reduce from 'lodash/reduce';
@@ -37,6 +40,7 @@ export default {
     camelCase,
     capitalize,
     concat,
+    debounce,
     endsWith,
     filter,
     find,
@@ -50,7 +54,9 @@ export default {
     last,
     map,
     max,
+    maxBy,
     min,
+    minBy,
     pickBy,
     range,
     reduce,

@@ -17,10 +17,14 @@ const module = {
             state.chartType = arg.chartType;
         },
         timeRange (state, arg) {
+            arg.timeRange.adjustToGranularity(state.granularity);
             state.timeRange = arg.timeRange;
         },
         breakdown (state, arg) {
             state.breakdown = arg.breakdown;
+        },
+        granularity (state, arg) {
+            state.granularity = arg.granularity;
         },
     },
 };

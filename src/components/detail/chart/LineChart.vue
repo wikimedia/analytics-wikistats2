@@ -140,7 +140,6 @@ export default {
                 return;
             }
 
-
             // We make sure that any selected point in a previous chart is cleared
             this.hoveredPoint = null;
 
