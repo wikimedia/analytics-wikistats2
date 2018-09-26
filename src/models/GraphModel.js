@@ -116,7 +116,7 @@ class GraphModel {
             }));
         });
         const limit = Math.min(limitToLastN || values.length, values.length);
-        return _.take(values, limit);
+        return _.takeRight(values, limit);
     }
 
     getChangeOverRange () {

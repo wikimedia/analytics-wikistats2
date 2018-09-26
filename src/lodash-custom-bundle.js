@@ -24,6 +24,7 @@ import sortBy from 'lodash/sortBy';
 import startsWith from 'lodash/startsWith';
 import sum from 'lodash/sum';
 import take from 'lodash/take';
+import takeRight from 'lodash/takeRight';
 import toPairs from 'lodash/toPairs';
 import transform from 'lodash/transform';
 import trim from 'lodash/trim';
@@ -57,6 +58,7 @@ export default {
     startsWith,
     sum,
     take,
+    takeRight,
     toPairs,
     transform,
     trim,

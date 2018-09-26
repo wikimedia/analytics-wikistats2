@@ -38,8 +38,7 @@ describe('GraphModel', function () {
         graphModel.setData(dimensionalData);
         expect(graphModel.getAggregateLabel()).toEqual('Total');
         expect(graphModel.getAggregate()).toEqual(1449174299);
-
-        expect(graphModel.getLimitedAggregate(3)).toEqual(355950563);
+        expect(graphModel.getLimitedAggregate(3)).toEqual(388510241);
         expect(graphModel.getLimitedAggregate(300)).toEqual(1449174299);
     });
 
