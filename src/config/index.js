@@ -103,6 +103,7 @@ const mainMetricsByArea = [
                 'edits',
                 'editors',
                 'pages-to-date',
+                'top-edited-pages'
             ]
         }
     },
@@ -206,6 +207,10 @@ export default {
 
         'absolute-bytes-diff': {
             endpoint: AQS_HOST + '/bytes-difference/absolute/aggregate/{{project}}/{{editor_type}}/{{page_type}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'top-edited-pages': {
+            endpoint: AQS_HOST + '/edited-pages/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/all-days'
         }
     },
 

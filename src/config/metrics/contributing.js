@@ -202,4 +202,48 @@ module.exports = {
         global: true,
         additive: true
     },
+    'top-edited-pages': {
+        disabled: false,
+        fullName: 'Top edited pages',
+        subtitle: 'Pages with the most edits',
+        description: 'Most edited pages',
+        question: 'Which are the pages with the most edits?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Top_edited_pages',
+        type: 'list',
+        structure: 'top',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                editor_type: ['all-editor-types'],
+                page_type: ['all-page-types']
+            },
+            common: {
+                metric: 'top-edited-pages',
+                granularity: 'monthly'
+            }
+        },
+        breakdowns: [{
+            name: 'Editor type',
+            breakdownName: 'editor_type',
+            values: [
+                { name: 'Anonymous', on: true, key: 'anonymous' },
+                { name: 'Group bot', on: true, key: 'group-bot' },
+                { name: 'Name bot', on: true, key: 'name-bot' },
+                { name: 'User', on: true, key: 'user' },
+            ]
+        },{
+            name: 'Page type',
+            breakdownName: 'page_type',
+            values: [
+                { name: 'Content', on: true, key: 'content' },
+                { name: 'Non content', on: true, key: 'non-content' }
+            ]
+        }],
+        value: 'edits',
+        key: 'page_title',
+        arrayName: 'top',
+        area: 'contributing',
+        global: false,
+        additive: true
+    }
 };
