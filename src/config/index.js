@@ -103,7 +103,6 @@ const mainMetricsByArea = [
                 'new-registered-users',
                 'top-editors',
                 'editors',
-                'pages-to-date',
                 'top-edited-pages'
             ]
         }
@@ -115,7 +114,8 @@ const mainMetricsByArea = [
             metrics: [
                 'edited-pages',
                 'net-bytes-difference',
-                'absolute-bytes-diff'
+                'absolute-bytes-diff',
+                'pages-to-date',
             ]
         }
     },
