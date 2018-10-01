@@ -89,10 +89,9 @@ function getDefaultTimeRange (metricConfig) {
     return {name: metricConfig.frozen ? 'All' : '2-Year'};
 }
 
-function getRequestInterval (timeRange) {
+function getRequestInterval (timeRange, availabilityBuffer) {
     const format = 'yyyymmdd00';
     var startDate, endDate;
-
     if (timeRange.name) {
         endDate = createNowUTCDate();
         if (timeRange.name === 'All') {
@@ -107,6 +106,9 @@ function getRequestInterval (timeRange) {
         endDate = timeRange.end;
     }
 
+    if (availabilityBuffer) {
+        endDate.setDate(endDate.getDate() - availabilityBuffer);
+    }
     return {
         start: dateFormat(startDate, format, true),
         end: dateFormat(endDate, format, true)

@@ -99,6 +99,10 @@ const metricSchema = {
     unit: {
         type: 'string',
         required: false
+    },
+    availabilityBuffer: {
+        type: 'number',
+        required: false
     }
 };
 

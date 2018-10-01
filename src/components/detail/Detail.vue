@@ -103,7 +103,7 @@ export default {
 
             dataParameters () {
                 const getAll = this.metricParameters.metricConfig.cumulative;
-                const timeRange = utils.getRequestInterval(getAll ? {name: 'All'} : this.timeRange);
+                const timeRange = utils.getRequestInterval(getAll ? {name: 'All'} : this.timeRange, this.metricParameters.metricConfig.availabilityBuffer);
                 return {
                     timeRange: timeRange,
                     granularity: utils.getGranularity(this.timeRange),
