@@ -137,4 +137,48 @@ module.exports = {
         }],
         additive: true
     },
+    'pages-to-date': {
+        disabled: false,
+        fullName: 'Pages to date',
+        description: 'The running count of all pages created, excluding pages being redirects',
+        question: 'How many pages are there in the project right now?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Pages_to_date',
+        tooltip: 'The running count of all pages created, excluding pages being redirects. We measure this by adding up the creations and restores of old pages, and subtracting the page deletions for a given month. The metric can be split and filtered by Editor Type and Page Type.',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                editor_type: ['all-editor-types'],
+                page_type: ['all-page-types']
+            },
+            common: {
+                granularity: 'monthly',
+                metric: 'pages-to-date'
+            }
+        },
+        type: 'time',
+        structure: 'timeseries',
+        area: 'content',
+        value: 'new_pages',
+        global: true,
+        frozen: true,
+        breakdowns: [{
+            name: 'Editor type',
+            breakdownName: 'editor_type',
+            values: [
+                { name: 'Anonymous', on: true, key: 'anonymous' },
+                { name: 'Group bot', on: true, key: 'group-bot' },
+                { name: 'Name bot', on: true, key: 'name-bot' },
+                { name: 'User', on: true, key: 'user' },
+            ]
+        },{
+            name: 'Page type',
+            breakdownName: 'page_type',
+            values: [
+                { name: 'Content', on: true, key: 'content' },
+                { name: 'Non content', on: true, key: 'non-content' }
+            ]
+        }],
+        additive: false,
+        cumulative: true
+    }
 };
