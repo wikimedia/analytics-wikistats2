@@ -242,7 +242,7 @@ export default {
                 },
             );
             const getAll = params.metricConfig.cumulative;
-            const requestInterval = utils.getRequestInterval(getAll ? {name: 'All'} : params.timeRange);
+            const requestInterval = utils.getRequestInterval(getAll ? {name: 'All'} : params.timeRange, params.metricConfig.availabilityBuffer);
             const commonParameters = Object.assign(
                 {},
                 defaults.common,

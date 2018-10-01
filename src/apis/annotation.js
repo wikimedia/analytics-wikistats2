@@ -76,6 +76,7 @@ class AnnotationApi {
      *  }
      */
     getAnnotations (graphModel) {
+        if (graphModel.config.structure === 'top') return;
         return fetchAnnotations(config.annotationPath(graphModel.config.name))
             .then(annotations => processRawAnnotations(annotations, graphModel));
     }
