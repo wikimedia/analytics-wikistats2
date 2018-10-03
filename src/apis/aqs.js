@@ -41,6 +41,40 @@ class AQS {
      *  /pageviews/aggregate/fr.wiktionary /mobile-web /user/daily/20170514/20170614
      */
     getData (uniqueParameters, commonParameters) {
+        let tries = 3;
+        let year = commonParameters.year;
+        let month = commonParameters.month;
+        return new Promise((resolve, reject) => {
+            const attemptGettingData = () => {
+                const uncheckedPromise = this.requestData(
+                    uniqueParameters,
+                    commonParameters
+                );
+                uncheckedPromise.then(dimensionalData => {
+                    /*
+                    If this is a top metric, we'll attempt several times to get data,
+                    going back one month at a time, up to the number of attempts
+                    defined in `tries`.
+                    */
+                    if (
+                        config.metrics[commonParameters.metric].structure === "top" &&
+                        dimensionalData.getAllItems().length === 0 &&
+                        tries--
+                    ) {
+                        commonParameters = Object.assign(
+                            commonParameters,
+                            getFormattedPreviousMonth(year, month)
+                        );
+                        attemptGettingData();
+                    } else resolve(dimensionalData); // The promise is now checked 🍻
+                });
+                uncheckedPromise.catch(reject);
+            };
+            attemptGettingData();
+        });
+    }
+
+    requestData (uniqueParameters, commonParameters) {
         if (!commonParameters.metric) {
             return new Promise(() => new DimensionalData());
         }
@@ -103,6 +137,7 @@ class AQS {
     */
     formatTops (data, column) {
         let timestamp;
+        if (data.length === 0) return [];
         // Some metrics carry a timestamp, others a year and month.
         if (data[0].timestamp) {
             timestamp = utils.createDate(data[0].timestamp);
@@ -148,12 +183,16 @@ class AQS {
         }, []);
     }
 }
-/*
 
-AQS only has data up to the previous month to the current, so when requesting
-the last data available we should check that we're not trying to get
-the current month (or later).
-
-*/
+const getFormattedPreviousMonth = (year, month) => {
+    month = parseInt(month) - 1;
+    year = parseInt(year);
+    if (month === 0) {
+        month = 12;
+        year = year - 1;
+    }
+    if (month < 10) month = '0' + month;
+    return {year: '' + year, month: '' + month};
+}
 
 export default AQS;
