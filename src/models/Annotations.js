@@ -29,13 +29,19 @@ function expandByBreakdown (result, a) {
 }
 
 
-function setValues (annotations, graphData) {
+function setValuesAndSnapToGraphDates (annotations, graphData) {
     let closestIndex = 0;
     let aIndex = 0;
 
     while (closestIndex < graphData.length) {
         while (aIndex < annotations.length &&
+               annotations[aIndex].date < graphData[closestIndex].month) {
+            // skip all dates before range
+            aIndex++;
+        }
+        while (aIndex < annotations.length &&
                annotations[aIndex].date <= graphData[closestIndex].month) {
+            // and snap all other dates to their closest graph correspondent
             const a = annotations[aIndex]
             annotations[aIndex].value = graphData[closestIndex].total[a.breakdownValue];
             annotations[aIndex].date = graphData[closestIndex].month;
@@ -43,22 +49,20 @@ function setValues (annotations, graphData) {
         }
         closestIndex++;
     }
+    // NOTE: at this point, some annotations may have datese after the last graph data point
 }
 
 
 function processRawAnnotations (annotations, graphModel) {
-    const start = graphModel.graphData[0].month,
-          end = graphModel.graphData[graphModel.graphData.length - 1].month,
-          breakdownName = graphModel.activeBreakdown.breakdownName || 'total',
+    const breakdownName = graphModel.activeBreakdown.breakdownName || 'total',
           breakdownValues = graphModel.activeBreakdown.values.filter(bv => bv.on);
 
     const filteredAndExpanded = annotations
         .filter(a => !_.isEmpty(a.note) && a.date !== null)
-        .filter(a => a.date >= start && a.date <= end)
         .reduce(expandByBreakdown, [])
         .filter(a => breakdownName === a.breakdown && breakdownValues.find(bv => bv.key === a.breakdownValue));
 
-    setValues(filteredAndExpanded, graphModel.graphData);
+    setValuesAndSnapToGraphDates(filteredAndExpanded, graphModel.graphData);
 
     return filteredAndExpanded;
 }
@@ -115,10 +119,16 @@ function groupIfOverlapping (annotations, spacePerAnnotation) {
 }
 
 
+function inDateRange (annotations, start, end) {
+    return annotations.filter(a => a.date >= start && a.date <= end);
+}
+
+
 /**
  * A set of functions that transforms annotations so they can be rendered on a graph
  */
 export {
     processRawAnnotations,
     groupIfOverlapping,
+    inDateRange,
 };
