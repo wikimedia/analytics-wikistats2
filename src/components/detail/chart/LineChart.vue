@@ -28,7 +28,7 @@ import {
     annotationCustomType, annotationCalloutCircle, annotation,
 } from 'd3-svg-annotation'
 
-import { groupIfOverlapping, inDateRange } from '../../../models/Annotations';
+import { groupIfOverlapping } from '../../../models/Annotations';
 import utils from '../../../utils';
 import _ from 'lodash';
 
@@ -90,14 +90,10 @@ export default {
 
             const horizontal = this.x.range()[1],
                   vertical = this.y.range()[0],
-                  diameter = 28,
-                  start = this.data[0].month,
-                  end = this.data[this.data.length - 1].month,
-
-                  filteredAnnotations = inDateRange(annotations, start, end);
+                  diameter = 28;
 
             const preparedAnnotations = groupIfOverlapping(
-                filteredAnnotations.map(m => {
+                annotations.map(m => {
                     const px = this.x(m.date),
                           py = this.y(m.value),
                           tooRight = px > horizontal - 120,
@@ -118,7 +114,6 @@ export default {
                             bgPadding: 10,
                             label: m.label,
                             title: m.title,
-                            wrap: m.label.length > 100 ? m.label.length > 200 ? 300 : 200 : 100,
                         },
                     };
                 }),

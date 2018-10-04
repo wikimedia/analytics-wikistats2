@@ -61,7 +61,8 @@
                 v-if="graphModel"
                 :is="chartComponent"
                 :graphModel="graphModel"
-                :data="adjustedGraphData">
+                :data="adjustedGraphData"
+                :annotations="annotations">
             </component>
             <div class="ui center aligned basic segment">
                 <h5 v-if="graphModel.config.structure === 'timeseries'">
@@ -144,7 +145,7 @@ export default {
         WikiSelector
     },
 
-    props: ['graphModel', 'overlayMessage', 'granularity', 'annotationsLink'],
+    props: ['graphModel', 'overlayMessage', 'granularity', 'annotations', 'annotationsLink'],
 
     computed: Object.assign(
         mapState(['detail']),
@@ -191,11 +192,11 @@ export default {
                 return this.$mq === 'mobile';
             },
             adjustedGraphData: function () {
-                // TODO: I dislike this, it should be integrated back into graphModel because it complicates
-                // evenrything downstream.  Leaving as is now because I have to fix a bug, but will circle back
-                return this.graphModel.config.type === 'time' ?
-                    utils.adjustGraphData(this.graphModel.graphData, this.timeRange.name) :
-                    this.graphModel.graphData;
+                if (this.graphModel.config.type === 'time') {
+                    return utils.adjustGraphData(this.graphModel.graphData, this.timeRange.name);
+                } else {
+                    return this.graphModel.graphData;
+                }
             },
             permalinkURL: function () {
                 if (this.adjustedGraphData.length > 0) {
