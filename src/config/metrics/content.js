@@ -23,6 +23,7 @@ module.exports = {
         value: 'abs_bytes_diff',
         unit: 'bytes',
         global: true,
+        globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
             breakdownName: 'editor_type',
@@ -118,6 +119,7 @@ module.exports = {
         unit: 'bytes',
         value: 'net_bytes_diff',
         global: true,
+        globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
             breakdownName: 'editor_type',

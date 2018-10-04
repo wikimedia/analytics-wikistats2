@@ -23,6 +23,7 @@ module.exports = {
         area: 'contributing',
         value: 'editors',
         global: false,
+        globalFamily: false,
         breakdowns: [{
             name: 'Editor type',
             breakdownName: 'editor_type',
@@ -74,6 +75,7 @@ module.exports = {
         area: 'contributing',
         value: 'edits',
         global: true,
+        globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
             breakdownName: 'editor_type',
@@ -116,6 +118,7 @@ module.exports = {
         area: 'contributing',
         value: 'new_pages',
         global: true,
+        globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
             breakdownName: 'editor_type',
@@ -156,6 +159,7 @@ module.exports = {
         area: 'contributing',
         value: 'new_registered_users',
         global: true,
+        globalFamily: true,
         additive: true
     },
     'top-editors': {
@@ -200,7 +204,8 @@ module.exports = {
         key: 'user_text',
         arrayName: 'top',
         area: 'contributing',
-        global: false,
+        global: true,
+        globalFamily: true,
         additive: false
     },
     'top-edited-pages': {
@@ -245,7 +250,8 @@ module.exports = {
         key: 'page_title',
         arrayName: 'top',
         area: 'contributing',
-        global: false,
-        additive: false
+        global: true,
+        additive: false,
+        globalFamily: true
     }
 };

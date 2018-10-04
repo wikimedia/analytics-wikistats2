@@ -74,6 +74,10 @@ const metricSchema = {
         type: 'boolean',
         required: false
     },
+    globalFamily: {
+        type: 'boolean',
+        required: false
+    },
     breakdowns: {
         type: 'array',
         required: false,
@@ -91,6 +95,10 @@ const metricSchema = {
                 required: true
             }
         }
+    },
+    breakdownCheck: {
+        type: 'string',
+        required: false
     },
     additive: {
         type: 'boolean',

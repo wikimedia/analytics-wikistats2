@@ -5,6 +5,7 @@
             v-if="!compact && !fullscreen"
             :otherMetrics="otherMetrics"
             :graphModel="graphModel"
+            :breakdownAllowed="breakdownAllowed()"
         />
         <graph-panel
             :granularity="dataParameters.granularity"
@@ -18,7 +19,8 @@
         <breakdowns
             v-if="graphModel
                   && graphModel.breakdowns
-                  && graphModel.breakdowns.length > 1"
+                  && graphModel.breakdowns.length > 1
+                  && breakdownAllowed()"
             :graphModel="graphModel"
         />
     </div>
@@ -167,6 +169,10 @@ export default {
 
             if (!params.metricConfig.global && params.project === config.ALL_PROJECTS) {
                 this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
+            } else if (!params.metricConfig.globalFamily && utils.isProjectFamily(this.project)) {
+                this.overlayMessage = StatusOverlay.NON_GLOBAL_FAMILY(params.metricConfig.fullName, params.project);
+            } else if (!this.breakdownAllowed() && this.graphModel.activeBreakdown.name !== 'Total') {
+                this.preventUnallowedBreakdown();
             } else {
                 const defaults = params.metricConfig.defaults || {
                     unique: {},
@@ -228,6 +234,19 @@ export default {
 
             }
         },
+        breakdownAllowed () {
+            if (!this.graphModel) return;
+            const check = this.graphModel.config.breakdownCheck
+            if (check) {
+                const checks = {
+                    'ONLY_IF_PER_DOMAIN': () => !utils.isProjectFamily(this.project)
+                };
+                return checks[check]();
+            } else return true;
+        },
+        preventUnallowedBreakdown () {
+            this.graphModel.activeBreakdown = this.graphModel.getDefaultBreakdown();
+        }
     },
 };
 </script>

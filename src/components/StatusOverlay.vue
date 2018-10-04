@@ -54,6 +54,13 @@ StatusOverlay.NON_GLOBAL = (metricName) => {
     };
 };
 
+StatusOverlay.NON_GLOBAL_FAMILY = (metricName, project) => {
+    return {
+        type: 'error',
+        text: 'The ' + metricName + ' metric is not available for ' + project.replace(/-/g, ' ') + '. Select a specific wiki'
+    };
+};
+
 StatusOverlay.NO_SERVICE = {
     type: 'error',
     text: 'The analytics query service seems to be down'

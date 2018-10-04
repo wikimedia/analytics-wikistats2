@@ -188,7 +188,7 @@ export default {
                 return ((diff / this.monthOneYearAgo.total) * 100).toFixed(2);
             },
             disabled: function () {
-                return !this.params.metricConfig.global && this.$store.state.project === config.ALL_PROJECTS;
+                return metricNotGlobalAndAllProjectsSelected || metricNotFamilyGlobalAndFamilySelected;
             },
             aggregationType: function () {
                 return this.graphModel.getAggregateLabel().toLowerCase();
@@ -206,6 +206,12 @@ export default {
             },
             metricsInArea(){
                 return config.areaData().find(a => a.state.id === this.area).state.metrics;
+            },
+            metricNotGlobalAndAllProjectsSelected () {
+                return (!this.params.metricConfig.global && this.project === config.ALL_PROJECTS)
+            },
+            metricNotFamilyGlobalAndFamilySelected () {
+                return (!this.params.metricConfig.globalFamily && utils.isProjectFamily(this.project))
             }
         }
     ),
@@ -216,15 +222,18 @@ export default {
 
    watch: {
         params () {
-                this.loadData(this.params);
+            this.loadData(this.params);
         }
     },
 
     methods: {
         loadData (params) {
-
-            if (this.disabled) {
+            const project = this.$store.state.project;
+            if (this.metricNotGlobalAndAllProjectsSelected) {
                 this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
+                return;
+            } else if (this.metricNotFamilyGlobalAndFamilySelected) {
+                this.overlayMessage = StatusOverlay.NON_GLOBAL_FAMILY(params.metricConfig.fullName, project);
                 return;
             }
 

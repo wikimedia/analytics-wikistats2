@@ -89,7 +89,7 @@ function getDefaultTimeRange (metricConfig) {
     return { name: metricConfig.frozen || '2-Year' };
 }
 
-function getRequestInterval (timeRange, availabilityBuffer) {
+function getRequestInterval (timeRange) {
     const format = 'yyyymmdd00';
     var startDate, endDate;
     if (timeRange.name) {
@@ -106,9 +106,6 @@ function getRequestInterval (timeRange, availabilityBuffer) {
         endDate = timeRange.end;
     }
 
-    if (availabilityBuffer) {
-        endDate.setDate(endDate.getDate() - availabilityBuffer);
-    }
     return {
         start: dateFormat(startDate, format, true),
         end: dateFormat(endDate, format, true)
@@ -127,6 +124,10 @@ function adjustGraphData (graphData, timeRangeName) {
     return graphData.slice(Math.max(graphData.length - maxElements[timeRangeName], 0));
 }
 
+function isProjectFamily (project) {
+    return project.match(/all-wik[a-z]+-projects/);
+}
+
 export default {
     labeledCrossProduct,
     cloneDeep,
@@ -138,5 +139,6 @@ export default {
     getDefaultTimeRange,
     getRequestInterval,
     getDateFormatFromData,
-    adjustGraphData
+    adjustGraphData,
+    isProjectFamily
 };

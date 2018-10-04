@@ -240,7 +240,6 @@ export default {
             if (this.sitematrixData){
                 return Promise.resolve(this.sitematrixData);
             }  else {
-
                 return Promise.all([
                     sitematrix.getWikiGroups(searchDataFormat),
                     sitematrix.getProjectFamilies(null, searchDataFormat),
@@ -260,8 +259,9 @@ export default {
 
                 ]).then(values => {
                     const [groups, projectFamilies, languages, specials, wikis] = values;
-
-                    this.sitematrixData = _.concat(groups, projectFamilies, languages, specials, wikis);
+                    // Put "all projects" at the beginning of the list, but families at the end
+                    const allProjects = groups.shift();
+                    this.sitematrixData = _.concat(allProjects, projectFamilies, languages, specials, wikis, groups);
                     return this.sitematrixData;
                 });
             }
