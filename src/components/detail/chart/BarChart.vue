@@ -39,7 +39,7 @@ import config from '../../../config';
 
 export default {
     name: 'bar-chart',
-    props: ['graphModel', 'data'],
+    props: ['graphModel'],
 
     data () {
         return {
@@ -48,19 +48,23 @@ export default {
             y: null,
         };
     },
+
     computed: {
         granularityFormat () {
-            return utils.getDateFormatFromData(this.data);
+            return utils.getDateFormatFromData(this.graphModel.graphData);
         },
     },
+
     mounted () {
         this.drawChart();
     },
+
     watch: {
-        data: function () {
+        'graphModel.graphData' () {
             this.drawChart();
         },
     },
+
     methods: {
 
         transformAndAddAnnotations (annotations) {
@@ -117,7 +121,7 @@ export default {
         },
 
         drawChart () {
-            if (!this.data || !this.data.length) {
+            if (!this.graphModel.graphData || !this.graphModel.graphData.length) {
                 return;
             }
 
@@ -145,7 +149,7 @@ export default {
 
             const n = root.node();
             const activeDict = this.graphModel.getActiveBreakdownValues();
-            let dates = this.data.map((d) => d.month);
+            let dates = this.graphModel.graphData.map((d) => d.month);
             const datespan = arr.extent(dates);
 
             const { min, max } = this.graphModel.getMinMax();
@@ -176,7 +180,7 @@ export default {
             let graphElement = g.append('g');
             y.domain([min, max]);
             let self = this;
-            graphElement.selectAll('.bar').data(this.data)
+            graphElement.selectAll('.bar').data(this.graphModel.graphData)
                 .enter().selectAll('.minibar').data((d) => {
                     return this.graphModel.activeBreakdown.values
                         .filter(b => b.on)

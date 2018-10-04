@@ -60,9 +60,7 @@
                 ref="graph"
                 v-if="graphModel"
                 :is="chartComponent"
-                :graphModel="graphModel"
-                :data="adjustedGraphData"
-                :annotations="annotations">
+                :graphModel="graphModel">
             </component>
             <div class="ui center aligned basic segment">
                 <h5 v-if="graphModel.config.structure === 'timeseries'">
@@ -191,18 +189,11 @@ export default {
             mobile: function () {
                 return this.$mq === 'mobile';
             },
-            adjustedGraphData: function () {
-                if (this.graphModel.config.type === 'time') {
-                    return utils.adjustGraphData(this.graphModel.graphData, this.timeRange.name);
-                } else {
-                    return this.graphModel.graphData;
-                }
-            },
             permalinkURL: function () {
-                if (this.adjustedGraphData.length > 0) {
+                if (this.graphModel.graphData.length > 0) {
                     const specificDetail = Object.assign({}, this.detail);
-                    const startDate = new Date(this.adjustedGraphData[0].month);
-                    const endDate = new Date(this.adjustedGraphData[this.adjustedGraphData.length - 1].month);
+                    const startDate = new Date(this.graphModel.graphData[0].month);
+                    const endDate = new Date(this.graphModel.graphData[this.graphModel.graphData.length - 1].month);
                     if (utils.getGranularity(this.timeRange) === 'monthly') {
                         endDate.setUTCMonth(endDate.getUTCMonth() + 1);
                     }
@@ -214,6 +205,21 @@ export default {
             }
         }
     ),
+
+    watch: {
+        'graphModel.graphData' () {
+            if (this.graphModel.graphData.length &&
+                this.graphModel.config.type === 'time') {
+
+                const adjustedGraphData = utils.adjustGraphData(this.graphModel.graphData, this.timeRange.name);
+
+                if (adjustedGraphData.length < this.graphModel.graphData.length) {
+
+                    this.graphModel.graphData = adjustedGraphData;
+                }
+            }
+        },
+    },
 
     methods: {
         // PUBLIC: used by parent components

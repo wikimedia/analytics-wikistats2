@@ -8,7 +8,7 @@
         :name="currentHover.name"
     />
     <map-legend
-        v-if="data"
+        v-if="graphModel.graphData"
         :title="graphModel.config.fullName"
         :scale="colorScale"
     />
@@ -44,22 +44,26 @@ import config from '../../../../config';
 
 export default {
     name: 'map-chart',
-    props: ['graphModel', 'data'],
+    props: ['graphModel'],
+
     components: {
         MapLegend,
         MapTooltip
     },
+
     mounted () {
         this.initMap();
     },
+
     data () {
         return {
             currentHover: null
         }
     },
+
     computed: {
         colorScale (){
-            if (!this.data.length) return;
+            if (!this.graphModel.graphData.length) return;
             const colorPalette = d3_color.interpolateGnBu;
             let max = this.graphModel.getMinMax().max;
             let min = this.graphModel.getMinMax().min;
@@ -74,19 +78,19 @@ export default {
             return scale;
         },
         dataByCountry () {
-            return this.data.reduce((p,c) => {
+            return this.graphModel.graphData.reduce((p,c) => {
                 p[c.country] = c.total.total;
                 return p;
             }, {});
         }
     },
+
     watch: {
-        data: {
-            handler: function () {
-                this.drawChoropleth();
-            }
-        }
+        'graphModel.graphData' () {
+            this.drawChoropleth();
+        },
     },
+
     methods: {
         initMap () {
             let path = geo.geoPath();
@@ -106,7 +110,7 @@ export default {
             });
             zoom.translateTo(svg, 120, -50);
             zoom.scaleTo(svg, 0.8)
-            if (this.data.length > 0) {
+            if (this.graphModel.graphData.length > 0) {
                 this.drawChoropleth();
             }
         },

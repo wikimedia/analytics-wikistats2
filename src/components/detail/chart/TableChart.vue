@@ -40,7 +40,7 @@ import utils from '../../../utils'
 
 export default {
     name: 'table-chart',
-    props: ['data', 'graphModel'],
+    props: ['graphModel'],
     data () {
         return {
             currentPage: 0
@@ -64,17 +64,17 @@ export default {
             return this.currentPage * itemsPerPage + itemsPerPage;
         },
         valuesShown(){
-            if (this.data){
-                return this.data.slice(0, this.totalItems);
+            if (this.graphModel.graphData){
+                return this.graphModel.graphData.slice(0, this.totalItems);
             }
         },
         loadMoreRows(){
-            if (this.data && this.totalItems < this.data.length){
+            if (this.graphModel.graphData && this.totalItems < this.graphModel.graphData.length){
                 return true;
             }
         },
         granularityFormat () {
-            return utils.getDateFormatFromData(this.data);
+            return utils.getDateFormatFromData(this.graphModel.graphData);
         },
     },
 
@@ -109,45 +109,6 @@ export default {
         }
     }
 }
-
-
-/*
-const snapIndex = -1;
-
-// Snap annotation dates to the closest data point
-var snappedAnnotations = annotations.rowData().map(function (a) {
-
-    // Efficiently iterate data points to find closest one
-    for (var i = snapIndex + 1; i < rows.length; i++) {
-        if (a[0] >= rows[i][0].getTime()) {
-            snapIndex = i;
-        } else {
-            break;
-        }
-    }
-
-    // Format annotation
-    var snappedDate, message;
-    if (snapIndex === -1) {
-        // The annotation is set before the first data point.
-        // Attach it to the first data point, prefixed with its date.
-        snappedDate = rows[0][0].getTime();
-        message = moment(a[0]).utc().format('YYYY-MM-DD ') + a[1];
-    } else if (snapIndex === rows.length - 1) {
-        // The annotation is set after the last data point.
-        // Attach it to the last data point, prefixed with its date.
-        snappedDate = rows[rows.length - 1][0].getTime();
-        message = moment(a[0]).utc().format('YYYY-MM-DD ') + a[1];
-    } else {
-        // The annotation is set in between two data points.
-        // Attach it to the earlier data point, no prefix.
-        snappedDate = rows[snapIndex][0].getTime();
-        message = a[1];
-    }
-
-    return [snappedDate, message];
-});
-*/
 
 </script>
 

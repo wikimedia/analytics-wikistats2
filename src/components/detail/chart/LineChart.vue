@@ -36,7 +36,7 @@ import config from '../../../config'
 
 export default {
     name: 'line-chart',
-    props: ['graphModel', 'data'],
+    props: ['graphModel'],
 
     data () {
         return {
@@ -70,7 +70,7 @@ export default {
         },
 
         granularityFormat () {
-            return utils.getDateFormatFromData(this.data);
+            return utils.getDateFormatFromData(this.graphModel.graphData);
         },
     },
 
@@ -79,7 +79,7 @@ export default {
     },
 
     watch: {
-        data: function () {
+        'graphModel.graphData' () {
             this.drawChart();
         },
     },
@@ -136,7 +136,7 @@ export default {
         },
 
         drawChart () {
-            if (!this.data.length) {
+            if (!this.graphModel.graphData.length) {
                 return;
             }
 
@@ -162,7 +162,7 @@ export default {
             // and the two axes.
             const width = n.offsetWidth - this.margin.left - this.margin.right - padding*2;
             const x = scales.scaleTime().rangeRound([0, width]);
-            const dates = this.data.map((d) => d.month);
+            const dates = this.graphModel.graphData.map((d) => d.month);
             x.domain(arr.extent(dates));
 
             const height = n.offsetHeight - this.margin.top - this.margin.bottom - padding;
@@ -201,12 +201,12 @@ export default {
                                                 ]
             */
             Object.keys(
-                _.reduce(this.data, (acc, elem) => {
+                _.reduce(this.graphModel.graphData, (acc, elem) => {
                     return Object.assign(acc, elem.total);
                 }, {}))
                 .filter(key => key in activeDict)
                 .map((breakdownName) => {
-                    return this.data.map((row) => {
+                    return this.graphModel.graphData.map((row) => {
                         return {
                             month: row.month,
                             total: row.total[breakdownName],
@@ -225,7 +225,7 @@ export default {
                         .style('fill', 'none');
                 });
 
-            this.addHoverGuide(g, this.data, x, y);
+            this.addHoverGuide(g, this.graphModel.graphData, x, y);
             this.addAxes(x, y, g);
 
             // Final resizing to include the axes
