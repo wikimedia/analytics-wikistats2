@@ -144,7 +144,7 @@ const questions = Object.keys(metrics).map(k => ({
 })).sort((a, b) => a.area > b.area || a.metric > b.metric);
 
 const AQS_HOST = 'https://wikimedia.org/api/rest_v1/metrics';
-const ANNOTATION_HOST = 'https://meta.wikimedia.org/w/api.php?action=query&prop=revisions&format=json&rvprop=content&rawcontinue=1&titles=Config:Dashiki:Annotations/Wikistats/';
+const ANNOTATION_HOST = 'https://meta.wikimedia.org/w/api.php?action=query&prop=revisions&format=json&rvprop=content&rawcontinue=1&maxage=1800&titles=Config:Dashiki:Annotations/Wikistats/';
 const ANNOTATION_HUMAN_READABLE = 'https://meta.wikimedia.org/w/index.php?title=Config:Dashiki:Annotations/Wikistats/';
 
 export default {
