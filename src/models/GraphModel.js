@@ -10,10 +10,6 @@ class GraphModel {
         // The graphs can then use afterAnnotations to add a callback
         this.annotationPromise = null;
 
-        if (this.config.type === 'list') {
-            return;
-        }
-
         this.breakdowns = utils.cloneDeep(this.config.breakdowns || []);
         // insert a "total" breakdown as a default breakdown
         this.breakdowns.splice(0, 0, {
@@ -203,10 +199,9 @@ class GraphModel {
 function topXByY (data, config) {
         const x = config.key;
         const y = config.value;
-
         data.measure(x);
         const results = data.breakdown(y);
-        return _.take(_.sortBy(results, (row) => row.rank), results.length);
+        return _.take(_.sortBy(results, (row) => row[y]).reverse(), results.length);
 }
 /**
 * Convert an nested object in a set of flat key value pairs

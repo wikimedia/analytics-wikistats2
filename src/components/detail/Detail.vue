@@ -5,7 +5,6 @@
             v-if="!compact && !fullscreen"
             :otherMetrics="otherMetrics"
             :graphModel="graphModel"
-            :disableBreakdowns="overlayMessage"
         />
         <graph-panel
             :granularity="dataParameters.granularity"
@@ -21,7 +20,6 @@
                   && graphModel.breakdowns
                   && graphModel.breakdowns.length > 1"
             :graphModel="graphModel"
-            :disableBreakdowns="overlayMessage"
         />
     </div>
 </div>
@@ -217,6 +215,10 @@ export default {
                     this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
                 });
                 dataPromise.then(dimensionalData => {
+                    if (dimensionalData.getAllItems().length === 0) {
+                        this.overlayMessage = StatusOverlay.NO_DATA;
+                        return;
+                    }
                     this.overlayMessage = null;
                     this.graphModel.setData(dimensionalData);
 

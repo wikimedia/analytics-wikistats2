@@ -25,7 +25,6 @@
               && graphModel.breakdowns
               && graphModel.breakdowns.length > 1"
         :graphModel = "graphModel"
-        :disableBreakdowns="disableBreakdowns"
     />
 </section>
 </template>
@@ -42,7 +41,7 @@ import '../../../semantic/dist/components/dimmer';
 
 export default {
     name: 'detail-sidebar',
-    props: ['otherMetrics', 'graphModel', 'disableBreakdowns'],
+    props: ['otherMetrics', 'graphModel'],
     data () {
         return {
             wiki: {

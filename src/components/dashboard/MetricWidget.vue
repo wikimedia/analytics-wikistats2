@@ -265,6 +265,9 @@ export default {
                 this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
             });
             dataPromise.then(dimensionalData => {
+                if (dimensionalData.getAllItems().length === 0) {
+                    this.overlayMessage = StatusOverlay.NO_DATA;
+                }
                 this.overlayMessage = null;
                 this.graphModel = new GraphModel(params.metricConfig);
                 this.graphModel.setData(dimensionalData);

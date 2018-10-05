@@ -85,6 +85,15 @@ module.exports = {
                 granularity: 'monthly'
             }
         },
+        breakdowns: [{
+            name: 'Access method',
+            breakdownName: 'access',
+            values: [
+                { name: 'Desktop', on: true, key: 'desktop' },
+                { name: 'Mobile App', on: true, key: 'mobile-app' },
+                { name: 'Mobile Web', on: true, key: 'mobile-web' }
+            ]
+        }],
         value: 'views_ceil',
         valueTitle: 'page views',
         key: 'country',
@@ -146,6 +155,15 @@ module.exports = {
                 granularity: 'monthly'
             }
         },
+        breakdowns: [{
+            name: 'Access method',
+            breakdownName: 'access',
+            values: [
+                { name: 'Desktop', on: true, key: 'desktop' },
+                { name: 'Mobile App', on: true, key: 'mobile-app' },
+                { name: 'Mobile Web', on: true, key: 'mobile-web' }
+            ]
+        }],
         value: 'views',
         key: 'article',
         arrayName: 'articles',
