@@ -1,5 +1,6 @@
 import _ from '../lodash-custom-bundle';
 import userPreferences from './routes';
+import config from '../config';
 
 /**
  * Tries to match the given path with the given route.
@@ -44,6 +45,11 @@ function getStateFromPath (path, routes) {
             } else if (typeof info.redirect === 'function') {
                 return getStateFromPath(info.redirect(state), routes);
             } else {
+                // don't allow invalid area/metric combinations
+                // assume the metric is right and use config
+                if (state.area && state.metric) {
+                    state.area = config.metricConfig(state.metric).area;
+                }
                 return state;
             }
         }
