@@ -200,8 +200,7 @@ module.exports = {
         arrayName: 'top',
         area: 'contributing',
         global: false,
-        additive: false,
-        availabilityBuffer: 15
+        additive: false
     },
     'top-edited-pages': {
         disabled: false,
@@ -245,7 +244,6 @@ module.exports = {
         arrayName: 'top',
         area: 'contributing',
         global: false,
-        additive: false,
-        availabilityBuffer: 15
+        additive: false
     }
 };
