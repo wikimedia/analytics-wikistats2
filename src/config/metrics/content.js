@@ -160,7 +160,7 @@ module.exports = {
         area: 'content',
         value: 'new_pages',
         global: true,
-        frozen: true,
+        frozen: 'All',
         breakdowns: [{
             name: 'Editor type',
             breakdownName: 'editor_type',

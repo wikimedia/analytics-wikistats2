@@ -77,6 +77,7 @@ function getMergedDetail (metric) {
         fullscreen: getUserPreference(['fullscreen']),
         breakdown,
     };
+
     Object.keys(preferences).filter(k => !(preferences[k])).forEach(k => delete preferences[k]);
 
     return Object.assign(defaults, preferences);
@@ -92,6 +93,7 @@ function getMergedDetail (metric) {
  */
 const userPreferences = {};
 const getUserPreference = p => p.reduce((r, i) => (r && r[i]) ? r[i] : null, userPreferences);
+
 const setUserPreference = (p, v) => {
     const l = p.length - 1;
     p.slice(0, l).reduce((r, i) => r[i] ? r[i] : r[i] = {}, userPreferences)[p[l]] = v;
@@ -123,6 +125,9 @@ function updateUserPreferences (state) {
         }
         setUserPreference(['fullscreen'], detail.fullscreen);
     }
+
+
+
 }
 
 export default {

@@ -42,7 +42,7 @@ module.exports = {
         tooltip: 'Legacy page views on Wikimedia projects count the viewing of article content from January 2008 to July 2016. The main difference compared to current page view data is the lack of filtering of self-reported bots, thus automated and human traffic are reported together.',
         type: 'time',
         structure: 'timeseries',
-        frozen: true,
+        frozen: 'All',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -75,6 +75,7 @@ module.exports = {
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'map',
+        frozen:'1-Month',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -145,6 +146,7 @@ module.exports = {
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'list',
         structure: 'top',
+        frozen:'1-Month',
         defaults: {
             unique: {
                 project: ['all-projects'],

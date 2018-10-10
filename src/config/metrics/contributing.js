@@ -167,6 +167,7 @@ module.exports = {
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Top_editors',
         type: 'list',
         structure: 'top',
+        frozen:'1-Month',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -211,6 +212,7 @@ module.exports = {
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Top_edited_pages',
         type: 'list',
         structure: 'top',
+        frozen:'1-Month',
         defaults: {
             unique: {
                 project: ['all-projects'],

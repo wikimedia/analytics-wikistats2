@@ -42,7 +42,7 @@ const metricSchema = {
         possibleValues: ['top', 'timeseries']
     },
     frozen: {
-        type: 'boolean',
+        type: 'string',
         required: false
     },
     cumulative: {
