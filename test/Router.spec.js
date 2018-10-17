@@ -69,7 +69,10 @@ describe('Router', function () {
         let result = router.getStateFromPath(path, routes);
 
         expect(result).not.toBeUndefined();
-        expect(Object.keys(result).length).toEqual(1);
+
+        // state now should be {foo:foo, bar:bar}
+        // as from /foo it was redirected to /foo/bar
+        expect(Object.keys(result).length).toEqual(2);
         expect(result.bar).toEqual('bar');
     });
 

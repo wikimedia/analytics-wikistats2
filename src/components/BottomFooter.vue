@@ -42,13 +42,10 @@
 </template>
 
 <script>
-import RouterLink from './RouterLink';
 
 export default {
-  name: 'bottom-footer',
-  components: {
-    RouterLink,
-  },
+  name: 'bottom-footer'
+
 };
 </script>
 

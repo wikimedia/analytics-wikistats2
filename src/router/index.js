@@ -2,6 +2,14 @@ import _ from '../lodash-custom-bundle';
 import userPreferences from './routes';
 import config from '../config';
 
+
+// caches to memoize functions
+let stateFromPathCache = {};
+
+let matchStateCache = {};
+
+let pathFromStateCache = {};
+
 /**
  * Tries to match the given path with the given route.
  *
@@ -37,6 +45,12 @@ function matchPath (route, path) {
  * the match in the form of a application state.
  */
 function getStateFromPath (path, routes) {
+
+    if (path in stateFromPathCache) {
+
+        return stateFromPathCache[path];
+    }
+
     for (let [route, info] of routes) {
         let state = matchPath(route, path);
         if (state) {
@@ -50,12 +64,20 @@ function getStateFromPath (path, routes) {
                 if (state.area && state.metric) {
                     state.area = config.metricConfig(state.metric).area;
                 }
-                return state;
+                stateFromPathCache[path] = state;
+                break;
             }
         }
+
     }
-    return {};
+
+    if (!(path in stateFromPathCache)){
+        stateFromPathCache[path] = {};
+    }
+    return stateFromPathCache[path];
 }
+
+
 
 /**
  * Tries to match the given state with the given route.
@@ -65,17 +87,34 @@ function getStateFromPath (path, routes) {
  * Returns false otherwise.
  */
 function matchState (route, state) {
+
+    var _state = JSON.stringify(state);
+
+    if ((_state in matchStateCache) && (route in matchStateCache[_state])){
+
+        return matchStateCache[ _state][route];
+
+    } else {
+        matchStateCache[_state] = {};
+    }
+
+    let match = true;
     let routeKeys = _.filter(route.split('/'), (part) => part.startsWith(':'));
     let stateKeys = _.filter(Object.keys(state), (key) => state[key] !== '');
     if (routeKeys.length !== stateKeys.length) {
-        return false;
-    }
-    for (let routeKey of routeKeys) {
-        if (!stateKeys.includes(routeKey.slice(1))) {
-            return false;
+        match = false;
+    } else {
+        for (let routeKey of routeKeys) {
+            if (!stateKeys.includes(routeKey.slice(1))) {
+                match = false;
+                break;
+            }
         }
     }
-    return true;
+
+    matchStateCache[ _state][route] = match;
+
+    return match;
 }
 
 /**
@@ -119,15 +158,28 @@ function getMainComponentFromState (state, routes) {
  * with any redirect routes.
  */
 function getPathFromState (root, state, routes) {
+
+    var _state = JSON.stringify(state);
+
+    if (_state in pathFromStateCache){
+        return pathFromStateCache[ _state];
+    }
+
     for (let [route, info] of routes) {
         if (matchState(route, state)) {
             let path = route;
             for (let key of Object.keys(state)) {
                 path = path.replace(':' + key, state[key]);
             }
-            return root + '#' + path;
+            pathFromStateCache[_state] = `${root}#${path}`;
+            return pathFromStateCache[_state];
         }
     }
+
+    //return root domain but do not cache what can be "fake states"
+    return root;
+
+
 }
 
 
@@ -191,11 +243,12 @@ class Router {
 }
 
 export default {
-    matchPath,
-    getStateFromPath,
-    matchState,
     getRedirectedState,
     getMainComponentFromState,
     getPathFromState,
     Router,
+    //for unit tests
+    matchState,
+    matchPath,
+    getStateFromPath,
 };
