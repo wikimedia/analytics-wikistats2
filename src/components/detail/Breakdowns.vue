@@ -58,7 +58,11 @@
         },
 
         mounted () {
-            this.mode === 'top' && this.graphModel.activeBreakdown.values.find(b => b.on && b.key != 'total')
+            if (this.mode === 'top') {
+                this.activeFilter = this.graphModel.activeBreakdown.values.find(
+                    b => b.on && b.key != 'total'
+                ) || null;
+            }
         },
 
         methods: {
