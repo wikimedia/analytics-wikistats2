@@ -3,25 +3,25 @@
     <table :class="graphModel.config.area" class="ui table unstackable">
         <caption align="bottom" @click="advancePage()" v-if="loadMoreRows" class="morerows" colspan="10">Load more rows...</caption>
         <thead>
-            <tr v-if="graphModel.config.structure === 'timeseries'">
+            <tr v-if="isTimeseries">
                 <th>Date</th>
                 <th class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{v.name | capitalize}}</th>
             </tr>
-            <tr v-if="graphModel.config.structure === 'top'">
+            <tr v-if="isTop">
                 <th class="right aligned">{{(graphModel.config.valueTitle || graphModel.config.value) | capitalize}}</th>
                 <th>Name</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-if="graphModel.config.structure === 'timeseries'" v-for="m in valuesShown">
+            <tr v-if="isTimeseries" v-for="m in valuesShown">
                 <td>{{m.month | ISOdateUTC(granularityFormat)}}</td>
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
-            <tr v-if="graphModel.config.structure === 'top'" v-for="m, i in valuesShown">
-                <td v-if="graphModel.config.type !== 'map'" class="right aligned">{{m.total.total|thousands}}</td>
+            <tr v-if="isTop" v-for="m, i in valuesShown">
+                <td v-if="isMap" class="right aligned">{{m.total.total|thousands}}</td>
                 <td v-else class="right aligned">{{m.total.total|kmb}}</td>
                 <td>
-                    <a v-if="graphModel.config.type !== 'map'" target="_blank" :href="generateLink(m[graphModel.config.key])">
+                    <a v-if="isMap" target="_blank" :href="generateLink(m[graphModel.config.key])">
                         {{elementName(i)}}
                     </a>
                     <span v-else>
@@ -43,7 +43,7 @@ export default {
     props: ['graphModel'],
     data () {
         return {
-            currentPage: 0
+            currentPage: 1
         }
     },
 
@@ -56,22 +56,38 @@ export default {
     },
 
     computed: {
-        mobile(){
+        isTop () {
+            return this.graphModel.config.structure === 'top';
+        },
+        isTimeseries () {
+            return this.graphModel.config.structure === 'timeseries';
+        },
+        isMap () {
+            return this.graphModel.config.type !== 'map';
+        },
+        mobile () {
             return this.$mq == 'mobile';
         },
-        totalItems(){
+        itemsToShow () {
             const itemsPerPage = this.mobile ? 10 : 20;
-            return this.currentPage * itemsPerPage + itemsPerPage;
+            return this.currentPage * itemsPerPage;
         },
-        valuesShown(){
-            if (this.graphModel.graphData){
-                return this.graphModel.graphData.slice(0, this.totalItems);
-            }
+        length () {
+            return this.graphModel.graphData ? this.graphModel.graphData.length : 0;
         },
-        loadMoreRows(){
-            if (this.graphModel.graphData && this.totalItems < this.graphModel.graphData.length){
-                return true;
+        valuesShown () {
+            if (!this.length) {
+                return [];
             }
+
+            const start = this.isTop ? 0 : Math.max(this.length - this.itemsToShow, 0),
+                  end = this.isTop ? this.itemsToShow : this.length,
+                  results = this.graphModel.graphData.slice(start, end);
+
+            return this.isTop ? results : results.reverse();
+        },
+        loadMoreRows () {
+            return this.length > this.itemsToShow;
         },
         granularityFormat () {
             return utils.getDateFormatFromData(this.graphModel.graphData);
@@ -96,7 +112,7 @@ export default {
                 headerCells[i].style = `background-color: ${this.graphModel.config.darkColor};`;
             }
         },
-        advancePage(){
+        advancePage () {
             this.currentPage++;
         },
         generateLink (elementName) {
