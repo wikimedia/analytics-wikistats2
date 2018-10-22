@@ -18,16 +18,9 @@
                 <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
             </tr>
             <tr v-if="isTop" v-for="m, i in valuesShown">
-                <td v-if="isMap" class="right aligned">{{m.total.total|thousands}}</td>
-                <td v-else class="right aligned">{{m.total.total|kmb}}</td>
-                <td>
-                    <a v-if="isMap" target="_blank" :href="generateLink(m[graphModel.config.key])">
-                        {{elementName(i)}}
-                    </a>
-                    <span v-else>
-                        {{elementName(i)}}
-                    </span>
-                </td>
+                <td v-if="isMap" class="right aligned">{{m.total.total|kmb}}</td>
+                <td v-else class="right aligned">{{m.total.total|thousands}}</td>
+                <table-name-cell :nameKey="graphModel.config.key" :index="i" :value="m" />
             </tr>
         </tbody>
     </table>
@@ -35,12 +28,15 @@
 </template>
 
 <script>
-import isoLookup from './MapChart/isoLookup'
 import utils from '../../../utils'
+import TableNameCell from './TableNameCell'
 
 export default {
     name: 'table-chart',
     props: ['graphModel'],
+    components: {
+        TableNameCell
+    },
     data () {
         return {
             currentPage: 1
@@ -63,10 +59,10 @@ export default {
             return this.graphModel.config.structure === 'timeseries';
         },
         isMap () {
-            return this.graphModel.config.type !== 'map';
+            return this.graphModel.config.type === 'map';
         },
         mobile () {
-            return this.$mq == 'mobile';
+            return this.$mq === 'mobile';
         },
         itemsToShow () {
             const itemsPerPage = this.mobile ? 10 : 20;
@@ -95,15 +91,6 @@ export default {
     },
 
     methods: {
-        elementName (i) {
-            const rawName = this.valuesShown[i][this.graphModel.config.key].replace(/_/g, ' ');
-            if (this.graphModel.config.type === 'map') {
-                const result = isoLookup[rawName];
-                return (result && result.en) || rawName;
-            } else {
-                return rawName;
-            }
-        },
         setColors () {
             const headerCells = this.$el.querySelectorAll('th');
             let i = null;
@@ -114,14 +101,6 @@ export default {
         },
         advancePage () {
             this.currentPage++;
-        },
-        generateLink (elementName) {
-            const transformation = {
-                'user_text': (e) => '\/\/' + this.$store.state.project + '/wiki/User:' + e
-            }[this.graphModel.config.key];
-            if (transformation) {
-                return transformation(elementName);
-            } else return '\/\/' + this.$store.state.project + '/wiki/' + elementName;
         }
     }
 }
@@ -130,12 +109,6 @@ export default {
 
 <style scoped>
 th { color: #FFFFFF!important; }
-td a:hover {
-    color: #6289D8;
-}
-td a {
-    color: #000;
-}
 td.right.aligned {
     text-align: right;
 }
