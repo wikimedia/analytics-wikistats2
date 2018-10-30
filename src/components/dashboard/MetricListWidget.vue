@@ -11,13 +11,7 @@
             <td class="number">{{item.total.total | kmb}}</td>
             &nbsp;
             <td class="label">
-
-                <a v-if="graphModel.config.type !== 'map'" v-on:click.stop target="_blank" :href="getLink(item)">
-                    {{elementName(i)}}
-                </a>
-                <span v-else>
-                    {{elementName(i)}}
-                </span>
+                <table-name-cell :index="i" :value="item" :nameKey="graphModel.config.key"/>
             </td>
         </tr>
     </table>
@@ -28,11 +22,13 @@
 import _ from '../../lodash-custom-bundle';
 import Vue from 'vue';
 import config from '../../config';
-import isoLookup from '../detail/chart/MapChart/isoLookup';
+
+import TableNameCell from '../detail/chart/TableNameCell';
 
 export default {
     name: 'metric-list-widget',
     props: ['graphModel', 'data'],
+    components : {TableNameCell},
 
     computed: {
         lastMonth () {
@@ -43,20 +39,6 @@ export default {
         },
         sortedList () {
             return this.data.slice(0, 4);
-        }
-    },
-    methods: {
-        elementName (i) {
-            const rawName = this.sortedList[i][this.graphModel.config.key].replace(/_/g, ' ');
-            if (this.graphModel.config.type === 'map') {
-                return isoLookup[rawName].en;
-            } else {
-                return rawName;
-            }
-        },
-
-        getLink (item) {
-            return '\/\/' + this.$store.state.project + '/wiki/' + item[this.graphModel.config.key];
         }
     }
 };
