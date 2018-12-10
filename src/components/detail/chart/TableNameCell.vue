@@ -19,7 +19,7 @@ export default {
         transformLink(name) {
             const LINK_TRANSFORMATIONS = {
                 user_text: username =>
-                    "//" + this.project + "/wiki/User:" + username,
+                    "//" + this.project + "/wiki/Special:Contributions/" + username,
                 default: name =>
                     "//" + this.project + "/wiki/" + name
             };
