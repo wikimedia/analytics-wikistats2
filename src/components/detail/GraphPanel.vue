@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui simple dropdown right labeled icon button"
+                    <div v-if="chartTypes.length > 1" class="ui simple dropdown right labeled icon button"
                          title="Change Chart">
                         <i class="ui dropdown icon"/>
                         <span>
