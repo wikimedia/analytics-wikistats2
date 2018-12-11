@@ -32,36 +32,3 @@ module.exports = merge(baseConfig, {
         }),
     ],
 });
-
-
-// module.exports = merge(baseConfig, {
-//     output: {
-//         filename: '[name].bundle.[chunkhash].js',,
-//         path: utils.resolve('dist')
-//     },
-//     resolve: {
-//         // in dev mode, vue needs to run with this version
-//         alias: {
-//             'vue$': 'vue/dist/vue.esm.js'
-//         }
-//     },
-//     module: {
-//         rules: [
-//             {
-//                 test: /\.js$/,
-//                 loader: 'babel-loader',
-//                 include: [utils.resolve('src'), utils.resolve('test')]
-//             },
-//         ]
-//     },
-//     plugins: [
-//         // Extract imported CSS into own file
-//         new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
-//         // Minify JS
-//         new UglifyJSPlugin(),
-//         // Minify CSS
-//         new webpack.LoaderOptionsPlugin({
-//             minimize: true,
-//         }),
-//     ],
-// });

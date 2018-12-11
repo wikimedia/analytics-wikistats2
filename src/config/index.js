@@ -1,5 +1,7 @@
 import _ from '../lodash-custom-bundle';
 
+import allMetrics from './metrics';
+
 const months = [
     null,
     'January',
@@ -129,8 +131,6 @@ const availableChartTypes = {
     table   : { chart: 'table', icon: 'table' },
 };
 
-
-const allMetrics = require('./metrics');
 const metrics = {};
 
 Object.keys(allMetrics).filter(k => !(allMetrics[k].disabled))
