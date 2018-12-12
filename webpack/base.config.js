@@ -72,6 +72,9 @@ module.exports = {
             favicon: 'src/assets/analytics.png',
             inject: true
         }),
+        new webpack.DefinePlugin({
+          VERSION: JSON.stringify(require("../package.json").version)
+        }),
         new webpack.ProvidePlugin({
             $ : "jquery",
             jQuery : "jquery",

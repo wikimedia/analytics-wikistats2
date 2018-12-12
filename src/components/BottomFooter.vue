@@ -16,6 +16,7 @@
     <div class="list-container list-contributing">
         <h5 class="list-heading">Contributing</h5>
         <ul class="list-content">
+            <li><a target="_blank" href="https://github.com/wikimedia/analytics-wikistats2/search?o=desc&q=release&s=committer-date&type=Commits">Wikistats {{version}}</a></li>
             <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Contributing_and_Deployment">Contributing guide</a></li>
             <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&amp;projectPHIDs=Analytics-Wikistats,Analytics">Report a bug</a></li>
             <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20New%20Feature&projectPHIDs=Analytics-Wikistats,Analytics">New feature</a></li>
@@ -44,7 +45,12 @@
 <script>
 
 export default {
-  name: 'bottom-footer'
+  name: 'bottom-footer',
+  data () {
+    return {
+        version: 'v' + VERSION
+    }
+  }
 
 };
 </script>
