@@ -4,6 +4,8 @@
 import _ from '../lodash-custom-bundle';
 import config from '../config';
 
+import wikiGroups from './wikigroups';
+
 // be-tarask language is the only one whose language
 // code differs from its hostname's language prefix.
 // This map addresses that issue.
@@ -190,25 +192,6 @@ const specials = matrix.then(matrixData => {
     });
 });
 
-// Defines all wiki groups.
-// For now, there's only 'All wikis', but this could be used also
-// to define groups like: 'All french wikis' or 'All wiktionaries'.
-// The format is:
-//   {
-//       type: 'wikiGroup',
-//       code: 'all-projects',
-//       name: 'All Wikis',
-//       localName: 'Totes les viquis'
-//   }
-const wikiGroups = [
-    {
-        type: 'wikiGroup',
-        code: config.ALL_PROJECTS,
-        name: 'All wikis',
-        localName: 'All wikis'
-    }
-];
-
 function stripUrl (url) {
     return url.replace(/https:\/\/(www\.)?/, '');
 }
@@ -297,9 +280,13 @@ export default {
             let toReturn;
             if (projectFamilyCode) {
                 const languageCodes = Object.keys(projectFamilies[projectFamilyCode].wikis);
-                toReturn = _.map(languageCodes, languageCode => {
-                    return languages[languageCode];
-                });
+                const wholeFamily = wikiGroups.find(g => g.family === projectFamilyCode);
+                // We add the search result for the whole project family at the beginning
+                toReturn = [wholeFamily].concat(
+                    _.map(languageCodes, languageCode => {
+                        return languages[languageCode];
+                    })
+                );
             } else {
                 toReturn = _.sortBy(Object.values(languages), 'localName');
             }
@@ -433,7 +420,7 @@ export default {
                         projectFamily.code, language.code, format);
                 }
             }
-            // Else, try to find the whole hostname within wiki groups or special wikis.
+            // Otherwise, try to find the whole hostname within wiki groups or special wikis.
             return formatOutput(format)(
                 _.find(wikiGroups, group => group.code === hostnameOrCode) ||
                 _.find(specials, wiki => wiki.hostname === hostnameOrCode)

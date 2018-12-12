@@ -10,7 +10,8 @@
 </template>
 <script type="text/javascript">
 import isoLookup from "./MapChart/isoLookup";
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+import utils from "../../../utils"
 
 export default {
     name: "table-name-cell",
@@ -38,24 +39,30 @@ export default {
             return transformation(name);
         }
     },
-    computed: {
-        link() {
-            if (this.map || this.elementRawName === null) return;
-            return this.transformLink(this.elementName);
-        },
-        elementName() {
-            let name = this.transformName(this.elementRawName);
-            const spacedName = name.replace(/_/g, " ");
-            return spacedName;
-        },
-        elementRawName() {
-            return this.value[this.nameKey];
-        },
-        map() {
-            return this.nameKey === "country";
-        },
-        project: mapState(['project']).project
-    }
+    computed: Object.assign(
+        mapState([
+            'project',
+        ]), {
+            link() {
+                if (this.family || this.map || this.elementRawName === null) return;
+                return this.transformLink(this.elementName);
+            },
+            elementName() {
+                let name = this.transformName(this.elementRawName);
+                const spacedName = name.replace(/_/g, " ");
+                return spacedName;
+            },
+            elementRawName() {
+                return this.value[this.nameKey];
+            },
+            map() {
+                return this.nameKey === "country";
+            },
+            family () {
+                return utils.isProjectFamily(this.project);
+            }
+        }
+    )
 };
 </script>
 <style type='text/css'>

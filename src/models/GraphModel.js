@@ -101,6 +101,10 @@ class GraphModel {
         return this.getLimitedAggregate();
     }
 
+    getDefaultBreakdown () {
+        // The default breakdown is always index 0 (see constructor)
+        return this.breakdowns[0];
+    }
     getLimitedAggregate (limitToLastN) {
         const values = this.getAggregatedValues(limitToLastN);
         const total = _.sum(values);

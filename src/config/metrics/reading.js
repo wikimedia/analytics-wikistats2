@@ -126,6 +126,8 @@ module.exports = {
         value: 'devices',
         area: 'reading',
         global: false,
+        globalFamily: true,
+        breakdownCheck: 'ONLY_IF_PER_DOMAIN',
         breakdowns: [{
             name: 'Access site',
             breakdownName: 'access-site',

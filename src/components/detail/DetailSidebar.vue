@@ -23,7 +23,8 @@
     <breakdowns
         v-if="graphModel
               && graphModel.breakdowns
-              && graphModel.breakdowns.length > 1"
+              && graphModel.breakdowns.length > 1
+              && breakdownAllowed"
         :graphModel = "graphModel"
     />
 </section>
@@ -41,7 +42,7 @@ import '../../../semantic/dist/components/dimmer';
 
 export default {
     name: 'detail-sidebar',
-    props: ['otherMetrics', 'graphModel'],
+    props: ['otherMetrics', 'graphModel', 'breakdownAllowed'],
     data () {
         return {
             wiki: {
