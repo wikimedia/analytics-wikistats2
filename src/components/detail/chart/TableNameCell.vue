@@ -44,7 +44,7 @@ export default {
             'project',
         ]), {
             link() {
-                if (this.family || this.map || this.elementRawName === null) return;
+                if (this.allWikis || this.family || this.map || this.elementRawName === null) return;
                 return this.transformLink(this.elementName);
             },
             elementName() {
@@ -60,6 +60,9 @@ export default {
             },
             family () {
                 return utils.isProjectFamily(this.project);
+            },
+            allWikis () {
+                return this.project === 'all-projects'
             }
         }
     )
