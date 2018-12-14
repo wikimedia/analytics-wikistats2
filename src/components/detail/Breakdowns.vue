@@ -1,6 +1,6 @@
 <template>
 <div v-if="graphModel">
-    <h3 class="header">{{header}}</h3>
+    <h3 class="header" v-hint:filterAndSplit>{{header}}</h3>
     <div v-for="b, i in graphModel.breakdowns" class="breakdown">
         <div class="ui radio checkbox">
             <input
@@ -23,14 +23,14 @@
             <div v-if="mode === 'timeseries'">
                 <label class="xui checkbox" :class="{active: isActive(b)}"
                        v-for="bv in b.values">
-                    <input type="checkbox" v-model="bv.on" :`d="!isActive(b)"/>
-                    {{bv.name}}
+                    <input type="checkbox" v-model="bv.on" :disabled="!isActive(b)"/>
+                    <span v-hint:breakdown="bv.key">{{bv.name}}</span>
                 </label>
             </div>
             <div v-if="mode === 'top'" v-for="bv in b.values">
                 <label class="xui radio checkbox filter" :class="{active: isActive(b)}">
                     <input type="radio" v-model="activeFilter" :value="bv" :disabled="!isActive(b)"/>
-                    {{bv.name}}
+                    <span v-hint:breakdown="bv.key">{{bv.name}}</span>
                 </label>
             </div>
         </div>

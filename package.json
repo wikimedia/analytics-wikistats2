@@ -22,6 +22,7 @@
         "lodash": "^4.17.4",
         "moment": "^2.18.1",
         "numeral": "^2.0.6",
+        "primer-tooltips": "^1.5.9",
         "semantic-ui": "^2.2.11",
         "topojson-client": "^3.0.0",
         "vue": "2.5.17",

@@ -140,7 +140,30 @@ export default {
 };
 </script>
 
+<style src="primer-tooltips/build/build.css"></style>
 <style>
+
+.tooltipped { cursor: pointer; }
+.tooltipped::after {
+    background: #ffe1ee; color: #333; box-shadow: 2px 2px 20px #333;
+    font-size: 1em; font-family: Lato,"Open Sans";
+}
+.tooltipped::before { color: #ffe1ee; }
+.tooltipped-s::before,.tooltipped-se::before,.tooltipped-sw::before {
+    border-bottom-color: #ffe1ee;
+}
+.tooltipped-n::before,.tooltipped-ne::before,.tooltipped-nw::before {
+    border-top-color: #ffe1ee;
+}
+.tooltipped-w::before {
+    border-left-color: #ffe1ee;
+}
+.tooltipped-e::before {
+    border-right-color: #ffe1ee;
+}
+.tooltipped:hover::before,.tooltipped:hover::after,.tooltipped:active::before,.tooltipped:active::after,.tooltipped:focus::before,.tooltipped:focus::after {
+    animation-delay: .3s;
+}
 
 html{
     margin:0;
