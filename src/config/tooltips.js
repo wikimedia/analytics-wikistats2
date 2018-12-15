@@ -35,9 +35,9 @@ export default {
         'content': 'Also referred to as "Main Namespace", includes articles in namespace zero and and a few others',
         'non-content': 'Talk pages, user pages, etc. are called Non Content',
 
-        '1..4-edits': 'Made between 1 and 4 edits in the selected time frame',
-        '5..24-edits': 'Made between 5 and 24 edits in the selected time frame',
-        '25..99-edits': 'Made between 25 and 99 edits in the selected time frame',
-        '100..-edits': 'Made 100 or more edits in the selected time frame',
+        '1..4-edits': 'Made between 1 and 4 edits in each month or day shown',
+        '5..24-edits': 'Made between 5 and 24 edits in each month or day shown',
+        '25..99-edits': 'Made between 25 and 99 edits in each month or day shown',
+        '100..-edits': 'Made 100 or more edits in each month or day shown',
     },
 }
