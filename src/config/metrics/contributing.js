@@ -5,7 +5,7 @@ module.exports = {
         description: 'The count of editors with one or more edits, including on redirect pages',
         question: 'How many editors are there?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Editors',
-        tooltip: 'The count of editors with one or more edits, including on redirect pages. The metric can be split and filtered by Editor Type, Page Type, and Activity Level.',
+        tooltip: 'The count of editors with one or more edits, including on redirect pages.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -58,7 +58,7 @@ module.exports = {
         description: 'The count of edits (or revisions), including edits on redirects',
         question: 'How many edits have been made?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Edits',
-        tooltip: 'The count of edits (or revisions), including edits on redirects. The metric can be split and filtered by Editor Type and Page Type.',
+        tooltip: 'The count of edits (or revisions), including edits on redirects.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -101,7 +101,7 @@ module.exports = {
         description: 'The count of new pages created, excluding pages being redirects',
         question: 'How many new pages each month?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/New_pages',
-        tooltip: 'The count of new pages created, excluding pages being redirects. We measure this by adding up the creations and restores of old pages, and subtracting the page deletions for a given month. The metric can be split and filtered by Editor Type and Page Type.',
+        tooltip: 'The count of new pages created, excluding pages being redirects. We measure this by adding up the creations and restores of old pages, and subtracting the page deletions for a given month.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -144,7 +144,7 @@ module.exports = {
         description: 'The count of newly self-created registered users',
         question: 'How many new users are there?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Newly_registered_user',
-        tooltip: 'Newly registered user is a standardized user class used to measure number of new users signing up on a given wiki project for the first time. It is used as a proxy for user acquisition.',
+        tooltip: 'Number of new users signing up on a given wiki project for the first time. Used as a proxy for user acquisition.',
         defaults: {
             unique: {
                 project: ['all-projects']
@@ -169,6 +169,7 @@ module.exports = {
         description: 'Most prolific editors',
         question: 'Who are the users that edit the most articles?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Top_editors',
+        tooltip: 'Editors ranked by number of edits.',
         type: 'list',
         structure: 'top',
         frozen:'1-Month',
@@ -215,6 +216,7 @@ module.exports = {
         description: 'Most edited pages',
         question: 'Which are the pages with the most edits?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Top_edited_pages',
+        tooltip: 'Pages ranked by number of edits.',
         type: 'list',
         structure: 'top',
         frozen:'1-Month',

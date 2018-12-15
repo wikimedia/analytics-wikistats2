@@ -18,23 +18,30 @@ const tipsPromise = import(/* webpackChunkName: "tooltips" */ '../config/tooltip
 Vue.directive('hint', {
     bind (el, binding) {
         tipsPromise.then((tooltips) => {
-            const category = (tooltips[binding.arg] || {});
-            const tooltipText = binding.value ? category[binding.value] : category;
+            let tooltipText = '';
+
+            if (binding.arg === 'raw') {
+                tooltipText = binding.value;
+            } else {
+                const category = (tooltips[binding.arg] || {});
+                tooltipText = binding.value ? category[binding.value] : category;
+            }
 
             if (!tooltipText) {
                 /* uncomment to help when adding tooltips (you can add the directives in the code,
                  * and then navigate the site looking for these warnings and copying them to tooltips.js):
+                 */
                 console.warn('Tooltip missing: ', binding.value ?
-                    `Under ${binding.arg}, add '${binding.value}':` :
+                    `Add ${binding.arg}: {\n'${binding.value}': '',` :
                     `${binding.value}:`
                 );
-                 */
                 return;
             }
 
             // using primer-tooltips, can easily use any tooltip library
             $(el)
-                .addClass('tooltipped tooltipped-n tooltipped-multiline')
+                // the multiline transforms sometimes make the tooltip text blurry, so using it sparingly
+                .addClass(`tooltipped tooltipped-n ${tooltipText.length > 50 ? 'tooltipped-multiline' : ''}`)
                 .attr('aria-label', tooltipText);
         });
     },

@@ -5,7 +5,7 @@ module.exports = {
         description: 'Page views on Wikimedia projects count the viewing of article content. In this data we try to exclude bot traffic and focus on human user page views',
         question: 'How many times are articles viewed?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
-        tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
+        tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users.',
         defaults: {
             unique: {
                 project: ['all-projects'],

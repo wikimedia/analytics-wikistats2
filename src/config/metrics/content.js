@@ -5,7 +5,7 @@ module.exports = {
         description: 'The sum of the absolute differences in bytes made by each edit (or revision), including edits on redirects. In other words, counting negative differences as positive',
         question: 'What are the total number of bytes added and removed?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Bytes#Absolute_Bytes_Difference',
-        tooltip: 'The sum of the absolute differences in bytes made by each edit (or revision), including edits on redirects. In other words, counting negative differences as positive. The metric can be split and filtered by Editor Type and Page Type.',
+        tooltip: 'The sum of the absolute differences in bytes made by each edit (or revision), including edits on redirects. In other words, counting negative differences as positive.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -49,7 +49,7 @@ module.exports = {
         description: 'The number of pages edited, excluding redirect pages',
         question: 'How many pages are edited?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Edited_pages',
-        tooltip: 'The number of pages edited, excluding redirect pages. The metric can be split and filtered by Editor Type, Page Type, and Activity Level.',
+        tooltip: 'The number of pages edited, excluding redirect pages.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -101,7 +101,7 @@ module.exports = {
         description: 'The sum of the differences in bytes made by each edit (or revision), including edits on redirects',
         question: 'How did the overall size in bytes change since last period?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Bytes#Net_Bytes_Difference',
-        tooltip: 'The sum of the differences in bytes made by each edit (or revision), including edits on redirects. The metric can be split and filtered by Editor Type and Page Type.',
+        tooltip: 'The sum of the differences in bytes made by each edit (or revision), including edits on redirects.',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -145,7 +145,7 @@ module.exports = {
         description: 'The running count of all pages created, excluding pages being redirects',
         question: 'How many pages are there in the project right now?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Pages_to_date',
-        tooltip: 'The running count of all pages created, excluding pages being redirects. We measure this by adding up the creations and restores of old pages, and subtracting the page deletions for a given month. The metric can be split and filtered by Editor Type and Page Type.',
+        tooltip: 'The running count of all pages created, excluding pages being redirects. We measure this by adding up the creations and restores of old pages, and subtracting the page deletions for a given month.',
         defaults: {
             unique: {
                 project: ['all-projects'],

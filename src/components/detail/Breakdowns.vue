@@ -9,13 +9,8 @@
                 v-model="graphModel.activeBreakdown"
                 :value="b">
             <label :for="'breakdown' + b.breakdownName">
-                <span v-if="b.total">
-                    Overall <strong>{{b.name.toLocaleLowerCase()}}</strong>
-                    <i class="help circle icon" title="See the overall total"/>
-                </span>
-                <span v-else>
-                    {{operation}} by <strong>{{b.name.toLocaleLowerCase()}}</strong>
-                    <i class="help circle icon" title="Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes."/>
+                <span v-hint:help="b.total ? 'split-total' : 'split'">
+                    {{b.total ? 'Overall' : operation + ' by'}} <strong>{{b.name.toLocaleLowerCase()}}</strong>
                 </span>
             </label>
         </div>

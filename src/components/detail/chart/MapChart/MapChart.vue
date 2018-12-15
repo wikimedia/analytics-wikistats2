@@ -9,7 +9,7 @@
     />
     <map-legend
         v-if="graphModel.graphData"
-        :title="graphModel.config.fullName"
+        v-hint:raw="graphModel.config.fullName"
         :scale="colorScale"
     />
     <svg class="map canvas">

@@ -10,7 +10,7 @@
         <div>
             <h2 v-if="!mobile" class="ui left floated header">
                 <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
-                   :title="graphModel.config.tooltip">
+                   v-hint:raw="graphModel.config.tooltip">
                     {{graphModel.config.fullName || 'No data yet... '}}
                 </a>
                 <span v-if="graphModel && graphModel.graphData" class="subdued granularity">{{month || granularity}}</span>
@@ -25,22 +25,22 @@
                 <div v-if="!mobile" class="ui right floated icon buttons">
 
 
-                    <button @click="download" class="ui icon button" title="Download">
+                    <button @click="download" class="ui icon button" v-hint:help="'download'">
                         <i class="download icon"></i>
                     </button>
-                    <div class="ui icon button simple dropdown" title="Permalink">
+                    <div class="ui icon button simple dropdown" v-hint:help="'permalink'">
                         <i class="chain icon"></i>
                         <div class="menu permalink">
                             <div class="ui right labeled input">
                                 <input type="text" :value="permalinkURL" readonly ref="permalinkText">
-                                <button @click="copyPermalink" class="ui icon button" title="Copy to clipboard">
+                                <button @click="copyPermalink" class="ui icon button" v-hint:help="'copy'">
                                     <i class="copy icon"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div v-if="chartTypes.length > 1" class="ui simple dropdown right labeled icon button"
-                         title="Change Chart">
+                    <div class="ui simple dropdown right labeled icon button"
+                         v-hint:help="'change-chart'">
                         <i class="ui dropdown icon"/>
                         <span>
                             <i :class="chartIcon" class="chart icon"></i>
@@ -76,14 +76,14 @@
                 </h5>
                 <p>{{graphModel.config.description}}.
                     <a class="metric link" :href="graphModel.config.infoUrl" target="_blank"
-                       :title="graphModel.config.tooltip">
+                       v-hint:raw="graphModel.config.tooltip">
                         More info about this metric.
                     </a>
                 </p>
                 <p>
                     You can
                     <a class="metric link" :href="annotationsLink" target="_blank"
-                       title="Annotations for this data">
+                       v-hint:help="'annotations'">
                         see or add annotations for this data on this wiki article.
                     </a>
                 </p>
@@ -98,8 +98,8 @@
     </div>
     <div class="ui right floated icon button"
          v-if="!mobile && !overlayMessage"
-        @click="toggleFullscreen"
-        :title="fullscreen ? 'minimize the graph and show controls' : 'maximize the graph and hide controls'">
+         @click="toggleFullscreen"
+         v-hint:help="fullscreen ? 'minimize' : 'maximize'">
 
         <i class="ui icon" :class="{expand: !fullscreen, compress: fullscreen}"/>
     </div>

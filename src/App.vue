@@ -146,7 +146,7 @@ export default {
 .tooltipped { cursor: pointer; }
 .tooltipped::after {
     background: #ffe1ee; color: #333; box-shadow: 2px 2px 20px #333;
-    font-size: 1em; font-family: Lato,"Open Sans";
+    font-size: 14px; font-family: Lato,"Open Sans";
 }
 .tooltipped::before { color: #ffe1ee; }
 .tooltipped-s::before,.tooltipped-se::before,.tooltipped-sw::before {
