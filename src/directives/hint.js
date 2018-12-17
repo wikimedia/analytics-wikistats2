@@ -16,7 +16,10 @@ const tipsPromise = import(/* webpackChunkName: "tooltips" */ '../config/tooltip
  * In the above examples, tooltips is imported async from config/tooltips.js
  */
 Vue.directive('hint', {
-    bind (el, binding) {
+    bind (el, binding, vueNode) {
+        // disable tooltips on mobile.  There are subtle but sometimes important conflicts with semantic components
+        if (['mobile', 'compact'].indexOf(vueNode.context.$mq) > -1) { return; }
+
         tipsPromise.then((tooltips) => {
             let tooltipText = '';
 
