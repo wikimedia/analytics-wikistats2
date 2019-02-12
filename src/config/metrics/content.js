@@ -162,6 +162,7 @@ module.exports = {
         area: 'content',
         value: 'new_pages',
         global: true,
+        globalFamily: true,
         frozen: 'All',
         breakdowns: [{
             name: 'Editor type',
