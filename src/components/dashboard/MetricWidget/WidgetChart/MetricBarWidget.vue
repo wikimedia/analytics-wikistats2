@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import _ from '../../lodash-custom-bundle';
-import ArrowIcon from '../ArrowIcon'
+import _ from 'Src/lodash-custom-bundle';
+import ArrowIcon from 'Src/components/ArrowIcon'
 import * as d3 from 'd3-selection'
 import * as scales from 'd3-scale'
-import config from '../../config'
+import config from 'Src/config'
 
 export default {
     name: 'metric-bar-widget',

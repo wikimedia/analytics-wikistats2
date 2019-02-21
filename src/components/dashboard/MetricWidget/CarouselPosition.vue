@@ -4,7 +4,7 @@
     </div>
 </template>
 <script type="text/javascript">
-    import _ from '../../lodash-custom-bundle';
+    import _ from 'Src/lodash-custom-bundle';
     export default {
         name: 'carousel-position',
         props: ['numberOfDots', 'currentPosition'],

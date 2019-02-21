@@ -5,3 +5,4 @@ npm-debug.log
 semantic
 dist-dev
 .agignore
+.DS_Store

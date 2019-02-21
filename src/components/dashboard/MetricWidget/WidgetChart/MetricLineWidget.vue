@@ -9,21 +9,15 @@
 </template>
 
 <script>
-import ArrowIcon from '../ArrowIcon'
-import * as d3 from 'd3-selection'
-import * as scales from 'd3-scale'
-import * as arr from 'd3-array'
-import * as shape from 'd3-shape'
-import config from '../../config'
+import * as d3 from 'd3-selection';
+import * as scales from 'd3-scale';
+import * as arr from 'd3-array';
+import * as shape from 'd3-shape';
+import config from 'Src/config';
 
 export default {
     name: 'metric-line-widget',
     props: ['graphModel', 'data'],
-
-    components: {
-        ArrowIcon,
-    },
-
     mounted () {
         this.drawChart();
     },

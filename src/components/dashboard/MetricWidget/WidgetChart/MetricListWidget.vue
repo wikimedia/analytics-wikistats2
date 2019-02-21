@@ -1,11 +1,5 @@
 <template>
 <div>
-    <div class="ui medium statistic">
-        <div class="label">{{graphModel.config.fullName}}</div>
-    </div>
-    <div class="subdued">
-        {{graphModel.config.subtitle + ' for ' + lastMonth}}
-    </div>
     <table class="widget list">
         <tr v-for="(item, i) in sortedList">
             <td class="number">{{item.total.total | kmb}}</td>
@@ -19,11 +13,11 @@
 </template>
 
 <script>
-import _ from '../../lodash-custom-bundle';
+import _ from 'Src/lodash-custom-bundle';
 import Vue from 'vue';
-import config from '../../config';
+import config from 'Src/config';
 
-import TableNameCell from '../detail/chart/TableNameCell';
+import TableNameCell from 'Src/components/detail/chart/TableNameCell';
 
 export default {
     name: 'metric-list-widget',
@@ -31,12 +25,6 @@ export default {
     components : {TableNameCell},
 
     computed: {
-        lastMonth () {
-            let graphModel = this.graphModel;
-            let date =_.last(graphModel.graphData);
-            date = date.month;
-            return config.months[date.getUTCMonth() + 1];
-        },
         sortedList () {
             return this.data.slice(0, 4);
         }

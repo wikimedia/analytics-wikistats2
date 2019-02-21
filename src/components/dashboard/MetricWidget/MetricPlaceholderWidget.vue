@@ -28,7 +28,7 @@
 </template>
 
 <script type="text/javascript">
-    import ArrowIcon from '../ArrowIcon';
+    import ArrowIcon from 'Src/components/ArrowIcon';
     export default {
         name: 'metric-placeholder-widget',
         components: {ArrowIcon}
@@ -38,13 +38,13 @@
 <style>
 @font-face {
     font-family: 'BLOKK';
-    src: url('../../assets/blokk/BLOKKNeue-Regular.eot');
-    src: url('../../assets/blokk/BLOKKNeue-Regular.eot?#iefix') format('embedded-opentype'),
-         url('../../assets/blokk/BLOKKNeue-Regular.woff2') format('woff2'),
-         url('../../assets/blokk/BLOKKNeue-Regular.woff') format('woff'),
-         url('../../assets/blokk/BLOKKNeue-Regular.otf') format('opentype'),
-         url('../../assets/blokk/BLOKKNeue-Regular.ttf') format('truetype'),
-         url('../../assets/blokk/BLOKKNeue-Regular.svg#BLOKKRegular') format('svg');
+    src: url('../../../assets/blokk/BLOKKNeue-Regular.eot');
+    src: url('../../../assets/blokk/BLOKKNeue-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../../../assets/blokk/BLOKKNeue-Regular.woff2') format('woff2'),
+         url('../../../assets/blokk/BLOKKNeue-Regular.woff') format('woff'),
+         url('../../../assets/blokk/BLOKKNeue-Regular.otf') format('opentype'),
+         url('../../../assets/blokk/BLOKKNeue-Regular.ttf') format('truetype'),
+         url('../../../assets/blokk/BLOKKNeue-Regular.svg#BLOKKRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
