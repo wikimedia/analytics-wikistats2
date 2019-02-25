@@ -1,6 +1,7 @@
 import _ from '../lodash-custom-bundle';
 
-import allMetrics from './metrics';
+import metrics from './metrics';
+import wikiGroups from './wikigroups';
 
 const months = [
     null,
@@ -103,6 +104,7 @@ const mainMetricsByArea = [
             metrics: [
                 'edits',
                 'new-registered-users',
+                'wikistats1',
                 'top-editors',
                 'editors',
                 'top-edited-pages'
@@ -131,17 +133,19 @@ const availableChartTypes = {
     table   : { chart: 'table', icon: 'table' },
 };
 
-const metrics = {};
-
-Object.keys(allMetrics).filter(k => !(allMetrics[k].disabled))
-    .forEach(k => metrics[k] = allMetrics[k]);
-
-const questions = Object.keys(metrics).map(k => ({
+const metricNames = Object.keys(metrics);
+const questions = metricNames.map(k => ({
     id: k,
     metric: metrics[k].fullName,
     area: metrics[k].area,
     question: metrics[k].question,
 })).sort((a, b) => a.area > b.area || a.metric > b.metric);
+
+const metricGroups = {};
+_.forEach(metricNames.filter(n => metrics[n].metricGroup), n => {
+    const group = metrics[n].metricGroup;
+    (metricGroups[group] || (metricGroups[group] = [])).push(n);
+});
 
 const AQS_HOST = 'https://wikimedia.org/api/rest_v1/metrics';
 const ANNOTATION_HOST = 'https://meta.wikimedia.org/w/api.php?action=query&prop=revisions&format=json&rvprop=content&rawcontinue=1&maxage=1800&titles=Config:Dashiki:Annotations/Wikistats/';
@@ -280,8 +284,10 @@ export default {
     qualitativeScale,
     stableColorIndexes,
     questions,
+    metricGroups,
     areasWithMetrics,
     months,
     availableChartTypes,
     startDate,
+    wikiGroups,
 };

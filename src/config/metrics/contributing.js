@@ -52,6 +52,46 @@ module.exports = {
         }],
         additive: false
     },
+    'active-editors': {
+        disabled: false,
+        basedOn: 'editors',
+        fullName: 'Active editors',
+        metricGroup: 'wikistats1',
+        description: 'The count of editors with five or more edits, including on redirect pages',
+        question: 'How many active editors are there?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Active_editors',
+        wikistats1URL: 'https://stats.wikimedia.org/EN/TablesWikipediansEditsGt5.htm',
+        tooltip: 'The count of editors with five or more edits, including on redirect pages.',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                editor_type: ['all-editor-types'],
+                page_type: ['all-page-types'],
+                activity_level: ['5..24-edits', '25..99-edits', '100..-edits']
+            },
+            common: {
+                granularity: 'monthly',
+                metric: 'editors'
+            }
+        },
+        breakdowns: [{
+            name: 'Editor type',
+            breakdownName: 'editor_type',
+            values: [
+                { name: 'Anonymous', on: true, key: 'anonymous' },
+                { name: 'Group bot', on: true, key: 'group-bot' },
+                { name: 'Name bot', on: true, key: 'name-bot' },
+                { name: 'User', on: true, key: 'user' },
+            ]
+        },{
+            name: 'Page type',
+            breakdownName: 'page_type',
+            values: [
+                { name: 'Content', on: true, key: 'content' },
+                { name: 'Non content', on: true, key: 'non-content' }
+            ]
+        }]
+    },
     'edits': {
         disabled: false,
         fullName: 'Edits',
@@ -94,6 +134,36 @@ module.exports = {
             ]
         }],
         additive: true
+    },
+    'user-edits': {
+        disabled: false,
+        basedOn: 'edits',
+        metricGroup: 'wikistats1',
+        fullName: 'User edits',
+        description: 'The count of edits (or revisions) made by human users',
+        question: 'How many edits have been made by users?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/User_Edits',
+        tooltip: 'The count of edits (or revisions) by users, including edits on redirects.',
+        wikistats1URL: 'https://stats.wikimedia.org/EN/TablesDatabaseEdits.htm',
+        defaults: {
+            unique: {
+                project: ['all-projects'],
+                editor_type: ['user'],
+                page_type: ['all-page-types']
+            },
+            common: {
+                metric: 'edits',
+                granularity: 'monthly'
+            }
+        },
+        breakdowns: [{
+            name: 'Page type',
+            breakdownName: 'page_type',
+            values: [
+                { name: 'Content', on: true, key: 'content' },
+                { name: 'Non content', on: true, key: 'non-content' }
+            ]
+        }]
     },
     'new-pages': {
         disabled: false,

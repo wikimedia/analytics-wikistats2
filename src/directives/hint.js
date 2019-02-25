@@ -13,6 +13,9 @@ const tipsPromise = import(/* webpackChunkName: "tooltips" */ '../config/tooltip
  *   <span v-hint:camelCase>some text</span>
  *   => The text would come from tooltips.camelCase
  *
+ *   <span v-hint:camelCase.s>some text</span>
+ *   => same as above, but tooltip will be displayed "South".  Can use n (default), nw, ne, e, w, s, se, sw
+ *
  * In the above examples, tooltips is imported async from config/tooltips.js
  */
 Vue.directive('hint', {
@@ -42,9 +45,12 @@ Vue.directive('hint', {
             }
 
             // using primer-tooltips, can easily use any tooltip library
+            const modifiers = Object.keys(binding.modifiers || {});
+            const direction = modifiers[0] || 'n';
+            const multiline = tooltipText.length > 50 ? 'tooltipped-multiline' : '';
             $(el)
                 // the multiline transforms sometimes make the tooltip text blurry, so using it sparingly
-                .addClass(`tooltipped tooltipped-n ${tooltipText.length > 50 ? 'tooltipped-multiline' : ''}`)
+                .addClass(`tooltipped tooltipped-${direction} ${multiline}`)
                 .attr('aria-label', tooltipText);
         });
     },

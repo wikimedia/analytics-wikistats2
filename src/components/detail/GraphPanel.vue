@@ -87,6 +87,11 @@
                         see or add annotations for this data on this wiki article.
                     </a>
                 </p>
+                <p>
+                    <a v-if="wikistats1URL" class="metric link wikistats1" :href="wikistats1URL" target="_blank" v-hint:wikistats1Metric.s>
+                        <img class="wikimedia-logo" src="../../assets/Wikimedia-logo.svg" alt="wikimedia-logo" /> This metric is filtered to match its Wikistats 1 counterpart.
+                    </a>
+                </p>
             </div>
         </div>
         <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
@@ -202,7 +207,10 @@ export default {
                     const specificDetailString = detailUtils.writeToURL(specificDetail);
                     return permalink.slice(0, permalink.lastIndexOf('/') + 1) + specificDetailString;
                 }
-            }
+            },
+            wikistats1URL: function () {
+                return this.graphModel.config.wikistats1URL;
+            },
         }
     ),
 
@@ -349,5 +357,17 @@ g.annotation:hover g.annotation-note, g.annotation:hover g.annotation-connector 
 g.annotation .annotation-note-bg {
     fill-opacity: 1;
     fill: #efefff;
+}
+.simple.legend {
+    margin-right: 10px;
+    margin-top: 5px;
+    display: inline-block;
+}
+.metric.link.wikistats1 {
+    margin-left: 10px;
+    display: inline;
+}
+.metric.link.wikistats1 img {
+    width: 20px;
 }
 </style>

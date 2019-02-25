@@ -18,6 +18,7 @@ export default {
         'split-total': 'See the overall total',
         'split': 'Split the total into parts to see more detail.  Filter to the parts you\'re interested in using the checkboxes',
     },
+    wikistats1Metric: 'This is a Wikistats 1 metric. Click here to go to the legacy version.',
     filterAndSplit: 'Split up the total into different categories, and hide one or more categories',
     breakdown: {
         'desktop': 'The site intended for desktop devices (may be viewed on mobile devices)',

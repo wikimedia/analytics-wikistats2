@@ -32,16 +32,14 @@
     </div>
 </template>
 <script type="text/javascript">
-import _ from "Src/lodash-custom-bundle";
-import PeriodChangeIndicator from "./PeriodChangeIndicator";
-import config from "Src/config";
+import _ from 'Src/lodash-custom-bundle';
+import PeriodChangeIndicator from './PeriodChangeIndicator';
 export default {
-    name: "widget-footer",
-    props: ["graphModel", "graphData"],
-    components: { PeriodChangeIndicator },
+    name: 'widget-footer',
+    props: ['graphModel', 'graphData'],
+    components: {PeriodChangeIndicator},
     computed: {
         widgetPeriod: function() {
-
             return (
                 " (" +
                 this.$options.filters.monthShortName(this.monthOneYearAgo.month) +

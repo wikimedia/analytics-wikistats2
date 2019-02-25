@@ -1,32 +1,36 @@
 <template>
-<div class="widget column" :class="{last: this.isLast()}">
-    <router-link :to="{project, area, metric: metric.name}">
-        <metric-placeholder-widget v-if="!graphModel" />
-        <div v-else>
-            <widget-header :graphModel="graphModel" :graphData="graphData" />
+<div
+    class="widget column" :class="{last: this.isLast()}"
+    @mouseover="hovering=true" @mouseleave="hovering=false"
+    >
+    <div v-if="overlayMessage && !groupShifting">
+        <metric-placeholder-widget/>
+        <status-overlay :overlayMessage="overlayMessage"/>
+    </div>
+    <div class="content">
+        <div v-if="graphModel && !overlayMessage">
+            <router-link class="metric link" :to="{project, area: area, metric: metricName}">
+                <widget-header :graphModel="graphModel" :graphData="graphData" />
+            </router-link>
             <widget-chart :graphData="graphData" :graphModel="graphModel" />
-            <widget-footer v-if="!topMetric"
-                :graphData="graphData" :graphModel="graphModel" />
+            <widget-footer :graphData="graphData" :graphModel="graphModel" v-if="!topMetric" />
         </div>
-    </router-link>
-    <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
+    </div>
     <carousel-position v-if="mobile"
-        :numberOfDots="metricsInArea.length"
+        :numberOfDots="parentMetricCount"
         :currentPosition="position" />
 </div>
 </template>
 
 <script>
-import Vue from 'vue';
 import { mapState } from 'vuex';
 
-import _ from 'Src/lodash-custom-bundle';
 import WidgetChart from './WidgetChart';
 import WidgetHeader from './WidgetHeader';
 import WidgetFooter from './WidgetFooter';
-import CarouselPosition from './CarouselPosition'
-import StatusOverlay from '../../StatusOverlay'
-import MetricPlaceholderWidget from './MetricPlaceholderWidget'
+import CarouselPosition from './CarouselPosition';
+import StatusOverlay from '../../StatusOverlay';
+import MetricPlaceholderWidget from './MetricPlaceholderWidget';
 
 import AQS from 'Src/apis/aqs';
 import config from 'Src/config';
@@ -38,11 +42,15 @@ let aqsApi = new AQS();
 
 export default {
     name: 'metric-widget',
-    props: ['metric', 'area', 'position', 'parentWidgetCount'],
+    props: ['metrics', 'position', 'parentWidgetCount', 'parentMetricCount'],
     data () {
         return {
             graphModel: null,
             overlayMessage: null,
+            groupName: null,
+            metricIndex: 0,
+            groupShifting: null,
+            hovering: false,
         }
     },
 
@@ -51,9 +59,27 @@ export default {
         WidgetHeader,
         WidgetFooter,
         MetricPlaceholderWidget,
+        StatusOverlay,
         RouterLink,
         CarouselPosition,
-        StatusOverlay
+    },
+
+    mounted () {
+        this.loadData(this.params);
+        if (this.metrics.length > 1 && !this.mobile) {
+            setInterval(() => {
+                if (this.hovering || !document.hasFocus()) { return; }
+
+                this.groupShifting = true;
+                $('.content', this.$el).fadeOut(500, () => {
+                    this.metricIndex = (this.metricIndex + 1) % this.metrics.length;
+                    $('.content', this.$el).fadeIn(500, () => {
+                        this.groupShifting = false;
+                    });
+                });
+
+            }, 8000);
+        }
     },
 
     computed: Object.assign(
@@ -61,21 +87,26 @@ export default {
             'project'
         ]), {
             params () {
-                const metricConfig = config.metricConfig(this.metric.name);
                 return {
                     project: this.project,
                     area: this.area,
-                    metric: this.metric.name,
-                    metricConfig: metricConfig,
-                    timeRange: utils.getDefaultTimeRange(metricConfig),
+                    metric: this.metricName,
+                    metricConfig: this.metricConfig,
+                    timeRange: utils.getDefaultTimeRange(this.metricConfig),
                     granularity: 'monthly',
                 };
             },
 
+            metricName () {
+                return this.metrics[this.metricIndex];
+            },
+            metricConfig () {
+                return config.metricConfig(this.metricName);
+            },
             graphData () {
                 if (!this.graphModel) { return []; }
 
-                if (['map', 'list'].includes(this.graphModel.config.type)) {
+                if (['map', 'list'].includes(this.metricConfig.type)) {
                     return this.graphModel.graphData;
                 } else {
                     // Adjust the data to the expected size and then
@@ -96,24 +127,20 @@ export default {
             mobile () {
                 return this.$mq === 'mobile';
             },
-            metricsInArea(){
-                return config.areaData().find(a => a.state.id === this.area).state.metrics;
-            },
             topMetric () {
-                return this.graphModel.config.structure === 'top'
+                return this.metricConfig.structure === 'top'
             },
             metricNotGlobalAndAllProjectsSelected () {
-                return (!this.params.metricConfig.global && this.project === config.ALL_PROJECTS)
+                return (!this.metricConfig.global && this.project === config.ALL_PROJECTS)
             },
             metricNotFamilyGlobalAndFamilySelected () {
-                return (!this.params.metricConfig.globalFamily && utils.isProjectFamily(this.project))
+                return (!this.metricConfig.globalFamily && utils.isProjectFamily(this.project))
+            },
+            area () {
+                return this.metricConfig.area;
             }
         }
     ),
-
-    mounted () {
-        this.loadData(this.params);
-    },
 
    watch: {
         params () {
@@ -217,7 +244,10 @@ export default {
 }
 .widget.column:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
-    cursor: pointer;
+}
+.widget.column .content .metric.link {
+    display: block;
+    border: none;
 }
 
 .widget.column:first-child { margin-left: 0; margin-right: 0.6666666666%; }

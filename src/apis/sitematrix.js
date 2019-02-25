@@ -4,8 +4,6 @@
 import _ from '../lodash-custom-bundle';
 import config from '../config';
 
-import wikiGroups from './wikigroups';
-
 // be-tarask language is the only one whose language
 // code differs from its hostname's language prefix.
 // This map addresses that issue.
@@ -280,7 +278,7 @@ export default {
             let toReturn;
             if (projectFamilyCode) {
                 const languageCodes = Object.keys(projectFamilies[projectFamilyCode].wikis);
-                const wholeFamily = wikiGroups.find(g => g.family === projectFamilyCode);
+                const wholeFamily = config.wikiGroups.find(g => g.family === projectFamilyCode);
                 // We add the search result for the whole project family at the beginning
                 toReturn = [wholeFamily].concat(
                     _.map(languageCodes, languageCode => {
@@ -356,7 +354,7 @@ export default {
      */
     getWikiGroups (format) {
         return Promise.resolve(
-            wikiGroups.map(formatOutput(format))
+            config.wikiGroups.map(formatOutput(format))
         );
     },
 
@@ -422,7 +420,7 @@ export default {
             }
             // Otherwise, try to find the whole hostname within wiki groups or special wikis.
             return formatOutput(format)(
-                _.find(wikiGroups, group => group.code === hostnameOrCode) ||
+                _.find(config.wikiGroups, group => group.code === hostnameOrCode) ||
                 _.find(specials, wiki => wiki.hostname === hostnameOrCode)
             );
         });

@@ -1,6 +1,11 @@
 <template>
     <div class="ui medium statistic">
-        <div class="label">{{graphModel.config.fullName}}</div>
+        <div class="label">
+            {{graphModel.config.fullName}}
+            <a v-if="wikistats1URL" class="metric link wikistats1" :href="wikistats1URL" target="_blank" v-hint:wikistats1Metric.s>
+                <img class="wikimedia-logo" src="../../../assets/Wikimedia-logo.svg" alt="wikimedia-logo" />
+            </a>
+        </div>
         <div v-if="graphModel.config.structure === 'top'" class="subdued">
             {{graphModel.config.subtitle + ' for ' + lastMonthLabel}}
         </div>
@@ -25,6 +30,10 @@
         props: ['graphModel', 'graphData'],
         components: {PeriodChangeIndicator},
         computed: {
+            wikistats1URL: function () {
+                return this.graphModel.config.wikistats1URL;
+            },
+
             unit: function(){
                 if (this.graphModel.config.unit){
                     return this.graphModel.config.unit;
@@ -62,5 +71,12 @@
 }
 .ui.medium.statistic {
     margin-bottom: 0;
+}
+.widget.column .content .metric.link.wikistats1 {
+    margin-left: 10px;
+    display: inline;
+}
+.widget.column .content .metric.link.wikistats1 img {
+    width: 20px;
 }
 </style>

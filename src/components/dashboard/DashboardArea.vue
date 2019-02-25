@@ -9,13 +9,13 @@
             v-touch:swipe.left="onLeftSwipe"
             v-touch:swipe.right="onRightSwipe">
             <metric-widget
-                v-for="(m, i) in area.metrics"
+                v-for="(m, i) in availableMetrics"
                 v-if="!isPending(i)"
-                :key="m"
-                :metric="{ name: m }"
-                :area="area.id"
+                :key="m[0]"
+                :metrics="m"
                 :position="i"
-                :parentWidgetCount="getAvailableMetricSlots(width)">
+                :parentWidgetCount="getAvailableMetricSlots(deferredWidth)"
+                :parentMetricCount="availableMetrics.length">
             </metric-widget>
         </div>
     </div>
@@ -25,6 +25,12 @@
 <script>
 import MetricWidget from './MetricWidget';
 import { mapState } from 'vuex';
+import config from '../../config';
+
+const globalProjects = {
+    global: config.wikiGroups.filter(g => !(g.family)).map(g => g.code),
+    globalFamily: config.wikiGroups.filter(g => g.family).map(g => g.code),
+};
 
 export default {
     name: 'dashboard-area',
@@ -33,15 +39,15 @@ export default {
         return {
             carouselSteps: 0,
             resizeTimer: null,
-            width: 1024
+            deferredWidth: 1024
         };
     },
 
     watch: {
-        appWidth() {
+        width() {
             clearTimeout(this.resizeTimer);
             this.resizeTimer = setTimeout(() => {
-                this.width = this.appWidth;
+                this.deferredWidth = this.width;
             }, 200);
         }
     },
@@ -74,12 +80,12 @@ export default {
         isPending(i) {
             return !(
                 i <
-                    this.getAvailableMetricSlots(this.width) +
+                    this.getAvailableMetricSlots(this.deferredWidth) +
                         this.carouselSteps && i >= this.carouselSteps
             );
         },
         onLeftSwipe(){
-            this.carouselSteps = Math.min(this.carouselSteps + 1, this.area.metrics.length - 1);
+            this.carouselSteps = Math.min(this.carouselSteps + 1, this.availableMetrics.length - 1);
         },
         onRightSwipe(){
             this.carouselSteps = Math.max(this.carouselSteps - 1, 0);
@@ -87,21 +93,49 @@ export default {
 
     },
 
-    computed: {
-        appWidth: mapState([
-            'width'
-        ]).width,
+    computed: Object.assign(mapState([
+        'project',
+        'width',
+    ]), {
         gridClass() {
             return {
                 1: 'one',
                 2: 'two',
                 3: 'three',
                 4: 'four'
-            }[this.getAvailableMetricSlots(this.width)];
+            }[this.getAvailableMetricSlots(this.deferredWidth)];
+        },
+        notGlobal () {
+            return globalProjects.global.indexOf(this.project) < 0;
+        },
+        notGlobalFamily () {
+            return globalProjects.globalFamily.indexOf(this.project) < 0;
+        },
+        mobile () {
+            return this.$mq === 'mobile';
+        },
+        availableMetrics() {
+            const metricGroups = [];
+            this.area.metrics.forEach(metricOrGroup => {
+                const group = (
+                    config.metricGroups[metricOrGroup] || [metricOrGroup]
+                ).filter(m => {
+                    const c = config.metricConfig(m);
+                    return !(this.mobile) || (
+                               (c.global || this.notGlobal) &&
+                               (c.globalFamily || this.notGlobalFamily)
+                           );
+                });
+
+                if (group && group.length) {
+                    metricGroups.push(group);
+                }
+            });
+            return metricGroups;
         }
-    },
+    }),
     mounted () {
-        this.width = this.appWidth;
+        this.deferredWidth = this.width;
     },
 
     components: {
