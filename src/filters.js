@@ -51,4 +51,8 @@ Vue.filter('bytesOrKmb', (n , unit) => {
     } else {
         return kmb(n);
     }
-});
+})
+
+
+Vue.filter('monthShortName', (date)=> dateformat(date, 'mmm yyyy',true ));
+
