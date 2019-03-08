@@ -67,7 +67,24 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.ui.line.label {
+    display: table;
+    margin: 3px;
+    background-color: #fefefe;
+    border: solid 2px #cdcdcd;
+    font-size: 13px;
+    font-weight: 500;
+    color: #54595d!important;
+    padding: 5px 9px;
+    cursor: pointer;
+}
+.ui.line.label.router-link-current {
+    background-color: #a7a7a7!important;
+    border: solid 2px #979797!important;
+    font-weight: bold;
+    color: #222!important;
+}
 .left.panel {
     background-color: #D8D8D8;
     min-width: 242px;
@@ -83,13 +100,5 @@ export default {
 }
 .left.panel .ui.clearing.divider {
     margin-bottom: 2px;
-}
-.left.panel .ui.icon.input > input {
-    width: 204px;
-    height: 36px;
-    font-size: 13px!important;
-    border: 1px solid #aaa9a9!important;
-    border-radius: 4px;
-    padding-right: 32px!important;
 }
 </style>

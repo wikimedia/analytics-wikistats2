@@ -350,4 +350,10 @@ g.annotation .annotation-note-bg {
     fill-opacity: 1;
     fill: #efefff;
 }
+
+.simple.legend {
+    margin-right: 10px;
+    margin-top: 5px;
+    display: inline-block;
+}
 </style>
