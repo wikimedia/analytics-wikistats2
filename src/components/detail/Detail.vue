@@ -251,7 +251,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .detail.container {
     margin: 23px 0 5px 0;
     display: flex;
@@ -259,6 +259,34 @@ export default {
 }
 
 .clearing.basic.segment { padding: 0; }
+.xui.checkbox {
+    display: block;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.xui.checkbox input[type=checkbox] {
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    margin-right: 3px;
+}
+.ui.line.label {
+    display: table;
+    margin: 3px;
+    background-color: #fefefe!important;
+    border: solid 2px #cdcdcd!important;
+    font-size: 13px;
+    font-weight: 500;
+    color: #54595d!important;
+    padding: 5px 9px;
+    cursor: pointer;
+}
+.ui.line.label.router-link-current {
+    background-color: #a7a7a7!important;
+    border: solid 2px #979797!important;
+    font-weight: bold;
+    color: #222!important;
+}
 
 .fullscreen .graph.panel {
     border-radius: 0;
@@ -269,6 +297,11 @@ export default {
 .right.floated.basic.fudge.segment {
     margin: 0;
     padding: 0;
+}
+.simple.legend {
+    margin-right: 10px;
+    margin-top: 5px;
+    display: inline-block;
 }
 
 .add.wiki.design {

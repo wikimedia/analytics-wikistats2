@@ -3,9 +3,6 @@
         <span class = "head link" v-for="a in areas">
             <router-link :to="{project: wikiCode, area: a.path}">{{a.name}}</router-link>
         </span>
-        <span class = "head link all">
-            <router-link :to="{project: wikiCode, section: 'metrics'}">All metrics...</router-link>
-        </span>
     </div>
     <div v-else class="ui right floated header tablet" :class="{mobile: mobile}">
         <i class="ui icon bars blue small" @click="toggleMenu"/>
@@ -81,8 +78,5 @@
     }
     .ui.right.floated.header.tablet i.icon:only-child {
         display: table-cell;
-    }
-    .head.link.all a {
-        color: #990000!important;
     }
 </style>
