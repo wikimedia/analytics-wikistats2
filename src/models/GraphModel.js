@@ -1,14 +1,19 @@
 import _ from '../lodash-custom-bundle';
 import utils from '../utils';
+import config from 'Src/config';
+import StatusOverlay from 'Src/components/StatusOverlay';
+import AQS from 'Src/apis/aqs';
+import AnnotationApi from 'Src/apis/annotation';
 
 class GraphModel {
     constructor (configuration) {
-
         this.config = configuration;
         this.graphData = [];
+        this.status = null;
         // After getting data, set this to a promise that fetches annotations with the api
         // The graphs can then use afterAnnotations to add a callback
         this.annotationPromise = null;
+        this.annotationApi = new AnnotationApi();
 
         this.breakdowns = utils.cloneDeep(this.config.breakdowns || []);
         // insert a "total" breakdown as a default breakdown
@@ -39,6 +44,100 @@ class GraphModel {
             breakdown.values = _.filter(breakdown.values, item => dimensionValues.includes(item.key));
         });
         */
+    }
+
+    loadData (settings) {
+        const project = settings.project;
+        if (this.metricNotGlobalAndAllProjectsSelected(project)) {
+            this.status = StatusOverlay.NON_GLOBAL(this.config.fullName);
+            return;
+        } else if (this.metricNotFamilyGlobalAndFamilySelected(project)) {
+            this.status = StatusOverlay.NON_GLOBAL_FAMILY(this.config.fullName, project);
+            return;
+        }
+        if (!this.breakdownAllowed(project) && this.activeBreakdown.name !== 'Total') {
+            this.preventUnallowedBreakdown();
+        }
+        const aqsApi = new AQS();
+        const defaults = this.config.defaults || {
+            unique: {},
+            common: {}
+        };
+        let uniqueParameters = Object.assign(
+            {},
+            defaults.unique,
+            {
+                project: [project]
+            }
+        );
+        const getAll = this.config.cumulative;
+        const requestInterval = utils.getRequestInterval(getAll ? {name: 'All'} : settings.timeRange);
+        const commonParameters = Object.assign(
+            {},
+            defaults.common,
+            {
+                start: requestInterval.start,
+                end: requestInterval.end,
+                granularity: settings.granularity,
+                structure: this.config.structure,
+            }
+        );
+        if (this.config.structure === 'top') {
+            Object.assign(commonParameters, utils.getLastFullMonth(commonParameters.end));
+        }
+        const breakdown = this.activeBreakdown;
+        if (breakdown && !breakdown.total) {
+            let breakdownKeys = breakdown.values.filter(bv => bv.on).map(bv => bv.key);
+
+            // in this case, the user de-selected the last value, toggle back to Total
+            if (!breakdownKeys.length) {
+                // also re-select everything otherwise this will loop
+                // to see what I mean, try deleting the next line and de-selecting all values
+                breakdown.values.forEach(bv => bv.on = true);
+                this.activeBreakdown = this.breakdowns[0];
+                return;
+            }
+            uniqueParameters[breakdown.breakdownName] = breakdownKeys;
+        }
+
+        let dataPromise = aqsApi.getData(uniqueParameters, commonParameters);
+        this.status = StatusOverlay.LOADING;
+
+        dataPromise.catch((req, status, error) => {
+            this.status = StatusOverlay.getMessageForStatus(req.status);
+        });
+        dataPromise.then(dimensionalData => {
+            if (dimensionalData.getAllItems().length === 0) {
+                this.status = StatusOverlay.NO_DATA;
+            }
+            this.status = null;
+            this.setData(dimensionalData);
+            if (settings.annotations) {
+                this.annotationPromise = this.annotationApi.getAnnotations(this);
+            }
+        });
+    }
+
+    metricNotFamilyGlobalAndFamilySelected (project) {
+        return (!this.config.globalFamily && utils.isProjectFamily(project));
+    }
+
+    metricNotGlobalAndAllProjectsSelected (project) {
+        return (!this.config.global && project === config.ALL_PROJECTS);
+    }
+
+    preventUnallowedBreakdown () {
+        this.activeBreakdown = this.getDefaultBreakdown();
+    }
+
+    breakdownAllowed (project) {
+        const check = this.config.breakdownCheck;
+        if (check) {
+            const checks = {
+                'ONLY_IF_PER_DOMAIN': () => !utils.isProjectFamily(project)
+            };
+            return checks[check]();
+        } else return true;
     }
 
     setData (data) {

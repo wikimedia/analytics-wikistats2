@@ -5,6 +5,7 @@ import DimensionalData from '../models/DimensionalData';
 import config from '../config';
 import _ from '../lodash-custom-bundle';
 import utils from '../utils';
+import dateFormat from 'dateformat';
 
 
 class AQS {
@@ -78,7 +79,9 @@ class AQS {
         if (!commonParameters.metric) {
             return new Promise(() => new DimensionalData());
         }
-
+        const format = 'yyyymmdd00';
+        commonParameters.start = dateFormat(utils.createDate(commonParameters.start), format, true);
+        commonParameters.end = dateFormat(utils.createDate(commonParameters.end), format, true);
         let apiConfig = config.aqs[commonParameters.metric];
         const metricConfig = config.metrics[commonParameters.metric];
         let promises = utils.labeledCrossProduct(uniqueParameters)
