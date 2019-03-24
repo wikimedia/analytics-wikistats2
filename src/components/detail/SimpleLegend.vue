@@ -32,9 +32,4 @@ export default {
     margin-left: 4px;
     margin-right: 2px;
 }
-.simple.legend {
-    margin-right: 10px;
-    margin-top: 5px;
-    display: inline-block;
-}
 </style>

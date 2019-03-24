@@ -330,14 +330,6 @@ export default {
 .ui.search.focus .ui.input input::placeholder {
     color: #dfdfdf;
 }
-.left.panel .ui.icon.input > input {
-    width: 204px;
-    height: 36px;
-    font-size: 13px!important;
-    border: 1px solid #aaa9a9!important;
-    border-radius: 4px;
-    padding-right: 32px!important;
-}
 #wikiselector-hidden-measurer {
     visibility: hidden;
     position: absolute;
