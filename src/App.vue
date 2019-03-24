@@ -26,6 +26,7 @@ import TopicExplorer from './components/TopicExplorer';
 import SiteLanguage from './components/SiteLanguage';
 import BottomFooter from './components/BottomFooter';
 import Dashboard from './components/dashboard/Dashboard';
+import MetricsMatrix from './components/MetricsMatrix';
 
 import { mapState } from 'vuex';
 import numeral from 'numeral';
@@ -70,6 +71,7 @@ export default {
         BottomFooter,
         Dashboard,
         CentralNotice,
+        MetricsMatrix,
         'detail': () => import(/* webpackChunkName: "detail" */'./components/detail/Detail'),
     },
     mounted () {

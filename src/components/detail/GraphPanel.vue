@@ -261,6 +261,15 @@ export default {
 </script>
 
 <style>
+.clearing.basic.segment { padding: 0; }
+
+.fullscreen .graph.panel {
+    border-radius: 0;
+}
+.right.floated.basic.fudge.segment {
+    margin: 0;
+    padding: 0;
+}
 .metrics {
     padding: 1em;
     background: #d8d8d8;
@@ -358,6 +367,7 @@ g.annotation .annotation-note-bg {
     fill-opacity: 1;
     fill: #efefff;
 }
+
 .simple.legend {
     margin-right: 10px;
     margin-top: 5px;

@@ -32,7 +32,7 @@ describe('Router', function () {
     it('should find a match between matching path and route', function () {
         let route = '/foo/:bar';
         let path = '/foo/bar';
-        let result = router.matchPath(route, path);
+        let result = router.matchPath(route, {}, path);
 
         expect(result).not.toBeUndefined();
         expect(Object.keys(result).length).toEqual(1);
@@ -42,7 +42,7 @@ describe('Router', function () {
     it('should not find a match between non-matching path and route', function () {
         let route = '/foo/:bar';
         let path = '/baz/qux';
-        let result = router.matchPath(route, path);
+        let result = router.matchPath(route, {}, path);
 
         expect(result).toBeUndefined();
     });
@@ -99,7 +99,7 @@ describe('Router', function () {
     it('should find a match between matching state and route', function () {
         let route = '/foo/:bar';
         let state = {bar: 'qux'};
-        let result = router.matchState(route, state);
+        let result = router.matchState(route, {}, state);
 
         expect(result).toEqual(true);
     });
@@ -107,7 +107,7 @@ describe('Router', function () {
     it('should not find a match between non-matching state and route', function () {
         let route = '/foo/:bar';
         let state = {foo: 'qux'};
-        let result = router.matchState(route, state);
+        let result = router.matchState(route, {}, state);
 
         expect(result).toEqual(false);
     });

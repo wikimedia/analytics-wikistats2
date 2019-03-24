@@ -256,7 +256,6 @@ export default {
             areasFromMetrics.add(metric.area);
         });
         const areaList = [
-            { path: '', name: 'Dashboard' },
             { path: 'reading', name: 'Reading' },
             { path: 'contributing', name: 'Contributing' },
             { path: 'content', name: 'Content' },

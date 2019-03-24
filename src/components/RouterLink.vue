@@ -12,9 +12,11 @@ export default {
     name: 'router-link',
     props: {
         to: { type: Object, default: '' },
+        disabled: {type: String}
     },
     methods: {
         linkPath () {
+            if (this.disabled) { return 'javascript:void(0)'; }
             // Note that href="linkPath()" is not used by the browser for regular clicks.
             // The browser will only use it when opening links in a new tab, and also as
             // a visual reference for the user when they hover the cursor over a link.
@@ -23,6 +25,7 @@ export default {
             return router.getPathFromState(root, redirectedState, routes.routes);
         },
         commitState (event) {
+            if (this.disabled) { return; }
             // If the user tries to open a link in a new tab, let the browser handle that.
             // Otherwise, prevent the default request and navigate by directly changing the state.
             if (!event.ctrlKey && !event.metaKey) {

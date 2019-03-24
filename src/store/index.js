@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import detail from './detail';
 import _ from '../lodash-custom-bundle';
 
-const navigationStateKeys = ['project', 'area', 'metric', 'mainComponent'];
+const navigationStateKeys = ['project', 'area', 'metric', 'mainComponent', 'section'];
 const complexStateAdapters = {'detail': detail.readFromURL};
 
 Vue.use(Vuex);
@@ -28,6 +28,7 @@ export default new Vuex.Store({
             project: state.project,
             area: state.area,
             metric: state.metric,
+            section: state.section
         }),
         stateForURL: (state, getters) => {
             let forURL = Object.assign({}, getters.mainState);
@@ -53,6 +54,7 @@ export default new Vuex.Store({
             state.project = arg.project;
         },
         metric (state, arg) {
+            state.section = '';
             state.area = arg.area;
             state.metric = arg.metric;
             this.commit('detail/reset');

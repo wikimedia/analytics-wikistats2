@@ -1,7 +1,10 @@
 <template>
     <div v-if="large" class="ui right floated header">
-        <span class = "head link" v-for="a in areas">
+        <span class="head link" v-for="a in areas">
             <router-link :to="{project: wikiCode, area: a.path}">{{a.name}}</router-link>
+        </span>
+        <span class="head link all">
+            <router-link :to="{project: wikiCode, section: 'metrics'}">All Metrics</router-link>
         </span>
     </div>
     <div v-else class="ui right floated header tablet" :class="{mobile: mobile}">

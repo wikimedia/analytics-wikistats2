@@ -89,4 +89,15 @@
 .xui.radio.checkbox.filter input[type="radio"]{
     margin-right: 5px;
 }
+.xui.checkbox {
+    display: block;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.xui.checkbox input[type=checkbox] {
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    margin-right: 3px;
+}
 </style>

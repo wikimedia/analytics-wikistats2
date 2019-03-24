@@ -19,8 +19,10 @@ let pathFromStateCache = {};
  * will return: {foo: 'hello', bar: 'world'}.
  *
  * If they do not match, returns undefined.
+ * It also checks that matchIf function, if present,
+ * evaluates to true.
  */
-function matchPath (route, path) {
+function matchPath (route, info, path) {
     let [routeParts, pathParts] = [route.split('/'), path.split('/')];
     if (routeParts.length !== pathParts.length) {
         return;
@@ -33,6 +35,11 @@ function matchPath (route, path) {
             return;
         }
     }
+
+    if (typeof info.matchIf === 'function' && !info.matchIf(params)) {
+        return;
+    }
+
     return params;
 }
 
@@ -52,7 +59,7 @@ function getStateFromPath (path, routes) {
     }
 
     for (let [route, info] of routes) {
-        let state = matchPath(route, path);
+        let state = matchPath(route, info, path);
         if (state) {
             if (typeof info.redirect === 'string') {
                 return getStateFromPath(info.redirect, routes);
@@ -85,17 +92,13 @@ function getStateFromPath (path, routes) {
  * Returns true if the route contains wildcards for all
  * the properties in the state object, and only those.
  * Returns false otherwise.
+ * It also checks that matchIf function, if present,
+ * evaluates to true.
  */
-function matchState (route, state) {
-
-    var _state = JSON.stringify(state);
-
-    if ((_state in matchStateCache) && (route in matchStateCache[_state])){
-
-        return matchStateCache[ _state][route];
-
-    } else {
-        matchStateCache[_state] = {};
+function matchState (route, info, state) {
+    let cacheKey = [route, info, JSON.stringify(state)];
+    if (cacheKey in matchStateCache) {
+        return matchStateCache[cacheKey];
     }
 
     let match = true;
@@ -112,7 +115,11 @@ function matchState (route, state) {
         }
     }
 
-    matchStateCache[ _state][route] = match;
+    if (match && typeof info.matchIf === 'function') {
+        match = info.matchIf(state);
+    }
+
+    matchStateCache[cacheKey] = match;
 
     return match;
 }
@@ -126,7 +133,7 @@ function matchState (route, state) {
  */
 function getRedirectedState (state, routes) {
     for (let [route, info] of routes) {
-        if (matchState(route, state)) {
+        if (matchState(route, info, state)) {
             if (typeof info.redirect === 'string') {
                 return getStateFromPath(info.redirect, routes);
             } else if (typeof info.redirect === 'function') {
@@ -144,8 +151,12 @@ function getRedirectedState (state, routes) {
  */
 function getMainComponentFromState (state, routes) {
     for (let [route, info] of routes) {
-        if (matchState(route, state)) {
-            return info.mainComponent;
+        if (matchState(route, info, state)) {
+            if (typeof info.mainComponent === 'function') {
+                return info.mainComponent(state);
+            } else {
+                return info.mainComponent;
+            }
         }
     }
 }
@@ -159,20 +170,20 @@ function getMainComponentFromState (state, routes) {
  */
 function getPathFromState (root, state, routes) {
 
-    var _state = JSON.stringify(state);
+    var cacheKey = JSON.stringify(state);
 
-    if (_state in pathFromStateCache){
-        return pathFromStateCache[ _state];
+    if (cacheKey in pathFromStateCache){
+        return pathFromStateCache[cacheKey];
     }
 
     for (let [route, info] of routes) {
-        if (matchState(route, state)) {
+        if (matchState(route, info, state)) {
             let path = route;
             for (let key of Object.keys(state)) {
                 path = path.replace(':' + key, state[key]);
             }
-            pathFromStateCache[_state] = `${root}#${path}`;
-            return pathFromStateCache[_state];
+            pathFromStateCache[cacheKey] = `${root}#${path}`;
+            return pathFromStateCache[cacheKey];
         }
     }
 
