@@ -18,6 +18,7 @@
                 :to="{project: wikiCode, area: a.path}">
                 {{a.name}}
             </router-link>
+            <router-link class="item" :to="{project: wikiCode, section: 'metrics'}">All Metrics</router-link>
         </div>
     </div>
 </template>
