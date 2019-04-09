@@ -2,7 +2,6 @@ import assign from 'lodash/assign';
 import camelCase from 'lodash/camelCase';
 import capitalize from 'lodash/capitalize';
 import concat from 'lodash/concat';
-import debounce from 'lodash/debounce';
 import endsWith from 'lodash/endsWith';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
@@ -38,7 +37,6 @@ export default {
     camelCase,
     capitalize,
     concat,
-    debounce,
     endsWith,
     filter,
     find,
