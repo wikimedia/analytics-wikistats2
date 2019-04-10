@@ -14,7 +14,7 @@
                 :key="m[0]"
                 :metrics="m"
                 :position="i"
-                :parentWidgetCount="getAvailableMetricSlots(deferredWidth)"
+                :parentWidgetCount="availableMetricSlots"
                 :parentMetricCount="availableMetrics.length">
             </metric-widget>
         </div>
@@ -39,7 +39,7 @@ export default {
         return {
             carouselSteps: 0,
             resizeTimer: null,
-            deferredWidth: 1024
+            deferredWidth: 1024,
         };
     },
 
@@ -53,35 +53,10 @@ export default {
     },
 
     methods: {
-        getAvailableMetricSlots(width) {
-            const DEFAULT_CARD_SIZE = 316;
-            const MIN_DESKTOP_APP_WIDTH = 1024;
-            const SIDE_PADDING = 56;
-
-            const devicePixelRatio =  window.devicePixelRatio || 0;
-
-            width = width / Math.max(1, devicePixelRatio -1);
-
-            width = Math.round(width);
-
-            let availableSlots = 1;
-
-            if (width >= MIN_DESKTOP_APP_WIDTH) {
-                availableSlots = Math.floor(width / DEFAULT_CARD_SIZE);
-            } else if (
-                width - SIDE_PADDING >
-                2 * (MIN_DESKTOP_APP_WIDTH - SIDE_PADDING) / 3
-            ) {
-                availableSlots = 2;
-            }
-
-            return availableSlots;
-        },
         isPending(i) {
             return !(
-                i <
-                    this.getAvailableMetricSlots(this.deferredWidth) +
-                        this.carouselSteps && i >= this.carouselSteps
+                i < this.availableMetricSlots + this.carouselSteps &&
+                i >= this.carouselSteps
             );
         },
         onLeftSwipe(){
@@ -103,7 +78,7 @@ export default {
                 2: 'two',
                 3: 'three',
                 4: 'four'
-            }[this.getAvailableMetricSlots(this.deferredWidth)];
+            }[this.availableMetricSlots];
         },
         notGlobal () {
             return globalProjects.global.indexOf(this.project) < 0;
@@ -114,24 +89,52 @@ export default {
         mobile () {
             return this.$mq === 'mobile';
         },
-        availableMetrics() {
+        availableMetricSlots () {
+            const DEFAULT_CARD_SIZE = 316;
+            const MIN_DESKTOP_APP_WIDTH = 1024;
+            const SIDE_PADDING = 56;
+
+            const devicePixelRatio =  window.devicePixelRatio || 0;
+
+            let availableSlots = 1;
+            let width = this.deferredWidth / Math.max(1, devicePixelRatio -1);
+
+            width = Math.round(width);
+
+            if (width >= MIN_DESKTOP_APP_WIDTH) {
+                availableSlots = Math.floor(width / DEFAULT_CARD_SIZE);
+            } else if (
+                width - SIDE_PADDING >
+                2 * (MIN_DESKTOP_APP_WIDTH - SIDE_PADDING) / 3
+            ) {
+                availableSlots = 2;
+            }
+
+            return availableSlots;
+        },
+        availableMetrics () {
             const metricGroups = [];
+            const unavailable = [];
             this.area.metrics.forEach(metricOrGroup => {
-                const group = (
-                    config.metricGroups[metricOrGroup] || [metricOrGroup]
-                ).filter(m => {
+                const group = config.metricGroups[metricOrGroup] || [metricOrGroup]
+                const filteredGroup = group.filter(m => {
                     const c = config.metricConfig(m);
-                    return !(this.mobile) || (
-                               (c.global || this.notGlobal) &&
-                               (c.globalFamily || this.notGlobalFamily)
-                           );
+                    return (c.global || this.notGlobal) &&
+                           (c.globalFamily || this.notGlobalFamily);
                 });
 
-                if (group && group.length) {
-                    metricGroups.push(group);
+                if (filteredGroup && filteredGroup.length) {
+                    metricGroups.push(filteredGroup);
+                } else {
+                    unavailable.push(group);
                 }
             });
-            return metricGroups;
+
+            const metricsToShow = this.mobile ?
+                metricGroups.length :
+                Math.max(metricGroups.length, this.availableMetricSlots);
+
+            return metricGroups.concat(unavailable).slice(0, metricsToShow);
         }
     }),
     mounted () {
