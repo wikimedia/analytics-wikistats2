@@ -8,7 +8,7 @@
         <status-overlay :overlayMessage="overlayMessage"/>
     </div>
     <div class="content">
-        <div v-if="graphModel && !overlayMessage">
+        <div v-if="metricReady">
             <router-link class="metric link" :to="{project, area: area, metric: metricName}">
                 <widget-header :graphModel="graphModel" :graphData="graphData" />
             </router-link>
@@ -45,12 +45,11 @@ export default {
     props: ['metrics', 'position', 'parentWidgetCount', 'parentMetricCount'],
     data () {
         return {
-            graphModel: null,
-            overlayMessage: null,
             groupName: null,
             metricIndex: 0,
             groupShifting: null,
             hovering: false,
+            graphModel: new GraphModel(config.metricConfig(this.metrics[0]))
         }
     },
 
@@ -96,16 +95,19 @@ export default {
                     granularity: 'monthly',
                 };
             },
-
             metricName () {
                 return this.metrics[this.metricIndex];
             },
             metricConfig () {
-                return config.metricConfig(this.metricName);
+                return this.graphModel.config;
+            },
+            overlayMessage () {
+                return this.graphModel.status;
+            },
+            metricReady () {
+                return this.graphModel.graphData.length > 0 && !this.overlayMessage;
             },
             graphData () {
-                if (!this.graphModel) { return []; }
-
                 if (['map', 'list'].includes(this.metricConfig.type)) {
                     return this.graphModel.graphData;
                 } else {
@@ -121,20 +123,11 @@ export default {
                     }));
                 }
             },
-            disabled: function () {
-                return metricNotGlobalAndAllProjectsSelected || metricNotFamilyGlobalAndFamilySelected;
-            },
             mobile () {
                 return this.$mq === 'mobile';
             },
             topMetric () {
                 return this.metricConfig.structure === 'top'
-            },
-            metricNotGlobalAndAllProjectsSelected () {
-                return (!this.metricConfig.global && this.project === config.ALL_PROJECTS)
-            },
-            metricNotFamilyGlobalAndFamilySelected () {
-                return (!this.metricConfig.globalFamily && utils.isProjectFamily(this.project))
             },
             area () {
                 return this.metricConfig.area;
@@ -151,57 +144,10 @@ export default {
     methods: {
         loadData (params) {
             const project = this.$store.state.project;
-            if (this.metricNotGlobalAndAllProjectsSelected) {
-                this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
-                return;
-            } else if (this.metricNotFamilyGlobalAndFamilySelected) {
-                this.overlayMessage = StatusOverlay.NON_GLOBAL_FAMILY(params.metricConfig.fullName, project);
-                return;
-            }
-
-            this.aqsApi = new AQS();
-
-            const defaults = params.metricConfig.defaults || {
-                unique: {},
-                common: {}
-            };
-            let uniqueParameters = Object.assign(
-                {},
-                defaults.unique,
-                {
-                    project: [params.project]
-                },
-            );
-            const getAll = params.metricConfig.cumulative;
-            const requestInterval = utils.getRequestInterval(getAll ? {name: 'All'} : params.timeRange);
-            const commonParameters = Object.assign(
-                {},
-                defaults.common,
-                {
-                    start: requestInterval.start,
-                    end: requestInterval.end,
-                    granularity: params.granularity,
-                    structure: params.metricConfig.structure,
-                }
-            );
-
-            if (params.metricConfig.structure === 'top') {
-                Object.assign(commonParameters, utils.getLastFullMonth(commonParameters.end));
-            }
-
-            let dataPromise = this.aqsApi.getData(uniqueParameters, commonParameters);
-            this.overlayMessage = StatusOverlay.LOADING;
-
-            dataPromise.catch((req, status, error) => {
-                this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
-            });
-            dataPromise.then(dimensionalData => {
-                if (dimensionalData.getAllItems().length === 0) {
-                    this.overlayMessage = StatusOverlay.NO_DATA;
-                }
-                this.overlayMessage = null;
-                this.graphModel = new GraphModel(params.metricConfig);
-                this.graphModel.setData(dimensionalData);
+            this.graphModel.loadData({
+                project: project,
+                granularity: params.granularity,
+                timeRange: params.timeRange
             });
         },
 

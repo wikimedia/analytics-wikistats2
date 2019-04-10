@@ -380,4 +380,8 @@ g.annotation .annotation-note-bg {
 .metric.link.wikistats1 img {
     width: 20px;
 }
+.right.floated.basic.fudge.segment {
+    padding: 0;
+    margin: 0;
+}
 </style>

@@ -5,7 +5,6 @@
             v-if="!compact && !fullscreen"
             :otherMetrics="otherMetrics"
             :graphModel="graphModel"
-            :breakdownAllowed="breakdownAllowed()"
         />
         <graph-panel
             :granularity="dataParameters.granularity"
@@ -17,10 +16,10 @@
     </section>
     <div v-if="compact || fullscreen" class="container breakdowns">
         <breakdowns
-            v-if="graphModel
+            v-if="graphModel.graphData
                   && graphModel.breakdowns
                   && graphModel.breakdowns.length > 1
-                  && breakdownAllowed()"
+                  && graphModel.breakdownAllowed()"
             :graphModel="graphModel"
         />
     </div>
@@ -33,10 +32,8 @@ import Vue from 'vue';
 import { mapState, mapGetters } from 'vuex';
 
 import StatusOverlay from '../StatusOverlay';
-import MetricsModal from './MetricsModal';
 import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
-import TimeRangeSelector from '../TimeRangeSelector';
 import MetricsDropdown from '../MetricsDropdown';
 import Breakdowns from './Breakdowns'
 
@@ -44,15 +41,12 @@ import config from '../../config';
 import utils from '../../utils';
 
 import GraphModel from '../../models/GraphModel';
-import AQS from '../../apis/aqs';
-import AnnotationApi from '../../apis/annotation';
 
 import titleMixin from '../../mixins/title-mixin.js';
 
 export default {
     name: 'detail',
     components: {
-        MetricsModal,
         GraphPanel,
         DetailSidebar,
         MetricsDropdown,
@@ -64,7 +58,6 @@ export default {
     data () {
         return {
             graphModel: null,
-            annotationsLink: null,
 
             areasWithMetrics: config.areasWithMetrics,
 
@@ -73,10 +66,6 @@ export default {
                 reading: 'total-pageviews',
                 content: 'total-articles',
             },
-
-            otherMetrics: [],
-
-            overlayMessage: null,
         };
     },
 
@@ -104,6 +93,8 @@ export default {
             dataParameters () {
                 const getAll = this.metricParameters.metricConfig.cumulative;
                 const timeRange = utils.getRequestInterval(getAll ? {name: 'All'} : this.timeRange);
+                timeRange.start = utils.createDate(timeRange.start);
+                timeRange.end = utils.createDate(timeRange.end);
                 return {
                     timeRange: timeRange,
                     granularity: utils.getGranularity(this.timeRange),
@@ -117,7 +108,18 @@ export default {
 
             compact () {
                 return ['mobile', 'compact'].indexOf(this.$mq) > -1;
-            }
+            },
+            annotationsLink () {
+                return config.annotationHumanPath(this.metric);
+            },
+            otherMetrics () {
+                return Object.keys(config.metrics)
+                    .filter((m) => config.metrics[m].area === this.area)
+                    .map((m) => Object.assign(config.metrics[m], { name: m }));
+            },
+            overlayMessage () {
+                return this.graphModel && this.graphModel.status;
+            },
         }
     ),
 
@@ -135,7 +137,7 @@ export default {
 
         dataParameters: {
             handler () {
-                this.$store.commit('detail/breakdown', { breakdown: this.dataParameters.breakdown });
+                this.$store.commit('detail/breakdown', { breakdown: this.graphModel.activeBreakdown });
                 this.loadData();
             },
             deep: true,
@@ -144,8 +146,6 @@ export default {
 
     mounted () {
         $('body').scrollTop(0);
-        this.aqsApi = new AQS();
-        this.annotationApi = new AnnotationApi();
         Vue.nextTick(() => this.buildGraphModel());
     },
 
@@ -155,10 +155,6 @@ export default {
 
             this.graphModel = new GraphModel(params.metricConfig);
 
-            this.otherMetrics = Object.keys(config.metrics)
-                .filter((m) => config.metrics[m].area === params.area)
-                .map((m) => Object.assign(config.metrics[m], { name: m }));
-
             if (this.breakdown) {
                 this.graphModel.activateBreakdownIfAvailable(this.breakdown);
             }
@@ -166,86 +162,12 @@ export default {
 
         loadData () {
             const params = Object.assign({}, this.metricParameters, this.dataParameters);
-
-            if (!params.metricConfig.global && params.project === config.ALL_PROJECTS) {
-                this.overlayMessage = StatusOverlay.NON_GLOBAL(params.metricConfig.fullName);
-            } else if (!params.metricConfig.globalFamily && utils.isProjectFamily(this.project)) {
-                this.overlayMessage = StatusOverlay.NON_GLOBAL_FAMILY(params.metricConfig.fullName, params.project);
-            } else if (!this.breakdownAllowed() && this.graphModel.activeBreakdown.name !== 'Total') {
-                this.preventUnallowedBreakdown();
-            } else {
-                const defaults = params.metricConfig.defaults || {
-                    unique: {},
-                    common: {}
-                };
-                let uniqueParameters = Object.assign(
-                    {},
-                    defaults.unique,
-                    {
-                        project: [params.project]
-                    },
-                );
-                const commonParameters = Object.assign(
-                    {},
-                    defaults.common,
-                    {
-                        start: params.timeRange.start,
-                        end: params.timeRange.end,
-                        granularity: params.granularity,
-                        structure: params.metricConfig.structure,
-                    }
-                );
-
-                if (params.metricConfig.structure === 'top') {
-                    Object.assign(commonParameters, utils.getLastFullMonth(commonParameters.end));
-                }
-
-                if (params.breakdown && !params.breakdown.total) {
-                    let breakdownKeys = params.breakdown.values.filter(bv => bv.on).map(bv => bv.key);
-
-                    // in this case, the user de-selected the last value, toggle back to Total
-                    if (!breakdownKeys.length) {
-                        // also re-select everything otherwise this will loop
-                        // to see what I mean, try deleting the next line and de-selecting all values
-                        params.breakdown.values.forEach(bv => bv.on = true);
-                        this.graphModel.activeBreakdown = this.graphModel.breakdowns[0];
-                        return;
-                    }
-                    uniqueParameters[params.breakdown.breakdownName] = breakdownKeys;
-                }
-
-                const dataPromise = this.aqsApi.getData(uniqueParameters, commonParameters);
-                this.overlayMessage = StatusOverlay.LOADING;
-
-                dataPromise.catch((req, status, error) => {
-                    this.overlayMessage = StatusOverlay.getMessageForStatus(req.status);
-                });
-                dataPromise.then(dimensionalData => {
-                    if (dimensionalData.getAllItems().length === 0) {
-                        this.overlayMessage = StatusOverlay.NO_DATA;
-                        return;
-                    }
-                    this.overlayMessage = null;
-                    this.graphModel.setData(dimensionalData);
-
-                    this.graphModel.annotationPromise = this.annotationApi.getAnnotations(this.graphModel);
-                    this.annotationsLink = config.annotationHumanPath(this.metric);
-                });
-
-            }
-        },
-        breakdownAllowed () {
-            if (!this.graphModel) return;
-            const check = this.graphModel.config.breakdownCheck
-            if (check) {
-                const checks = {
-                    'ONLY_IF_PER_DOMAIN': () => !utils.isProjectFamily(this.project)
-                };
-                return checks[check]();
-            } else return true;
-        },
-        preventUnallowedBreakdown () {
-            this.graphModel.activeBreakdown = this.graphModel.getDefaultBreakdown();
+            this.graphModel.loadData({
+                project: this.project,
+                granularity: params.granularity,
+                timeRange: params.timeRange,
+                annotations: true
+            });
         }
     },
 };
