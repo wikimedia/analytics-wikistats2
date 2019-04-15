@@ -6,7 +6,11 @@
     </header>
     <main class="ui attached content segment animate">
         <topic-explorer v-if="!mobile"></topic-explorer>
-        <component :is="mainComponent"></component>
+        <p class="loading" v-if="loadingDetail">
+            Loading metric detail...
+            <i class="asterisk loading icon"></i>
+        </p>
+        <component :is="mainComponent" ref="mainComponentEl"></component>
     </main>
     <div v-if="languages.length > 1" class="ui attached language segment">
         <site-language :languages="languages"></site-language>
@@ -125,9 +129,17 @@ export default {
             Vue.prototype.$display = this.$mq;
         }
     },
+    updated () {
+        if (this.mainComponent === 'detail' && !(this.$refs && this.$refs.mainComponentEl)) {
+            setTimeout(() => { this.loadingDetail = true; }, 400);
+        } else {
+            this.loadingDetail = false;
+        }
+    },
     data () {
         return {
-            languages: ['english']
+            languages: ['english'],
+            loadingDetail: false,
         };
     },
     computed: Object.assign(mapState([
@@ -220,4 +232,6 @@ a.router-link-current { font-weight: bold; color: #72777d }
 }
 
 .app { max-width: 1024px; width: 100%; margin: 0 auto; }
+
+p.loading { font-size: 1.2em; padding: 1.2em; color: #72777d; }
 </style>
