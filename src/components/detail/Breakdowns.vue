@@ -1,5 +1,5 @@
 <template>
-<div v-if="graphModel">
+<div>
     <h3 class="header" v-hint:filterAndSplit>{{header}}</h3>
     <div v-for="b, i in graphModel.breakdowns" class="breakdown">
         <div class="ui radio checkbox">

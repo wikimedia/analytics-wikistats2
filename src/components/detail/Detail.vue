@@ -15,13 +15,7 @@
         />
     </section>
     <div v-if="compact || fullscreen" class="container breakdowns">
-        <breakdowns
-            v-if="graphModel.graphData
-                  && graphModel.breakdowns
-                  && graphModel.breakdowns.length > 1
-                  && graphModel.breakdownAllowed()"
-            :graphModel="graphModel"
-        />
+        <breakdowns :graphModel="graphModel" v-if="graphModel && graphModel.breakdownAllowed(project)"/>
     </div>
 </div>
 </template>

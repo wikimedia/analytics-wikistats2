@@ -20,13 +20,7 @@
     </p-->
     <div class="ui clearing divider"></div>
 
-    <breakdowns
-        v-if="graphModel
-              && graphModel.breakdowns
-              && graphModel.breakdowns.length > 1
-              && graphModel.breakdownAllowed"
-        :graphModel = "graphModel"
-    />
+    <breakdowns :graphModel="graphModel" v-if="graphModel && graphModel.breakdownAllowed(project)"/>
 </section>
 </template>
 

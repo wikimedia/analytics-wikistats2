@@ -5,6 +5,10 @@ import StatusOverlay from 'Src/components/StatusOverlay';
 import AQS from 'Src/apis/aqs';
 import AnnotationApi from 'Src/apis/annotation';
 
+const breakdownChecks = {
+    'ONLY_IF_PER_DOMAIN': (p) => !utils.isProjectFamily(p),
+};
+
 class GraphModel {
     constructor (configuration) {
         this.config = configuration;
@@ -131,13 +135,12 @@ class GraphModel {
     }
 
     breakdownAllowed (project) {
+        if (!(this.breakdowns) || !(this.breakdowns.length > 1)) {
+            return false;
+        }
+
         const check = this.config.breakdownCheck;
-        if (check) {
-            const checks = {
-                'ONLY_IF_PER_DOMAIN': () => !utils.isProjectFamily(project)
-            };
-            return checks[check]();
-        } else return true;
+        return !check || breakdownChecks[check](project);
     }
 
     setData (data) {
