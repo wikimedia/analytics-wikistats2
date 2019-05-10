@@ -49,7 +49,7 @@ export default {
             metricIndex: 0,
             groupShifting: null,
             hovering: false,
-            graphModel: new GraphModel(config.metricConfig(this.metrics[0]))
+            graphModel: new GraphModel(this.$store.state.project, this.metrics[0])
         }
     },
 
@@ -68,7 +68,6 @@ export default {
         if (this.metrics.length > 1 && !this.mobile) {
             setInterval(() => {
                 if (this.hovering || !document.hasFocus()) { return; }
-
                 this.groupShifting = true;
                 $('.content', this.$el).fadeOut(500, () => {
                     this.metricIndex = (this.metricIndex + 1) % this.metrics.length;
@@ -87,7 +86,6 @@ export default {
         ]), {
             params () {
                 return {
-                    project: this.project,
                     area: this.area,
                     metric: this.metricName,
                     metricConfig: this.metricConfig,
@@ -99,7 +97,7 @@ export default {
                 return this.metrics[this.metricIndex];
             },
             metricConfig () {
-                return this.graphModel.config;
+                return config.metricConfig(this.metrics[0]);
             },
             overlayMessage () {
                 return this.graphModel.status;
@@ -136,6 +134,9 @@ export default {
     ),
 
    watch: {
+        project () {
+            this.graphModel.setProject(this.project);
+        },
         params () {
             this.loadData(this.params);
         }
@@ -143,11 +144,9 @@ export default {
 
     methods: {
         loadData (params) {
-            const project = this.$store.state.project;
+            const project = this.project;
             this.graphModel.loadData({
-                project: project,
-                granularity: params.granularity,
-                timeRange: params.timeRange
+                annotations: false
             });
         },
 

@@ -163,7 +163,6 @@ module.exports = {
         value: 'new_pages',
         global: true,
         globalFamily: true,
-        frozen: 'All',
         breakdowns: [{
             name: 'Editor type',
             breakdownName: 'editor_type',

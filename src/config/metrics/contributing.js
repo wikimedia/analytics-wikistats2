@@ -242,7 +242,6 @@ module.exports = {
         tooltip: 'Editors ranked by number of edits.',
         type: 'list',
         structure: 'top',
-        frozen:'1-Month',
         defaults: {
             unique: {
                 project: ['all-projects'],
@@ -289,7 +288,6 @@ module.exports = {
         tooltip: 'Pages ranked by number of edits.',
         type: 'list',
         structure: 'top',
-        frozen:'1-Month',
         defaults: {
             unique: {
                 project: ['all-projects'],

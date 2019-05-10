@@ -1,11 +1,9 @@
 <template>
 <section class="graph panel">
-    <div v-if="graphModel && mobile" class="metrics">
-        <metrics-dropdown :metric="graphModel.config" :granularity="granularity"/>
+    <div v-if="mobile" class="metrics">
+        <metrics-dropdown v-if="graphModel && mobile" :metric="graphModel.config" :granularity="graphModel.granularity"/>
     </div>
-    <div v-if="mobile" class="metrics wikis">
-        <wiki-selector :single="false"></wiki-selector>
-    </div>
+    <wiki-time-bar v-if="mobile" :graphModel="graphModel"/>
     <div class="ui clearing basic segment graph" v-if="graphModel">
         <div>
             <h2 v-if="!mobile" class="ui left floated header">
@@ -13,7 +11,6 @@
                    v-hint:raw="graphModel.config.tooltip">
                     {{graphModel.config.fullName || 'No data yet... '}}
                 </a>
-                <span v-if="graphModel && graphModel.graphData" class="subdued granularity">{{month || granularity}}</span>
             </h2>
 
             <div class="ui right floated basic fudge segment">
@@ -23,8 +20,6 @@
                     :breakdown="activeBreakdown">
                 </simple-legend>
                 <div v-if="!mobile" class="ui right floated icon buttons">
-
-
                     <button @click="download" class="ui icon button" v-hint:help="'download'">
                         <i class="download icon"></i>
                     </button>
@@ -94,13 +89,9 @@
                 </p>
             </div>
         </div>
-        <div v-if="!['list', 'map'].includes(graphModel.config.type)" class="ui center aligned subdued basic segment">
-            <time-range-selector
-                :frozen="graphModel.config.frozen">
-            </time-range-selector>
-        </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
+    <time-selector-tooltip :graphModel="graphModel" v-if="!mobile && graphModel && selectingTime"/>
     <div class="ui right floated icon button"
          v-if="!mobile && !overlayMessage"
          @click="toggleFullscreen"
@@ -115,12 +106,12 @@
 import WikiSelector from '../WikiSelector'
 import MetricsDropdown from '../MetricsDropdown'
 import ArrowIcon from '../ArrowIcon';
-import TimeRangeSelector from '../TimeRangeSelector';
+import TimeSelectorTooltip from '../TimeSelector/TimeSelectorTooltip';
+import WikiTimeBar from './WikiTimeBar';
 import SimpleLegend from './SimpleLegend';
 import BarChart from './chart/BarChart';
 import LineChart from './chart/LineChart';
 import TableChart from './chart/TableChart';
-import EmptyChart from './chart/EmptyChart';
 import MapChart from './chart/MapChart';
 import StatusOverlay from '../StatusOverlay';
 import config from '../../config';
@@ -136,32 +127,27 @@ export default {
 
     components: {
         ArrowIcon,
-        TimeRangeSelector,
+        TimeSelectorTooltip,
         SimpleLegend,
         BarChart,
         LineChart,
         TableChart,
         MapChart,
-        EmptyChart,
         StatusOverlay,
         MetricsDropdown,
-        WikiSelector
+        WikiSelector,
+        WikiTimeBar,
     },
 
-    props: ['graphModel', 'overlayMessage', 'granularity', 'annotations', 'annotationsLink'],
+    props: ['graphModel', 'overlayMessage', 'annotations', 'annotationsLink'],
 
     computed: Object.assign(
-        mapState(['detail']),
+        mapState(['selectingTime']),
         mapState('detail', [
             'fullscreen',
             'chartType',
             'timeRange'
         ]), {
-            month: function () {
-                if (this.graphModel.config.structure == 'top' && this.lastMonth) {
-                    return this.$options.filters.getMonthLabel(this.lastMonth, config.months);
-                }
-            },
             chartTypes: function () {
                 return !this.graphModel ? [] : config.getChartTypes(this.graphModel.config);
             },
@@ -181,7 +167,7 @@ export default {
                 return this.graphModel.activeBreakdown;
             },
             unit: function(){
-                if (this.graphModel.config.unit ){
+                if (this.graphModel.config.unit){
                     return this.graphModel.config.unit;
                 }
             },
@@ -208,26 +194,11 @@ export default {
                     return permalink.slice(0, permalink.lastIndexOf('/') + 1) + specificDetailString;
                 }
             },
-            wikistats1URL: function () {
+            wikistats1URL () {
                 return this.graphModel.config.wikistats1URL;
-            },
+            }
         }
     ),
-
-    watch: {
-        'graphModel.graphData' () {
-            if (this.graphModel.graphData.length &&
-                this.graphModel.config.type === 'time') {
-
-                const adjustedGraphData = utils.adjustGraphData(this.graphModel.graphData, this.timeRange.name);
-
-                if (adjustedGraphData.length < this.graphModel.graphData.length) {
-
-                    this.graphModel.graphData = adjustedGraphData;
-                }
-            }
-        },
-    },
 
     methods: {
         // PUBLIC: used by parent components
@@ -235,6 +206,10 @@ export default {
             if (this.$refs.graph && this.$refs.graph.redraw) {
                 this.$refs.graph.redraw();
             }
+        },
+        toggleTimeSelection () {
+            const toggled = !this.selectingTime;
+            this.$store.commit('selectingTime', { selectingTime: toggled });
         },
         changeChart (t) {
             this.$store.commit('detail/chartType', {chartType: t.chart});
@@ -255,7 +230,7 @@ export default {
         copyPermalink () {
             this.$refs.permalinkText.select();
             document.execCommand("copy");
-        },
+        }
     }
 }
 </script>
@@ -271,7 +246,7 @@ export default {
     padding: 0;
 }
 .metrics {
-    padding: 1em;
+    padding: 1em!important;
     background: #d8d8d8;
 }
 .ui.clearing.basic.segment.graph {
@@ -309,11 +284,6 @@ export default {
     margin: 0;
 }
 
-.granularity {
-    text-transform: capitalize;
-    font-style: italic;
-}
-
 .metric.link{
     color: #000;
     text-decoration: none;
@@ -324,12 +294,15 @@ export default {
 }
 
 @media(max-width: 450px) {
+    .graph.panel{
+        overflow:hidden;
+    }
     .ui.clearing.basic.segment.graph {
         padding-top: 0;
         margin-top: 0;
     }
     .ui.icon.input{
-        width: calc(100vw - 3em);
+        width: 100%;
     }
     .ui.buttons > .ui.button {
         padding: 10px;
@@ -367,7 +340,6 @@ g.annotation .annotation-note-bg {
     fill-opacity: 1;
     fill: #efefff;
 }
-
 .simple.legend {
     margin-right: 10px;
     margin-top: 5px;

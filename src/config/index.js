@@ -171,7 +171,7 @@ export default {
         },
 
         'top-viewed-articles': {
-            endpoint: AQS_HOST + '/pageviews/top/{{project}}/{{access}}/{{year}}/{{month}}/all-days'
+            endpoint: AQS_HOST + '/pageviews/top/{{project}}/{{access}}/{{year}}/{{month}}/{{day}}'
         },
 
         'page-views-by-country': {
@@ -215,11 +215,11 @@ export default {
         },
 
         'top-edited-pages': {
-            endpoint: AQS_HOST + '/edited-pages/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/all-days'
+            endpoint: AQS_HOST + '/edited-pages/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/{{day}}'
         },
 
         'top-editors': {
-            endpoint: AQS_HOST + '/editors/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/all-days'
+            endpoint: AQS_HOST + '/editors/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/{{day}}'
         }
     },
 

@@ -54,10 +54,6 @@ const metricSchema = {
         type: 'boolean',
         required: false
     },
-    frozen: {
-        type: 'string',
-        required: false
-    },
     fullName: {
         type: 'string',
         required: true
@@ -75,6 +71,14 @@ const metricSchema = {
         required: false
     },
     key: {
+        type: 'string',
+        required: false
+    },
+    knownEnd: {
+        type: 'string',
+        required: false
+    },
+    knownStart: {
         type: 'string',
         required: false
     },

@@ -7,15 +7,23 @@
             :graphModel="graphModel"
         />
         <graph-panel
-            :granularity="dataParameters.granularity"
+            v-if="graphModel && graphModel.graphData"
+            :granularity="granularity"
             ref="graphPanel"
             :graphModel="graphModel"
             :annotationsLink="annotationsLink"
             :overlayMessage="overlayMessage"
+            @new-time="timeChanged"
         />
     </section>
     <div v-if="compact || fullscreen" class="container breakdowns">
-        <breakdowns :graphModel="graphModel" v-if="graphModel && graphModel.breakdownAllowed(project)"/>
+        <breakdowns
+            v-if="graphModel && graphModel.graphData
+                  && graphModel.breakdowns
+                  && graphModel.breakdowns.length > 1
+                  && graphModel.breakdownAllowed()"
+            :graphModel="graphModel"
+        />
     </div>
 </div>
 </template>
@@ -34,9 +42,11 @@ import Breakdowns from './Breakdowns'
 import config from '../../config';
 import utils from '../../utils';
 
-import GraphModel from '../../models/GraphModel';
+import GraphModel from 'Src/models/GraphModel';
+import TimeRange from 'Src/models/TimeRange';
 
 import titleMixin from '../../mixins/title-mixin.js';
+import dateFormat from 'dateformat';
 
 export default {
     name: 'detail',
@@ -71,8 +81,9 @@ export default {
         ]),
         mapState('detail', [
             'fullscreen',
-            'timeRange',
             'breakdown',
+            'timeRange',
+            'granularity'
         ]), {
 
             metricParameters () {
@@ -85,13 +96,7 @@ export default {
             },
 
             dataParameters () {
-                const getAll = this.metricParameters.metricConfig.cumulative;
-                const timeRange = utils.getRequestInterval(getAll ? {name: 'All'} : this.timeRange);
-                timeRange.start = utils.createDate(timeRange.start);
-                timeRange.end = utils.createDate(timeRange.end);
                 return {
-                    timeRange: timeRange,
-                    granularity: utils.getGranularity(this.timeRange),
                     breakdown: this.graphModel ? this.graphModel.activeBreakdown : null,
                 };
             },
@@ -118,6 +123,10 @@ export default {
     ),
 
     watch: {
+        granularity () {
+            this.graphModel.setGranularity(this.granularity);
+            this.$store.commit('detail/timeRange', { timeRange: this.timeRange });
+        },
         overlayMessage () {
             // when we display an error or loading in full-screen, the overlay doesn't show and causes a broken interface
             if (this.overlayMessage && this.overlayMessage !== StatusOverlay.LOADING) {
@@ -125,14 +134,20 @@ export default {
             }
         },
 
-        metricParameters () {
-            this.buildGraphModel();
+        timeRange () {
+            this.graphModel.setTimeRange(this.timeRange);
+        },
+
+        project () {
+            this.graphModel.setProject(this.project);
         },
 
         dataParameters: {
             handler () {
                 this.$store.commit('detail/breakdown', { breakdown: this.graphModel.activeBreakdown });
-                this.loadData();
+                this.graphModel.loadData({
+                    annotations: true
+                });
             },
             deep: true,
         },
@@ -144,22 +159,35 @@ export default {
     },
 
     methods: {
+        timeChanged (range) {
+            const timeRange = new TimeRange(range);
+            this.$store.commit('detail/timeRange', { timeRange: timeRange });
+        },
         buildGraphModel (params) {
-            params = params || this.metricParameters;
-
-            this.graphModel = new GraphModel(params.metricConfig);
-
+            const metricConfig = config.metricConfig(this.metric);
+            this.graphModel = new GraphModel(this.project, this.metric);
+            this.graphModel.granularity = this.granularity;
+            this.timeRange.adjustToGranularity(this.granularity);
+            if (metricConfig.knownEnd) {
+                const newTimeRange = new TimeRange([metricConfig.knownStart, metricConfig.knownEnd]);
+                this.$store.commit('detail/timeRange', { timeRange: newTimeRange });
+                this.graphModel.timeRange = newTimeRange;
+            }
+            if (this.timeRange.isOutOfMetricBounds(metricConfig)) {
+                const newTimeRange = TimeRange.getDefaultTimeRange(metricConfig);
+                this.$store.commit('detail/timeRange', { timeRange: newTimeRange });
+                this.graphModel.timeRange = newTimeRange;
+            } else {
+                this.graphModel.timeRange = this.timeRange;
+            }
             if (this.breakdown) {
                 this.graphModel.activateBreakdownIfAvailable(this.breakdown);
             }
         },
 
         loadData () {
-            const params = Object.assign({}, this.metricParameters, this.dataParameters);
+            this.timeRange.adjustToGranularity(this.granularity);
             this.graphModel.loadData({
-                project: this.project,
-                granularity: params.granularity,
-                timeRange: params.timeRange,
                 annotations: true
             });
         }
