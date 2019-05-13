@@ -9,7 +9,7 @@
                        :graphModel = "graphModel"
                        :mode = "graphModel.config.structure"
                        :leftBound = "new Date(graphModel.config.knownStart || '2001-01-01')"
-                       :rightBound = "new Date()"
+                       :rightBound = "new Date(graphModel.config.knownEnd || new Date())"
                        :startDate = "timeRange.start"
                        :endDate = "timeRange.end"
                        :mainColor = "graphModel.config.darkColor"

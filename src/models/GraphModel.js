@@ -152,13 +152,13 @@ class GraphModel {
         this.activeBreakdown = this.getDefaultBreakdown();
     }
 
-    breakdownAllowed (project) {
+    breakdownAllowed () {
         if (!(this.breakdowns) || !(this.breakdowns.length > 1)) {
             return false;
         }
 
         const check = this.config.breakdownCheck;
-        return !check || breakdownChecks[check](project);
+        return !check || breakdownChecks[check](this.project);
     }
 
     setData (data) {

@@ -83,20 +83,21 @@ class TimeRange {
 
     static relativeToAbsolute (timeKeyword) {
         const lastAvailable = new Date();
-        lastAvailable.setDate(1);
-        lastAvailable.setHours(-1);
+        lastAvailable.setUTCDate(1);
+        lastAvailable.setUTCHours(-1);
         let startDate = new Date(lastAvailable);
-        startDate.setDate(1);
+        startDate.setUTCDate(1);
+        startDate.setUTCHours(1);
         if (timeKeyword === '2-year') {
-            startDate.setMonth(lastAvailable.getMonth() - 24);
+            startDate.setUTCMonth(lastAvailable.getUTCMonth() - 24);
         } else if (timeKeyword === '1-year') {
-            startDate.setMonth(lastAvailable.getMonth() - 12);
+            startDate.setUTCMonth(lastAvailable.getUTCMonth() - 12);
         } else if (timeKeyword === '1-month') {
-            startDate.setMonth(lastAvailable.getMonth() - 1);
+            startDate.setUTCMonth(lastAvailable.getUTCMonth() - 1);
         } else if (timeKeyword === '3-month') {
-            startDate.setMonth(lastAvailable.getMonth() - 3);
+            startDate.setUTCMonth(lastAvailable.getUTCMonth() - 3);
         } else if (timeKeyword === 'last-month') {
-            startDate.setDate(1);
+            startDate.setUTCDate(1);
         } else if (timeKeyword === 'all') {
             startDate = TimeRange.createDate('2001-01-01');
         } else throw("Invalid time range");
@@ -116,7 +117,7 @@ class TimeRange {
                             + timestamp.slice(6,8));
         } else {
             date = new Date(timestamp);
-            date = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+            date = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
         }
 
         // returns a timestamp, not a date object

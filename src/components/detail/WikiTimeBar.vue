@@ -9,12 +9,12 @@
         </div>
         <div class="ui column six wide selector" >
             <time-selector v-if = "selectingTime"
-                           :width = "mobileTimeSelectorWidth || 150"
+                           :width = "mobileTimeSelectorWidth || 250"
                            :height = "18"
                            :mode = "graphModel.config.structure"
                            :graphModel = "graphModel"
                            :leftBound = "new Date(graphModel.config.knownStart || '2001-01-01')"
-                           :rightBound = "new Date(graphModel.config.knownEnd || timeRange.end)"
+                           :rightBound = "new Date(graphModel.config.knownEnd || new Date())"
                            :startDate = "timeRange.start"
                            :endDate = "timeRange.end"
                            :mainColor = "graphModel.config.darkColor"
