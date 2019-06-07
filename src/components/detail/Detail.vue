@@ -145,9 +145,7 @@ export default {
         dataParameters: {
             handler () {
                 this.$store.commit('detail/breakdown', { breakdown: this.graphModel.activeBreakdown });
-                this.graphModel.loadData({
-                    annotations: true
-                });
+                this.loadData();
             },
             deep: true,
         },

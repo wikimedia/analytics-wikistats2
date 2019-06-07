@@ -8,7 +8,7 @@ import './lato/lato.css';
 
 import store from './store';
 import router from './router';
-import routes from './router/routes';
+import {routes} from './router/routes';
 
 import './filters';
 import './directives';
@@ -23,6 +23,6 @@ new Vue({
     template: '<App/>',
     components: { App },
     mounted () {
-        new router.Router(store, routes.routes);
+        new router.Router(store, routes);
     },
 });

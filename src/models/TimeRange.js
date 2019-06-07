@@ -132,6 +132,9 @@ class TimeRange {
 
     static getDefaultTimeRange (metricConfig) {
         const structure = metricConfig.structure;
+        if (metricConfig.knownEnd) {
+            return new TimeRange('all');
+        }
         if (structure === 'top') {
             return new TimeRange('last-month');
         } else {

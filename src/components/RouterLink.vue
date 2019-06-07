@@ -6,7 +6,7 @@
 
 <script>
 import router from '../router';
-import routes from '../router/routes';
+import {routes} from '../router/routes';
 
 export default {
     name: 'router-link',
@@ -21,8 +21,8 @@ export default {
             // The browser will only use it when opening links in a new tab, and also as
             // a visual reference for the user when they hover the cursor over a link.
             let root = window.location.pathname;
-            let redirectedState = router.getRedirectedState(this.to, routes.routes) || this.to;
-            return router.getPathFromState(root, redirectedState, routes.routes);
+            let redirectedState = router.getRedirectedState(this.to, routes) || this.to;
+            return router.getPathFromState(root, redirectedState, routes);
         },
         commitState (event) {
             if (this.disabled) { return; }
@@ -40,7 +40,7 @@ export default {
         },
         isCurrent () {
             let mainState = this.$store.getters.mainState;
-            let redirectedState = router.getRedirectedState(this.to, routes.routes) || {};
+            let redirectedState = router.getRedirectedState(this.to, routes) || {};
             for (let key of Object.keys(mainState)) {
                 if (
                     // If main state and link state do *not* have the same value for that key.

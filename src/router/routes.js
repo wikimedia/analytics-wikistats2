@@ -2,6 +2,7 @@ import _ from '../lodash-custom-bundle';
 import config from '../config';
 import utils from '../utils';
 import detailURL from './urls/detail';
+import UserPreferences from './UserPreferences';
 
 /**
  * Specify routes and their properties here.
@@ -29,6 +30,8 @@ const routes = [
     ['/:project/:area/:metric', { redirect: getDefaultMetricPath }],
     ['/:project/:area/:metric/:detail', { mainComponent: 'detail' }],
 ];
+
+const userPreferences = new UserPreferences();
 
 /**
  * Specify the redirect functions here.
@@ -69,13 +72,13 @@ function getMergedDetail (metric) {
     if (metricConfig.breakdowns) {
         for (let i = 0; !breakdown && i < metricConfig.breakdowns.length; i++) {
             const b = metricConfig.breakdowns[i];
-            breakdown = getUserPreference(['breakdown', b.breakdownName]);
+            breakdown = userPreferences.get(['breakdown', b.breakdownName]);
         }
     }
     const preferences = {
-        chartType: getUserPreference(['chartType', metricConfig.type]),
-        timeRange: getUserPreference(['timeRange', metricConfig.frozen]),
-        fullscreen: getUserPreference(['fullscreen']),
+        chartType: userPreferences.get(['chartType', metricConfig.type]),
+        timeRange: userPreferences.get(['timeRange', metricConfig.structure]),
+        fullscreen: userPreferences.get(['fullscreen']),
         breakdown,
     };
 
@@ -84,54 +87,7 @@ function getMergedDetail (metric) {
     return Object.assign(defaults, preferences);
 }
 
-/**
- * Specify user preference updates here.
- *
- * updateUserPreferences is going to be called with each push
- * to the browser history, and will receive the state that is
- * being pushed. This way, the user preferences can be registered
- * in the userPreferences object.
- */
-const userPreferences = {};
-const getUserPreference = p => p.reduce((r, i) => (r && r[i]) ? r[i] : null, userPreferences);
-
-const setUserPreference = (p, v) => {
-    const l = p.length - 1;
-    p.slice(0, l).reduce((r, i) => r[i] ? r[i] : r[i] = {}, userPreferences)[p[l]] = v;
-};
-const delUserPreference = p => {
-    const l = p.length - 1;
-    delete (p.slice(0, l).reduce((r, i) => r[i] ? r[i] : r[i] = {}, userPreferences)[p[l]]);
-};
-
-function updateUserPreferences (state) {
-    if (state.detail) {
-        const detail = detailURL.readFromURL(state.detail);
-        const metricConfig = config.metricConfig(state.metric);
-        const defaultChartType = config.getChartTypes(metricConfig)[0].chart;
-        const chartTypeWasAChoice = (
-            detail.chartType !== defaultChartType ||
-            getUserPreference(['chartType', metricConfig.type])
-        );
-        if (chartTypeWasAChoice) {
-            setUserPreference(['chartType', metricConfig.type], detail.chartType);
-        }
-        setUserPreference(['timeRange', metricConfig.frozen], detail.timeRange);
-        if (!detail.breakdown.breakdownName && metricConfig.breakdowns) {
-            metricConfig.breakdowns.forEach((b) => {
-                delUserPreference(['breakdown', b.breakdownName]);
-            });
-        } else {
-            setUserPreference(['breakdown', detail.breakdown.breakdownName], detail.breakdown);
-        }
-        setUserPreference(['fullscreen'], detail.fullscreen);
-    }
-
-
-
-}
-
-export default {
+export {
     routes,
-    updateUserPreferences,
+    userPreferences,
 };
