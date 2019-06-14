@@ -132,10 +132,16 @@ const TimeSelector = {
             );
         },
         setRight (right) {
-            this.right = Math.max(
-                Math.max(this.margin / 2, this.left),
-                Math.min(right, this.width - this.margin / 2)
-            );
+            if (this.mode === 'timeseries') {
+                this.right = Math.max(
+                    Math.max(this.margin / 2, this.left),
+                    Math.min(right, this.width - this.margin / 2)
+                );
+            } else {
+                this.right = Math.max(this.margin / 2,
+                    Math.min(right, this.width - this.margin / 2)
+                );
+            }
         },
         coverType(loading) {
             return loading ? 'selected-cover-loading' : 'selected-cover';
