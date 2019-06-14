@@ -205,9 +205,9 @@ const TimeSelector = {
         setStartForTops(){
             const endCopy = new Date(this.end);
             if (this.graphModel.granularity === 'monthly') {
-                endCopy.setMonth(endCopy.getMonth() - 1);
+                endCopy.setUTCDate(endCopy.getUTCDate() - 1);
             } else {
-                endCopy.setDate(endCopy.getDate() - 1);
+                endCopy.setUTCHours(0);
             }
             this.start = endCopy
         }
