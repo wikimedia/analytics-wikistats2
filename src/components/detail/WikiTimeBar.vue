@@ -20,7 +20,7 @@
                            :mainColor = "graphModel.config.darkColor"
                            :secondaryColor = "graphModel.config.lightColor" />
         </div>
-        <div v-if = "selectingTime" class="ui column granularity">
+        <div v-if = "selectingTime && graphModel.availableGranularities().length > 1" class="ui column granularity">
             <span @click="switchGranularity" class="ui label granularity">{{granularity[0]}}</span>
         </div>
     </div>

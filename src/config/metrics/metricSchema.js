@@ -12,6 +12,10 @@ const metricSchema = {
         type: 'string',
         required: false
     },
+    availableGranularities: {
+        type: 'array',
+        required: false
+    },
     basedOn: {
         type: 'string',
         required: false

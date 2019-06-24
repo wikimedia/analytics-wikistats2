@@ -63,6 +63,10 @@ class GraphModel {
         this.loadData();
     }
 
+    availableGranularities () {
+        return this.config.availableGranularities || ['monthly', 'daily'];
+    }
+
     loadData (settings) {
         // Debouncing avoids requesting data additional times unnecessarily
         // when we're changing several attributes at the same time (granularity, range, etc).
