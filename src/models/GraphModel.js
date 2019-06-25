@@ -129,11 +129,12 @@ class GraphModel {
             dataPromise.then(dimensionalData => {
                 if (dimensionalData.getAllItems().length === 0) {
                     this.status = StatusOverlay.NO_DATA;
-                }
-                this.status = null;
-                this.setData(dimensionalData);
-                if (settings && settings.annotations !== false) {
-                    this.annotationPromise = new AnnotationApi().getAnnotations(this);
+                } else {
+                    this.status = null;
+                    this.setData(dimensionalData);
+                    if (settings && settings.annotations !== false) {
+                        this.annotationPromise = new AnnotationApi().getAnnotations(this);
+                    }
                 }
             });
         }, 1)
