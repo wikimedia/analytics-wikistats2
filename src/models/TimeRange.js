@@ -1,4 +1,5 @@
 import dateFormat from 'dateformat';
+import utils from 'Src/utils';
 
 class TimeRange {
     constructor(range) {
@@ -103,7 +104,7 @@ class TimeRange {
         } else throw("Invalid time range");
         return {
             start: TimeRange.createDate(startDate),
-            end: TimeRange.createDate(lastAvailable)
+            end: utils.createNowUTCDate()
         }
     }
 
