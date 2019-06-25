@@ -13,7 +13,6 @@
             :graphModel="graphModel"
             :annotationsLink="annotationsLink"
             :overlayMessage="overlayMessage"
-            @new-time="timeChanged"
         />
     </section>
     <div v-if="compact || fullscreen" class="container breakdowns">
@@ -157,10 +156,6 @@ export default {
     },
 
     methods: {
-        timeChanged (range) {
-            const timeRange = new TimeRange(range);
-            this.$store.commit('detail/timeRange', { timeRange: timeRange });
-        },
         buildGraphModel (params) {
             const metricConfig = config.metricConfig(this.metric);
             this.graphModel = new GraphModel(this.project, this.metric);

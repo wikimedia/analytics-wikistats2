@@ -65,7 +65,7 @@ module.exports = {
             ]
         }],
         knownStart: '2007-12-01',
-        knownEnd: '2016-08-01',
+        knownEnd: '2016-08-31',
         additive: true
     },
     'page-views-by-country': {

@@ -1,5 +1,7 @@
 import utils from '../utils';
 import detailURL from '../router/urls/detail';
+import config from 'Src/config';
+import TimeRange from 'Src/models/TimeRange';
 
 const module = {
     namespaced: true,
@@ -17,8 +19,13 @@ const module = {
             state.chartType = arg.chartType;
         },
         timeRange (state, arg) {
-            arg.timeRange.adjustToGranularity(state.granularity);
-            state.timeRange = arg.timeRange;
+            let timeRange = arg.timeRange;
+            const metricConfig = config.metricConfig(this.state.metric);
+            if (arg.timeRange.timeKeyword === 'all') {
+                timeRange = TimeRange.getAllTimeRange(metricConfig);
+            }
+            timeRange.adjustToGranularity(state.granularity);
+            state.timeRange = timeRange;
         },
         breakdown (state, arg) {
             state.breakdown = arg.breakdown;
