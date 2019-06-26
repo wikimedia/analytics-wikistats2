@@ -7,14 +7,41 @@ import numeral from 'numeral';
 
 // use locale-driven formatting for thousands
 const thousands = n => numeral(n).format('');
+
+// given 1234 will return "3"
+function getNumberOfDigits(num){
+     return parseInt(num).toString().length;
+}
+
+
+// Formats to 'Three significan digist'
 const kmb = (n) => {
-    let units = numeral(n).format('0[.]0[0]a');
+
+    if (n < 1000) {
+        return n;
+    }
+
+    var same = n => n;
+    var r = getNumberOfDigits(n) % 3;
+
+    var units = numeral(n).format(r == 1 && n % 1000 !=0? "0.0a" :  "0a");
+
     return units.toUpperCase();
 }
 const bytes = n => {
     let f = '';
     if (n < 0) f = '-';
-    return f + numeral(Math.abs(n)).format('0[.]0[0] b');
+
+    n = Math.abs(n);
+
+    if (n < 1000) {
+        return n;
+    }
+
+    var r = getNumberOfDigits(n) % 3;
+
+    var units = numeral(n).format(r == 1 && n % 1000 !=0? "0.0b" : "0b");
+    return f + units;
 };
 const filterRange = (filter, str) => {
     return filter(parseInt(str.split('-')[0])).toUpperCase() + '→' + filter(parseInt(str.split('-')[1])).toUpperCase();
