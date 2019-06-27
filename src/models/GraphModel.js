@@ -190,9 +190,56 @@ class GraphModel {
                 const month = utils.createDate(ts);
                 return {month: month, total: row[yAxisValue]};
             }), this.timeRange);
-
+            // Match time range end to end of data
+            this.timeRange.end = this.graphData[this.graphData.length - 1].month;
+            if (this.config.truncatedThreshold) {
+                this.fillTruncatedValues();
+            }
         }
 
+    }
+
+    hasTruncatedValues () {
+        return !!this.graphData.find(v => v.truncated);
+    }
+
+    fillTruncatedValues () {
+        const datesMatch = (d1, d2) => {
+            if (this.granularity === 'monthly') {
+                return d1.getUTCFullYear() === d2.getUTCFullYear() &&
+                d1.getUTCMonth() === d2.getUTCMonth()
+            } else {
+                return d1.getUTCFullYear() === d2.getUTCFullYear() &&
+                d1.getUTCMonth() === d2.getUTCMonth() &&
+                d1.getUTCDate() === d2.getUTCDate()
+            }
+        };
+        let i = 0;
+        const span = this.timeRange.getSpan(this.granularity);
+        while (i < span) {
+            const zeroedItem = JSON.parse(JSON.stringify(this.graphData[0]));
+            zeroedItem.total = {};
+            zeroedItem.month = utils.createDate(zeroedItem.month);
+            Object.keys(this.graphData[0].total).forEach(k => zeroedItem.total[k] = 0);
+            const previousItem = this.graphData[i - 1];
+            const item = this.graphData[i];
+            let expectedDate;
+            if (i === 0) {
+                expectedDate = this.timeRange.start;
+            } else {
+                expectedDate = new Date(previousItem.month);
+                if (this.granularity === 'monthly') {
+                    expectedDate.setUTCMonth(expectedDate.getUTCMonth() + 1);
+                } else {
+                    expectedDate.setUTCDate(expectedDate.getUTCDate() + 1);
+                }
+            }
+            if (!item || !datesMatch(expectedDate, item.month)) {
+                const valueToAdd = Object.assign(zeroedItem, {month: expectedDate, truncated: true});
+                this.graphData.splice(i, 0, valueToAdd);
+            }
+            i++;
+        }
     }
 
     cutForTimerange (data, timeRange) {

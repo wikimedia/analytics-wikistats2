@@ -76,6 +76,20 @@ class TimeRange {
         this.end.setMonth(this.end.getUTCMonth() - 1);
     }
 
+    getSpan (granularity) {
+        if (granularity === 'monthly') {
+            const startMillis = this.start.getTime();
+            const endMillis = this.end.getTime();
+            const diff = endMillis - startMillis;
+            return Math.ceil((diff / 3600000 / 24 / 365) * 12);
+        } else {
+            const startMillis = this.start.getTime();
+            const endMillis = this.end.getTime();
+            const diff = endMillis - startMillis;
+            return Math.ceil(diff / 3600000 / 24) + 1;
+        }
+    }
+
     static formatDateForURL (date) {
         const format = 'yyyymmdd00';
         return dateFormat(date, format, true);

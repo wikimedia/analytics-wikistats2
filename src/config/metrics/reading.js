@@ -115,6 +115,7 @@ module.exports = {
         tooltip: 'Unique Devices metric tell us how many distinct devices we have visiting our web properties in a given time period. The Analytics team counts unique devices per project per day and month in a way that does not uniquely identify, fingerprint or otherwise track users.',
         type: 'time',
         structure: 'timeseries',
+        truncatedThreshold: 1000,
         defaults: {
             unique: {
                 project: ['all-projects'],

@@ -103,6 +103,10 @@ const metricSchema = {
         type: 'string',
         required: false
     },
+    truncatedThreshold: {
+        type: 'number',
+        required: false
+    },
     type: {
         type: 'string',
         required: true,

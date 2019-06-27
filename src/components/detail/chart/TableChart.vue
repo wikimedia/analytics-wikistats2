@@ -15,7 +15,8 @@
         <tbody>
             <tr v-if="isTimeseries" v-for="m in valuesShown">
                 <td>{{m.month | ISOdateUTC(granularityFormat)}}</td>
-                <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{m.total[v.key]|thousands}}</td>
+                <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">
+                {{getValue(m, v)}}</td>
             </tr>
             <tr v-if="isTop" v-for="m, i in valuesShown">
                 <td v-if="isMap" class="right aligned">{{m.total.total|kmb}}</td>
@@ -30,6 +31,7 @@
 <script>
 import utils from '../../../utils'
 import TableNameCell from './TableNameCell'
+import Vue from 'vue'
 
 export default {
     name: 'table-chart',
@@ -91,6 +93,13 @@ export default {
     },
 
     methods: {
+        getValue (m, v) {
+            if(m.truncated && m.total[v.key] === 0) {
+                return '(truncated)';
+            } else {
+                return Vue.filter('thousands')(m.total[v.key]);
+            }
+        },
         setColors () {
             const headerCells = this.$el.querySelectorAll('th');
             let i = null;
