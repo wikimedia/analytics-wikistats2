@@ -134,13 +134,29 @@ class TimeRange {
     static getDefaultTimeRange (metricConfig) {
         const structure = metricConfig.structure;
         if (metricConfig.knownEnd) {
-            return new TimeRange('all');
+            return TimeRange.getAllTimeRange(metricConfig);
         }
         if (structure === 'top') {
             return new TimeRange('last-month');
         } else {
             return new TimeRange('2-year');
         }
+    }
+
+    /*
+    "All" time ranges depend on the extent of the metric. All editing metrics
+    have 2001-now as their range, but most reading metrics have different availabilities,
+    as described in the metric config's knownStart and knownEnd properties.
+
+    This function creates the time range based on those properties.
+    */
+    static getAllTimeRange (metricConfig) {
+        const timeRange = new TimeRange('all');
+        const start = metricConfig.knownStart || '2001-01-01';
+        const end = metricConfig.knownEnd || new Date();
+        timeRange.start = TimeRange.createDate(start);
+        timeRange.end = TimeRange.createDate(end);
+        return timeRange;
     }
 
     static dateFormatForGranularity (date, granularity) {
