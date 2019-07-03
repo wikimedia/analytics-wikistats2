@@ -8,7 +8,7 @@ import numeral from 'numeral';
 // use locale-driven formatting for thousands
 const thousands = n => numeral(n).format('');
 
-// given 1234 will return "3"
+// given 1234 will return "4"
 function getNumberOfDigits(num){
      return parseInt(num).toString().length;
 }
