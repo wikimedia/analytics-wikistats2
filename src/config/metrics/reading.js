@@ -77,6 +77,7 @@ module.exports = {
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'map',
+        availableGranularities: ['monthly'],
         defaults: {
             unique: {
                 project: ['all-projects'],

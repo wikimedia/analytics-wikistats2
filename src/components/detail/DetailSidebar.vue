@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="time" v-if="graphModel">
-        <div @click="switchGranularity" v-if="graphModel && graphModel.graphData" class="ui label">{{graphModel.granularity}}</div>
+        <div @click="switchGranularity" :class="{untoggle: graphModel.availableGranularities().length === 1 }" v-if="graphModel && graphModel.graphData" class="ui label">{{graphModel.granularity}}</div>
     </div>
 
     <div class="ui clearing divider"></div>
@@ -75,7 +75,7 @@ export default {
             this.$store.commit('selectingTime', { selectingTime: toggled });
         },
         switchGranularity () {
-            const granularities = ['monthly', 'daily'];
+            const granularities = this.graphModel.availableGranularities();
             const currentGranularityIndex = granularities.indexOf(this.graphModel.granularity);
             const nextGranularity = granularities[(currentGranularityIndex + 1) % granularities.length];
             this.$store.commit('detail/granularity', {granularity: nextGranularity});
@@ -125,6 +125,11 @@ export default {
     cursor: pointer;
     border: solid 0.5px #999;
     text-transform: capitalize;
+}
+.time > .ui.label.untoggle {
+    cursor: default;
+    background-color: #E8E8E8;
+    border: none;
 }
 .time > div:hover {
     background-color: #ccc;
