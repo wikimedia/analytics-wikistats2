@@ -52,7 +52,7 @@ export default {
     computed: {
         granularityFormat () {
             return utils.getDateFormatFromData(this.graphModel.graphData);
-        },
+        }
     },
 
     mounted () {
@@ -253,7 +253,42 @@ export default {
             this.x = xW;
             this.y = y;
 
+            if (this.graphModel.hasTruncatedValues) {
+                const truncatedBoundingBox = {
+                    x: 1,
+                    y: y(1000),
+                    width: width,
+                    height: height - y(1000)
+                }
+                this.addTruncatedShield(truncatedBoundingBox, g);
+            }
+
+
             this.graphModel.afterAnnotations(this.transformAndAddAnnotations);
+        },
+        addTruncatedShield (boundingBox, g) {
+            g.append('rect')
+                .attr('x', 1)
+                .attr('y', boundingBox.y)
+                .attr('width', boundingBox.width)
+                .attr('height', boundingBox.height)
+                .attr('fill', 'white')
+
+            g.append('line')
+                .attr('x1', 1)
+                .attr('y1', boundingBox.y)
+                .attr('x2', boundingBox.width)
+                .attr('y2', boundingBox.y)
+                .attr('style', 'stroke:#990000; stroke-width:2')
+                .attr('stroke-dasharray', '2')
+
+            g.append('text')
+                .attr('width', boundingBox.width)
+                .attr('height', boundingBox.height)
+                .attr('x', 10)
+                .attr('y', boundingBox.y + 20)
+                .attr('style', 'stroke:#990000; stroke-width: 0.5; font-size: 12px')
+                .text('Values under 1000 are not reported to preserve accuracy')
         },
         onGraphMouseOut (e) {
             this.hoveredBar = null;

@@ -4,6 +4,7 @@ import TimeRange from '../src/models/TimeRange'
 
 import config from '../src/config'
 import uniques from './mocks/uniques'
+import uniquesDaily from './mocks/uniquesDaily'
 
 const metric = {
     type: 'lines',
@@ -27,7 +28,7 @@ let graphModel = null;
 describe('GraphModel', function () {
     beforeEach(() => {
         graphModel = new GraphModel('es.wikipedia.org', 'unique-devices');
-        graphModel.timeRange = new TimeRange(['2016-06-01', '2017-07-01']);
+        graphModel.timeRange = new TimeRange(['2016-06-01', '2017-06-01']);
         graphModel.setData(dimensionalData);
     })
 
@@ -76,4 +77,39 @@ describe('GraphModel', function () {
         graphModel.activeBreakdown.values[1].on = true;
         expect(graphModel.getAggregate()).toEqual(47182962.9);
     });
+
+    it('should add zeroes when dates are missing', function () {
+        // There is a data hole in the middle
+        const brokenInTheMiddle = uniques.desktop.items.slice(0,3).concat(uniques.desktop.items.slice(6));
+        let dimensionalData = new DimensionalData(brokenInTheMiddle);
+        expect(dimensionalData.getAllItems().length).toEqual(9);
+        graphModel.setData(dimensionalData);
+        expect(graphModel.graphData.length).toEqual(12);
+        expect(graphModel.graphData[4].total.total).toEqual(0);
+
+        // Beginning of data doesn't match time range
+        const beginningMissing = uniques.desktop.items.slice(3);
+        dimensionalData = new DimensionalData(beginningMissing);
+        expect(dimensionalData.getAllItems().length).toEqual(9);
+        graphModel.setData(dimensionalData);
+        expect(graphModel.graphData.length).toEqual(12);
+        expect(graphModel.graphData[0].total.total).toEqual(0);
+
+        // Daily granularity
+        graphModel.setGranularity('daily');
+        graphModel.setTimeRange(new TimeRange(['2016-12-01', '2016-12-12']));
+        const brokenDaily = uniquesDaily.desktop.items.slice(0,3).concat(uniquesDaily.desktop.items.slice(6));
+        dimensionalData = new DimensionalData(brokenDaily);
+        expect(dimensionalData.getAllItems().length).toEqual(9);
+        graphModel.setData(dimensionalData);
+        expect(graphModel.graphData.length).toEqual(12);
+        expect(graphModel.graphData[4].total.total).toEqual(0);
+    })
+    it('should adjust the time range when data received doesn\'t match it', () => {
+        graphModel.setGranularity('daily');
+        graphModel.setTimeRange(new TimeRange(['2016-12-01', '2016-12-14']));
+        const dataUntilThe12th = new DimensionalData(uniquesDaily.desktop.items);
+        graphModel.setData(dataUntilThe12th);
+        expect(graphModel.timeRange.end.getUTCDate()).toEqual(12);
+    })
 });

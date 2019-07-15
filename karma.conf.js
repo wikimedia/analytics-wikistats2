@@ -6,7 +6,6 @@ const testConfiguration = {
     frameworks: ['jasmine-ajax', 'jasmine'],
 
     files: [
-        './node_modules/babel-polyfill/dist/polyfill.js',
         {
             pattern: './test/**/*.spec.js',
             watched: false,
