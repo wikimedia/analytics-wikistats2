@@ -234,7 +234,8 @@ export default {
             this.x = x;
             this.y = y;
 
-            if (this.graphModel.hasTruncatedValues) {
+           if (this.graphModel.hasTruncatedValues()) {
+
                 const truncatedBoundingBox = {
                     x: 1,
                     y: y(1000),
