@@ -1,8 +1,13 @@
 const webpackConfig = require('./webpack/dev.config.js');
 
 const testConfiguration = {
-    browsers: ['Chrome'],
-
+    browsers: ['ChromeHeadless', 'FirefoxHeadless'],
+    customLaunchers: {
+        FirefoxHeadless: {
+            base: 'Firefox',
+            flags: [ '-headless' ],
+        },
+    },
     frameworks: ['jasmine-ajax', 'jasmine'],
 
     files: [
