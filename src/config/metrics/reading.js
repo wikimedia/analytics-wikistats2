@@ -9,11 +9,11 @@ module.exports = {
         defaults: {
             unique: {
                 project: ['all-projects'],
-                access: ['all-access']
+                access: ['all-access'],
+                agent_type: ['all-agents']
             },
             common: {
                 metric: 'total-page-views',
-                agent_type: 'user',
                 granularity: 'monthly'
             }
         },
@@ -30,6 +30,14 @@ module.exports = {
                 { name: 'Desktop', on: true, key: 'desktop' },
                 { name: 'Mobile App', on: true, key: 'mobile-app' },
                 { name: 'Mobile Web', on: true, key: 'mobile-web' }
+            ]
+        }, {
+            name: 'Agent type',
+            breakdownName: 'agent',
+            values: [
+                { name: 'User', on: true, key: 'user' },
+                { name: 'Spider', on: true, key: 'spider' },
+                { name: 'Bot', on: true, key: 'bot' }
             ]
         }],
         additive: true

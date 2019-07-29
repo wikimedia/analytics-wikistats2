@@ -33,6 +33,9 @@ export default {
         'name-bot': 'A user that has a name which contains "bot" (note that this could include names like BottlenoseDolphin)',
         'user': 'A registered, logged in user',
 
+        'spider': 'A computer program that crawls through sites to index them, generally web search engines',
+        'bot': 'A computer program automatically requesting a page',
+
         'content': 'Also referred to as "Main Namespace", includes articles in namespace zero and and a few others',
         'non-content': 'Talk pages, user pages, etc. are called Non Content',
 
