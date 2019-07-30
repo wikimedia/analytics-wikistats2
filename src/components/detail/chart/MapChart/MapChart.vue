@@ -64,7 +64,17 @@ export default {
     },
 
     mounted () {
+        // NOTE: the data flow is a little complicated because of worldPromise
+        // at some point: worldPromise resolves
+        // at some point: graphData is loaded
+        // 1. world is computed
+        // 2. graph is drawn
         worldPromise.then(worldBy => this.worldBy = worldBy);
+        // if graphData is already ready, like on a chartType change,
+        // the watch won't trigger, so we need to compute dataByCountry manually
+        if (this.graphModel.graphData.length) {
+            this.getDataByCountry();
+        }
     },
 
     watch: {
@@ -74,22 +84,7 @@ export default {
         'graphModel.graphData' () {
             if (!this.graphModel.graphData.length) return;
 
-            const colorPalette = d3_color.interpolateGnBu;
-            let {min, max} = this.graphModel.getMinMax();
-            const d3s = scales.scaleLog()
-                    .domain([min, max])
-                    .range([0,1]);
-            const scale = (number) => {
-                return colorPalette(d3s(number));
-            };
-            scale.min = min;
-            scale.max = max;
-            this.colorScale = scale;
-
-            this.dataByCountry = this.graphModel.graphData.reduce((p,c) => {
-                p[c.country] = c.total.total;
-                return p;
-            }, {});
+            this.getDataByCountry();
         },
         world () {
             this.drawChoropleth();
@@ -125,6 +120,25 @@ export default {
     ),
 
     methods: {
+        getDataByCountry () {
+            const colorPalette = d3_color.interpolateGnBu;
+            let {min, max} = this.graphModel.getMinMax();
+            const d3s = scales.scaleLog()
+                    .domain([min, max])
+                    .range([0,1]);
+            const scale = (number) => {
+                return colorPalette(d3s(number));
+            };
+            scale.min = min;
+            scale.max = max;
+            this.colorScale = scale;
+
+            this.dataByCountry = this.graphModel.graphData.reduce((p,c) => {
+                p[c.country] = c.total.total;
+                return p;
+            }, {});
+        },
+
         drawChoropleth () {
             const self = this;
 
