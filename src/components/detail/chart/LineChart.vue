@@ -18,21 +18,23 @@
 </template>
 
 <script>
-import * as d3 from 'd3-selection'
-import * as scales from 'd3-scale'
-import * as arr from 'd3-array'
-import * as axes from 'd3-axis'
-import * as time from 'd3-time'
-import * as shape from 'd3-shape'
+import { mapState } from 'vuex';
+
+import * as d3 from 'd3-selection';
+import * as scales from 'd3-scale';
+import * as arr from 'd3-array';
+import * as axes from 'd3-axis';
+import * as time from 'd3-time';
+import * as shape from 'd3-shape';
 import {
     annotationCustomType, annotationCalloutCircle, annotation,
-} from 'd3-svg-annotation'
+} from 'd3-svg-annotation';
 
 import { groupIfOverlapping } from '../../../models/Annotations';
 import utils from '../../../utils';
 import _ from 'lodash';
 
-import config from '../../../config'
+import config from '../../../config';
 
 export default {
     name: 'line-chart',
@@ -52,27 +54,32 @@ export default {
         };
     },
 
-    computed: {
-        selectedValue () {
-            let l = [];
-            const activeDict = this.graphModel.getActiveBreakdownValues();
+    computed: Object.assign(
+        mapState('detail', [
+            'fullscreen',
+        ]), {
 
-            _.forEach(this.hoveredPoint.total, (value, key) => {
-                if(key in activeDict){
-                    l.push({
-                        key, value,
-                        color: this.getColorForBreakdown(key),
-                        name: key,
-                    });
-                }
-            });
-            return _.sortBy(l, d => d.value).reverse();
-        },
+            selectedValue () {
+                let l = [];
+                const activeDict = this.graphModel.getActiveBreakdownValues();
 
-        granularityFormat () {
-            return utils.getDateFormatFromData(this.graphModel.graphData);
-        },
-    },
+                _.forEach(this.hoveredPoint.total, (value, key) => {
+                    if(key in activeDict){
+                        l.push({
+                            key, value,
+                            color: this.getColorForBreakdown(key),
+                            name: key,
+                        });
+                    }
+                });
+                return _.sortBy(l, d => d.value).reverse();
+            },
+
+            granularityFormat () {
+                return utils.getDateFormatFromData(this.graphModel.graphData);
+            },
+        }
+    ),
 
     mounted () {
         this.drawChart();
@@ -80,6 +87,10 @@ export default {
 
     watch: {
         'graphModel.graphData' () {
+            this.drawChart();
+        },
+
+        fullscreen () {
             this.drawChart();
         },
     },
@@ -124,11 +135,6 @@ export default {
                 this.getRoot().select('svg').select('.graph'),
                 preparedAnnotations,
             );
-        },
-
-        // PUBLIC: used by parent components
-        redraw () {
-            this.drawChart();
         },
 
         getRoot () {

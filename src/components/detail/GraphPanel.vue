@@ -52,7 +52,6 @@
                 </div>
             </div>
             <component
-                ref="graph"
                 v-if="graphModel"
                 :is="chartComponent"
                 :graphModel="graphModel">
@@ -201,12 +200,6 @@ export default {
     ),
 
     methods: {
-        // PUBLIC: used by parent components
-        redrawGraph () {
-            if (this.$refs.graph && this.$refs.graph.redraw) {
-                this.$refs.graph.redraw();
-            }
-        },
         toggleTimeSelection () {
             const toggled = !this.selectingTime;
             this.$store.commit('selectingTime', { selectingTime: toggled });
@@ -216,7 +209,6 @@ export default {
         },
         toggleFullscreen () {
             this.$store.commit('detail/fullscreen', { fullscreen: !this.fullscreen });
-            Vue.nextTick(() => this.redrawGraph());
         },
         download () {
             let csvData = d3Formatter.csvFormat(this.graphModel.downloadData());

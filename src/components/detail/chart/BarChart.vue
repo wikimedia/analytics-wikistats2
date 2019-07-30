@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import * as d3 from 'd3-selection';
 import * as scales from 'd3-scale';
 import * as arr from 'd3-array';
@@ -27,9 +28,8 @@ import * as axes from 'd3-axis';
 import * as format from 'd3-format';
 import * as time from 'd3-time';
 import {
-    // TODO: Decide which type to use here, circles seem clumsy but the hover is nicer
-    annotationCustomType, annotationBadge, annotationCalloutCircle, annotation,
-} from 'd3-svg-annotation'
+    annotationCustomType, annotationCalloutCircle, annotation,
+} from 'd3-svg-annotation';
 
 import { groupIfOverlapping } from '../../../models/Annotations';
 import utils from '../../../utils';
@@ -49,11 +49,16 @@ export default {
         };
     },
 
-    computed: {
-        granularityFormat () {
-            return utils.getDateFormatFromData(this.graphModel.graphData);
+    computed: Object.assign(
+        mapState('detail', [
+            'fullscreen',
+        ]), {
+
+            granularityFormat () {
+                return utils.getDateFormatFromData(this.graphModel.graphData);
+            }
         }
-    },
+    ),
 
     mounted () {
         this.drawChart();
@@ -61,6 +66,10 @@ export default {
 
     watch: {
         'graphModel.graphData' () {
+            this.drawChart();
+        },
+
+        fullscreen () {
             this.drawChart();
         },
     },
@@ -109,11 +118,6 @@ export default {
                 this.x,
                 this.y,
             );
-        },
-
-        // PUBLIC: used by parent components
-        redraw () {
-            this.drawChart();
         },
 
         getRoot () {
@@ -324,56 +328,6 @@ export default {
                 .attr('class', 'annotation-group')
                 .call(makeAnnotations);
         },
-
-        /*
-        -- alternative annotation style - put this here
-        addAnnotations (g, annotations) {
-
-            const type2 = annotationCustomType(annotationBadge, {
-                className: 'customBadge',
-            });
-
-            const makeAnnotations = annotation()
-                .editMode(false)
-                .type(type2)
-                .annotations(annotations);
-
-            g.append('g')
-                .attr('class', 'annotation-group')
-                .call(makeAnnotations);
-        },
-
-        -- and replace this part of annotation transform:
-
-            const vertical = this.y.range()[0],
-                  diameter = 28,
-                  activeKeys = this.graphModel.activeBreakdown.values.filter(bv => bv.on).map(bv => bv.key),
-                  barWidth = this.x.bandwidth() / activeKeys.length;
-
-
-             const preparedAnnotations = groupIfOverlapping(
-                annotations.map(m => {
-                    const px = this.x(m.date) + (barWidth * (activeKeys.indexOf(m.breakdownValue) + 0.5)),
-                          py = this.y(m.value) || vertical;
-
-                    console.log(m.title, m.breakdownValue, barWidth, px, py, this.y(m.value), m.value)
-
-                    return {
-                        subject: {
-                            radius: diameter / 2,
-                            text: (m.title || 'A').substring(0, 1),
-                            y: 'bottom',
-                        },
-                        color: '#E8336D',
-                        x: px,
-                        y: py,
-                    };
-                }),
-                this.x,
-                this.x.range()[1],
-                28,
-            );
-        */
     }
 }
 </script>

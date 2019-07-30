@@ -9,7 +9,6 @@
         <graph-panel
             v-if="graphModel && graphModel.graphData"
             :granularity="granularity"
-            ref="graphPanel"
             :graphModel="graphModel"
             :annotationsLink="annotationsLink"
             :overlayMessage="overlayMessage"
