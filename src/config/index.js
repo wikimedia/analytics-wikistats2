@@ -162,7 +162,7 @@ export default {
     aqs: {
         'total-page-views': {
             method: 'getAggregatedPageviews',
-            endpoint: AQS_HOST + '/pageviews/aggregate/{{project}}/{{access}}/{{agent_type}}/{{granularity}}/{{start}}/{{end}}'
+            endpoint: AQS_HOST + '/pageviews/aggregate/{{project}}/{{access}}/{{agent}}/{{granularity}}/{{start}}/{{end}}'
         },
 
         'unique-devices': {

@@ -30,7 +30,7 @@ class AQS {
      *      access_method: ['desktop', 'mobile-web']
      *  }
      *  commonParameters = {
-     *      metric: 'pageviews-aggregate', agent_type: 'user',
+     *      metric: 'pageviews-aggregate', agent: 'user',
      *      granularity: 'daily', start: '20170514', end: '20170614'
      *  }
      *

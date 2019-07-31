@@ -10,7 +10,7 @@ module.exports = {
             unique: {
                 project: ['all-projects'],
                 access: ['all-access'],
-                agent_type: ['all-agents']
+                agent: ['all-agents']
             },
             common: {
                 metric: 'total-page-views',
@@ -36,8 +36,7 @@ module.exports = {
             breakdownName: 'agent',
             values: [
                 { name: 'User', on: true, key: 'user' },
-                { name: 'Spider', on: true, key: 'spider' },
-                { name: 'Bot', on: true, key: 'bot' }
+                { name: 'Spider', on: true, key: 'spider' }
             ]
         }],
         additive: true
