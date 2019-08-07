@@ -1,10 +1,10 @@
 <template>
 <section class="graph panel">
     <div v-if="mobile" class="metrics">
-        <metrics-dropdown v-if="graphModel && mobile" :metric="graphModel.config" :granularity="graphModel.granularity"/>
+        <metrics-dropdown v-if="mobile" :metric="graphModel.config" :granularity="graphModel.granularity"/>
     </div>
     <wiki-time-bar v-if="mobile" :graphModel="graphModel"/>
-    <div class="ui clearing basic segment graph" v-if="graphModel">
+    <div class="ui clearing basic segment graph">
         <div>
             <h2 v-if="!mobile" class="ui left floated header">
                 <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
@@ -52,7 +52,6 @@
                 </div>
             </div>
             <component
-                v-if="graphModel"
                 :is="chartComponent"
                 :graphModel="graphModel">
             </component>
@@ -90,7 +89,7 @@
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
     </div>
-    <time-selector-tooltip :graphModel="graphModel" v-if="!mobile && graphModel && selectingTime"/>
+    <time-selector-tooltip :graphModel="graphModel" v-if="!mobile && selectingTime"/>
     <div class="ui right floated icon button"
          v-if="!mobile && !overlayMessage"
          @click="toggleFullscreen"
@@ -111,7 +110,6 @@ import SimpleLegend from './SimpleLegend';
 import BarChart from './chart/BarChart';
 import LineChart from './chart/LineChart';
 import TableChart from './chart/TableChart';
-import MapChart from './chart/MapChart';
 import StatusOverlay from '../StatusOverlay';
 import config from '../../config';
 import utils from '../../utils';
@@ -131,13 +129,14 @@ export default {
         BarChart,
         LineChart,
         TableChart,
-        MapChart,
+        'MapChart': () => import(/* webpackChunkName: "MapChart" */'./chart/MapChart'),
         StatusOverlay,
         MetricsDropdown,
         WikiSelector,
         WikiTimeBar,
     },
 
+    // note: graphModel must be guaranteed by parent to be valid
     props: ['graphModel', 'overlayMessage', 'annotations', 'annotationsLink'],
 
     computed: Object.assign(

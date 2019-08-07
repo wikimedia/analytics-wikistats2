@@ -37,7 +37,7 @@ import * as scales from 'd3-scale';
 import * as d3_color from 'd3-scale-chromatic';
 import { mapState } from 'vuex';
 import eckert from './eckert3';
-const worldPromise = import(/* webpackChunkName: "world" */ './world').then(f => f.default);
+import worldBy from './world';
 
 import MapLegend from './MapLegend';
 import MapTooltip from './MapTooltip';
@@ -57,19 +57,12 @@ export default {
     data () {
         return {
             currentHover: null,
-            worldBy: null,
             colorScale: null,
             dataByCountry: null,
         }
     },
 
     mounted () {
-        // NOTE: the data flow is a little complicated because of worldPromise
-        // at some point: worldPromise resolves
-        // at some point: graphData is loaded
-        // 1. world is computed
-        // 2. graph is drawn
-        worldPromise.then(worldBy => this.worldBy = worldBy);
         // if graphData is already ready, like on a chartType change,
         // the watch won't trigger, so we need to compute dataByCountry manually
         if (this.graphModel.graphData.length) {
@@ -99,17 +92,17 @@ export default {
             'fullscreen',
         ]), {
             world () {
-                if (!this.colorScale || !this.dataByCountry || !this.worldBy) return;
-                return this.worldBy(this.colorScale, this.dataByCountry);
+                if (!this.colorScale || !this.dataByCountry) return;
+                return worldBy(this.colorScale, this.dataByCountry);
             },
 
             constants () {
                 return Object.assign({
                         x0: -10, y0: -10, x1: 1000, y1: 500,
 
-                    }, this.fullscreen && !this.mobile ? { scale: 1.08, xi: 515, yi: 215 } :
-                       this.mobile ?                     { scale: 0.60, xi: 460, yi: 235 } :
-                                                         { scale: 0.88, xi: 535, yi: 0 },
+                    }, this.mobile ?        { scale: 0.60, xi: -120, yi: -10 } :
+                       this.fullscreen ?    { scale: 1.08, xi: -60, yi: -35 } :
+                                            { scale: 0.88, xi: -125, yi: 0 },
                 )
             },
 
@@ -175,9 +168,11 @@ export default {
             this.configureZoom(svg, g);
         },
         configureZoom (svg, g) {
-            const c = this.constants;
             svg = svg || d3.select('.map.canvas');
             g = g || svg.select('g.map.group');
+
+            const c = this.constants;
+            const t = zoom.zoomTransform(g).translate(c.xi, c.yi).scale(c.scale);
 
             const zoomBehavior = zoom.zoom()
                 .scaleExtent([c.scale-0.2, 8])
@@ -186,9 +181,7 @@ export default {
                     g.attr('transform', d3.event.transform);
                 });
             svg.call(zoomBehavior).on('wheel', function () { d3.event.preventDefault(); });
-            zoomBehavior.scaleTo(svg, c.scale);
-            // if you don't debounce the transform, it has some weird race condition that makes it not apply.
-            Vue.nextTick(() => zoomBehavior.translateTo(svg, c.xi, c.yi));
+            svg.call(zoomBehavior.transform, t);
         },
     }
 };
