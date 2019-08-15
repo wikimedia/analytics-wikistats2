@@ -41,8 +41,8 @@ function createDate(timestamp) {
     }
 
     // returns a timestamp, not a date object
-     date = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-     date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    date = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+    date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
 
     let tmp = new Date();
     // SetTime takes an integer represented
@@ -73,8 +73,8 @@ function getUTCTimestampFromYearMonth(year, month){
 }
 
 function getGranularity (timeRange) {
-    if (timeRange.name) {
-        return ['1-Month', '3-Month'].includes(timeRange.name) ? 'daily' : 'monthly';
+    if (timeRange.timeKeyword) {
+        return ['1-Month', '3-Month'].includes(timeRange.timeKeyword) ? 'daily' : 'monthly';
     } else {
         const millisecondsInSixMonths = 15552e6;
         return timeRange.end - timeRange.start > millisecondsInSixMonths ? 'monthly' : 'daily';
@@ -90,29 +90,6 @@ function getDefaultTimeRange (metricConfig) {
     }
 }
 
-function getRequestInterval (timeRange) {
-    const format = 'yyyymmdd00';
-    var startDate, endDate;
-    if (timeRange.name) {
-        endDate = createNowUTCDate();
-        if (timeRange.name === 'All') {
-            startDate = config.startDate;
-        } else {
-            const monthsAgo = ['2-Year', '1-Year'].includes(timeRange.name) ? 28 : 7;
-            startDate = new Date(endDate);
-            startDate.setUTCMonth(endDate.getUTCMonth() - monthsAgo);
-        }
-    } else {
-        startDate = timeRange.start;
-        endDate = timeRange.end;
-    }
-
-    return {
-        start: startDate,
-        end: endDate
-    };
-}
-
 function getDateFormatFromData (data) {
     if (!(data && data.length && data[0].month)) { return 'yyyy-mm'; }
     return getGranularity(data[0].month, data[data.length - 1].month) === 'monthly' ?
@@ -121,8 +98,11 @@ function getDateFormatFromData (data) {
 
 function adjustGraphData (graphData, timeRangeName) {
     if (!timeRangeName || timeRangeName === 'All') { return graphData; }
-    const maxElements = {'2-Year': 24, '1-Year': 12, '3-Month': 92, '1-Month': 31};
-    return graphData.slice(Math.max(graphData.length - maxElements[timeRangeName], 0));
+    const maxElements = {
+        '2-year': 24, '1-year': 12, '3-month': 92, '1-month': 31
+    }[timeRangeName.toLowerCase()];
+
+    return graphData.slice(Math.max(graphData.length - maxElements, 0));
 }
 
 function isProjectFamily (project) {
@@ -146,7 +126,6 @@ export default {
     createNowUTCDate,
     getGranularity,
     getDefaultTimeRange,
-    getRequestInterval,
     getDateFormatFromData,
     adjustGraphData,
     isProjectFamily,

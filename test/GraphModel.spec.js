@@ -105,11 +105,12 @@ describe('GraphModel', function () {
         expect(graphModel.graphData.length).toEqual(12);
         expect(graphModel.graphData[4].total.total).toEqual(0);
     })
-    it('should adjust the time range when data received doesn\'t match it', () => {
-        graphModel.setGranularity('daily');
-        graphModel.setTimeRange(new TimeRange(['2016-12-01', '2016-12-14']));
-        const dataUntilThe12th = new DimensionalData(uniquesDaily.desktop.items);
-        graphModel.setData(dataUntilThe12th);
-        expect(graphModel.timeRange.end.getUTCDate()).toEqual(12);
-    })
+    // NOTE: commented out for now because this feature causes a rather serious bug
+    //it('should adjust the time range when data received doesn\'t match it', () => {
+        //graphModel.setGranularity('daily');
+        //graphModel.setTimeRange(new TimeRange(['2016-12-01', '2016-12-14']));
+        //const dataUntilThe12th = new DimensionalData(uniquesDaily.desktop.items);
+        //graphModel.setData(dataUntilThe12th);
+        //expect(graphModel.timeRange.end.getUTCDate()).toEqual(12);
+    //})
 });

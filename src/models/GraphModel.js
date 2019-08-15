@@ -195,8 +195,13 @@ class GraphModel {
                 const month = utils.createDate(ts);
                 return {month: month, total: row[yAxisValue]};
             }), this.timeRange);
+
+            // NOTE: this logic seemed to be here to cover a corner case, but it caused a
+            // hard to understand bug, see T230514
             // Match time range end to end of data
-            this.timeRange.end = this.graphData[this.graphData.length - 1].month;
+            // this.timeRange.end = this.graphData[this.graphData.length - 1].month;
+            // For now, it's better without it than with it
+
             if (this.config.truncatedThreshold) {
                 this.fillTruncatedValues();
             }

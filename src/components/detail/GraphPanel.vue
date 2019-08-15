@@ -183,6 +183,7 @@ export default {
                     const specificDetail = Object.assign({}, this.detail);
                     const startDate = new Date(this.graphModel.graphData[0].month);
                     const endDate = new Date(this.graphModel.graphData[this.graphModel.graphData.length - 1].month);
+                    // TODO: this should be in TimeRange but done in a separate change
                     if (utils.getGranularity(this.timeRange) === 'monthly') {
                         endDate.setUTCMonth(endDate.getUTCMonth() + 1);
                     }

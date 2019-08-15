@@ -64,7 +64,7 @@ export default {
     },
 
     mounted () {
-        this.loadData(this.params);
+        this.loadData();
         if (this.metrics.length > 1 && !this.mobile) {
             setInterval(() => {
                 if (this.hovering || !document.hasFocus()) { return; }
@@ -103,7 +103,7 @@ export default {
                 return this.graphModel.status;
             },
             metricReady () {
-                return this.graphModel.graphData.length > 0 && !this.overlayMessage;
+                return this.graphData.length > 0 && !this.overlayMessage;
             },
             graphData () {
                 if (['map', 'list'].includes(this.metricConfig.type)) {
@@ -114,7 +114,7 @@ export default {
                     // if building breakdowns into the widgets, look here first
                     return utils.adjustGraphData(
                         this.graphModel.graphData,
-                        this.params.timeRange.name
+                        this.params.timeRange.timeKeyword,
                     ).map(d => ({
                         month: d.month,
                         total: d.total.total,
@@ -138,13 +138,12 @@ export default {
             this.graphModel.setProject(this.project);
         },
         params () {
-            this.loadData(this.params);
+            this.loadData();
         }
     },
 
     methods: {
-        loadData (params) {
-            const project = this.project;
+        loadData () {
             this.graphModel.loadData({
                 annotations: false
             });
