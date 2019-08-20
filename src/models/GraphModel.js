@@ -180,6 +180,7 @@ class GraphModel {
                     total: row[yAxisValue]
                 };
                 row.month = utils.createDate(row.timestamp);
+                row.timeRange = timestampToTimeRange(row.timestamp, this.granularity);
 
                 delete row[yAxisValue];
                 return row;
@@ -193,14 +194,11 @@ class GraphModel {
             this.graphData = this.cutForTimerange(rawValues.map((row) => {
                 var ts = row.timestamp;
                 const month = utils.createDate(ts);
-                return {month: month, total: row[yAxisValue]};
+                const timeRange = timestampToTimeRange(ts, this.granularity);
+                return {month: month, total: row[yAxisValue], timeRange: timeRange};
             }), this.timeRange);
 
-            // NOTE: this logic seemed to be here to cover a corner case, but it caused a
-            // hard to understand bug, see T230514
-            // Match time range end to end of data
-            // this.timeRange.end = this.graphData[this.graphData.length - 1].month;
-            // For now, it's better without it than with it
+            this.timeRange.end = this.graphData[this.graphData.length - 1].timeRange.end;
 
             if (this.config.truncatedThreshold) {
                 this.fillTruncatedValues();
@@ -226,10 +224,10 @@ class GraphModel {
         };
         let i = 0;
         const span = this.timeRange.getSpan(this.granularity);
-        while (i < span) {
+        while (i < span - 1) { // Removing the last day so we don't fill the end of the dataset.
             const zeroedItem = JSON.parse(JSON.stringify(this.graphData[0]));
             zeroedItem.total = {};
-            zeroedItem.month = utils.createDate(zeroedItem.month);
+            zeroedItem.timeRange.start = utils.createDate(zeroedItem.timeRange.start);
             Object.keys(this.graphData[0].total).forEach(k => zeroedItem.total[k] = 0);
             const previousItem = this.graphData[i - 1];
             const item = this.graphData[i];
@@ -237,15 +235,16 @@ class GraphModel {
             if (i === 0) {
                 expectedDate = this.timeRange.start;
             } else {
-                expectedDate = new Date(previousItem.month);
+                expectedDate = new Date(previousItem.timeRange.start);
                 if (this.granularity === 'monthly') {
                     expectedDate.setUTCMonth(expectedDate.getUTCMonth() + 1);
                 } else {
                     expectedDate.setUTCDate(expectedDate.getUTCDate() + 1);
                 }
             }
-            if (!item || !datesMatch(expectedDate, item.month)) {
-                const valueToAdd = Object.assign(zeroedItem, {month: expectedDate, truncated: true});
+            if (!item || !datesMatch(expectedDate, item.timeRange.start)) {
+                const timeRange = timestampToTimeRange(expectedDate, this.granularity);
+                const valueToAdd = Object.assign(zeroedItem, {timeRange: timeRange, month: expectedDate, truncated: true});
                 this.graphData.splice(i, 0, valueToAdd);
             }
             i++;
@@ -254,7 +253,10 @@ class GraphModel {
 
     cutForTimerange (data, timeRange) {
         if (!timeRange) return data;
-        return data.filter(item => item.month >= timeRange.start && item.month <= timeRange.end);
+        return data.filter(item =>
+            item.timeRange.start >= timeRange.start &&
+            item.timeRange.start <= timeRange.end
+        );
     }
 
     /** Data for downloading as csv needs to be a flat key/value pair object **/
@@ -375,6 +377,20 @@ class GraphModel {
             p.push(newValue);
             return p;
         }, []);
+    }
+}
+/**
+* Dates come from AQS in the form of timestamps indicating the beginning of the
+* day/month. This function turns them to time ranges.
+**/
+function timestampToTimeRange (timestamp, granularity) {
+    const startDate = TimeRange.createDate(timestamp);
+    if (granularity === 'monthly') {
+        const beginningOfNextMonth = TimeRange.beginningOfNextMonth(timestamp);
+        return new TimeRange([startDate, beginningOfNextMonth]);
+    } else if (granularity === 'daily') {
+        const beginningOfNextDay = TimeRange.beginningOfNextDay(timestamp);
+        return new TimeRange([startDate, beginningOfNextDay]);
     }
 }
 

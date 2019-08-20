@@ -63,12 +63,8 @@ class TimeRange {
         if (granularity === 'monthly') {
             const newStart = new Date(this.start);
             newStart.setUTCDate(1);
-            const newEnd = new Date(this.end);
-            newEnd.setUTCDate(1);
-            newEnd.setUTCMonth(newEnd.getUTCMonth() + 1);
-            newEnd.setUTCDate(newEnd.getUTCDate() - 1);
             this.start = newStart;
-            this.end = new Date(Math.min(new Date(), newEnd));
+            this.end = new Date(Math.min(new Date(), TimeRange.beginningOfNextMonth(this.end)));
         }
     }
 
@@ -89,6 +85,19 @@ class TimeRange {
             const diff = endMillis - startMillis;
             return Math.ceil(diff / 3600000 / 24) + 1;
         }
+    }
+
+    static beginningOfNextMonth (date) {
+        const end = TimeRange.createDate(date);
+        end.setUTCDate(1);
+        end.setUTCMonth(end.getUTCMonth() + 1);
+        return end;
+    }
+    static beginningOfNextDay (date) {
+        const end = TimeRange.createDate(date);
+        end.setUTCDate(end.getUTCDate() + 1);
+        end.setUTCHours(0,0,0,0);
+        return end;
     }
 
     static formatDateForURL (date) {

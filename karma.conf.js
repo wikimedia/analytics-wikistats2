@@ -1,7 +1,7 @@
 const webpackConfig = require('./webpack/dev.config.js');
 
 const testConfiguration = {
-    browsers: ['ChromeHeadless', 'FirefoxHeadless'],
+    browsers: ['Chrome', 'FirefoxHeadless'],
     customLaunchers: {
         FirefoxHeadless: {
             base: 'Firefox',
