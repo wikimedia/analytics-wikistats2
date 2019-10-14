@@ -87,6 +87,9 @@ class AQS {
         let promises = utils.labeledCrossProduct(uniqueParameters)
             .map(p => Object.assign(p, commonParameters))
             .map(p => {
+                if (p.referer) {
+                    p.project = p.referer;
+                }
                 let url = apiConfig.endpoint;
                 (url.match(/{{.*?}}/g) || []).forEach((k) => {
                     const key = _.trim(k, '{}');
