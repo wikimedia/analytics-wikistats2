@@ -215,6 +215,7 @@ class Router {
         // Initialize application state.
         let root = windowObject.location.pathname;
         let path = windowObject.location.hash.replace('#', '') || '/';
+        path = path.replace('www.', '');
         let state = getStateFromPath(path, routes);
         windowObject.history.replaceState(state, '', getPathFromState(root, state, routes));
         userPreferences.update(state);
