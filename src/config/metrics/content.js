@@ -182,5 +182,49 @@ module.exports = {
         }],
         additive: false,
         cumulative: true
+    },
+    'total-mediarequests': {
+        disabled: false,
+        fullName: 'Total media requests',
+        description: 'The total amount of requests directed to media files such as image, video and audio',
+        question: 'How many times were media files requested?',
+        infoUrl: '',
+        tooltip: 'The total amount of requests directed to media files such as image, video and audio.',
+        defaults: {
+            unique: {
+                referer: ['all-referers'],
+                media_type: ['all-media-types'],
+                agent: ['all-agents']
+            },
+            common: {
+                granularity: 'monthly',
+                metric: 'total-mediarequests'
+            }
+        },
+        knownStart: '2015-01-01',
+        type: 'time',
+        structure: 'timeseries',
+        area: 'content',
+        value: 'requests',
+        global: true,
+        breakdowns: [{
+            name: 'Media type',
+            breakdownName: 'media_type',
+            values: [
+                { name: 'Image', on: true, key: 'image' },
+                { name: 'Video', on: true, key: 'video' },
+                { name: 'Audio', on: true, key: 'audio' },
+                { name: 'Document', on: true, key: 'document' },
+                { name: 'Other', on: true, key: 'other' },
+            ]
+        },{
+            name: 'Agent type',
+            breakdownName: 'agent',
+            values: [
+                { name: 'User', on: true, key: 'user' },
+                { name: 'Spider', on: true, key: 'spider' }
+            ]
+        }],
+        additive: true
     }
 };

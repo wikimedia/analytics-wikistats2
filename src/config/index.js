@@ -220,6 +220,10 @@ export default {
 
         'top-editors': {
             endpoint: AQS_HOST + '/editors/top-by-edits/{{project}}/{{editor_type}}/{{page_type}}/{{year}}/{{month}}/{{day}}'
+        },
+
+        'total-mediarequests': {
+            endpoint: AQS_HOST + '/mediarequests/aggregate/{{project}}/{{media_type}}/{{agent}}/{{granularity}}/{{start}}/{{end}}'
         }
     },
 
