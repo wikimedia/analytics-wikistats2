@@ -22,7 +22,9 @@ export default {
                 user_text: username =>
                     "//" + this.project + "/wiki/Special:Contributions/" + username,
                 default: name =>
-                    "//" + this.project + "/wiki/" + name
+                    "//" + this.project + "/wiki/" + name,
+                file_path: file =>
+                    '//upload.wikimedia.org' + file
             };
             const transformation =
                 LINK_TRANSFORMATIONS[this.nameKey] ||
@@ -31,8 +33,10 @@ export default {
         },
         transformName(name) {
             const NAME_TRANSFORMATIONS = {
-                user_text: username => username || "Anonymous user",
+                user_text: username => (username || "Anonymous user"),
                 country: isocode => (isoLookup[isocode] && isoLookup[isocode].en) || isocode,
+                file_path: name => name,
+                page_title: title => title.replace(/_/g, " ")
             };
             const transformation = NAME_TRANSFORMATIONS[this.nameKey];
             if (!transformation) return name;
@@ -44,13 +48,20 @@ export default {
             'project',
         ]), {
             link() {
-                if (this.allWikis || this.family || this.map || this.elementRawName === null) return;
+                if (this.noLink) return;
                 return this.transformLink(this.elementName);
             },
+            noLink() {
+                const casesWithNoLink = [
+                    this.allWikis && !(this.nameKey === "file_path"),
+                    this.family,
+                    this.map,
+                    this.elementRawName === null
+                ];
+                return casesWithNoLink.some(c => c)
+            },
             elementName() {
-                let name = this.transformName(this.elementRawName);
-                const spacedName = name.replace(/_/g, " ");
-                return spacedName;
+                return this.transformName(this.elementRawName);
             },
             elementRawName() {
                 return this.value[this.nameKey];
@@ -70,6 +81,11 @@ export default {
 </script>
 <style type='text/css'>
 td a {
+    color: #000;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+td a:visited {
     color: #000;
 }
 td a:hover {

@@ -226,5 +226,43 @@ module.exports = {
             ]
         }],
         additive: true
+    },
+    'top-mediarequests': {
+        disabled: false,
+        fullName: 'Top files by mediarequests',
+        description: 'A list of the most requested media files, split by file type',
+        question: 'Which are the most popular media files?',
+        infoUrl: '',
+        tooltip: 'The total amount of requests directed to media files such as image, video and audio.',
+        defaults: {
+            unique: {
+                referer: ['all-referers'],
+                media_type: ['all-media-types']
+            },
+            common: {
+                granularity: 'monthly',
+                metric: 'top-mediarequests'
+            }
+        },
+        knownStart: '2015-01-01',
+        type: 'list',
+        structure: 'top',
+        area: 'content',
+        value: 'requests',
+        key: 'file_path',
+        arrayName: 'files',
+        global: true,
+        additive: true,
+        breakdowns: [{
+            name: 'Media type',
+            breakdownName: 'media_type',
+            values: [
+                { name: 'Image', on: true, key: 'image' },
+                { name: 'Video', on: true, key: 'video' },
+                { name: 'Audio', on: true, key: 'audio' },
+                { name: 'Document', on: true, key: 'document' },
+                { name: 'Other', on: true, key: 'other' },
+            ]
+        }]
     }
 };

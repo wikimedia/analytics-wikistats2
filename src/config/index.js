@@ -117,6 +117,7 @@ const mainMetricsByArea = [
             name: 'Content',
             metrics: [
                 'edited-pages',
+                'total-mediarequests',
                 'net-bytes-difference',
                 'absolute-bytes-diff',
                 'pages-to-date',
@@ -224,6 +225,10 @@ export default {
 
         'total-mediarequests': {
             endpoint: AQS_HOST + '/mediarequests/aggregate/{{project}}/{{media_type}}/{{agent}}/{{granularity}}/{{start}}/{{end}}'
+        },
+
+        'top-mediarequests': {
+            endpoint: AQS_HOST + '/mediarequests/top/{{referer}}/{{media_type}}/{{year}}/{{month}}/{{day}}'
         }
     },
 
