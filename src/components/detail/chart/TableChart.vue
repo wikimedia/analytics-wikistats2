@@ -1,15 +1,15 @@
 <template>
 <div>
     <table :class="graphModel.config.area" class="ui table unstackable">
-        <caption align="bottom" @click="advancePage()" v-if="loadMoreRows" class="morerows" colspan="10">Load more rows...</caption>
+        <caption align="bottom" @click="advancePage()" v-if="loadMoreRows" class="morerows" colspan="10">{{$t('charts-table-load_more_rows')}}</caption>
         <thead>
             <tr v-if="isTimeseries">
-                <th>Date</th>
-                <th class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{v.name | capitalize}}</th>
+                <th>{{$t('general-date') | capitalize}}</th>
+                <th class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{$t(geti8nBreakdownModeKey(graphModel.activeBreakdown.breakdownName, v.key)) | capitalize}}</th>
             </tr>
             <tr v-if="isTop">
                 <th class="right aligned">{{(graphModel.config.valueTitle || graphModel.config.value) | capitalize}}</th>
-                <th>Name</th>
+                <th>{{$t('general-name') | capitalize}}</th>
             </tr>
         </thead>
         <tbody>
@@ -110,6 +110,10 @@ export default {
         },
         advancePage () {
             this.currentPage++;
+        },
+        geti8nBreakdownModeKey (breakdownKey, valueKey) {
+            if (!breakdownKey ) return 'general-total';
+            return `metrics-${this.graphModel.metricId}-breakdowns-${breakdownKey}-values-${valueKey}-name`;
         }
     }
 }

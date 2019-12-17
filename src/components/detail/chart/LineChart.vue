@@ -2,9 +2,9 @@
 <div class="graphContainer">
     <div v-if="hoveredPoint" class="line valuePopup"  :style="{ top: hoveredPointTop - 65 + 'px', left: hoveredPointLeft - 80 + 'px', border: 'solid 1px ' + hoveredPointColor,
                   borderBottom: 'solid 3px ' + hoveredPointColor }">
-        <b>{{hoveredPoint.month | ISOdateUTC(granularityFormat) }}</b>
+        <b>{{dateFormat(hoveredPoint.month) }}</b>
         <div v-for="b in this.selectedValue" class="breakdown">
-            <b><span :style="{ color: b.color }">{{b.name | capitalize}}</span></b>
+            <b><span :style="{ color: b.color }">{{$t(geti18nBreakdownKey(b.name)) | capitalize}}</span></b>
             <span>{{b.value | thousands}}</span>
         </div>
     </div>
@@ -30,11 +30,12 @@ import {
     annotationCustomType, annotationCalloutCircle, annotation,
 } from 'd3-svg-annotation';
 
-import { groupIfOverlapping } from '../../../models/Annotations';
-import utils from '../../../utils';
+import { groupIfOverlapping } from 'Src/models/Annotations';
+import TimeRange from 'Src/models/TimeRange';
+import utils from 'Src/utils';
 import _ from 'lodash';
 
-import config from '../../../config';
+import config from 'Src/config';
 
 export default {
     name: 'line-chart',
@@ -96,7 +97,9 @@ export default {
     },
 
     methods: {
-
+        dateFormat (date) {
+            return TimeRange.dateFormatForGranularity(date, this.graphModel.granularity);
+        },
         transformAndAddAnnotations (annotations) {
 
             const horizontal = this.x.range()[1],
@@ -139,6 +142,11 @@ export default {
 
         getRoot () {
             return d3.select(this.$el).select('.big');
+        },
+
+        geti18nBreakdownKey (valueKey) {
+            if (valueKey === 'total') return 'general-total';
+            return `metrics-${this.graphModel.metricId}-breakdowns-${this.graphModel.activeBreakdown.breakdownName}-values-${valueKey}-name`;
         },
 
         drawChart () {

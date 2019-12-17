@@ -3,7 +3,7 @@
     <div class = "container">
         <i :class="iconClass"></i>
         <div class = "overlay text">
-            {{overlayMessage.text}}
+            {{$t(overlayMessage.textKey, {project, metricName})}}
         </div>
     </div>
 </div>
@@ -25,7 +25,7 @@ let StatusOverlay = {
             }[this.overlayMessage.type]
         }
     },
-    props: ['overlayMessage']
+    props: ['overlayMessage', 'project', 'metricName']
 };
 
 StatusOverlay.getMessageForStatus = function (httpCode) {
@@ -44,36 +44,36 @@ StatusOverlay.getMessageForStatus = function (httpCode) {
 
 StatusOverlay.NO_DATA = {
     type: 'error',
-    text: 'There is no data available for this date range on this project'
+    textKey: 'status_overlay-no_data'
 };
 
 StatusOverlay.NON_GLOBAL = (metricName) => {
     return {
         type: 'error',
-        text: 'The ' + metricName + ' metric is not available for all projects. Select a specific wiki'
+        textKey: 'status_overlay-non_global'
     };
 };
 
 StatusOverlay.NON_GLOBAL_FAMILY = (metricName, project) => {
     return {
         type: 'error',
-        text: 'The ' + metricName + ' metric is not available for ' + project.replace(/-/g, ' ') + '. Select a specific wiki'
+        textKey: 'status_overlay-non_global_family'
     };
 };
 
 StatusOverlay.NO_SERVICE = {
     type: 'error',
-    text: 'The analytics query service seems to be down'
+    textKey: 'status_overlay-no_service'
 };
 
 StatusOverlay.LOADING = {
     type: 'loading',
-    text: 'Loading metric...'
+    textKey: 'status_overlay-loading'
 };
 
 StatusOverlay.GENERAL_ERROR = {
     type: 'error',
-    text: 'Something went wrong'
+    textKey: 'status_overlay-general_error'
 };
 
 export default StatusOverlay;

@@ -1,4 +1,4 @@
-import dateFormat from 'dateformat';
+import { format } from 'date-fns';
 import utils from 'Src/utils';
 
 class TimeRange {
@@ -41,8 +41,8 @@ class TimeRange {
         return [format(this.start), format(this.end)];
     }
 
-    getFormattedTimeRange (granularity, structure) {
-        if (this.timeKeyword) {
+    getFormattedTimeRange (granularity, structure, explicit) {
+        if (!explicit && this.timeKeyword) {
             return {
                 '2-year': 'Last two years',
                 '1-year': 'Last 12 months',
@@ -111,8 +111,8 @@ class TimeRange {
     }
 
     static formatDateForURL (date) {
-        const format = 'yyyymmdd00';
-        return dateFormat(date, format, true);
+        const template = 'yyyyMMdd00';
+        return format(date, template);
     }
 
     static relativeToAbsolute (timeKeyword) {
@@ -199,10 +199,16 @@ class TimeRange {
     }
 
     static dateFormatForGranularity (date, granularity) {
+        const locale = timeLocale.default;
+        const utcDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
         if (granularity === 'monthly') {
-            return dateFormat(date, "mmm yyyy", true);
+            return format(utcDate, 'MMM yyyy', {
+                locale
+            });
         } else if (granularity === 'daily') {
-            return dateFormat(date, "d mmm yyyy", true);
+            return format(utcDate, 'do MMM yyyy', {
+                locale
+            });
         }
     }
 }

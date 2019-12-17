@@ -1,7 +1,7 @@
 <template>
 <div class="area" :class="area.id">
     <div class="ui top attached header">
-        {{area.name}}
+        {{$t(`areas-${area.id}`)}}
     </div>
     <div class="ui attached basic segment">
         <div :class="gridClass"

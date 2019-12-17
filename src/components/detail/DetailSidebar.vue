@@ -12,17 +12,17 @@
         </div>
     </div>
     <div class="time" v-if="graphModel">
-        <div @click="switchGranularity" :class="{untoggle: graphModel.availableGranularities().length === 1 }" v-if="graphModel && graphModel.graphData" class="ui label">{{graphModel.granularity}}</div>
+        <div @click="switchGranularity" :class="{untoggle: graphModel.availableGranularities().length === 1 }" v-if="graphModel && graphModel.graphData" class="ui label">{{$t(`granularities-${graphModel.granularity}`)}}</div>
     </div>
 
     <div class="ui clearing divider"></div>
 
-    <h3 class="header">Metrics</h3>
+    <h3 class="header">{{$t('detail_sidebar-metrics')}}</h3>
 
     <router-link v-for="o in otherMetrics" :key="o.name"
         :to="{project, area, metric: o.name}"
         class="ui line label">
-        {{o.fullName}}
+        {{$t(`metrics-${o.name}-name`)}}
     </router-link>
 
     <!--p v-if="otherMetrics.length > 1">
@@ -60,14 +60,22 @@ export default {
         Breakdowns,
         RouterLink,
     },
-    computed: Object.assign(mapState([
-        'project',
-        'area',
-        'selectingTime'
-    ]), {
-        formattedDateRange () {
-            return this.graphModel.getFormattedTimeRange();
-        }
+    computed: Object.assign(
+        mapState([
+            'project',
+            'area',
+            'selectingTime'
+        ]),
+        mapState('detail', [
+            'timeRange',
+        ]), {
+            formattedDateRange () {
+                const timeKeyword = this.timeRange.timeKeyword;
+                if (timeKeyword) {
+                    return this.$t(`time_range-${timeKeyword}`);
+                }
+                return this.graphModel.getFormattedTimeRange();
+            }
     }),
     methods: {
         toggleTimeSelection () {

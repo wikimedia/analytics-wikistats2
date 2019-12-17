@@ -13,6 +13,7 @@ const breakdownChecks = {
 class GraphModel {
     constructor (project, metric) {
         this.config = config.metricConfig(metric);
+        this.metricId = metric;
         this.project = project;
         this.graphData = [];
         this.status = null;
@@ -44,8 +45,8 @@ class GraphModel {
         }
     }
 
-    getFormattedTimeRange () {
-        return this.timeRange.getFormattedTimeRange(this.granularity, this.config.structure);
+    getFormattedTimeRange (explicit) {
+        return this.timeRange.getFormattedTimeRange(this.granularity, this.config.structure, explicit);
     }
 
     setTimeRange (range) {

@@ -1,8 +1,9 @@
 import metrics from '../../src/config/metrics';
 import metricsSchema from '../../src/config/metrics/metricSchema';
+import eni18n from '../../src/i18n/en.json';
 import _ from 'lodash';
 
-_.forEach(metrics, (metric) => {
+_.forEach(metrics, (metric, id) => {
     describe('Metric ' + metric.fullName, () => {
         it('should only contain properties defined in schema', () => {
             expect(keysMatchSchema(metric, metricsSchema)).toBe(true);
@@ -16,6 +17,12 @@ _.forEach(metrics, (metric) => {
         it('should have valid breakdown values', () => {
             expect(breakdownsAreValid(metric, metricsSchema)).toBe(true);
         });
+        it ('should have its English strings in en.json', () => {
+            const requiredTextProperties = ['name', 'description', 'tooltip', 'question'];
+            requiredTextProperties.forEach(prop => {
+                expect(!!eni18n[`metrics-${id}-${prop}`]).toBe(true);
+            })
+        })
     })
 })
 

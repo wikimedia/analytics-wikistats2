@@ -19,12 +19,12 @@
             :height="height - 4" />
         <rect class = 'mainRect' :x="margin / 2" y="20" rx="2" ry="2" :width="width-margin" :height="height - 4" />
         <g v-if="mode==='timeseries'">
-            <text unselectable="on" class = 'slider text left' :x="textPosition(left, 'left')" y="10">{{sliderRange()[0]}}</text>
+            <text v-if="start" unselectable="on" class = 'slider text left' :x="textPosition(left, 'left')" y="10">{{sliderRange()[0]}}</text>
             <rect class = 'slider left' :x="left" y="18" rx="2" ry="2" :width="sliderWidth" :height="height" />
 
             <text v-if="anchorSeparation > 0" unselectable="on" class = 'slider text hyphen' :x="(textPosition(right, 'right') + textPosition(left, 'left'))/2" y="10">-</text>
 
-            <text unselectable="on" class = 'slider text right' :x="textPosition(right, 'right')" y="10">{{sliderRange()[1]}}</text>
+            <text v-if="end" unselectable="on" class = 'slider text right' :x="textPosition(right, 'right')" y="10">{{sliderRange()[1]}}</text>
             <rect class = 'slider right' :x="right" y="18" rx="2" ry="2" :width="sliderWidth" :height="height"/>
         </g>
         <g v-else>
@@ -202,11 +202,11 @@ const TimeSelector = {
         sliderRange() {
             if (this.mode === 'timeseries') {
                 return [
-                    utils.dateFormatForGranularity(this.start, this.graphModel.granularity),
-                    utils.dateFormatForGranularity(this.end, this.graphModel.granularity)
+                    TimeRange.dateFormatForGranularity(this.start, this.graphModel.granularity),
+                    TimeRange.dateFormatForGranularity(this.end, this.graphModel.granularity)
                 ]
             } else {
-                return utils.dateFormatForGranularity(
+                return TimeRange.dateFormatForGranularity(
                     new TimeRange([this.start, this.end]).getMidDate(),
                     this.graphModel.granularity
                 );

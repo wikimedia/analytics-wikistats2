@@ -4,7 +4,7 @@
         <span v-for="b, i in breakdown.values" v-if="b.on">
             <span class="color swatch"
                   :style="{ 'background-color': getColor(b.key) }"></span>
-            {{b.name | capitalize}}
+            {{$t(geti18nBreakdownKey(b.key)) | capitalize}}
         </span>
     </span>
 </span>
@@ -15,11 +15,15 @@ import config from '../../config'
 
 export default {
     name: 'simple-legend',
-    props: ['breakdown'],
+    props: ['breakdown', 'graphModel'],
     methods: {
         getColor (key) {
             return config.getColorForBreakdown(this.breakdown, key, this.$store.state.area);
-        }
+        },
+        geti18nBreakdownKey (key) {
+            if (key === 'total') return 'general-total';
+            return `metrics-${this.graphModel.metricId}-breakdowns-${this.breakdown.breakdownName}-values-${key}-name`;
+        },
     }
 }
 </script>

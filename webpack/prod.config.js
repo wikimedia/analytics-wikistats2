@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const baseConfig = require('./base.config.js');
 const merge = require('webpack-merge');
 const utils = require('./utils');
@@ -6,11 +8,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const i18ndir = path.join(__dirname, '../src/i18n/');
 
 module.exports = merge(baseConfig, {
     output: {
-        filename: '[name].bundle.[chunkhash].js',
         chunkFilename: 'assets-v2/[name].[chunkhash].js',
+        filename: '[name].bundle.js',
         path: utils.resolve('dist')
     },
     module: {
@@ -35,7 +38,8 @@ module.exports = merge(baseConfig, {
             filename: 'index.html',
             favicon: 'src/assets/analytics.png',
             template: 'src/index.ejs',
-            inject: false
-        }),
+            inject: false,
+            availableLocales: fs.readdirSync(i18ndir).map(file => file.replace('.json', ''))
+        })
     ],
 });

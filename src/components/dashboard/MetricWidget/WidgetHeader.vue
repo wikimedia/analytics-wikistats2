@@ -1,20 +1,20 @@
 <template>
     <div class="ui medium statistic">
         <div class="label">
-            {{graphModel.config.fullName}}
+            {{$t(`metrics-${metricId}-name`)}}
             <a v-if="wikistats1URL" class="metric link wikistats1" :href="wikistats1URL" target="_blank" v-hint:wikistats1Metric.s>
                 <img class="wikimedia-logo" src="../../../assets/Wikimedia-logo.svg" alt="wikimedia-logo" />
             </a>
         </div>
         <div v-if="graphModel.config.structure === 'top'" class="subdued">
-            {{graphModel.config.subtitle + ' for ' + lastMonthLabel}}
+            {{$t(`metrics-${metricId}-subtitle`) | capitalize}} {{$t('general-for')}} {{lastMonthLabel}}
         </div>
         <div v-else>
             <div class="value">{{ (lastMonth.total)| bytesOrKmb(unit) }}</div>
             <div>
-                <span class="subdued">{{ (lastMonth.month) | getMonthLabel(months) }}</span>
+                <span class="subdued month">{{ lastMonthLabel }}</span>
                 <period-change-indicator
-                    :period="'month'"
+                    :period="$t('general-month')"
                     :startValue="graphData[graphData.length - 2].total"
                     :endValue="lastMonth.total"/>
             </div>
@@ -45,10 +45,13 @@
             },
             lastMonthLabel () {
                 const date = this.lastMonth.month;
-                return config.months[date.getUTCMonth() + 1];
+                return this.$t(`months-${this.months[date.getUTCMonth() + 1]}`);
             },
             months: function(){
                 return config.months;
+            },
+            metricId: function () {
+                return this.graphModel.metricId;
             }
         }
     }
@@ -78,5 +81,8 @@
 }
 .widget.column .content .metric.link.wikistats1 img {
     width: 20px;
+}
+.subdued.month {
+    text-transform: capitalize;
 }
 </style>

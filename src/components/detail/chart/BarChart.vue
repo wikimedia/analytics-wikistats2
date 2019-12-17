@@ -1,8 +1,8 @@
 <template>
 <div class="graphContainer">
     <div v-if="hoveredBar" class="bar valuePopup" :style="getPopupStyle(hoveredBar)">
-        <b>{{hoveredBar.month | ISOdateUTC(granularityFormat) }}</b>
-        <div><b><span :style="{ color: hoveredBar.color }">{{hoveredBar.key}}</span></b>
+        <b>{{dateFormat(hoveredBar.month) }}</b>
+        <div><b><span :style="{ color: hoveredBar.color }">{{$t(geti8nBreakdownKey (hoveredBar.breakdownKey)) | capitalize}}</span></b>
         <span>{{hoveredBar.value | thousands}}</span></div>
         <div class="tooltipArrow"><div class="tooltipAfter" :style="getPopupArrowStyle(hoveredBar)"></div></div>
     </div>
@@ -31,11 +31,12 @@ import {
     annotationCustomType, annotationCalloutCircle, annotation,
 } from 'd3-svg-annotation';
 
-import { groupIfOverlapping } from '../../../models/Annotations';
-import utils from '../../../utils';
+import TimeRange from 'Src/models/TimeRange';
+import { groupIfOverlapping } from 'Src/models/Annotations';
+import utils from 'Src/utils';
 import _ from 'lodash';
 
-import config from '../../../config';
+import config from 'Src/config';
 
 export default {
     name: 'bar-chart',
@@ -75,6 +76,13 @@ export default {
     },
 
     methods: {
+        dateFormat (date) {
+            return TimeRange.dateFormatForGranularity(date, this.graphModel.granularity);
+        },
+        geti8nBreakdownKey (key) {
+            if (key === 'total') return 'general-total';
+            return `metrics-${this.graphModel.metricId}-breakdowns-${this.graphModel.activeBreakdown.breakdownName}-values-${key}-name`;
+        },
 
         transformAndAddAnnotations (annotations) {
 
@@ -190,6 +198,7 @@ export default {
                         .map((b, i) => ({
                             month: d.month,
                             key: b.name,
+                            breakdownKey: b.key,
                             value: d.total[b.key],
                             color: config.getColorForBreakdown(this.graphModel.activeBreakdown, b.key, this.graphModel.config.area),
                             width: xW.bandwidth() / Object.keys(activeDict).length,

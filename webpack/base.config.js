@@ -1,10 +1,10 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const utils = require('./utils');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+const VERSION = JSON.stringify(require("../package.json").version);
 
 module.exports = {
     entry: './src/main.js',
@@ -12,7 +12,7 @@ module.exports = {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            Src: path.resolve(__dirname, '../src/')
+            Src: path.resolve(__dirname , '../src/')
         }
     },
     module: {
@@ -65,15 +65,9 @@ module.exports = {
 
     plugins: [
          // Extract imported CSS into own file
-        new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'src/index.html',
-            favicon: 'src/assets/analytics.png',
-            inject: true
-        }),
+        new ExtractTextPlugin(`[name].bundle.${VERSION}.css`.replace(/"/g, '')),
         new webpack.DefinePlugin({
-          VERSION: JSON.stringify(require("../package.json").version)
+          VERSION
         }),
         new webpack.ProvidePlugin({
             $ : "jquery",
