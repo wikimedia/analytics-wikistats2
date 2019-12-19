@@ -1,11 +1,15 @@
 <template>
     <td>
-        <a v-if="link" target="_blank" :href="link">
-            {{elementName}}
-        </a>
-        <span v-else>
-            {{elementName}}
-        </span>
+        <div class="nameCell" v-if="link">
+            <a target="_blank" :href="link">
+                {{elementName}}
+            </a>
+        </div>
+        <div class="nameCell" v-else>
+            <span>
+                {{elementName}}
+            </span>
+        </div>
     </td>
 </template>
 <script type="text/javascript">
@@ -78,8 +82,14 @@ export default {
         }
     )
 };
+
 </script>
 <style type='text/css'>
+div.nameCell {
+    max-width: 552px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 td a {
     color: #000;
     text-decoration: underline;

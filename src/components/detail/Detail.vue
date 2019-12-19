@@ -159,7 +159,6 @@ export default {
             const metricConfig = config.metricConfig(this.metric);
             this.graphModel = new GraphModel(this.project, this.metric);
             this.graphModel.granularity = this.granularity;
-            this.timeRange.adjustToGranularity(this.granularity);
             if (metricConfig.knownEnd) {
                 const newTimeRange = new TimeRange([metricConfig.knownStart, metricConfig.knownEnd]);
                 this.$store.commit('detail/timeRange', { timeRange: newTimeRange });
@@ -169,16 +168,14 @@ export default {
                 const newTimeRange = TimeRange.getDefaultTimeRange(metricConfig);
                 this.$store.commit('detail/timeRange', { timeRange: newTimeRange });
                 this.graphModel.timeRange = newTimeRange;
-            } else {
-                this.graphModel.timeRange = this.timeRange;
             }
             if (this.breakdown) {
                 this.graphModel.activateBreakdownIfAvailable(this.breakdown);
             }
+            this.graphModel.timeRange = this.timeRange;
         },
 
         loadData () {
-            this.timeRange.adjustToGranularity(this.granularity);
             this.graphModel.loadData({
                 annotations: true
             });

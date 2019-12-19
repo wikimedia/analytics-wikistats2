@@ -56,7 +56,6 @@ function getStateFromPath (path, routes) {
 
         return stateFromPathCache[path];
     }
-
     for (let [route, info] of routes) {
         let state = matchPath(route, info, path);
         if (state) {

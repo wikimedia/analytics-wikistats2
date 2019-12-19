@@ -42,12 +42,22 @@ class TimeRange {
     }
 
     getFormattedTimeRange (granularity, structure) {
-        const start = TimeRange.dateFormatForGranularity(this.start, granularity);
-        const end = TimeRange.dateFormatForGranularity(this.end, granularity);
+        if (this.timeKeyword) {
+            return {
+                '2-year': 'Last two years',
+                '1-year': 'Last 12 months',
+                '1-month': 'Last month',
+                '3-month': 'Last 3 months',
+                'last-month': 'Last month',
+                'all': 'All time'
+            }[this.timeKeyword];
+        }
         if (structure === 'top') {
-            return end;
+            return TimeRange.dateFormatForGranularity(this.getMidDate(), granularity);
         } else {
-            return start + ' - ' + end;
+            const start = TimeRange.dateFormatForGranularity(this.start, granularity);
+            const end = TimeRange.dateFormatForGranularity(this.end, granularity);
+            return `${start} - ${end}`;
         }
     }
 
@@ -122,6 +132,12 @@ class TimeRange {
             startDate.setUTCMonth(lastAvailable.getUTCMonth() - 3);
         } else if (timeKeyword === 'last-month') {
             startDate.setUTCDate(1);
+            const end = TimeRange.createDate(startDate);
+            end.setUTCMonth(end.getUTCMonth() + 1);
+            return {
+                start: TimeRange.createDate(startDate),
+                end: end
+            }
         } else if (timeKeyword === 'all') {
             startDate = TimeRange.createDate('2001-01-01');
         } else throw("Invalid time range");

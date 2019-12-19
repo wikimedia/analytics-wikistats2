@@ -24,7 +24,6 @@ const module = {
             if (arg.timeRange.timeKeyword === 'all') {
                 timeRange = TimeRange.getAllTimeRange(metricConfig);
             }
-            timeRange.adjustToGranularity(state.granularity);
             state.timeRange = timeRange;
         },
         breakdown (state, arg) {

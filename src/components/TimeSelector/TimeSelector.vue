@@ -19,16 +19,16 @@
             :height="height - 4" />
         <rect class = 'mainRect' :x="margin / 2" y="20" rx="2" ry="2" :width="width-margin" :height="height - 4" />
         <g v-if="mode==='timeseries'">
-            <text unselectable="on" class = 'slider text left' :x="textPosition(left, 'left')" y="10">{{sliderText(start)}}</text>
+            <text unselectable="on" class = 'slider text left' :x="textPosition(left, 'left')" y="10">{{sliderRange()[0]}}</text>
             <rect class = 'slider left' :x="left" y="18" rx="2" ry="2" :width="sliderWidth" :height="height" />
 
             <text v-if="anchorSeparation > 0" unselectable="on" class = 'slider text hyphen' :x="(textPosition(right, 'right') + textPosition(left, 'left'))/2" y="10">-</text>
 
-            <text unselectable="on" class = 'slider text right' :x="textPosition(right, 'right')" y="10">{{sliderText(end)}}</text>
+            <text unselectable="on" class = 'slider text right' :x="textPosition(right, 'right')" y="10">{{sliderRange()[1]}}</text>
             <rect class = 'slider right' :x="right" y="18" rx="2" ry="2" :width="sliderWidth" :height="height"/>
         </g>
         <g v-else>
-            <text unselectable="on" class='slider text right' :x="right" y="10">{{sliderText(end)}}</text>
+            <text v-if="end" unselectable="on" class='slider text right' :x="right" y="10">{{sliderRange()}}</text>
             <rect class='slider right' :x="right" y="18" rx="2" ry="2" :width="sliderWidth" :height="height"/>
         </g>
       </g>
@@ -199,8 +199,18 @@ const TimeSelector = {
             const newTimeRange = new TimeRange([this.start, this.end]);
             this.$store.commit('detail/timeRange', { timeRange: newTimeRange });
         },
-        sliderText(date) {
-            return utils.dateFormatForGranularity(date, this.graphModel.granularity);
+        sliderRange() {
+            if (this.mode === 'timeseries') {
+                return [
+                    utils.dateFormatForGranularity(this.start, this.graphModel.granularity),
+                    utils.dateFormatForGranularity(this.end, this.graphModel.granularity)
+                ]
+            } else {
+                return utils.dateFormatForGranularity(
+                    new TimeRange([this.start, this.end]).getMidDate(),
+                    this.graphModel.granularity
+                );
+            }
         },
         setStartForTops(){
             const endCopy = new Date(this.end);
