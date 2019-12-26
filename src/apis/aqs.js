@@ -88,6 +88,8 @@ class AQS {
             .map(p => Object.assign(p, commonParameters))
             .map(p => {
                 if (p.referer) {
+                    // hack for mediarequests
+                    p.referer = p.project.replace('all-projects', 'all-referers');
                     p.project = p.referer;
                 }
                 let url = apiConfig.endpoint;

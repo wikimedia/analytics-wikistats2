@@ -228,7 +228,7 @@ export default {
         },
 
         'top-mediarequests': {
-            endpoint: AQS_HOST + '/mediarequests/top/{{referer}}/{{media_type}}/{{year}}/{{month}}/{{day}}'
+            endpoint: AQS_HOST + '/mediarequests/top/{{project}}/{{media_type}}/{{year}}/{{month}}/{{day}}'
         }
     },
 
