@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="robots" content="index,follow">
+        <meta name="keywords" content="Wikimedia,Statistics,Wikipedia,Pageviews,Edits,Contributing">
+        <meta name="referrer" content="origin-when-crossorigin">
+        <meta name="description" content="
+        Statistics for Wikimedia Projects: Wikipedia, Commons, Wikidata, Wikivoyage,
+        Wiktionary, Wikibooks, Wikinews, Wikiquote, Wikiversity"/>
+        <title> Wikistats 2 - Statistics For Wikimedia Projects </title>
+        <link rel="shortcut icon" href="assets-v2/analytics.png">
+        <link rel="stylesheet" type="text/css" href="assets-v2/<%= htmlWebpackPlugin.files.css[0] %>">
+    </head>
+    <body>
+        <div id="wikistats-app"></div>
+        <!-- Piwik -->
+        <script type="text/javascript">
+
+        var _paq = _paq || [];
+        _paq.push(["setDomains", ["*.stats.wikimedia.org"]]);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="//piwik.wikimedia.org/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', '12']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+        </script>
+        <!-- End Piwik Code -->
+        <script src="assets-v2/<%= htmlWebpackPlugin.files.js[0] %>"></script>
+    </body>
+</html>

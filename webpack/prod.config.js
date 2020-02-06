@@ -4,12 +4,13 @@ const utils = require('./utils');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = merge(baseConfig, {
     output: {
         filename: '[name].bundle.[chunkhash].js',
-        chunkFilename: '[name].[chunkhash].js',
+        chunkFilename: 'assets-v2/[name].[chunkhash].js',
         path: utils.resolve('dist')
     },
     module: {
@@ -29,6 +30,12 @@ module.exports = merge(baseConfig, {
         // Minify CSS
         new webpack.LoaderOptionsPlugin({
             minimize: true,
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            favicon: 'src/assets/analytics.png',
+            template: 'src/index.ejs',
+            inject: false
         }),
     ],
 });
