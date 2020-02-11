@@ -11,6 +11,7 @@
             <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Technology">Technology</a></li>
             <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics#Datasets">Data it uses</a></li>
             <li><a target="_blank" href="//foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">Privacy Policy</a></li>
+            <li><a style="color: #ffd;" target="_blank" href="//stats.wikimedia.org/index-v1.html">Original Wikistats</a></li>
         </ul>
     </div>
     <div class="list-container list-contributing">

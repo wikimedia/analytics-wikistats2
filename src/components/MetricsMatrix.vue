@@ -26,7 +26,7 @@
                 <div class="logo"><img class="wikimedia-logo" src="../assets/Wikimedia-logo.svg" alt="wikimedia-logo"></div>
                 <div class="text">
                     Metrics marked with the Wikimedia logo have the same filtering and parameters as the ones shown in Wikistats 1.<br/>
-                    <i><a href="https://www.mediawiki.org/wiki/Analytics/Wikistats/DumpReports/Future_per_report" target="_blank">Learn more about the differences between the old and new Wikistats metrics</a></i>
+                    <i><a href="https://www.mediawiki.org/wiki/Analytics/Wikistats/DumpReports/Future_per_report" target="_blank">Learn more about the differences between the old and new Wikistats metrics</a><br/><a href="//stats.wikimedia.org/index-v1.html" class="text">Visit Original Wikistats's homepage</a></i>
                 </div>
             </div>
         </div>
