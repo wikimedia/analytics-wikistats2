@@ -34,6 +34,7 @@ import {
 import { groupIfOverlapping } from '../../../models/Annotations';
 import utils from '../../../utils';
 import _ from 'lodash';
+import numeral from 'numeral';
 
 import config from '../../../config';
 
@@ -129,11 +130,11 @@ export default {
                 return;
             }
             let unitFilter;
-            if (this.graphModel.config.unit === 'bytes'){
-                unitFilter = this.$options.filters.bytes;
+            if (this.graphModel.config.unit == 'bytes'){
+                unitFilter = n => numeral(n).format('0.[0]B').toUpperCase();
             }
             else {
-                unitFilter = this.$options.filters.kmb;
+                unitFilter = n => numeral(n).format('0.[0]a').toUpperCase();
             }
 
             // We make sure that any selected point in a previous chart is cleared

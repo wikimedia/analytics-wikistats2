@@ -14,17 +14,15 @@ function getNumberOfDigits(num){
 }
 
 
-// Formats to 'Three significan digist'
+// Formats to 'Three significan digits'
 const kmb = (n) => {
-
     if (n < 1000) {
         return n;
     }
 
-    var same = n => n;
-    var r = getNumberOfDigits(n) % 3;
+    const r = getNumberOfDigits(n) % 3;
 
-    var units = numeral(n).format(r == 1 && n % 1000 !=0? "0.0a" :  "0a");
+    const units = numeral(n).format(r === 1 && n % 1000 !== 0? '0.0a' :  '0a');
 
     return units.toUpperCase();
 }

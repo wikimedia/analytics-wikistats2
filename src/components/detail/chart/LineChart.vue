@@ -33,6 +33,7 @@ import {
 import { groupIfOverlapping } from '../../../models/Annotations';
 import utils from '../../../utils';
 import _ from 'lodash';
+import numeral from 'numeral';
 
 import config from '../../../config';
 
@@ -258,10 +259,10 @@ export default {
 
             let unitFilter;
             if (this.graphModel.config.unit == 'bytes'){
-                unitFilter = this.$options.filters.bytes;
+                unitFilter = n => numeral(n).format('0.[0]B').toUpperCase();
             }
             else {
-                unitFilter = this.$options.filters.kmb;
+                unitFilter = n => numeral(n).format('0.[0]a').toUpperCase();
             }
 
             const height = y.range()[0];
