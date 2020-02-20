@@ -80,7 +80,6 @@ export default {
     },
     mounted () {
         this.isAdblockerOn() && this.warnAdBlocker();
-        this.setUpNumeralLocale();
         this.handleResize();
     },
 
@@ -97,31 +96,6 @@ export default {
                 message: `Your ad blocker is preventing Wikistats from showing you metrics, because our API uses the word "pageview".
                 There are no ads on any Wikimedia sites, but to see all metrics correctly you need to disable your ad blocker for this site.`,
                 level: 'error'
-            }
-        },
-        setUpNumeralLocale() {
-            //locale recognition, rudimentary, from navigator.language if defined
-            // webpack does not have locale support out of the box
-            // but numeral locales are 8k compressed thus importing them all
-            if (navigator.language){
-
-                var locale = navigator.language.toLowerCase();
-
-                numeral.locale(locale);
-
-                // it might not exist as instead of "en-us"
-                // numeral defines "en", live with this for now
-                // change later to use navigators convention http://www.ietf.org/rfc/bcp/bcp47.txt
-                if (!numeral.localeData()){
-                    // try again with an abbreviated version
-                    numeral.locale(locale.split( '-' )[0]);
-                }
-
-                if (!numeral.localeData()){
-                    // set to english, browser might be set
-                    // to a locale numeral does not have
-                    numeral.locale("en-gb")
-                }
             }
         },
         handleResize () {

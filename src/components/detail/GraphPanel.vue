@@ -9,7 +9,7 @@
             <h2 v-if="!mobile" class="ui left floated header">
                 <a class='metric link' :href="graphModel.config.infoUrl" target="_blank"
                    v-hint:raw="graphModel.config.tooltip">
-                    {{graphModel.config.fullName || 'No data yet... '}}
+                    {{$t(`metrics-${metricId}-name`) || $t('graph_panel-no_data_yet')}}
                 </a>
             </h2>
 
@@ -17,7 +17,8 @@
                 <simple-legend
                     v-if="!mobile && activeBreakdown && chartComponent !== 'table-chart' && chartComponent !== 'map-chart'"
                     class="simple legend"
-                    :breakdown="activeBreakdown">
+                    :breakdown="activeBreakdown"
+                    :graphModel="graphModel">
                 </simple-legend>
                 <div v-if="!mobile" class="ui right floated icon buttons">
                     <button @click="download" class="ui icon button" v-hint:help="'download'">
@@ -45,7 +46,7 @@
                                  v-for="t in chartTypes" :key="t.chart"
                                  @click="changeChart(t)">
                                  <i :class="t.icon" class="chart icon"></i>
-                                 {{t.chart | capitalize}}
+                                 {{$t(`charts-${t.chart}`) | capitalize}}
                              </div>
                         </div>
                     </div>
@@ -61,28 +62,25 @@
                     {{ aggregate | bytesOrKmb(unit)}}
                     <arrow-icon :value="changeOverRange"></arrow-icon>
                     <span v-if="changeOverRange">
-                        {{changeOverRange}}% over this time range.
+                        {{$t('graph_panel-change_over_range', {change: changeOverRange})}}
                     </span>
                     <span v-else>
-                        % change cannot be calculated over this time range.
+                        {{$t('graph_panel-change_cant_calculate')}}
                     </span>
                 </h5>
-                <p>{{graphModel.config.description}}.
+                <p>{{$t(`metrics-${metricId}-description`)}}.
                     <a class="metric link" :href="graphModel.config.infoUrl" target="_blank"
                        v-hint:raw="graphModel.config.tooltip">
-                        More info about this metric.
+                        {{$t('graph_panel-more_info')}}
                     </a>
                 </p>
-                <p>
-                    You can
+                <i18n path="graph_panel-add_annotations_link" tag="p">
                     <a class="metric link" :href="annotationsLink" target="_blank"
-                       v-hint:help="'annotations'">
-                        see or add annotations for this data on this wiki article.
-                    </a>
-                </p>
+                       v-hint:help="'annotations'">{{ $t('graph_panel-annotations_link_action') }}</a>
+                </i18n>
                 <p>
                     <a v-if="wikistats1URL" class="metric link wikistats1" :href="wikistats1URL" target="_blank" v-hint:wikistats1Metric.s>
-                        <img class="wikimedia-logo" src="../../assets/Wikimedia-logo.svg" alt="wikimedia-logo" /> This metric is filtered to match its Wikistats 1 counterpart.
+                        <img class="wikimedia-logo" src="../../assets/Wikimedia-logo.svg" alt="wikimedia-logo" /> {{$t('graph_panel-wikistats1_counterpart')}}
                     </a>
                 </p>
             </div>
@@ -163,6 +161,9 @@ export default {
             },
             activeBreakdown: function () {
                 return this.graphModel.activeBreakdown;
+            },
+            metricId: function () {
+                return this.graphModel.config.defaults.common.metric;
             },
             unit: function(){
                 if (this.graphModel.config.unit){

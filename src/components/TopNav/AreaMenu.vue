@@ -1,10 +1,10 @@
 <template>
     <div v-if="large" class="ui right floated header">
         <span class="head link" v-for="a in areas">
-            <router-link :to="{project: wikiCode, area: a.path}">{{a.name}}</router-link>
+            <router-link :to="{project: wikiCode, area: a.path}">{{$t(`areas-${a.path}`)}}</router-link>
         </span>
         <span class="head link all">
-            <router-link :to="{project: wikiCode, section: 'metrics'}">All Metrics</router-link>
+            <router-link :to="{project: wikiCode, section: 'metrics'}">{{$t('areas-all_metrics')}}</router-link>
         </span>
     </div>
     <div v-else class="ui right floated header tablet" :class="{mobile: mobile}">
@@ -16,9 +16,9 @@
                 class="item"
                 :class="{active: wikiCode === $store.state.project && a.path === $store.state.area}"
                 :to="{project: wikiCode, area: a.path}">
-                {{a.name}}
+                {{$t(`areas-${a.path}`)}
             </router-link>
-            <router-link class="item" :to="{project: wikiCode, section: 'metrics'}">All Metrics</router-link>
+            <router-link class="item" :to="{project: wikiCode, section: 'metrics'}">{{$t('areas-all_metrics')}}</router-link>
         </div>
     </div>
 </template>

@@ -5,26 +5,26 @@
         alt="wikimedia-logo">
     </div>
     <div class="list-container list-documentation">
-        <h5 class="list-heading">Documentation</h5>
+        <h5 class="list-heading">{{$t('footer-documentation')}}</h5>
         <ul class="list-content">
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">About Wikistats</a></li>
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Technology">Technology</a></li>
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics#Datasets">Data it uses</a></li>
-            <li><a target="_blank" href="//foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">Privacy Policy</a></li>
-            <li><a style="color: #ffd;" target="_blank" href="//stats.wikimedia.org/index-v1.html">Original Wikistats</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">{{$t('footer-about_wikistats')}}</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Technology">{{$t('footer-technology')}}</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics#Datasets">{{$t('footer-data_it_uses')}}</a></li>
+            <li><a target="_blank" href="//foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">{{$t('footer-privacy_policy')}}</a></li>
+            <li><a style="color: #ffd;" target="_blank" href="//stats.wikimedia.org/index-v1.html">{{$t('general-original_wikistats')}}</a></li>
         </ul>
     </div>
     <div class="list-container list-contributing">
-        <h5 class="list-heading">Contributing</h5>
+        <h5 class="list-heading">{{$t('footer-contributing')}}</h5>
         <ul class="list-content">
             <li><a target="_blank" href="https://github.com/wikimedia/analytics-wikistats2/search?o=desc&q=release&s=committer-date&type=Commits">Wikistats {{version}}</a></li>
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Contributing_and_Deployment">Contributing guide</a></li>
-            <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&amp;projectPHIDs=Analytics-Wikistats,Analytics">Report a bug</a></li>
-            <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20New%20Feature&projectPHIDs=Analytics-Wikistats,Analytics">New feature</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Contributing_and_Deployment">{{$t('footer-contributing_guide')}}</a></li>
+            <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20Bug&amp;projectPHIDs=Analytics-Wikistats,Analytics">{{$t('footer-report_a_bug')}}</a></li>
+            <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/?title=Wikistats%20New%20Feature&projectPHIDs=Analytics-Wikistats,Analytics">{{$t('footer-new_feature')}}</a></li>
         </ul>
     </div>
     <div class="list-container list-community">
-        <h5 class="list-heading">Community</h5>
+        <h5 class="list-heading">{{$t('footer-community')}}</h5>
         <ul class="list-content">
             <li><a target="_blank" href="//phabricator.wikimedia.org/tag/analytics-wikistats/">Phabricator</a></li>
             <li><a target="_blank" href="//github.com/wikimedia/analytics-wikistats2">Github</a></li>
@@ -33,11 +33,18 @@
     </div>
     <div class="bottom-footer-container">
         <div class="credit">
-            Designed by <a target="_blank" href="//aislinngrigas.com/about/"><span class="base-footer">Aislinn Grigas</span></a>
+            <i18n path="footer-design_credit">
+                <template #aislinn >
+                    <a target="_blank" href="//aislinngrigas.com/about/"><span class="base-footer">Aislinn Grigas</span></a>
+                </template>
+            </i18n>
         </div>
         <div class="copyright">
-            All data, charts, and other content is available under the
-            <a target="_blank" href="//creativecommons.org/publicdomain/zero/1.0/"><span class="base-footer">Creative Commons CC0 dedication</span></a>.
+            <i18n path="footer-copyright">
+                <template #license>
+                    <a target="_blank" href="//creativecommons.org/publicdomain/zero/1.0/"><span class="base-footer">{{$t('footer-license')}}</span></a>.
+                </template>
+            </i18n>
         </div>
     </div>
 </section>

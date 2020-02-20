@@ -6,27 +6,24 @@
             </div>
             <period-change-indicator
                 v-if="changeYoY"
-                :period="'year'"
+                :period="$t('general-year')"
                 :startValue="monthOneYearAgo.total"
                 :endValue="lastMonth.total"/>
         </div>
         <div class="year total subdued">
             <span v-if="changeYoY">
                 <span v-if="monthOneYearAgo">
-                    <span v-if="aggregationType =='total'">
-                             Last 12 months
+                    <span style="text-transform: capitalize;" v-if="aggregationType =='total'">
+                        {{$t('general-last_12_months')}}
                     </span>
-                     <span v-else>
-                             12 month average
+                    <span style="text-transform: capitalize;" v-else>
+                        {{$t('general-12_month_average')}}
                     </span>
-                    {{widgetPeriod}}
+                    ({{widgetPeriod}})
                 </span>
-
-
-
             </span>
             <span v-else>
-                (no data last year)
+                {{$t('general-no_data')}}
             </span>
         </div>
     </div>
@@ -34,19 +31,17 @@
 <script type="text/javascript">
 import _ from 'Src/lodash-custom-bundle';
 import PeriodChangeIndicator from './PeriodChangeIndicator';
+import config from 'Src/config';
+import TimeRange from 'Src/models/TimeRange';
 export default {
     name: 'widget-footer',
     props: ['graphModel', 'graphData'],
     components: {PeriodChangeIndicator},
     computed: {
         widgetPeriod: function() {
-            return (
-                " (" +
-                this.$options.filters.monthShortName(this.monthOneYearAgo.month) +
-                " - " +
-                this.$options.filters.monthShortName(this.lastMonth.month) +
-                ")"
-            );
+            const EXPLICIT_TIMERANGE = true;
+            const tr = new TimeRange([this.monthOneYearAgo.month, this.lastMonth.month]);
+            return tr.getFormattedTimeRange(this.graphModel.granularity, this.graphModel.config.structure, EXPLICIT_TIMERANGE);
         },
 
         lastYearAggregation: function() {

@@ -3,21 +3,21 @@
     <div @click="minimizeTopics(false)">
         <span class="xui grey corner button">
             <i class="ui info circle icon"/>
-            <span>Explore topics</span>
+            <span>{{ $t('topic_explorer-explore_topics') }}</span>
             <i class="ui chevron down icon"/>
         </span>
     </div>
     <div class="ui grey inverted segment animateable topic searcher" :class="{down: !topicsMinimized}">
         <span v-if="!topicsMinimized" class="xui link" @click="minimizeTopics(true)">
             <i class="ui info circle icon"/>
-            <span>Explore topics</span>
+            <span>{{ $t('topic_explorer-explore_topics') }}</span>
             <i class="ui up chevron icon"/>
         </span>
         <div class="ui search">
             <div class="ui icon input">
-                <label hidden for="searchDisplay">Search or Browse questions and pick one to see answers</label>
+                <label hidden for="searchDisplay">{{ $t('topic_explorer-default_description') }}</label>
                 <input class="prompt" type="search" v-model="searchDisplay"
-                    placeholder="Search or Browse questions and pick one to see answers"
+                    :placeholder="$t('topic_explorer-default_description')"
                     @blur="onBlur"
                     @keyup.enter="select"
                     @focus="open"
@@ -63,7 +63,8 @@ export default {
     },
 
     mounted () {
-        this.searchData = config.questions;
+        const questions = this.localizeQuestions(config.questions);
+        this.searchData = questions;
     },
 
     computed: mapState([
@@ -71,6 +72,12 @@ export default {
     ]),
 
     methods: {
+        localizeQuestions (questions) {
+            const localizedQuestions = JSON.parse(JSON.stringify(questions)); // Deep copy questions
+            return localizedQuestions.map(q =>
+                Object.assign(q, {question: this.$t(`metrics-${q.id}-question`)})
+            );
+        },
         selectQuestion (q) {
             this.selectedQuestion = q;
         },

@@ -3,7 +3,7 @@
     <router-link :to="{project: $store.state.project}">
         <div class="wikititle ui left floated header">
             <img class="ui mini image" src="../../assets/Wikimedia-logo.svg" alt="Wikimedia">
-            <span class="text">Wikimedia Statistics</span>
+            <span class="text">{{ $t('general-title') }}</span>
         </div>
     </router-link>
     <area-menu :wikiCode="wikiCode"/>

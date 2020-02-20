@@ -29,8 +29,22 @@
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
           g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
-        </script>
         <!-- End Piwik Code -->
-        <script src="assets-v2/<%= htmlWebpackPlugin.files.js[0] %>"></script>
+
+        (function () {
+            var __availableLocales = "<%= htmlWebpackPlugin.options.availableLocales %>".split(',');
+            var __selectedLocale = window.localStorage.getItem('language');
+            var __globalLocale = __selectedLocale || (navigator.language || navigator.userLanguage).split('-')[0];
+            __globalLocale = __availableLocales.indexOf(__globalLocale) > -1 ? __globalLocale : 'en';
+            window.localStorage.setItem('language', __globalLocale);
+            var jsFile = "<%= htmlWebpackPlugin.files.js[0] %>";
+            var fileComponents = jsFile.split('.');
+            fileComponents[fileComponents.length-2] = __globalLocale;
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'assets-v2/' + fileComponents.join('.');
+            var reference = document.getElementsByTagName('script')[0];
+            reference.parentNode.insertBefore(scriptElement, reference);
+        })();
+        </script>
     </body>
 </html>

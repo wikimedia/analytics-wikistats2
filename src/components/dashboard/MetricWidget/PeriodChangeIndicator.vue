@@ -2,10 +2,10 @@
     <span class="change label">
         <span class="change label" v-if="change">
             <arrow-icon :value="change"/>
-            {{change}} % {{period}} over {{period}}
+            {{$t(`period_change-${period}_over_${period}`, {change})}}
         </span>
         <span v-else>
-            (no data last month)
+            {{$t('period_change-no_data', {period})}}
         </span>
     </span>
 </template>

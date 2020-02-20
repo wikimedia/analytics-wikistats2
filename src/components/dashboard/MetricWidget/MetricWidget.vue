@@ -5,7 +5,10 @@
     >
     <div v-if="overlayMessage && !groupShifting">
         <metric-placeholder-widget/>
-        <status-overlay :overlayMessage="overlayMessage"/>
+        <status-overlay
+            :project="project.replace(/-/g, ' ')"
+            :metricName="$t(`metrics-${metricName}-name`)"
+            :overlayMessage="overlayMessage"/>
     </div>
     <div class="content">
         <div v-if="metricReady">

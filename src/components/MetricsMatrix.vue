@@ -1,20 +1,20 @@
 <template>
     <div class='metricsmatrix'>
         <h1>
-            All Wikistats Metrics
+            {{$t('metrics_matrix-all_metrics')}}
         </h1>
         <div class="ui grid stackable">
           <div class="three column row">
             <div class="column" v-for="(metrics, areaName) in metricsByArea">
-                <h2>{{areaName}}</h2>
+                <h2>{{$t(`areas-${areaName}`)}}</h2>
                 <div v-for="(metric, metricName) in metrics" class="metric">
                     <router-link :key="metricName"
                         :to="{project, area: areaName, metric: metricName}"
                         :disabled="disabledMessage(metric)"
                         class="ui line label"
-                        v-hint:raw="disabledMessage(metric) || metric.tooltip"
+                        v-hint:raw="$t(disabledMessage(metric), {metricName, project}) || $t(`metrics-${metricName}-tooltip`)"
                         :class="{wikistats1: metric.wikistats1URL, notavailable: disabledMessage(metric)}">
-                        {{metric.fullName}}
+                        {{$t(`metrics-${metricName}-name`)}}
                         <img v-if="metric.wikistats1URL" class="wikimedia-logo" src="../assets/Wikimedia-logo.svg" alt="wikimedia-logo">
                     </router-link>
                 </div>
@@ -25,8 +25,8 @@
             <div class="box">
                 <div class="logo"><img class="wikimedia-logo" src="../assets/Wikimedia-logo.svg" alt="wikimedia-logo"></div>
                 <div class="text">
-                    Metrics marked with the Wikimedia logo have the same filtering and parameters as the ones shown in Wikistats 1.<br/>
-                    <i><a href="https://www.mediawiki.org/wiki/Analytics/Wikistats/DumpReports/Future_per_report" target="_blank">Learn more about the differences between the old and new Wikistats metrics</a><br/><a href="//stats.wikimedia.org/index-v1.html" class="text">Visit Original Wikistats's homepage</a></i>
+                    {{$t('metrics_matrix-wikistats1-info')}}<br/>
+                    <i><a href="https://www.mediawiki.org/wiki/Analytics/Wikistats/DumpReports/Future_per_report" target="_blank">{{$t('metrics_matrix-wikistats1-learn_more')}}</a><br/><a href="//stats.wikimedia.org/index-v1.html" class="text">{{$t('general-original_wikistats')}}</a></i>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <template>
 <section class="widgets">
     <div class="ui clearing basic top segment">
-        <h2 class="ui left floated header">Monthly overview</h2>
+        <h2 class="ui left floated header">{{$t('dashboard-monthly_overview')}}</h2>
         <h5 class="ui right floated header wikiselector">
             <wiki-selector :single="true"></wiki-selector>
         </h5>
