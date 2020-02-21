@@ -7,7 +7,7 @@
             </a>
         </div>
         <div v-if="graphModel.config.structure === 'top'" class="subdued">
-            {{$t(`metrics-${metricId}-subtitle`) | capitalize}} {{$t('general-for')}} {{lastMonthLabel}}
+            {{$t('widget_header-subtitle_for_last_month', {subtitle: $t(`metrics-${metricId}-subtitle`), lastMonthLabel})}}
         </div>
         <div v-else>
             <div class="value">{{ (lastMonth.total)| bytesOrKmb(unit) }}</div>

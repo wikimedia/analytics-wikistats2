@@ -8,10 +8,8 @@
         ]
     },
     "general-title": "Wikimedia Statistics",
-    "general-for": "for",
     "general-month": "month",
     "general-year": "year",
-    "general-over": "over",
     "general-last_12_months": "last 12 months",
     "general-12_month_average": "12 month average",
     "general-no_data": "(no data)",
@@ -322,5 +320,6 @@
     "status_overlay-non_global_family": "The {metricName} metric is not available for {project}. Select a specific wiki",
     "status_overlay-no_service": "The analytics query service seems to be down",
     "status_overlay-loading": "Loading metric...",
-    "status_overlay-general_error": "Something went wrong"
+    "status_overlay-general_error": "Something went wrong",
+    "widget_header-subtitle_for_last_month": "{subtitle} for {lastMonthLabel}"
 }
