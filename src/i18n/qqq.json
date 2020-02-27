@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eneelk",
+			"Robby"
+		]
+	},
+	"general-month": "{{identical|Month}}",
+	"general-year": "{{identical|Year}}",
+	"general-date": "{{identical|date}}",
+	"general-name": "{{identical|Name}}",
+	"areas-content": "{{identical|Content}}",
+	"metrics-total-page-views-breakdowns-access-values-desktop-name": "{{identical|Desktop}}",
+	"metrics-total-page-views-breakdowns-access-values-mobile-app-name": "{{identical|Mobile App}}",
+	"metrics-total-page-views-breakdowns-agent-values-user-name": "{{identical|User}}",
+	"metrics-top-viewed-articles-breakdowns-access-values-desktop-name": "{{identical|Desktop}}",
+	"metrics-editors-breakdowns-editor_type-values-user-name": "{{identical|User}}",
+	"metrics-editors-breakdowns-page_type-values-content-name": "{{identical|Content}}",
+	"metrics-active-editors-breakdowns-editor_type-values-anonymous-name": "{{identical|Anonymous}}",
+	"metrics-active-editors-breakdowns-editor_type-values-name-bot-name": "{{identical|Name bot}}",
+	"metrics-active-editors-breakdowns-page_type-values-content-name": "{{Identical|Content}}",
+	"metrics-edits-breakdowns-page_type-values-content-name": "{{identical|Content}}",
+	"metrics-new-pages-breakdowns-editor_type-values-user-name": "{{identical|User}}",
+	"metrics-top-edited-pages-breakdowns-editor_type-values-anonymous-name": "{{identical|Anonymous}}",
+	"metrics-pages-to-date-breakdowns-editor_type-values-name-bot-name": "Classification des utilisateurs. Ceux qui font partie du groupe \"name-bot\" sont ceux qui ont \"Bot\" dans leur nom d'utilisateur. Ceux qui font partie du groupe \"group-bot\" sont ceux qui sont classés comme robots. Source :\n\nTraductions proposées pour le nom de ces catégories :\n- Name bot : robot par nom\n- Group bot : robot par groupe",
+	"metrics-total-mediarequests-breakdowns-media_type-values-document-name": "{{identical|Document}}",
+	"metrics-total-mediarequests-breakdowns-media_type-values-other-name": "{{identical|Other}}",
+	"months-March": "{{identical|March}}",
+	"months-July": "{{identical|July}}",
+	"months-October": "{{identical|October}}"
+}
