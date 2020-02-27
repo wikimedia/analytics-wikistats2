@@ -13,7 +13,7 @@
         <component :is="mainComponent" ref="mainComponentEl"></component>
     </main>
     <div v-if="languages.length > 1" class="ui attached language segment">
-        <site-language :languages="languages"></site-language>
+        <site-language :availableLanguages="languages"></site-language>
     </div>
     <footer class="ui attached footer segment">
         <bottom-footer></bottom-footer>
@@ -112,7 +112,7 @@ export default {
     },
     data () {
         return {
-            languages: ['english'],
+            languages: ['en'],
             loadingDetail: false,
         };
     },

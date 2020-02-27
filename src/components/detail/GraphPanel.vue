@@ -85,7 +85,7 @@
                 </p>
             </div>
         </div>
-        <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage"/>
+        <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage" :project="graphModel.project" :metricName="$t(`metrics-${graphModel.metricId}-name`)"/>
     </div>
     <time-selector-tooltip :graphModel="graphModel" v-if="!mobile && selectingTime"/>
     <div class="ui right floated icon button"

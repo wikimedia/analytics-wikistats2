@@ -71,4 +71,3 @@ function initVueApp (i18n) {
       },
   });
 }
-

@@ -11,14 +11,19 @@ const languageCodeFix = {
     'be-x-old': 'be-tarask'
 };
 
-const browserLanguageCode = (navigator.language || navigator.userLanguage).split('-')[0];
+const browserLanguage = (navigator.language || navigator.userLanguage).split('-')[0];
+const languageFromStorage = window.localStorage.getItem('language');
+const userLanguage = languageFromStorage || browserLanguage;
 
 // The jsonp promise used by all other structures and methods. See:
 // https://meta.wikimedia.org/w/api.php?action=sitematrix&formatversion=2
 const matrix = $.ajax({
     url: config.sitematrix.endpoint,
     dataType: 'jsonp',
-    cache: true
+    cache: true,
+    headers: {
+        "accept-language": userLanguage
+    }
 });
 
 const siteIsSelectable = (site) => {
@@ -76,7 +81,7 @@ const projectFamilies = matrix.then(matrixData => {
                     }
                     // Populate localName using the language specified by the browser.
                     // Also, if the project family has no name, default it to localname.
-                    if (languageCode === browserLanguageCode) {
+                    if (languageCode === userLanguage) {
                         const localName = _.capitalize(site.sitename);
                         projectFamily.localName = localName;
                         if (!projectFamily.name) {
