@@ -21,20 +21,34 @@ const deleteFolderRecursive = function(pathToDir) {
   }
 };
 
+const getLocalesToBuild = () => {
+    const i18ndir = path.join(__dirname, '../src/i18n/');
+    let availableLocales = fs.readdirSync(i18ndir).map(file => file.replace('.json', ''));
+    const languagesIndex = process.argv.indexOf('languages');
+    if (languagesIndex > -1) {
+        const languages = process.argv[languagesIndex + 1].split(',');
+        availableLocales = availableLocales.filter(loc => languages.includes(loc));
+    }
+    return availableLocales
+}
+
 deleteFolderRecursive(distPath);
 
 const configs = [];
-const i18ndir = path.join(__dirname, '../src/i18n/');
-const availableLocales = fs.readdirSync(i18ndir).map(file => file.replace('.json', ''));
-const timei18ndir = path.join(__dirname, '../node_modules/date-fns/locale');
-const availableTimeLocales = new Set(fs.readdirSync(timei18ndir));
-availableLocales.forEach(locale => {
+const locales = getLocalesToBuild();
+console.info(`Building locales ${locales.join(', ')}`);
+locales.forEach(locale => {
     const config = _.cloneDeep(prodConfig);
+    const timei18ndir = path.join(__dirname, '../node_modules/date-fns/locale');
+    const availableTimeLocales = new Set(fs.readdirSync(timei18ndir));
     const timeLocale = availableTimeLocales.has(locale) ? locale : 'en-US';
     config.plugins.push(
         new webpack.ProvidePlugin({
             timeLocale: path.join(__dirname, `../node_modules/date-fns/locale/${timeLocale}`),
             userMessages: path.join(__dirname, `../src/i18n/${locale}.json`)
+        }),
+        new webpack.DefinePlugin({
+            AVAILABLE_LANGUAGES: JSON.stringify(locales)
         })
     );
     const version = require("../package.json").version;

@@ -40,7 +40,7 @@ import Vue from 'vue';
 import 'vue-resize/dist/vue-resize.css';
 import VueResize from 'vue-resize';
 import VueMq from 'vue-mq';
-import Vue2TouchEvents from 'vue2-touch-events'
+import Vue2TouchEvents from 'vue2-touch-events';
 
 Vue.use(Vue2TouchEvents)
 
@@ -112,7 +112,7 @@ export default {
     },
     data () {
         return {
-            languages: ['en'],
+            languages: AVAILABLE_LANGUAGES || ['en'],
             loadingDetail: false,
         };
     },
