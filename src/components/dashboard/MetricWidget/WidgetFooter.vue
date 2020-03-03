@@ -6,7 +6,7 @@
             </div>
             <period-change-indicator
                 v-if="changeYoY"
-                :period="$t('general-year')"
+                :period="'year'"
                 :startValue="monthOneYearAgo.total"
                 :endValue="lastMonth.total"/>
         </div>
