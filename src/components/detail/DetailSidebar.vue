@@ -1,5 +1,5 @@
 <template>
-<section class="left panel" >
+<section class="left panel sidebar" >
     <div class="wikis">
         <h3 class="header">Wiki</h3>
         <wiki-selector :single="false"></wiki-selector>
@@ -110,9 +110,10 @@ export default {
     font-weight: bold;
     color: #222!important;
 }
-.left.panel {
+.left.panel.sidebar {
     background-color: #D8D8D8;
     min-width: 242px;
+    max-width: 280px;
     padding: 1em;
 }
 .left.panel h3.header {
