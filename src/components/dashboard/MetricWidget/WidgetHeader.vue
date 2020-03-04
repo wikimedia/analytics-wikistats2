@@ -14,7 +14,7 @@
             <div>
                 <span class="subdued month">{{ lastMonthLabel }}</span>
                 <period-change-indicator
-                    :period="$t('general-month')"
+                    :period="'month'"
                     :startValue="graphData[graphData.length - 2].total"
                     :endValue="lastMonth.total"/>
             </div>
