@@ -27,6 +27,9 @@ module.exports = merge(baseConfig, {
             userMessages: path.join(__dirname, '../src/i18n/en.json'),
             timeLocale: path.join(__dirname, '../node_modules/date-fns/locale/en-US')
         }),
+        new webpack.DefinePlugin({
+            AVAILABLE_LANGUAGES: JSON.stringify(['en'])
+        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.html',
