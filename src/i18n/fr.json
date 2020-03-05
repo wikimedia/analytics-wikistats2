@@ -4,7 +4,8 @@
 			"Eneelk",
 			"Fdansv",
 			"Wladek92",
-			"Gomoko"
+			"Gomoko",
+			"Thibaut120094"
 		]
 	},
 	"general-title": "Statistiques Wikimédia",
@@ -157,7 +158,7 @@
 	"metrics-absolute-bytes-diff-name": "Diff absolu des octets",
 	"metrics-absolute-bytes-diff-description": "La somme des différences absolues en octets faites par chaque modification (ou révision), comprenant les modifications sur les redirections. En d’autres termes, comptage des différences négatives aussi bien que positives",
 	"metrics-absolute-bytes-diff-tooltip": "La somme des différences absolues en octets faites par chaque modification (ou révision), comprenant les modifications sur les redirections. En d’autres termes, comptage des différences négatives aussi bien que positives.",
-	"metrics-absolute-bytes-diff-question": "Quel est le nombre total d’octets ajoutés et supprimés ?",
+	"metrics-absolute-bytes-diff-question": "Quel est le nombre total d’octets ajoutés et supprimés ?",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-name": "Type de contributeur",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-anonymous-name": "Anonyme",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-group-bot-name": "Robot par groupe",
@@ -220,7 +221,7 @@
 	"metrics-total-mediarequests-breakdowns-agent-name": "Type d’agent",
 	"metrics-total-mediarequests-breakdowns-agent-values-user-name": "Utilisateur",
 	"metrics-total-mediarequests-breakdowns-agent-values-spider-name": "Robot d’indexation",
-	"metrics-top-mediarequests-name": "Fichiers les plus demandés dans les requêtes de média.",
+	"metrics-top-mediarequests-name": "Fichiers de médias les plus demandés",
 	"metrics-top-mediarequests-description": "Une liste des fichiers média les plus demandés, séparés par format de fichier",
 	"metrics-top-mediarequests-tooltip": "Nombre total de requêtes pour les fichiers média tels que les images, la vidéo et l'audio.",
 	"metrics-top-mediarequests-question": "Quels sont les fichiers de média les plus populaires ?",

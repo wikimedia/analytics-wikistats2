@@ -166,7 +166,9 @@
 	"months-November": "November",
 	"months-December": "December",
 	"graph_panel-no_data_yet": "Nog geen gegevens",
+	"graph_panel-change_over_range": "{change}% over deze tijdsperiode",
 	"graph_panel-more_info": "Meer informatie over deze statistiek.",
+	"graph_panel-add_annotations_link": "U kunt {0}",
 	"detail_sidebar-metrics": "Statistieken",
 	"breakdowns-filter": "Filteren",
 	"charts-bar": "staaf",
@@ -190,5 +192,7 @@
 	"tooltip-help-permalink": "Permanente koppeling",
 	"tooltip-help-copy": "Naar klembord kopiëren",
 	"tooltip-breakdown-anonymous": "Een gebruiker die niet is aangemeld",
+	"tooltip-breakdown-name-bot": "Een gebruiker wiens naam \"bot\" bevat (merk op dat dit ook namen omvat zoals BottlenoseDolphin)",
+	"tooltip-breakdown-user": "Een geregistreerde, aangemelde gebruiker",
 	"status_overlay-general_error": "Er is iets misgegaan"
 }
