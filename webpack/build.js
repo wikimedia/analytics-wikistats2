@@ -6,6 +6,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const webpack = require('webpack');
 const distPath = `${__dirname}/../dist`;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const deleteFolderRecursive = function(pathToDir) {
   if (fs.existsSync(pathToDir)) {
@@ -49,6 +50,13 @@ locales.forEach(locale => {
         }),
         new webpack.DefinePlugin({
             AVAILABLE_LANGUAGES: JSON.stringify(locales)
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            favicon: 'src/assets/analytics.png',
+            template: 'src/index.ejs',
+            inject: false,
+            availableLocales: locales
         })
     );
     const version = require("../package.json").version;

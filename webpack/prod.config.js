@@ -33,13 +33,6 @@ module.exports = merge(baseConfig, {
         // Minify CSS
         new webpack.LoaderOptionsPlugin({
             minimize: true,
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            favicon: 'src/assets/analytics.png',
-            template: 'src/index.ejs',
-            inject: false,
-            availableLocales: fs.readdirSync(i18ndir).map(file => file.replace('.json', ''))
         })
     ],
 });
