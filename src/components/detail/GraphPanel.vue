@@ -60,13 +60,6 @@
                 <h5 v-if="graphModel.config.structure === 'timeseries'">
                     {{graphModel.getAggregateLabel()}}:
                     {{ aggregate | bytesOrKmb(unit)}}
-                    <arrow-icon :value="changeOverRange"></arrow-icon>
-                    <span v-if="changeOverRange">
-                        {{$t('graph_panel-change_over_range', {change: changeOverRange})}}
-                    </span>
-                    <span v-else>
-                        {{$t('graph_panel-change_cant_calculate')}}
-                    </span>
                 </h5>
                 <p>{{$t(`metrics-${metricId}-description`)}}.
                     <a class="metric link" :href="graphModel.config.infoUrl" target="_blank"
