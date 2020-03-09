@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"Ciell"
 		]
 	},
 	"general-title": "Wikimedia statistieken",
@@ -13,12 +14,19 @@
 	"general-total": "totaal",
 	"general-date": "datum",
 	"general-name": "naam",
+	"general-original_wikistats": "Originele Wikistats",
+	"areas-reading": "Lezend",
 	"areas-contributing": "Bijdragen",
 	"areas-content": "Inhoud",
 	"areas-all_metrics": "Alle statistieken",
 	"topic_explorer-explore_topics": "Onderwerpen verkennen",
+	"topic_explorer-default_description": "Zoek of blader door vragen en kies er een om antwoorden te zien",
 	"dashboard-monthly_overview": "Maandelijks overzicht",
+	"metrics-total-page-views-name": "Totaal aantal bekeken pagina's",
+	"metrics-total-page-views-description": "Paginaweergaven op Wikimediaprojecten tellen het bekijken van de inhoud van een artikel. In deze gegevens proberen we het botverkeer uit te sluiten en ons te richten op de paginaweergaven van menselijke gebruikers.",
+	"metrics-total-page-views-tooltip": "Een paginaweergave is een verzoek om de inhoud van een webpagina. Paginaweergaven op Wikimediaprojecten is ons belangrijkste meetgegeven voor inhoudsconsumptie. De paginaweergave-definitie probeert de paginaweergaves te tellen van de inhoud die aan gebruikers wordt geleverd.",
 	"metrics-total-page-views-question": "Hoeveel keer zijn artikelen bekeken?",
+	"metrics-total-page-views-breakdowns-access-name": "Toegangswijze",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "Desktop",
 	"metrics-total-page-views-breakdowns-access-values-mobile-app-name": "Mobiele app",
 	"metrics-total-page-views-breakdowns-access-values-mobile-web-name": "Mobiele website",
