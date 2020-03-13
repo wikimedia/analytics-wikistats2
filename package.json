@@ -73,6 +73,15 @@
         "Wikipedia",
         "Stats"
     ],
+    "languages": [
+        "en",
+        "zh-hant",
+        "lb",
+        "mk",
+        "pt-br",
+        "tr",
+        "uk"
+    ],
     "author": "Dan Andreescu, Francisco Dans, Marcel Ruiz Forns, Nuria Ruiz",
     "license": "MIT",
     "homepage": "https://github.com/milimetric/wikistats-prototype#readme"

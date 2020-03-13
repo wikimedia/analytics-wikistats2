@@ -156,9 +156,6 @@ export default {
             aggregate: function () {
                 return this.graphModel && this.graphModel.getAggregate();
             },
-            changeOverRange: function () {
-                return this.graphModel.getChangeOverRange();
-            },
             activeBreakdown: function () {
                 return this.graphModel.activeBreakdown;
             },
