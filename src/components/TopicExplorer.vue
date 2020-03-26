@@ -45,6 +45,8 @@ import _ from '../lodash-custom-bundle';
 import config from '../config'
 import SearchResults from './widgets/SearchResults';
 
+const matomoTracker = _paq;
+
 
 export default {
     name: 'topic-explorer',
@@ -78,12 +80,10 @@ export default {
                 Object.assign(q, {question: this.$t(`metrics-${q.id}-question`)})
             );
         },
-        selectQuestion (q) {
-            this.selectedQuestion = q;
-        },
 
         go () {
             const t = this.selectedTopic;
+            matomoTracker.push(['trackEvent', 'TopicExplorer', 'questionEnter']);
             this.$store.commit('metric', { area: t.area, metric: _.kebabCase(t.metric) });
         },
 
@@ -99,6 +99,7 @@ export default {
             this.showResults = true;
         },
         clear () {
+            matomoTracker.push(['trackEvent', 'TopicExplorer', 'questionsListBrowse']);
             this.searchDisplay = '';
         },
         onBlur () {
@@ -118,6 +119,7 @@ export default {
             this.close();
         },
         minimizeTopics (minimize) {
+            matomoTracker.push(['trackEvent', 'TopicExplorer', minimize ? 'collapse' : 'expand']);
             this.$store.commit('topicExplorer', { minimize });
         },
     },
