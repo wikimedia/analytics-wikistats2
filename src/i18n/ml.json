@@ -150,6 +150,14 @@
 	"metrics-edited-pages-breakdowns-activity_level-values-5..24-edits-name": "5 മുതൽ 24 വരെ തിരുത്തുകൾ",
 	"metrics-edited-pages-breakdowns-activity_level-values-25..99-edits-name": "25 മുതൽ 99 വരെ തിരുത്തുകൾ",
 	"metrics-edited-pages-breakdowns-activity_level-values-100..-edits-name": "നൂറോ അതിലധികമോ തിരുത്തുകൾ",
+	"metrics-net-bytes-difference-breakdowns-editor_type-name": "ലേഖക തരം",
+	"metrics-net-bytes-difference-breakdowns-editor_type-values-anonymous-name": "അജ്ഞാതം",
+	"metrics-net-bytes-difference-breakdowns-editor_type-values-group-bot-name": "ഗ്രൂപ്പ് യന്ത്രം",
+	"metrics-net-bytes-difference-breakdowns-editor_type-values-name-bot-name": "പേര് യന്ത്രം",
+	"metrics-net-bytes-difference-breakdowns-editor_type-values-user-name": "ഉപയോക്താവ്",
+	"metrics-net-bytes-difference-breakdowns-page_type-name": "താളിന്റെ തരം",
+	"metrics-net-bytes-difference-breakdowns-page_type-values-content-name": "ഉള്ളടക്കം",
+	"metrics-net-bytes-difference-breakdowns-page_type-values-non-content-name": "ഉള്ളടക്കേതരം",
 	"metrics-pages-to-date-breakdowns-editor_type-name": "ലേഖക തരം",
 	"metrics-pages-to-date-breakdowns-editor_type-values-anonymous-name": "അജ്ഞാതം",
 	"metrics-pages-to-date-breakdowns-editor_type-values-group-bot-name": "ഗ്രൂപ്പ് യന്ത്രം",
@@ -222,5 +230,6 @@
 	"tooltip-help-permalink": "സ്ഥിരം കണ്ണി",
 	"tooltip-help-copy": "ക്ലിപ്‌‌ബോഡിലേയ്ക്ക് പകർത്തുക",
 	"tooltip-help-change-chart": "ചാർട്ടിൽ മാറ്റംവരുത്തുക",
+	"tooltip-help-split-total": "ആകെ മൊത്തം എത്രയെന്ന് കാണുക",
 	"status_overlay-general_error": "എന്തോ പ്രശ്നമുണ്ടായി"
 }

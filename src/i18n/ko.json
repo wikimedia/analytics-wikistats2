@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"아라"
 		]
 	},
 	"general-title": "위키미디어 통계",
@@ -136,7 +137,7 @@
 	"footer-design_credit": "설계자: {aislinn}",
 	"footer-about_wikistats": "위키통계 정보",
 	"footer-technology": "기술",
-	"footer-privacy_policy": "개인정보 정책",
+	"footer-privacy_policy": "개인정보처리방침",
 	"footer-contributing": "기여",
 	"footer-contributing_guide": "기여 안내",
 	"footer-report_a_bug": "버그 보고",
