@@ -32,8 +32,10 @@ const deleteFolderRecursive = function(pathToDir) {
 const getLocalesToBuild = () => {
     let availableLocales = fs.readdirSync(i18nSrcPath).map(file => file.replace('.json', ''));
     const languagesIndex = process.argv.indexOf('languages');
+    const languagesList = process.argv[languagesIndex + 1];
     if (languagesIndex > -1) {
-        const languages = process.argv[languagesIndex + 1].split(',');
+        if (languagesList === 'all') return availableLocales;
+        const languages = languagesList.split(',');
         availableLocales = availableLocales.filter(loc => languages.includes(loc));
     } else {
         availableLocales = availableLocales.filter(loc => configLanguages.includes(loc));
