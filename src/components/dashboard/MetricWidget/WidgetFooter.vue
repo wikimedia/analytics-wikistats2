@@ -67,7 +67,7 @@ export default {
             while (last > 0) {
                 last--;
                 if (lastMonth - this.graphData[last].month >= 31536000000) {
-                    return this.graphData[last];
+                    return this.graphData[last + 1];
                 }
             }
             return null;
