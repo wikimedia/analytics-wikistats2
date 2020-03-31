@@ -1,19 +1,31 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Haxpett"
 		]
 	},
+	"general-title": "Wikimediastatistik",
 	"general-month": "månad",
 	"general-year": "år",
 	"general-last_12_months": "senaste 12 månaderna",
+	"general-12_month_average": "12-månaders genomsnitt",
 	"general-no_data": "(ingen data)",
 	"general-total": "totalt",
 	"general-date": "datum",
 	"general-name": "namn",
+	"general-original_wikistats": "Original Wikistats",
+	"areas-reading": "Läsning",
+	"areas-contributing": "Bidrag",
 	"areas-content": "Innehåll",
+	"areas-all_metrics": "Alla mätetal",
 	"topic_explorer-explore_topics": "Utforska ämnen",
+	"topic_explorer-default_description": "Sök eller bläddra bland frågor och välj en för att se svaren",
 	"dashboard-monthly_overview": "Månadsöversikt",
+	"metrics-total-page-views-name": "Totalt antal sidvisningar",
+	"metrics-total-page-views-description": "Sidvisningar på Wikimediaprojekten räknar visningar av artiklar. I den här siffran försöker vi exkludera bottrafik och fokusera på visningar för människor.",
+	"metrics-total-page-views-tooltip": "En sidvisning är en begäran för innehållet på en webbsida. Sidvisningar på Wikimediaprojekten är vårt viktigaste mätetal för visning av innehåll. Definitionen av sidvisningar försöker räkna sidvisningar av innehåll för användare.",
+	"metrics-total-page-views-question": "Hur många gånger visas artiklar?",
 	"metrics-total-page-views-breakdowns-access-name": "Åtkomstmetod",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "Stationär dator",
 	"metrics-total-page-views-breakdowns-access-values-mobile-app-name": "Mobilapp",
@@ -21,6 +33,8 @@
 	"metrics-total-page-views-breakdowns-agent-name": "Agenttyp",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Användare",
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Spindel",
+	"metrics-legacy-page-views-name": "Tidigare sidvisningar",
+	"metrics-legacy-page-views-description": "Tidigare sidvisningar är föregångaren till sidvisningar. De inkluderar data från januari 2008 till juli 2016.",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Mobilwebbplats",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Datorwebbplats",
 	"metrics-page-views-by-country-breakdowns-access-name": "Åtkomstmetod",

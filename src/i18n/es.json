@@ -33,7 +33,7 @@
 	"metrics-total-page-views-breakdowns-access-values-mobile-web-name": "Web para móviles",
 	"metrics-total-page-views-breakdowns-agent-name": "Tipo de agente",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Usuario",
-	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Spider",
+	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Araña",
 	"metrics-legacy-page-views-name": "Antiguas pageviews",
 	"metrics-legacy-page-views-description": "Las antiguas pageviews son el antecesor de las pageviews. Incluyen datos desde enero de 2008 a julio de 2016.",
 	"metrics-legacy-page-views-tooltip": "Las pageviews antiguas cuentan el visionado de articulos desde enero de 2008 a julio de 2016. La principal diferencia, en comparación a las pageviews actuales es la falta de distinción entre peticiones hechas por usuarios humanos y bots.",
