@@ -33,8 +33,6 @@ import Dashboard from './components/dashboard/Dashboard';
 import MetricsMatrix from './components/MetricsMatrix';
 
 import { mapState } from 'vuex';
-import numeral from 'numeral';
-import * as locales from 'numeral/locales';
 
 import Vue from 'vue';
 import 'vue-resize/dist/vue-resize.css';

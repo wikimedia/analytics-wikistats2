@@ -3,10 +3,12 @@ import Vue from 'vue';
 // we might need to move away from dateformat and use moment.js
 // when we do localization
 import dateformat from 'dateformat';
-import numeral from 'numeral';
+import numbro from 'numbro';
 
 // use locale-driven formatting for thousands
-const thousands = n => numeral(n).format('');
+const thousands = n => numbro(n).format({
+    thousandSeparated: true
+});
 
 // given 1234 will return "3"
 function getNumberOfDigits(num){
@@ -21,8 +23,13 @@ const kmb = (n) => {
     }
 
     const r = getNumberOfDigits(n) % 3;
+    const format = {
+        optionalMantissa: true,
+        mantissa: r === 1 && n % 1000 !== 0 ? 1 :  0,
+        average: true
+    }
 
-    const units = numeral(n).format(r === 1 && n % 1000 !== 0? '0.0a' :  '0a');
+    const units = numbro(n).format(format);
 
     return units.toUpperCase();
 }
@@ -38,7 +45,15 @@ const bytes = n => {
 
     var r = getNumberOfDigits(n) % 3;
 
-    var units = numeral(n).format(r == 1 && n % 1000 !=0? "0.0b" : "0b");
+    const format = {
+        optionalMantissa: true,
+        mantissa: r == 1 && n % 1000 !== 0 ? 1 : 0,
+        average: true,
+        output: "byte",
+        base: "decimal",
+    }
+
+    var units = numbro(n).format(format);
     return f + units;
 };
 const filterRange = (filter, str) => {
