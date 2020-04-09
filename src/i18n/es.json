@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fdansv",
 			"Fitoschido",
-			"Ihojose",
-			"Fdansv"
+			"Ihojose"
 		]
 	},
 	"general-title": "Estadísticas de Wikimedia",
@@ -44,7 +44,7 @@
 	"metrics-page-views-by-country-name": "Visitas a la página por país",
 	"metrics-page-views-by-country-description": "Países desde los que esta wiki se visita más. Aquellos países con menos de 100 visitas no son reportados y figuran en blanco en el mapa.",
 	"metrics-page-views-by-country-subtitle": "Países con el mayor número de visitas",
-	"metrics-page-views-by-country-tooltip": "Una pageview es una petición del contenido de una página web. Las pageviews a proyectos de Wikimedia son nuestra métrica más importante relacionada con el consumo de contenido.",
+	"metrics-page-views-by-country-tooltip": "Una visita es una petición del contenido de una página web. Las visitas a proyectos de Wikimedia son nuestra métrica más importante relacionada con el consumo de contenido",
 	"metrics-page-views-by-country-question": "¿De dónde vienen los visitantes de este wiki?",
 	"metrics-page-views-by-country-breakdowns-access-name": "Método de acceso",
 	"metrics-page-views-by-country-breakdowns-access-values-desktop-name": "Escritorio",
