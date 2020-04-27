@@ -16,7 +16,7 @@
                 class="item"
                 :class="{active: wikiCode === $store.state.project && a.path === $store.state.area}"
                 :to="{project: wikiCode, area: a.path}">
-                {{$t(`areas-${a.path}`)}
+                {{$t(`areas-${a.path}`)}}
             </router-link>
             <router-link class="item" :to="{project: wikiCode, section: 'metrics'}">{{$t('areas-all_metrics')}}</router-link>
         </div>
