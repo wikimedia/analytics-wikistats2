@@ -34,7 +34,7 @@
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Örümcek",
 	"metrics-legacy-page-views-name": "Eski sayfa görüntüleme sayısı",
 	"metrics-legacy-page-views-description": "Eski sayfa görünümleri, sayfa görünümlerinin öncüsüdür. Ocak 2008'den Temmuz 2016'ya kadar olan verileri içermektedir.",
-	"metrics-legacy-page-views-tooltip": "Wikimedia projelerindeki eski sayfa görünümleri, makale içeriğinin Ocak 2008'den Temmuz 2016'ya kadar görüntülenmesini sayar. Mevcut sayfa görüntüleme verilerine kıyasla temel fark, kendinden rapor edilen botların filtrelenmemesi, böylece otomatik ve insan trafiğinin birlikte raporlanmasıdır.",
+	"metrics-legacy-page-views-tooltip": "Wikimedia projelerindeki eski sayfa görünümleri, madde içeriğinin Ocak 2008'den Temmuz 2016'ya kadar görüntülenmesini sayar. Mevcut sayfa görüntüleme verilerine kıyasla temel fark, kendinden rapor edilen botların filtrelenmemesi, böylece otomatik ve insan trafiğinin birlikte raporlanmasıdır.",
 	"metrics-legacy-page-views-question": "Mevcut sayfa görünümü tanımından önce maddeler kaç kez görüntüleniyor?",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "Erişim site",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Mobil Site",
