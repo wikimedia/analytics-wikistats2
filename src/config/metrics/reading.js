@@ -36,7 +36,8 @@ module.exports = {
             breakdownName: 'agent',
             values: [
                 { name: 'User', on: true, key: 'user' },
-                { name: 'Spider', on: true, key: 'spider' }
+                { name: 'Spider', on: true, key: 'spider' },
+                { name: 'Automated', on: true, key: 'automated' },
             ]
         }],
         additive: true
