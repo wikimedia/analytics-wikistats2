@@ -3,8 +3,9 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import App from './App';
-import numeral from 'numeral';
-import * as locales from 'numeral/locales';
+import numbro from 'numbro';
+import numbroLocales from '../node_modules/numbro/dist/languages.min.js'
+import languageMap from 'Src/languages.json';
 import englishMessages from 'Src/i18n/en.json';
 import '../semantic/dist/semantic.css';
 import './lato/lato.css';
@@ -36,26 +37,20 @@ const i18n = new VueI18n({
   messages: localeContainer,
   fallbackLocale: 'en'
 });
-setUpNumeralLocale(globalLocale);
+setUpNumbroLocale(globalLocale, numbroLocales, languageMap);
 initVueApp(i18n);
 
 
-function setUpNumeralLocale(locale) {
-  numeral.locale(locale);
+function setUpNumbroLocale(locale, numbroLocales, languageMap) {
 
-  // it might not exist as instead of "en-us"
-  // numeral defines "en", live with this for now
-  // change later to use navigators convention http://www.ietf.org/rfc/bcp/bcp47.txt
-  if (!numeral.localeData()){
-      // try again with an abbreviated version
-      numeral.locale(locale.split( '-' )[0]);
+  const numbroCode = languageMap[locale]['numbroCode'];
+
+  if (!numbroCode || numbroCode =='en'){
+    return;
   }
 
-  if (!numeral.localeData()){
-    // set to english, browser might be set
-    // to a locale numeral does not have
-    numeral.locale("en-gb")
-  }
+  numbro.registerLanguage(numbroLocales[numbroCode])
+  numbro.setLanguage(numbroCode);
 }
 
 function initVueApp (i18n) {

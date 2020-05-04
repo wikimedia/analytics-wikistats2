@@ -1,0 +1,42 @@
+{
+	"en": {
+		"numbroCode": "en",
+		"englishName": "English",
+		"nativeName": "English"
+	},
+	"zh-hant": {
+		"numbroCode": "zh-TW",
+		"englishName": "Traditional Chinese",
+		"nativeName": "中文(繁體)‎"
+	},
+	"lb": {
+		"numbroCode": "en",
+		"englishName": "Luxembourguish",
+		"nativeName": "Lëtzebuergesch"
+	},
+	"mk": {
+		"numbroCode": "en",
+		"englishName": "Macedonian",
+		"nativeName": "Mакедонски"
+	},
+	"pt-br": {
+		"numbroCode": "pt-BR",
+		"englishName": "Brazilian Portuguese",
+		"nativeName": "Português do Brasil"
+	},
+	"tr": {
+		"numbroCode": "tr-TR",
+		"englishName": "Turkish",
+		"nativeName": "Türkçe"
+	},
+	"fr": {
+		"numbroCode": "fr-FR",
+		"englishName": "French",
+		"nativeName": "Français"
+	},
+	"uk": {
+		"numbroCode": "uk-UA",
+		"englishName": "Ukrainian",
+		"nativeName": "українська"
+	}
+}

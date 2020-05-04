@@ -13,7 +13,7 @@ const i18nSrcPath = `${__dirname}/../src/i18n`;
 const timei18nPath = path.join(__dirname, '../node_modules/date-fns/locale');
 const availableTimeLocales = new Set(fs.readdirSync(timei18nPath));
 const version = require("../package.json").version;
-const configLanguages = require("../package.json").languages;
+const configLanguages = require("../src/languages.json");
 
 const deleteFolderRecursive = function(pathToDir) {
   if (fs.existsSync(pathToDir)) {
@@ -38,7 +38,7 @@ const getLocalesToBuild = () => {
         const languages = languagesList.split(',');
         availableLocales = availableLocales.filter(loc => languages.includes(loc));
     } else {
-        availableLocales = availableLocales.filter(loc => configLanguages.includes(loc));
+        availableLocales = availableLocales.filter(loc => configLanguages[loc]);
     }
     return availableLocales
 }
@@ -52,7 +52,7 @@ const getLocalesToBuild = () => {
 const applyLanguageToBundle = (locale, bundle) => {
     const timeLocaleName = availableTimeLocales.has(locale) ? locale : 'en-US';
     const userMessages = JSON.stringify(require(`${i18nSrcPath}/${locale}.json`));
-    const timeLocale = JSON.stringify(require(`../node_modules/date-fns/locale/${timeLocaleName}`))
+    const timeLocale = JSON.stringify(require(`../node_modules/date-fns/locale/${timeLocaleName}`));
     const fullFile = `userMessages=${userMessages};timeLocale=${timeLocale};${bundle}`;
     fs.writeFileSync(`${distPath}/main.bundle.${version}.${locale}.js`, fullFile, function (err) {
         if (err) {
@@ -97,7 +97,7 @@ config.plugins.push(
 config.output.filename = `main.bundle.${version}.en.js`;
 
 webpack(config, (err, stats) => {
-    console.log(stats);
+    console.log(`Build took ${(stats.endTime - stats.startTime) / 1000} seconds`);
     if (err || stats.hasErrors()) {
         console.error(stats.toJson().errors);
     } else {

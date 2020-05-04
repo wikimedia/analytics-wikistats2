@@ -35,7 +35,7 @@ import TimeRange from 'Src/models/TimeRange';
 import { groupIfOverlapping } from 'Src/models/Annotations';
 import utils from 'Src/utils';
 import _ from 'lodash';
-import numeral from 'numeral';
+import numbro from 'numbro';
 
 import config from 'Src/config';
 
@@ -138,11 +138,20 @@ export default {
                 return;
             }
             let unitFilter;
-            if (this.graphModel.config.unit == 'bytes'){
-                unitFilter = n => numeral(n).format('0.[0]B').toUpperCase();
+            if (this.graphModel.config.unit === 'bytes'){
+                unitFilter = n => numbro(n).format({
+                    optionalMantissa: true,
+                    output: "byte",
+                    base: "decimal",
+                    mantissa: 1
+                }).toUpperCase();
             }
             else {
-                unitFilter = n => numeral(n).format('0.[0]a').toUpperCase();
+                unitFilter = n => numbro(n).format({
+                    optionalMantissa: true,
+                    mantissa: 1,
+                    average: true
+                }).toUpperCase();
             }
 
             // We make sure that any selected point in a previous chart is cleared
