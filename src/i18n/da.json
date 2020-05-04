@@ -10,6 +10,7 @@
 	"general-name": "navn",
 	"areas-content": "Indhold",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Bruger",
+	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatiseret",
 	"metrics-unique-devices-name": "Unikke enheder",
 	"metrics-editors-name": "Skribenter",
 	"metrics-editors-breakdowns-editor_type-values-anonymous-name": "Anonym",
