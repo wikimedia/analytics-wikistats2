@@ -28,6 +28,7 @@
 	"metrics-total-page-views-breakdowns-access-values-mobile-web-name": "Mobillen Internet",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Benotzer",
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Spider",
+	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatesch",
 	"metrics-legacy-page-views-name": "gekuckt Säiten (al Method)",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Mobillen Internet",
 	"metrics-page-views-by-country-name": "Gewise Säite pro Land",
