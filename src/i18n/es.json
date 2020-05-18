@@ -3,8 +3,10 @@
 		"authors": [
 			"Fdansv",
 			"Fitoschido",
+			"Geryescalier",
 			"Ihojose",
-			"Mynor Archila"
+			"Mynor Archila",
+			"Ncr"
 		]
 	},
 	"general-title": "Estadísticas de Wikimedia",
@@ -25,7 +27,7 @@
 	"topic_explorer-default_description": "Busca o explora preguntas y elige una para ver respuestas",
 	"dashboard-monthly_overview": "Vista general mensual",
 	"metrics-total-page-views-name": "Pageviews totales",
-	"metrics-total-page-views-description": "Las pageviews en projectos de Wikimedia cuentan el visionado del contenido de los artículos. In estos datos tratamos de excluír el tráfico proveniente de bots, enfocándonos en visitas humanas.",
+	"metrics-total-page-views-description": "Las vistas de página en proyectos de Wikimedia cuentan la visualización del contenido del artículo. En estos datos tratamos de separar el tráfico de bots y centrarnos en las vistas de páginas de usuarios humanos",
 	"metrics-total-page-views-tooltip": "Una pageview es una petición del contenido de una página web. Las pageviews a proyectos de Wikimedia son nuestra métrica más importante relacionada con el consumo de contenido.",
 	"metrics-total-page-views-question": "¿Cuántas veces son vistos los artículos?",
 	"metrics-total-page-views-breakdowns-access-name": "Método de acceso",
@@ -35,6 +37,7 @@
 	"metrics-total-page-views-breakdowns-agent-name": "Tipo de agente",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Usuario",
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Araña",
+	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatizado",
 	"metrics-legacy-page-views-name": "Antiguas pageviews",
 	"metrics-legacy-page-views-description": "Las antiguas pageviews son el antecesor de las pageviews. Incluyen datos desde enero de 2008 a julio de 2016.",
 	"metrics-legacy-page-views-tooltip": "Las pageviews antiguas cuentan el visionado de articulos desde enero de 2008 a julio de 2016. La principal diferencia, en comparación a las pageviews actuales es la falta de distinción entre peticiones hechas por usuarios humanos y bots.",
