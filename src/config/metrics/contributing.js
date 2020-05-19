@@ -57,33 +57,24 @@ module.exports = {
         basedOn: 'editors',
         fullName: 'Active editors',
         metricGroup: 'wikistats1',
-        description: 'The count of editors with five or more edits, including on redirect pages',
-        question: 'How many active editors are there?',
+        description: 'The count of registered user editors with five or more edits, including on redirect pages',
+        question: 'How many active registered editors are there?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Active_editors',
         wikistats1URL: 'https://stats.wikimedia.org/EN/TablesWikipediansEditsGt5.htm',
         tooltip: 'The count of editors with five or more edits, including on redirect pages.',
         defaults: {
             unique: {
                 project: ['all-projects'],
-                editor_type: ['all-editor-types'],
+                editor_type: ['user'],
                 page_type: ['all-page-types'],
                 activity_level: ['5..24-edits', '25..99-edits', '100..-edits']
             },
             common: {
                 granularity: 'monthly',
-                metric: 'editors'
+                metric: 'editors',
             }
         },
         breakdowns: [{
-            name: 'Editor type',
-            breakdownName: 'editor_type',
-            values: [
-                { name: 'Anonymous', on: true, key: 'anonymous' },
-                { name: 'Group bot', on: true, key: 'group-bot' },
-                { name: 'Name bot', on: true, key: 'name-bot' },
-                { name: 'User', on: true, key: 'user' },
-            ]
-        },{
             name: 'Page type',
             breakdownName: 'page_type',
             values: [

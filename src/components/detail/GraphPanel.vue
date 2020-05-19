@@ -153,7 +153,7 @@ export default {
                 return this.graphModel.activeBreakdown;
             },
             metricId: function () {
-                return this.graphModel.config.defaults.common.metric;
+                return this.graphModel.config.name;
             },
             unit: function(){
                 if (this.graphModel.config.unit){
