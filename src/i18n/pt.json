@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Mansil alfalb"
 		]
 	},
 	"general-title": "Estatísticas da Wikimedia",
@@ -32,6 +33,7 @@
 	"metrics-total-page-views-breakdowns-agent-name": "Tipo de agente",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Usuário",
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Rastreador",
+	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatizado",
 	"metrics-legacy-page-views-name": "Visualizações de página herdadas",
 	"metrics-legacy-page-views-description": "As visualizações de página herdadas são o antecessor das visualizações de página. Eles incluem dados de janeiro de 2008 a julho de 2016.",
 	"metrics-legacy-page-views-tooltip": "As visualizações de páginas herdadas nos projetos Wikimedia contam a visualização do conteúdo do artigo de janeiro de 2008 a julho de 2016. A principal diferença em comparação aos dados atuais de visualização de páginas é a falta de filtragem de bots auto-relatados, portanto, o tráfego automatizado e humano são relatados juntos.",
