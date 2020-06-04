@@ -199,7 +199,7 @@ class GraphModel {
                 return {month: month, total: row[yAxisValue], timeRange: timeRange};
             }), this.timeRange);
 
-            this.timeRange.end = this.graphData[this.graphData.length - 1].timeRange.end;
+            //this.timeRange.end = this.graphData[this.graphData.length - 1].timeRange.end;
 
             if (this.config.truncatedThreshold) {
                 this.fillTruncatedValues();
