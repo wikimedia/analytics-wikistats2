@@ -1,72 +1,24 @@
 {
-  "base": "semantic/",
-  "paths": {
-    "source": {
-      "config": "src/theme.config",
-      "definitions": "src/definitions/",
-      "site": "src/site/",
-      "themes": "src/themes/"
+    "base": "semantic/",
+    "paths": {
+        "source": {
+            "config": "src/theme.config",
+            "definitions": "src/definitions/",
+            "site": "src/site/",
+            "themes": "src/themes/"
+        },
+        "output": {
+            "packaged": "dist/",
+            "uncompressed": "dist/components/",
+            "compressed": "dist/components/",
+            "themes": "dist/themes/"
+        },
+        "clean": "dist/"
     },
-    "output": {
-      "packaged": "dist/",
-      "uncompressed": "dist/components/",
-      "compressed": "dist/components/",
-      "themes": "dist/themes/"
-    },
-    "clean": "dist/"
-  },
-  "permission": false,
-  "autoInstall": true,
-  "rtl": false,
-  "components": [
-      "reset",
-      "site",
-      "button",
-      "checkbox",
-      "container",
-      "dimmer",
-      "divider",
-      "dropdown",
-      "form",
-      "grid",
-      "header",
-      "icon",
-      "image",
-      "input",
-      "item",
-      "label",
-      "menu",
-      "modal",
-      "search",
-      "segment",
-      "statistic",
-      "table"
-  ],
-  "unusedComponents": [
-      "breadcrumb",
-      "card",
-      "comment",
-      "embed",
-      "feed",
-      "flag",
-      "form",
-      "list",
-      "loader",
-      "message",
-      "nag",
-      "popup",
-      "progress",
-      "rail",
-      "rating",
-      "reveal",
-      "shape",
-      "sidebar",
-      "state",
-      "step",
-      "sticky",
-      "tab",
-      "transition",
-      "visibility"
-  ],
-  "version": "2.4.2"
+    "permission": false,
+    "autoInstall": true,
+    "rtl": false,
+    "components": ["reset", "site", "button", "checkbox", "container", "dimmer", "divider", "dropdown", "form", "grid", "header", "icon", "image", "input", "item", "label", "menu", "modal", "search", "segment", "statistic", "table"],
+    "unusedComponents": ["breadcrumb", "card", "comment", "embed", "feed", "flag", "form", "list", "loader", "message", "nag", "popup", "progress", "rail", "rating", "reveal", "shape", "sidebar", "state", "step", "sticky", "tab", "transition", "visibility"],
+    "version": "2.4.2"
 }
