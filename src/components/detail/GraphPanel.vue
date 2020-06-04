@@ -131,11 +131,11 @@ export default {
     props: ['graphModel', 'overlayMessage', 'annotations', 'annotationsLink'],
 
     computed: Object.assign(
-        mapState(['selectingTime']),
+        mapState(['selectingTime', 'detail']),
         mapState('detail', [
             'fullscreen',
             'chartType',
-            'timeRange'
+            'timeRange',
         ]), {
             chartTypes: function () {
                 return !this.graphModel ? [] : config.getChartTypes(this.graphModel.config);
@@ -172,10 +172,10 @@ export default {
             permalinkURL: function () {
                 if (this.graphModel.graphData.length > 0) {
                     const specificDetail = Object.assign({}, this.detail);
-                    const startDate = new Date(this.graphModel.graphData[0].month);
-                    const endDate = new Date(this.graphModel.graphData[this.graphModel.graphData.length - 1].month);
+                    const startDate = new Date(this.graphModel.graphData[0].timeRange.start);
+                    const endDate = new Date(this.graphModel.graphData[this.graphModel.graphData.length - 1].timeRange.end);
                     // TODO: this should be in TimeRange but done in a separate change
-                    if (utils.getGranularity(this.timeRange) === 'monthly') {
+                    if (this.detail.granularity === 'monthly') {
                         endDate.setUTCMonth(endDate.getUTCMonth() + 1);
                     }
                     specificDetail.timeRange = {start: startDate, end: endDate};
