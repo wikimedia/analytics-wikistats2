@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { format } from 'date-fns';
 import utils from 'Src/utils';
 
@@ -37,8 +38,8 @@ class TimeRange {
     }
 
     getRangeForURL () {
-        const format = TimeRange.formatDateForURL;
-        return [format(this.start), format(this.end)];
+        const f = TimeRange.formatDateForURL;
+        return [f(this.start), f(this.end)];
     }
 
     getFormattedTimeRange (granularity, structure, explicit) {
@@ -111,8 +112,7 @@ class TimeRange {
     }
 
     static formatDateForURL (date) {
-        const template = 'yyyyMMdd00';
-        return format(date, template);
+        return dateFormat(date, 'yyyymmdd00', true);
     }
 
     static relativeToAbsolute (timeKeyword) {

@@ -5,7 +5,7 @@
     <div v-if="languages" class="ui floating dropdown button"  @click = "toggleVisibility()">
         <span>{{selectedLanguageTitle}}</span>
         <div class="menu" v-bind:class="{shown: visible, hidden: !visible}">
-            <div @click="selectLanguage(language)" v-for="language in selectableLanguages" class="item">
+            <div @click="selectLanguage(language)" v-for="language in languages" class="item">
                 <span>{{language.nativeName}}</span>
                 <span class="subdued">{{language.englishName}}</span>
             </div>

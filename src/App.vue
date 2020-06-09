@@ -12,7 +12,7 @@
         </p>
         <component :is="mainComponent" ref="mainComponentEl"></component>
     </main>
-    <div v-if="languages.length > 1" class="ui attached language segment">
+    <div class="ui attached language segment">
         <site-language :availableLanguages="languages"></site-language>
     </div>
     <footer class="ui attached footer segment">
@@ -196,6 +196,7 @@ a.router-link-current { font-weight: bold; color: #72777d }
     border-left: solid 1px #d4d4d5;
     border-right: solid 1px #d4d4d5;
     border-bottom: none;
+    line-height: 42px;
 }
 .ui.attached.footer.segment {
     background-color: #3B3B3B;
