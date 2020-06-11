@@ -1,6 +1,6 @@
 {
     "name": "wikistats",
-    "version": "2.7.5",
+    "version": "2.7.6",
     "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
     "main": "index.js",
     "scripts": {
@@ -19,8 +19,8 @@
         "d3-svg-annotation": "^2.3.0",
         "date-fns": "^2.9.0",
         "dateformat": "^2.0.0",
-        "jquery": "^3.2.1",
-        "lodash": "^4.17.4",
+        "jquery": "^3.5.1",
+        "lodash": "^4.17.15",
         "numbro": "^2.2.0",
         "primer-tooltips": "^1.5.9",
         "semantic-ui": "^2.4.2",
@@ -59,7 +59,7 @@
         "vue-template-compiler": "2.6.10",
         "webpack": "^2.5.1",
         "webpack-bundle-analyzer": "^2.8.2",
-        "webpack-dev-server": "^2.5.0",
+        "webpack-dev-server": "^2.11.5",
         "webpack-merge": "^4.1.0"
     },
     "repository": {
