@@ -16,7 +16,7 @@ function parseMediawikiDashikiFormat (data) {
     const pages = data.query.pages;
     const pageId = Object.keys(pages)[0];
     if (pageId === MEDIAWIKI_RED_LINK_PAGE_ID) { return []; }
-    const annotations = JSON.parse(pages[pageId].revisions[0]['*']).annotations;
+    const annotations = JSON.parse(pages[pageId].revisions[0]['*']).annotations || [];
 
     annotations.sort((a, b) => a.date > b.date ? 1 : -1);
     return annotations.map(a => Object.assign(a, {

@@ -71,9 +71,11 @@
         width: 100% ;
     }
     .ui.right.floated.header.tablet {
+        margin-top: 0;
         margin-right: 0px;
     }
-    .ui.right.floated.header.tablet.mobile {
+    .ui.right.floated.header.mobile {
+        margin-top: 0;
         margin-right: 8px;
     }
     .ui.right.floated.header.tablet i.icon {

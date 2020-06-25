@@ -1,20 +1,20 @@
 <template>
-    <div class="ui floating dropdown button" @click = "toggleVisibility()">
+    <div class="ui floating dropdown button" @click="toggleVisibility()">
         <span class="text metric name">{{metric.fullName}}</span> <span class="granularity subdued">{{granularity}}</span>
         <i class="dropdown icon"></i>
         <div class="menu" v-bind:class="{shown: visible, hidden: !visible}">
             <div class="marea">Reading</div>
-            <div v-for="m in metrics.reading" @click="goToMetric(m.area, m.defaults.common.metric)" :data-value="m.defaults.common.metric" class="item" :class="active(m)">
+            <div v-for="m in metrics.reading" @click="goToMetric(m.area, m.name)" :data-value="m.name" class="item" :class="active(m)">
                 {{m.fullName}}
             </div>
             <div class="divider"></div>
             <div class="marea">Contributing</div>
-            <div v-for="m in metrics.contributing" @click="goToMetric(m.area, m.defaults.common.metric)" :data-value="m.defaults.common.metric" class="item" :class="active(m)">
+            <div v-for="m in metrics.contributing" @click="goToMetric(m.area, m.name)" :data-value="m.name" class="item" :class="active(m)">
                 {{m.fullName}}
             </div>
             <div class="divider"></div>
             <div class="marea">Content</div>
-            <div v-for="m in metrics.content" @click="goToMetric(m.area, m.defaults.common.metric)" :data-value="m.defaults.common.metric" class="item" :class="active(m)">
+            <div v-for="m in metrics.content" @click="goToMetric(m.area, m.name)" :data-value="m.name" class="item" :class="active(m)">
                 {{m.fullName}}
             </div>
         </div>
@@ -32,6 +32,7 @@ export default {
             metrics: Object.keys(config.metrics).reduce(
                 (p, metricName) => {
                     const metric = config.metrics[metricName];
+                    metric.name = metricName;
                     p[metric.area].push(metric);
                     return p;
                 },
@@ -47,7 +48,7 @@ export default {
             this.visible = !this.visible;
         },
         goToMetric(area, metric) {
-            if (metric !== this.metric.defaults.common.metric)
+            if (metric !== this.metric.name)
             this.$store.commit('reload', {
                 project: this.$store.state.project,
                 metric: metric,

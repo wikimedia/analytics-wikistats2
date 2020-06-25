@@ -298,6 +298,7 @@
     "tooltip-help-annotations": "Annotations",
     "tooltip-help-split-total": "See the overall total",
     "tooltip-help-split": "Split the total into parts to see more detail.  Filter to the parts you're interested in using the checkboxes",
+    "tooltip-help-toggle-dimension": "Toggle to split and/or filter by this dimension.",
     "tooltip-wikistats1Metric": "This is a Wikistats 1 metric. Click here to go to the legacy version.",
     "tooltip-filterAndSplit": "Split up the total into different categories, and hide one or more categories",
     "tooltip-breakdown-desktop": "The site intended for desktop devices (may be viewed on mobile devices)",

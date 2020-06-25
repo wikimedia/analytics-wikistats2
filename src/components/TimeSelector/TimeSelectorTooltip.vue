@@ -44,7 +44,7 @@
                     'timeRange'
             ]), {
                 timeSelectorPos () {
-                    const dateBox = $('.left.panel .time div');
+                    const dateBox = $('.left.panel .time.toggle');
                     const width = dateBox.width();
                     const timeBox = $('.timeselectorBox');
                     return {

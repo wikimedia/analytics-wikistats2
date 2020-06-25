@@ -99,6 +99,7 @@
 	"footer-license": "This is {licence} variable in {{msg-wm|Wikistats-footer-copyright}}.",
 	"tooltip-help-change-chart": "Tooltip for the link which allow to view another kind of chart for the same data (e.g. switching from line chart to bar chart).",
 	"tooltip-help-split": "Tooltip for {{msg-wm|Wikistats-breakdowns-breakdown action}}.\n\nFirst sentence describes the action. Second sentence advices user about what they should do.",
+	"tooltip-help-toggle-dimension": "Explains what clicking the dimension name does.",
 	"tooltip-breakdown-anonymous": "A tooltip that appears when hovering over editor types.",
 	"tooltip-breakdown-group-bot": "A tooltip that appears when hovering over editor types.",
 	"tooltip-breakdown-name-bot": "A tooltip that appears when hovering over editor types.",

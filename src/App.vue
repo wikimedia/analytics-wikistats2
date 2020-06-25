@@ -178,7 +178,7 @@ a.router-link-current { font-weight: bold; color: #72777d }
 }
 @media(max-width: 450px) {
     .ui.top.attached.clearing.segment {
-        padding: 20px 0 20px 20px;
+        padding: 10px 0 10px 20px;
         /* has to have room under it to fit topic selector animation */
     }
     .ui.attached.content.segment.animate {
@@ -190,7 +190,7 @@ a.router-link-current { font-weight: bold; color: #72777d }
     padding: 2px 32px 27px 24px;
 }
 .ui.attached.language.segment {
-    height: 70px;
+    height: auto;
     background-color: #8D8D8D;
     border: solid 1px #d4d4d5;
     border-left: solid 1px #d4d4d5;

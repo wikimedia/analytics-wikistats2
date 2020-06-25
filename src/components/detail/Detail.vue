@@ -14,15 +14,9 @@
             :overlayMessage="overlayMessage"
         />
     </section>
-    <div v-if="compact || fullscreen" class="container breakdowns">
-        <breakdowns
-            v-if="graphModel && graphModel.graphData
-                  && graphModel.dimensions
-                  && graphModel.dimensions.length > 1
-                  && graphModel.splittingAllowed()"
-            :graphModel="graphModel"
-        />
-    </div>
+    <transition name="filter-modal-transition">
+        <filter-split-modal v-if="dimensionsModalEnabled" class="filtersplitmodal" />
+    </transition>
 </div>
 </template>
 
@@ -35,13 +29,13 @@ import StatusOverlay from '../StatusOverlay';
 import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
 import MetricsDropdown from '../MetricsDropdown';
-import Breakdowns from './Breakdowns'
 
 import config from '../../config';
 import utils from '../../utils';
 
 import GraphModel from 'Src/models/GraphModel';
 import TimeRange from 'Src/models/TimeRange';
+import FilterSplitModal from './filterSplit/FilterSplitModal'
 
 import titleMixin from '../../mixins/title-mixin.js';
 import dateFormat from 'dateformat';
@@ -52,7 +46,7 @@ export default {
         GraphPanel,
         DetailSidebar,
         MetricsDropdown,
-        Breakdowns
+        FilterSplitModal
     },
 
     mixins: [titleMixin],
@@ -84,7 +78,8 @@ export default {
             'fullscreen',
             'breakdown',
             'timeRange',
-            'granularity'
+            'granularity',
+            'dimensionsModalEnabled'
         ]), {
 
             metricParameters () {
@@ -206,12 +201,22 @@ export default {
     margin: 0 -30px -27px -21px;
 }
 
+.filter-modal-transition-enter-active, .filter-modal-transition-leave-active {
+    transition: all .2s;
+}
+
+.filter-modal-transition-enter, .filter-modal-transition-leave-to {
+    opacity: 0;
+    transform: translateY(100px);
+}
+.filter-modal-transition-leave, .filter-modal-transition-enter-to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 @media(max-width: 500px) {
     .detail.container {
         margin: 0!important;
-    }
-    .container.breakdowns {
-        padding: 1em;
     }
 }
 </style>

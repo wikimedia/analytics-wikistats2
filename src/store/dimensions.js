@@ -119,6 +119,23 @@ const getters = {
         return key === 'total' ?
             config.colors[area][config.colors[area].length - 1] :
             config.qualitativeScale[splittingDimension.values.length][splittingDimension.values.indexOf(splittingDimension.values.find(value => value.key === key))];
+    },
+    filteredInfo (state, getters) {
+        const dimensions = getters.dimensions;
+        const info = {};
+        dimensions
+            .filter(dimension => dimension.active)
+            .filter(dimension => dimension.values.some((v) => v.on === false))
+            .forEach(dimension => {
+                info[dimension.key] = dimension.values
+                    .filter(value => value.on)
+                    .map(value => value.key);
+            });
+        return info;
+    },
+    filtering (state, getters) {
+        const filteredInfo = getters.filteredInfo;
+        return Object.keys(filteredInfo).length > 0;
     }
 }
 
