@@ -49,6 +49,7 @@ function containsAllRequired (metric, schema) {
 function valuesAreValid (metric, schema) {
     _.forEach(metric, (metricValue, key) => {
         const propertySchemaDefinition = schema[key];
+        if (!propertySchemaDefinition) throw new Error(`Key not found: ${key}`)
         const type = typeof metricValue;
         switch (propertySchemaDefinition.type) {
             case 'array':

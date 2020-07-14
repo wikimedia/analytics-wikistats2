@@ -5,7 +5,7 @@
         <thead>
             <tr v-if="isTimeseries">
                 <th>{{$t('general-date') | capitalize}}</th>
-                <th class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">{{$t(geti8nBreakdownModeKey(graphModel.activeBreakdown.breakdownName, v.key)) | capitalize}}</th>
+                <th class="right aligned" v-for="v in splittingDimension.values" v-if="v.on">{{$t(geti8nBreakdownModeKey(splittingDimension.key, v.key)) | capitalize}}</th>
             </tr>
             <tr v-if="isTop">
                 <th class="right aligned">{{(graphModel.config.valueTitle || graphModel.config.value) | capitalize}}</th>
@@ -15,7 +15,7 @@
         <tbody>
             <tr v-if="isTimeseries" v-for="m in valuesShown">
                 <td>{{m.month | ISOdateUTC(granularityFormat)}}</td>
-                <td class="right aligned" v-for="v in graphModel.activeBreakdown.values" v-if="v.on">
+                <td class="right aligned" v-for="v in splittingDimension.values" v-if="v.on">
                 {{getValue(m, v)}}</td>
             </tr>
             <tr v-if="isTop" v-for="m, i in valuesShown">
@@ -29,9 +29,10 @@
 </template>
 
 <script>
-import utils from '../../../utils'
-import TableNameCell from './TableNameCell'
-import Vue from 'vue'
+import utils from '../../../utils';
+import TableNameCell from './TableNameCell';
+import Vue from 'vue';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'table-chart',
@@ -53,7 +54,12 @@ export default {
         this.setColors();
     },
 
-    computed: {
+    computed: Object.assign(
+        mapGetters('dimensions', [
+            'splittingDimension',
+            'activeSplitValues',
+            'colorForDimensionValue'
+        ]), {
         isTop () {
             return this.graphModel.config.structure === 'top';
         },
@@ -90,7 +96,7 @@ export default {
         granularityFormat () {
             return utils.getDateFormatFromData(this.graphModel.graphData);
         },
-    },
+    }),
 
     methods: {
         getValue (m, v) {

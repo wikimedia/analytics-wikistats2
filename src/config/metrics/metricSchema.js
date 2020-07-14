@@ -28,17 +28,25 @@ const metricSchema = {
                 type: 'string',
                 required: true
             },
-            breakdownName: {
+            key: {
+                type: 'string',
+                required: true
+            },
+            allValue: {
                 type: 'string',
                 required: true
             },
             values: {
                 type: 'array',
                 required: true
+            },
+            locked: {
+                type: 'boolean',
+                required: false
             }
         }
     },
-    breakdownCheck: {
+    splittingCheck: {
         type: 'string',
         required: false
     },

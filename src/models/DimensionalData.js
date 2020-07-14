@@ -1,4 +1,5 @@
 import Crossfilter from 'crossfilter';
+import _ from 'lodash';
 
 class DimensionalData {
     constructor(values, measureColumn) {
@@ -21,6 +22,56 @@ class DimensionalData {
         return this.crossfilter.groupAll().reduceSum((row) => {
             return row[aggregate];
         }).value();
+    }
+
+    aggregate (baseDimension, measureName) {
+        const baseGroup = Object.values(_.groupBy(this.getAllItems(), r => r[baseDimension]));
+        // aggregate filtered values and generate a "total"
+        const aggregatedValues = baseGroup.map(timeRow =>{
+            const sum = timeRow.reduce((p,c) => {
+                p += c[measureName];
+                return p;
+            }, 0);
+            const sampleRow = timeRow[0]
+            const baseDimensionValue = sampleRow[baseDimension];
+            const resultRow = {};
+            resultRow[baseDimension] = baseDimensionValue;
+            resultRow[measureName] = {total: sum};
+            return resultRow;
+        });
+        return aggregatedValues;
+    }
+
+    aggregateAndSplit (baseDimension, measureName, splittingDimensionKey) {
+        // group by splitting dimension
+        const baseGroup = Object.values(_.groupBy(this.getAllItems(), r => r[baseDimension]));
+        const groupedByDimension = baseGroup.map(group => _.groupBy(group, r => r[splittingDimensionKey]));
+        const aggregatedAndSplitValues = groupedByDimension.map(row => {
+            let aggregatedValues = {};
+            const formattedValues = Object.keys(row).forEach(rowKey => {
+                aggregatedValues[rowKey] = row[rowKey].reduce((p, c) => p + c[measureName], 0);
+            });
+            const resultRow = {};
+            resultRow[baseDimension] = Object.values(row)[0][0][baseDimension];
+            resultRow[measureName] = aggregatedValues;
+            return resultRow;
+        });
+        return aggregatedAndSplitValues;
+    }
+
+    filterSplit (dimensions, measureName, baseDimension = 'timestamp') {
+        // In any timeseries graph the first dimension is time
+        // In a tops metric, the metric config defines which value to group by
+        // (like countries, page titles...)
+        const baseGroup = Object.values(_.groupBy(this.getAllItems(), r => r[baseDimension]));
+        // There should only be one splitting value, if any
+        const splittingDimension = dimensions.find(d => d.splitting);
+        const splittingDimensionKey = splittingDimension && splittingDimension.key;
+        if (splittingDimensionKey) {
+            return this.aggregateAndSplit(baseDimension, measureName, splittingDimensionKey);
+        } else {
+            return this.aggregate(baseDimension, measureName);
+        }
     }
 
     addDimension (column) {
@@ -75,59 +126,6 @@ class DimensionalData {
     clearAllFilters () {
         Object.keys(this.dimensionCache).forEach((d) => d.filterAll());
     }
-
-    breakdown (column, secondColumn) {
-        let measure = this.currentMeasure;
-        this.addDimension(measure);
-        let breakDownMap;
-        const allItems = this.getAllItems();
-        if (!allItems.length) {
-            // TODO: follow-up with a fix to this, it's a side-effect not
-            // considered by a previous change in the timeRange
-            throw 'Invalid request, no data returned';
-        }
-        if (allItems[0].rank) {
-            return allItems;
-        }
-        if (!secondColumn) {
-            breakDownMap = this.dimensionCache[measure].group().reduceSum((row) => {
-                return row[column];
-            }).all().reduce((p, c) => {
-                p[c.key] = c.value;
-                return p;
-            }, {});
-            return Object.keys(breakDownMap).map((key) => {
-                let row = {}
-                row[measure] = key;
-                // subtle format normalization so that all breakdowns look the same
-                row[column] = { total: breakDownMap[key] };
-                return row;
-            });
-        } else {
-            breakDownMap = this.dimensionCache[measure].group().reduce(
-                (p,c) => {
-                    p[c[secondColumn]] = p[c[secondColumn]] ?
-                        p[c[secondColumn]] + c[column]:
-                        c[column];
-                    return p;
-                },
-                () => {},
-                () => {
-                    return {};
-                }
-            ).all().reduce((p, c) => {
-                p[c.key] = c.value;
-                return p;
-            }, {});
-            return Object.keys(breakDownMap).map((key) => {
-                let row = {};
-                row[measure] = key;
-                row[column] = breakDownMap[key];
-                return row;
-            });
-        }
-    }
-
 }
 
 export default DimensionalData

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import * as d3 from 'd3-selection';
 import * as scales from 'd3-scale';
 import * as arr from 'd3-array';
@@ -52,6 +52,11 @@ export default {
     },
 
     computed: Object.assign(
+        mapGetters('dimensions', [
+            'splittingDimension',
+            'activeSplitValues',
+            'colorForDimensionValue'
+        ]),
         mapState('detail', [
             'fullscreen',
         ]), {
@@ -82,20 +87,20 @@ export default {
         },
         geti8nBreakdownKey (key) {
             if (key === 'total') return 'general-total';
-            return `metrics-${this.graphModel.metricId}-breakdowns-${this.graphModel.activeBreakdown.breakdownName}-values-${key}-name`;
+            return `metrics-${this.graphModel.metricId}-breakdowns-${this.splittingDimension.key}-values-${key}-name`;
         },
 
         transformAndAddAnnotations (annotations) {
 
             const horizontal = this.x.range()[1],
                   vertical = this.y.range()[0],
-                  activeKeys = this.graphModel.activeBreakdown.values.filter(bv => bv.on).map(bv => bv.key),
+                  activeKeys = this.splittingDimension.values.filter(bv => bv.on).map(bv => bv.key),
                   barWidth = this.x.bandwidth() / activeKeys.length,
                   diameter = 28;
 
             const preparedAnnotations =  groupIfOverlapping(
                 annotations.map(m => {
-                    const px = this.x(m.date) + (barWidth * (activeKeys.indexOf(m.breakdownValue) + 0.5)),
+                    const px = this.x(m.date) + (barWidth * (activeKeys.indexOf(m.splitValue) + 0.5)),
                           py = this.y(m.value) || vertical,
                           tooRight = px > horizontal - 120,
                           tooLow = py > vertical - 100;
@@ -110,7 +115,7 @@ export default {
                         dy: tooLow ? -50 : 50,
                         x: px,
                         y: py,
-                        breakdownValue: m.breakdownValue,
+                        splitValue: m.splitValue,
                         note: {
                             bgPadding: 10,
                             label: m.label,
@@ -169,7 +174,6 @@ export default {
             g.selectAll('*').remove();
 
             const n = root.node();
-            const activeDict = this.graphModel.getActiveBreakdownValues();
             let dates = this.graphModel.graphData.map((d) => d.month);
             const datespan = arr.extent(dates);
 
@@ -203,15 +207,14 @@ export default {
             let self = this;
             graphElement.selectAll('.bar').data(this.graphModel.graphData)
                 .enter().selectAll('.minibar').data((d) => {
-                    return this.graphModel.activeBreakdown.values
-                        .filter(b => b.on)
+                    return this.activeSplitValues
                         .map((b, i) => ({
                             month: d.month,
-                            key: b.name,
-                            breakdownKey: b.key,
-                            value: d.total[b.key],
-                            color: config.getColorForBreakdown(this.graphModel.activeBreakdown, b.key, this.graphModel.config.area),
-                            width: xW.bandwidth() / Object.keys(activeDict).length,
+                            key: b,
+                            breakdownKey: b,
+                            value: d.total[b],
+                            color: self.colorForDimensionValue(b, this.graphModel.config.area),
+                            width: xW.bandwidth() / Object.keys(self.activeSplitValues).length,
                             index: i
                         }));
                 }).enter().append('rect')

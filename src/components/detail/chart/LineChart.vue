@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import * as d3 from 'd3-selection';
 import * as scales from 'd3-scale';
@@ -57,19 +57,23 @@ export default {
     },
 
     computed: Object.assign(
+        mapGetters('dimensions', [
+            'splittingDimension',
+            'activeSplitValues',
+            'colorForDimensionValue'
+        ]),
         mapState('detail', [
             'fullscreen',
         ]), {
 
             selectedValue () {
                 let l = [];
-                const activeDict = this.graphModel.getActiveBreakdownValues();
-
+                const activeDict = this.activeSplitValues;
                 _.forEach(this.hoveredPoint.total, (value, key) => {
-                    if(key in activeDict){
+                    if(activeDict.find(k => k === key)){
                         l.push({
                             key, value,
-                            color: this.getColorForBreakdown(key),
+                            color: this.colorForDimensionValue(key, this.graphModel.config.area),
                             name: key,
                         });
                     }
@@ -124,7 +128,7 @@ export default {
                         dy: tooLow ? -50 : 50,
                         x: px,
                         y: py,
-                        breakdownValue: m.breakdownValue,
+                        splitValue: m.splitValue,
                         note: {
                             bgPadding: 10,
                             label: m.label,
@@ -147,7 +151,7 @@ export default {
 
         geti18nBreakdownKey (valueKey) {
             if (valueKey === 'total') return 'general-total';
-            return `metrics-${this.graphModel.metricId}-breakdowns-${this.graphModel.activeBreakdown.breakdownName}-values-${valueKey}-name`;
+            return `metrics-${this.graphModel.metricId}-breakdowns-${this.splittingDimension.key}-values-${valueKey}-name`;
         },
 
         drawChart () {
@@ -166,8 +170,6 @@ export default {
             // clean up after old chart
             svg.attr('width', 0).attr('height', 0);
             g.selectAll('*').remove();
-
-            const activeBreakdown = this.graphModel.activeBreakdown;
             const { min, max } = this.graphModel.getMinMax();
 
             const n = root.node();
@@ -195,7 +197,6 @@ export default {
                 .x((d) => x(d.month))
                 .y((d) => y(d.total));
 
-            const activeDict = this.graphModel.getActiveBreakdownValues();
             let bColor = this.graphModel.darkColor;
 
             /*
@@ -214,30 +215,25 @@ export default {
                                                     }
                                                 ]
             */
-            Object.keys(
-                _.reduce(this.graphModel.graphData, (acc, elem) => {
-                    return Object.assign(acc, elem.total);
-                }, {}))
-                .filter(key => key in activeDict)
-                .map((breakdownName) => {
-                    return this.graphModel.graphData.map((row) => {
-                        return {
-                            month: row.month,
-                            total: row.total[breakdownName],
-                            key: breakdownName
-                        };
-                    }).filter(elem => typeof elem.total === 'number');
-                })
-                .forEach(breakdown => {
-                    // We need to find each breakdown's corresponding colour from the config
-                    bColor = config.getColorForBreakdown(activeBreakdown, breakdown[0].key, this.graphModel.config.area);
-                    g.append('path').datum(breakdown)
-                        .attr('d', line)
-                        .attr('class', 'statLine breakdownLine')
-                        .style('stroke', bColor)
-                        .style('stroke-width', '3px')
-                        .style('fill', 'none');
-                });
+            this.activeSplitValues.map((dimensionValueName) => {
+                return this.graphModel.graphData.map((row) => {
+                    return {
+                        month: row.month,
+                        total: row.total[dimensionValueName],
+                        key: dimensionValueName
+                    };
+                }).filter(elem => typeof elem.total === 'number');
+            })
+            .forEach(dimensionValue => {
+                // We need to find each breakdown's corresponding colour from the config
+                bColor = this.colorForDimensionValue(dimensionValue[0].key, this.graphModel.config.area);
+                g.append('path').datum(dimensionValue)
+                    .attr('d', line)
+                    .attr('class', 'statLine breakdownLine')
+                    .style('stroke', bColor)
+                    .style('stroke-width', '3px')
+                    .style('fill', 'none');
+            });
 
             this.addHoverGuide(g, this.graphModel.graphData, x, y);
             this.addAxes(x, y, g);
@@ -264,7 +260,6 @@ export default {
         },
 
         addAxes (x, y, g) {
-
             let unitFilter;
             if (this.graphModel.config.unit === 'bytes'){
                 unitFilter = n => numbro(n).format({
@@ -330,10 +325,6 @@ export default {
                 .text('Values under 1000 are not reported to preserve accuracy')
         },
 
-        getColorForBreakdown (key) {
-            return config.getColorForBreakdown(this.graphModel.activeBreakdown, key, this.graphModel.config.area);
-        },
-
 
         onGraphMouseMove (e) {
             const leftDistFromContainer = e.pageX - this.$el.getBoundingClientRect().left
@@ -394,12 +385,10 @@ export default {
 
             // For better clarity on which point is being selected, we add circles that
             // indicate the exact one.
-            const activeDict = this.graphModel.getActiveBreakdownValues();
             hoverGs.each(function (d) {
                 let sel = d3.select(this);
-                const activeBreakdown = self.graphModel.activeBreakdown;
                 _.forEach(d.total, (value, key) => {
-                    if (key in activeDict) {
+                    if (self.activeSplitValues.find(v => v == key)) {
                         sel.append('circle')
                             .attr('cx', d => x(d.month))
                             .attr('cy', d => y(value))

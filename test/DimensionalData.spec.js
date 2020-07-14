@@ -25,7 +25,6 @@ const pageviews3 = [
 describe('DimensionalData', function () {
     it('should be able to return its crossfilter instance', function () {
         let dim = new DimensionalData();
-
         expect(dim.getCrossfilter().add).not.toBeUndefined();
     });
 
@@ -36,28 +35,26 @@ describe('DimensionalData', function () {
     });
 
     it('should merge results', function () {
-        let dim = new DimensionalData(pageviews1)
-
+        let dim = new DimensionalData(pageviews1);
         dim.merge(pageviews2)
         expect(dim.total('views')).toEqual(123)
     });
 
-    it('should break down by any column', function () {
+    it('should split by any column', function () {
         let dim = new DimensionalData(pageviews1)
         dim.measure('date')
-        let break1 = dim.breakdown('views')
+        let break1 = dim.aggregate('date', 'views');
         expect(break1.find((x) => x.date === '2017-01').views.total).toEqual(23)
         dim.merge(pageviews2)
-        let break2 = dim.breakdown('views')
+        let break2 = dim.aggregate('date', 'views');
         expect(break2.find((x) => x.date === '2017-01').views.total).toEqual(24)
     });
 
-    it('should break down by two columns', function () {
+    it('should split by two columns', function () {
         let dim = new DimensionalData(pageviews1)
         dim.merge(pageviews2)
         dim.merge(pageviews3)
-        dim.measure('date')
-        let break1 = dim.breakdown('views', 'agent')
+        let break1 = dim.aggregateAndSplit('date', 'views', 'agent')
         expect(break1.find(
             (x) => x.date === '2017-01').views['user']
         ).toEqual(38)

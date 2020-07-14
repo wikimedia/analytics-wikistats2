@@ -29,7 +29,7 @@
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
     </p-->
     <div class="ui clearing divider"></div>
-    <breakdowns :graphModel="graphModel" v-if="graphModel && graphModel.breakdownAllowed(project)"/>
+    <breakdowns :graphModel="graphModel" v-if="graphModel && graphModel.config.structure === 'timeseries' && graphModel.splittingAllowed(project)"/>
 </section>
 </template>
 

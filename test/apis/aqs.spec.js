@@ -1,5 +1,6 @@
 import AQS from '../../src/apis/aqs'
 import TimeRange from '../../src/models/TimeRange'
+import Dimension from 'Src/models/Dimension'
 
 
 let uniqueParameters = {
@@ -22,10 +23,31 @@ describe('AQS', function () {
     });
 
     it('should call pageviews with correct parameters', function () {
+        const dimensions = [{
+            key: 'access',
+            active: true,
+            splitting: true,
+            allValue: 'all-access',
+            values: [
+                { name: 'Desktop', on: true, key: 'desktop' },
+                { name: 'Mobile App', on: true, key: 'mobile-app' },
+                { name: 'Mobile Web', on: true, key: 'mobile-web' }
+            ]
+        }, {
+            key: 'agent',
+            active: true,
+            splitting: false,
+            allValue: 'all-agents',
+            values: [
+                { name: 'User', on: true, key: 'user' },
+                { name: 'Spider', on: true, key: 'spider' },
+                { name: 'Automated', on: true, key: 'automated' },
+            ]
+        }].map(d => new Dimension(d));
         let a = new AQS();
-        let answer = a.getData(uniqueParameters, commonParameters);
+        let answer = a.getData(uniqueParameters, commonParameters, dimensions);
 
-        expect(jasmine.Ajax.requests.count()).toEqual(4);
+        expect(jasmine.Ajax.requests.count()).toEqual(3);
         expect(jasmine.Ajax.requests.first().url)
             .toEqual('https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/en.wikipedia/desktop/user/monthly/2017010100/2017060100');
     });

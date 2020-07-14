@@ -25,7 +25,8 @@ module.exports = {
         knownStart: '2016-01-01',
         breakdowns: [{
             name: 'Access method',
-            breakdownName: 'access',
+            key: 'access',
+            allValue: 'all-access',
             values: [
                 { name: 'Desktop', on: true, key: 'desktop' },
                 { name: 'Mobile App', on: true, key: 'mobile-app' },
@@ -33,7 +34,8 @@ module.exports = {
             ]
         }, {
             name: 'Agent type',
-            breakdownName: 'agent',
+            key: 'agent',
+            allValue: 'all-agents',
             values: [
                 { name: 'User', on: true, key: 'user' },
                 { name: 'Spider', on: true, key: 'spider' },
@@ -66,7 +68,8 @@ module.exports = {
         global: true,
         breakdowns: [{
             name: 'Access site',
-            breakdownName: 'access-site',
+            key: 'access-site',
+            allValue: 'all-sites',
             values: [
                 { name: 'Mobile Site', on: true, key: 'mobile-site' },
                 { name: 'Desktop Site', on: true, key: 'desktop-site' }
@@ -98,7 +101,8 @@ module.exports = {
         },
         breakdowns: [{
             name: 'Access method',
-            breakdownName: 'access',
+            key: 'access',
+            allValue: 'all-access',
             values: [
                 { name: 'Desktop', on: true, key: 'desktop' },
                 { name: 'Mobile App', on: true, key: 'mobile-app' },
@@ -140,10 +144,11 @@ module.exports = {
         area: 'reading',
         global: false,
         globalFamily: true,
-        breakdownCheck: 'ONLY_IF_PER_DOMAIN',
+        splittingCheck: 'ONLY_IF_PER_DOMAIN',
         breakdowns: [{
             name: 'Access site',
-            breakdownName: 'access-site',
+            key: 'access-site',
+            allValue: 'all-sites',
             values: [
                 { name: 'Mobile Site', on: true, key: 'mobile-site' },
                 { name: 'Desktop Site', on: true, key: 'desktop-site' }
@@ -174,7 +179,8 @@ module.exports = {
         },
         breakdowns: [{
             name: 'Access method',
-            breakdownName: 'access',
+            key: 'access',
+            allValue: 'all-access',
             values: [
                 { name: 'Desktop', on: true, key: 'desktop' },
                 { name: 'Mobile App', on: true, key: 'mobile-app' },

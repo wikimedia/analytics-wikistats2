@@ -72,7 +72,7 @@ class AnnotationApi {
      *      title:          {String},
      *      date:           {Date},
      *      breakdown:      {String},
-     *      breakdownValue: {String},
+     *      splitValue:     {String},
      *  }
      */
     getAnnotations (graphModel) {

@@ -22,7 +22,7 @@ function getGraphModel () {
         activeBreakdown: {
             breakdownName: 'total',
             values: [ { on: true, key: 'total' } ],
-        },
+        }
     };
 }
 

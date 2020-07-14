@@ -1,7 +1,7 @@
 <template>
 <span>
-    <span v-if="breakdown">
-        <span v-for="b, i in breakdown.values" v-if="b.on">
+    <span v-if="dimension">
+        <span v-for="b, i in dimension.values" v-if="b.on">
             <span class="color swatch"
                   :style="{ 'background-color': getColor(b.key) }"></span>
             {{$t(geti18nBreakdownKey(b.key)) | capitalize}}
@@ -11,18 +11,22 @@
 </template>
 
 <script>
-import config from '../../config'
+import config from '../../config';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'simple-legend',
-    props: ['breakdown', 'graphModel'],
+    props: ['dimension', 'graphModel'],
+    computed: mapGetters('dimensions', [
+        'colorForDimensionValue'
+    ]),
     methods: {
         getColor (key) {
-            return config.getColorForBreakdown(this.breakdown, key, this.$store.state.area);
+            return this.colorForDimensionValue(key, this.$store.state.area);
         },
         geti18nBreakdownKey (key) {
             if (key === 'total') return 'general-total';
-            return `metrics-${this.graphModel.metricId}-breakdowns-${this.breakdown.breakdownName}-values-${key}-name`;
+            return `metrics-${this.graphModel.metricId}-breakdowns-${this.dimension.key}-values-${key}-name`;
         },
     }
 }

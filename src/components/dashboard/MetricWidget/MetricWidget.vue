@@ -39,6 +39,7 @@ import AQS from 'Src/apis/aqs';
 import config from 'Src/config';
 import utils from 'Src/utils';
 import GraphModel from 'Src/models/GraphModel';
+import Dimension from 'Src/models/Dimension';
 import RouterLink from '../../RouterLink';
 
 let aqsApi = new AQS();
@@ -67,6 +68,7 @@ export default {
     },
 
     mounted () {
+        this.graphModel.dimensions = Dimension.fromMetricConfig(this.metricConfig);
         this.loadData();
         if (this.metrics.length > 1 && !this.mobile) {
             setInterval(() => {

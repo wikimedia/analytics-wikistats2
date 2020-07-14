@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import detail from './detail';
+import dimensions from './dimensions';
 import _ from '../lodash-custom-bundle';
 
 const navigationStateKeys = ['project', 'area', 'metric', 'mainComponent', 'section'];
@@ -9,8 +10,10 @@ const complexStateAdapters = {'detail': detail.readFromURL};
 
 Vue.use(Vuex);
 export default new Vuex.Store({
+    //strict: true,
     modules: {
         detail: detail.module,
+        dimensions
     },
     state: {
         project: '',
@@ -33,7 +36,11 @@ export default new Vuex.Store({
         }),
         stateForURL: (state, getters) => {
             let forURL = Object.assign({}, getters.mainState);
-            forURL.detail = detail.writeToURL(state.detail);
+            if(!_.isEmpty(state.detail)) {
+                const dimensions = state.dimensions.dimensions;
+                state.detail.dimensions = dimensions;
+                forURL.detail = detail.writeToURL(state.detail);
+            }
             return forURL;
         },
         getWidth: state => state.width
@@ -48,8 +55,9 @@ export default new Vuex.Store({
             this.commit('detail/reset');
             Object.keys(arg).forEach(k => {
                 const readFromURL = complexStateAdapters[k] || (x => x);
-                state[k] = readFromURL(arg[k]);
+                state[k] = readFromURL(arg[k], state);
             });
+            this.commit('dimensions/dimensions', state.detail.dimensions);
         },
         project (state, arg) {
             state.project = arg.project;

@@ -3,6 +3,7 @@ import config from '../config';
 import utils from '../utils';
 import detailURL from './urls/detail';
 import UserPreferences from './UserPreferences';
+import Dimension from 'Src/models/Dimension';
 
 /**
  * Specify routes and their properties here.
@@ -64,6 +65,7 @@ function getMergedDetail (metric) {
         chartType: config.getChartTypes(metricConfig)[0].chart,
         timeRange: utils.getDefaultTimeRange(metricConfig),
         fullscreen: false,
+        dimensions: Dimension.fromMetricConfig(metricConfig),
         breakdown: {values: [{key: 'total', on: true}]},
         granularity: 'monthly'
     };
@@ -72,13 +74,14 @@ function getMergedDetail (metric) {
     if (metricConfig.breakdowns) {
         for (let i = 0; !breakdown && i < metricConfig.breakdowns.length; i++) {
             const b = metricConfig.breakdowns[i];
-            breakdown = userPreferences.get(['breakdown', b.breakdownName]);
+            breakdown = userPreferences.get(['breakdown', b.key]);
         }
     }
     const preferences = {
         chartType: userPreferences.get(['chartType', metricConfig.type]),
         timeRange: userPreferences.get(['timeRange', metricConfig.structure]),
         fullscreen: userPreferences.get(['fullscreen']),
+        dimensions: userPreferences.get(['dimensions']),
         breakdown,
     };
 

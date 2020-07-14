@@ -15,9 +15,9 @@
 
             <div class="ui right floated basic fudge segment">
                 <simple-legend
-                    v-if="!mobile && activeBreakdown && chartComponent !== 'table-chart' && chartComponent !== 'map-chart'"
+                    v-if="!mobile && splittingDimension && chartComponent !== 'table-chart' && chartComponent !== 'map-chart'"
                     class="simple legend"
-                    :breakdown="activeBreakdown"
+                    :dimension="splittingDimension"
                     :graphModel="graphModel">
                 </simple-legend>
                 <div v-if="!mobile" class="ui right floated icon buttons">
@@ -107,7 +107,7 @@ import utils from '../../utils';
 import detailUtils from '../../router/urls/detail';
 import *  as d3Formatter from 'd3-dsv';
 import _ from 'lodash';
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Vue from 'vue';
 
 export default {
@@ -136,6 +136,9 @@ export default {
             'fullscreen',
             'chartType',
             'timeRange',
+        ]),
+        mapGetters('dimensions', [
+            'splittingDimension',
         ]), {
             chartTypes: function () {
                 return !this.graphModel ? [] : config.getChartTypes(this.graphModel.config);
@@ -149,11 +152,8 @@ export default {
             aggregate: function () {
                 return this.graphModel && this.graphModel.getAggregate();
             },
-            activeBreakdown: function () {
-                return this.graphModel.activeBreakdown;
-            },
             metricId: function () {
-                return this.graphModel.config.name;
+                return this.graphModel.metricId;
             },
             unit: function(){
                 if (this.graphModel.config.unit){

@@ -26,7 +26,8 @@ module.exports = {
         globalFamily: false,
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -35,14 +36,16 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
             ]
         },{
             name: 'Activity level',
-            breakdownName: 'activity_level',
+            key: 'activity_level',
+            allValue: 'all-activity-levels',
             values: [
                 { name: '1 to 4 edits', key: '1..4-edits', on: true },
                 { name: '5 to 24 edits', key: '5..24-edits', on: true },
@@ -76,10 +79,33 @@ module.exports = {
         },
         breakdowns: [{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
+            ]
+        },{
+            name: 'Editor type',
+            locked: true,
+            key: 'editor_type',
+            allValue: 'all-editor-types',
+            values: [
+                { name: 'Anonymous', on: false, key: 'anonymous' },
+                { name: 'Group bot', on: false, key: 'group-bot' },
+                { name: 'Name bot', on: false, key: 'name-bot' },
+                { name: 'User', on: true, key: 'user' },
+            ]
+        },{
+            name: 'Activity level',
+            locked: true,
+            key: 'activity_level',
+            allValue: 'all-activity-levels',
+            values: [
+                { name: '1 to 4 edits', key: '1..4-edits', on: false },
+                { name: '5 to 24 edits', key: '5..24-edits', on: true },
+                { name: '25 to 99 edits', key: '25..99-edits', on: true },
+                { name: '100 or more edits', key: '100..-edits', on: true }
             ]
         }]
     },
@@ -109,7 +135,8 @@ module.exports = {
         globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -118,7 +145,8 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
@@ -149,7 +177,8 @@ module.exports = {
         },
         breakdowns: [{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
@@ -182,7 +211,8 @@ module.exports = {
         globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -191,7 +221,8 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
@@ -246,7 +277,8 @@ module.exports = {
         },
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -255,7 +287,8 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
@@ -292,7 +325,8 @@ module.exports = {
         },
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -301,7 +335,8 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }

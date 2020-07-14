@@ -245,7 +245,9 @@ class Router {
                         userPreferences.update(stateForURL);
                     }
                 }
-            },
+            }, {
+                deep: true
+            }
         );
 
         // Subscribe to changes on the browser's location.

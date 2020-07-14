@@ -30,7 +30,7 @@ class UserPreferences {
 
     update (state) {
         if (state.detail) {
-            const detail = detailURL.readFromURL(state.detail);
+            const detail = detailURL.readFromURL(state.detail, state);
             const metricConfig = config.metricConfig(state.metric);
             const defaultChartType = config.getChartTypes(metricConfig)[0].chart;
             const chartTypeWasAChoice = (
@@ -41,13 +41,14 @@ class UserPreferences {
                 this.set(['chartType', metricConfig.type], detail.chartType);
             }
             this.set(['timeRange', metricConfig.structure], detail.timeRange);
-            if (!detail.breakdown.breakdownName && metricConfig.breakdowns) {
+            if (!detail.breakdown.key && metricConfig.breakdowns) {
                 metricConfig.breakdowns.forEach((b) => {
-                    this.delete(['breakdown', b.breakdownName]);
+                    this.delete(['breakdown', b.key]);
                 });
             } else {
-                this.set(['breakdown', detail.breakdown.breakdownName], detail.breakdown);
+                this.set(['breakdown', detail.breakdown.key], detail.breakdown);
             }
+            this.set(['dimensions'], state.dimensions);
             this.set(['fullscreen'], detail.fullscreen);
         } else {
             // Returning to the dashboard should reset the preferences.

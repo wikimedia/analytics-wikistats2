@@ -7,21 +7,20 @@ import utils from '../utils';
  * so this function generates annotations for any and all nested relevant breakdown values
  */
 function expandByBreakdown (result, a) {
-
     if (a.relevantBreakdowns) {
         a.relevantBreakdowns.forEach(ab => {
             ab.values.forEach(abv => {
                 const clone = utils.cloneDeep(a);
                 clone.date = a.date;
                 clone.breakdown = ab.dimension;
-                clone.breakdownValue = abv;
+                clone.splitValue = abv;
 
                 result.push(clone);
             });
         });
     } else {
         a.breakdown = 'total';
-        a.breakdownValue = 'total';
+        a.splitValue = 'total';
         result.push(a);
     }
 
@@ -37,7 +36,7 @@ function setValues (annotations, graphData) {
         while (aIndex < annotations.length &&
                annotations[aIndex].date <= graphData[closestIndex].month) {
             const a = annotations[aIndex]
-            annotations[aIndex].value = graphData[closestIndex].total[a.breakdownValue];
+            annotations[aIndex].value = graphData[closestIndex].total[a.splitValue];
             annotations[aIndex].date = graphData[closestIndex].month;
             aIndex++;
         }
@@ -47,16 +46,17 @@ function setValues (annotations, graphData) {
 
 
 function processRawAnnotations (annotations, graphModel) {
-    const start = graphModel.graphData[0].month,
-          end = graphModel.graphData[graphModel.graphData.length - 1].month,
-          breakdownName = graphModel.activeBreakdown.breakdownName || 'total',
-          breakdownValues = graphModel.activeBreakdown.values.filter(bv => bv.on);
+    const splittingDimension = graphModel.dimensions && graphModel.dimensions.find(d => d.splitting);
+    const start = graphModel.graphData[0].month;
+    const end = graphModel.graphData[graphModel.graphData.length - 1].month;
+    const key = splittingDimension ? splittingDimension.key : 'total';
+    const splitValues = splittingDimension ? splittingDimension.values.filter(bv => bv.on) : [];
 
     const filteredAndExpanded = annotations
         .filter(a => !_.isEmpty(a.note) && a.date !== null)
         .filter(a => a.date >= start && a.date <= end)
         .reduce(expandByBreakdown, [])
-        .filter(a => breakdownName === a.breakdown && breakdownValues.find(bv => bv.key === a.breakdownValue));
+        .filter(a => key === 'total' || key === a.breakdown && splitValues.find(bv => bv.key === a.splitValue));
 
     setValues(filteredAndExpanded, graphModel.graphData);
 
@@ -78,15 +78,15 @@ function processRawAnnotations (annotations, graphModel) {
  */
 function groupIfOverlapping (annotations, spacePerAnnotation) {
     const groupedByBreakdown = annotations.reduce((result, a) => {
-        if (!result[a.breakdownValue]) {
-            result[a.breakdownValue] = [];
+        if (!result[a.splitValue]) {
+            result[a.splitValue] = [];
         }
 
-        const lastIndex = result[a.breakdownValue].length - 1;
+        const lastIndex = result[a.splitValue].length - 1;
         let append = true;
 
         if (lastIndex >= 0) {
-            const lastNote = result[a.breakdownValue][lastIndex];
+            const lastNote = result[a.splitValue][lastIndex];
             if (a.x - lastNote.x < spacePerAnnotation) {
                 append = false;
                 lastNote.note.label += ` *** ${a.note.title}: ${a.note.label}`;
@@ -96,7 +96,7 @@ function groupIfOverlapping (annotations, spacePerAnnotation) {
 
         if (append) {
             a.groupSize = 1;
-            result[a.breakdownValue].push(a);
+            result[a.splitValue].push(a);
         }
 
         return result;

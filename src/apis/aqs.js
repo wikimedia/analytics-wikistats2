@@ -41,13 +41,14 @@ class AQS {
      *  /pageviews/aggregate/fr.wiktionary /desktop    /user/daily/20170514/20170614
      *  /pageviews/aggregate/fr.wiktionary /mobile-web /user/daily/20170514/20170614
      */
-    getData (uniqueParameters, commonParameters) {
+    getData (uniqueParameters, commonParameters, dimensions) {
         let tries = 3;
         return new Promise((resolve, reject) => {
             const attemptGettingData = () => {
                 const uncheckedPromise = this.requestData(
                     uniqueParameters,
-                    commonParameters
+                    commonParameters,
+                    dimensions
                 );
                 uncheckedPromise.then(dimensionalData => {
                     /*
@@ -70,7 +71,7 @@ class AQS {
         });
     }
 
-    requestData (uniqueParameters, commonParameters) {
+    requestData (uniqueParameters, commonParameters, dimensions) {
         if (!commonParameters.metric) {
             return new Promise(() => new DimensionalData());
         }
@@ -84,13 +85,21 @@ class AQS {
         if (metricConfig.cumulative === true) {
             commonParameters.start = '1980010100';
         }
-        let promises = utils.labeledCrossProduct(uniqueParameters)
+
+        let promises = utils.dimensionsKeyExplode(dimensions)
             .map(p => Object.assign(p, commonParameters))
             .map(p => {
+                p.referer = uniqueParameters.referer && uniqueParameters.referer[0];
+                p.project = uniqueParameters.project && uniqueParameters.project[0];
                 if (p.referer) {
                     // hack for mediarequests
                     p.referer = p.project.replace('all-projects', 'all-referers');
                     p.project = p.referer;
+                }
+                for (let up in uniqueParameters) {
+                    if (!p[up]) {
+                        p[up] = uniqueParameters[up];
+                    }
                 }
                 let url = apiConfig.endpoint;
                 (url.match(/{{.*?}}/g) || []).forEach((k) => {
@@ -174,7 +183,7 @@ class AQS {
         ]
     }
 
-    Any hyphens in keys will be replaced by underscores to uniformise breakdown keys
+    Any hyphens in keys will be replaced by underscores to uniformize dimension keys
     and parameter names.
     */
     transformResults (data) {

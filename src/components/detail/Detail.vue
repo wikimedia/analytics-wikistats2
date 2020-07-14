@@ -17,9 +17,9 @@
     <div v-if="compact || fullscreen" class="container breakdowns">
         <breakdowns
             v-if="graphModel && graphModel.graphData
-                  && graphModel.breakdowns
-                  && graphModel.breakdowns.length > 1
-                  && graphModel.breakdownAllowed()"
+                  && graphModel.dimensions
+                  && graphModel.dimensions.length > 1
+                  && graphModel.splittingAllowed()"
             :graphModel="graphModel"
         />
     </div>
@@ -77,6 +77,9 @@ export default {
             'metric',
             'project',
         ]),
+        mapState('dimensions', [
+            'dimensions'
+        ]),
         mapState('detail', [
             'fullscreen',
             'breakdown',
@@ -112,7 +115,7 @@ export default {
             otherMetrics () {
                 return Object.keys(config.metrics)
                     .filter((m) => config.metrics[m].area === this.area)
-                    .map((m) => Object.assign(config.metrics[m], { name: m }));
+                    .map((m) => Object.assign({}, config.metrics[m], { name: m }));
             },
             overlayMessage () {
                 return this.graphModel && this.graphModel.status;
@@ -147,6 +150,13 @@ export default {
             },
             deep: true,
         },
+
+        dimensions: {
+            handler () {
+                this.loadData();
+            },
+            deep: true
+        }
     },
 
     mounted () {
@@ -159,6 +169,7 @@ export default {
             const metricConfig = config.metricConfig(this.metric);
             this.graphModel = new GraphModel(this.project, this.metric);
             this.graphModel.granularity = this.granularity;
+            this.graphModel.dimensions = this.dimensions;
             if (metricConfig.knownEnd) {
                 const newTimeRange = new TimeRange([metricConfig.knownStart, metricConfig.knownEnd]);
                 this.$store.commit('detail/timeRange', { timeRange: newTimeRange });
@@ -178,7 +189,7 @@ export default {
         loadData () {
             this.graphModel.loadData({
                 annotations: true
-            });
+            }, this.dimensions);
         }
     },
 };

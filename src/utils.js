@@ -2,13 +2,37 @@ import dateFormat from 'dateformat';
 import config from './config';
 import TimeRange from 'Src/models/TimeRange';
 
+const dimensionsKeyExplode = (dimensions, defaultDimensionValues) => {
+
+    let explodedKeys = dimensions.map(dimension => {
+        const allValuesActive = !dimension.values.some(value => !value.on);
+        const useAllValue = !dimension.active || (!dimension.splitting && allValuesActive);
+        if (useAllValue) {
+            let keyed = {};
+            keyed[dimension.key] = dimension.allValue;
+            return [keyed];
+        }
+        return dimension.values
+            .filter(value => value.on)
+            .map(value => {
+                let keyed = {};
+                keyed[dimension.key] = value.key;
+                return keyed;
+            });
+    });
+    return explodedKeys.reduce((result, arr) => {
+        return result
+            .map(x => arr.map(y => Object.assign({}, x, y)))
+            .reduce((a, b) => a.concat(b), []);
+    }, [{}]);
+}
+
 function labeledCrossProduct (obj) {
     let explodedKeys = Object.keys(obj).map(k => obj[k].map(o => {
         let keyed = {};
         keyed[k] = o;
         return keyed;
     }));
-
     return explodedKeys.reduce((result, arr) => {
         return result
             .map(x => arr.map(y => Object.assign({}, x, y)))
@@ -118,6 +142,7 @@ function dateFormatForGranularity (date, granularity) {
 }
 
 export default {
+    dimensionsKeyExplode,
     labeledCrossProduct,
     cloneDeep,
     getLastFullMonth,

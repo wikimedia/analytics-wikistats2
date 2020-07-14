@@ -1,4 +1,7 @@
 import router from '../src/router';
+import detail from '../src/router/urls/detail';
+import config from 'Src/config';
+import Dimension from 'Src/models/Dimension';
 
 class StoreMock {
     constructor (mainState) {
@@ -238,3 +241,85 @@ describe('Router', function () {
         );
     });
 });
+
+const decoder = detail.decodeDimensionsStateFromEncoded;
+
+describe('The encoded state to dimensions decoder', () => {
+    it('should set to splitting if there\'s only one dimension', () => {
+        const encoded = 'editor_type~anonymous*group-bot*name-bot*user';
+        const metric = 'editors';
+        const decoded = decoder(encoded, metric);
+        expect(decoded.length).toEqual(3);
+        const expectedSplittingDimension = decoded.find(dim => dim.key === 'editor_type');
+        expect(expectedSplittingDimension.splitting).toBe(true);
+    })
+    it('should get full dimension array if it\'s set to total', () => {
+        const metric = 'editors';
+        const encoded = '~total';
+        const decoded = decoder(encoded, metric);
+        expect(decoded.length).toEqual(3);
+        const enabledDimensions = decoded.filter(dim => dim.enabled);
+        expect(enabledDimensions.length).toEqual(0);
+    });
+
+    it('should set to splitting the first dimension indicated', () => {
+        const metric = 'editors';
+        const metricConfig = config.metricConfig(metric);
+        const metricConfigDimensions = config.metricConfig(metric).breakdowns;
+        const encoded = 'page_type~content~editor_type~anonymous*group-bot*name-bot*user';
+        const decoded = decoder(encoded, metric);
+        const expectedSplittingDimension = decoded.find(dim => dim.key === 'page_type');
+        expect(expectedSplittingDimension.splitting).toEqual(true);
+    })
+
+    it('should not split if dimension name has a dash in the end', () => {
+        const metric = 'editors';
+        const metricConfig = config.metricConfig(metric);
+        const metricConfigDimensions = config.metricConfig(metric).breakdowns;
+        const encoded = 'page_type-~content~editor_type~anonymous*group-bot*name-bot*user';
+        const decoded = decoder(encoded, metric);
+        const expectedNonSplittingDimension = decoded.find(dim => dim.key === 'page_type');
+        expect(expectedNonSplittingDimension.splitting).toEqual(false);
+    })
+})
+
+const encoder = detail.encodeDimensionsState;
+
+describe('The dimensions encoder', () => {
+    it('should return the correct string if there\'s no dimension enabled', () =>{
+        const metric = 'editors';
+        const metricConfig = config.metricConfig(metric);
+        const dimensions = Dimension.fromMetricConfig(metricConfig);
+        expect(encoder(dimensions)).toEqual('~total');
+
+    } )
+    it('should put a dash on non-splitting enabled dimensions', () => {
+        const metric = 'editors';
+        const metricConfig = config.metricConfig(metric);
+        const dimensions = Dimension.fromMetricConfig(metricConfig);
+        dimensions[0].active = true;
+        dimensions[0].values[0].on = true;
+        dimensions[0].values[1].on = true;
+        dimensions[1].active = true;
+        dimensions[1].values[0].on = true;
+        dimensions[2].active = true;
+        dimensions[2].values[1].on = true;
+        dimensions[2].splitting = true;
+        const encoded = encoder(dimensions);
+        const editorTypePosition = encoded.indexOf('editor_type');
+        expect(encoded[editorTypePosition + 'editor_type'.length]).toEqual('-');
+        const pageTypePosition = encoded.indexOf('page_type');
+        expect(encoded[pageTypePosition + 'page_type'.length]).toEqual('-');
+    })
+    it('should only include enabled dimensions', () => {
+        const metric = 'editors';
+        const metricConfig = config.metricConfig(metric);
+        const dimensions = Dimension.fromMetricConfig(metricConfig);
+        dimensions[0].active = true;
+        dimensions[0].values[0].on = true;
+        dimensions[0].values[1].on = true;
+        dimensions[1].active = true;
+        dimensions[1].values[0].on = true;
+        expect(encoder(dimensions).indexOf('activity_level')).toEqual(-1);
+    })
+})

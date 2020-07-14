@@ -26,7 +26,8 @@ module.exports = {
         globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -35,7 +36,8 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
@@ -69,7 +71,8 @@ module.exports = {
         global: false,
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -78,14 +81,16 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
             ]
         },{
             name: 'Activity level',
-            breakdownName: 'activity_level',
+            key: 'activity_level',
+            allValue: 'all-activity-levels',
             values: [
                 { name: '1 to 4 edits', key: '1..4-edits', on: true },
                 { name: '5 to 24 edits', key: '5..24-edits', on: true },
@@ -122,7 +127,8 @@ module.exports = {
         globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -131,7 +137,8 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
@@ -165,7 +172,8 @@ module.exports = {
         globalFamily: true,
         breakdowns: [{
             name: 'Editor type',
-            breakdownName: 'editor_type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
             values: [
                 { name: 'Anonymous', on: true, key: 'anonymous' },
                 { name: 'Group bot', on: true, key: 'group-bot' },
@@ -174,7 +182,8 @@ module.exports = {
             ]
         },{
             name: 'Page type',
-            breakdownName: 'page_type',
+            key: 'page_type',
+            allValue: 'all-page-types',
             values: [
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
@@ -209,7 +218,8 @@ module.exports = {
         global: true,
         breakdowns: [{
             name: 'Media type',
-            breakdownName: 'media_type',
+            key: 'media_type',
+            allValue: 'all-media-types',
             values: [
                 { name: 'Image', on: true, key: 'image' },
                 { name: 'Video', on: true, key: 'video' },
@@ -219,7 +229,8 @@ module.exports = {
             ]
         },{
             name: 'Agent type',
-            breakdownName: 'agent',
+            key: 'agent',
+            allValue: 'all-agents',
             values: [
                 { name: 'User', on: true, key: 'user' },
                 { name: 'Spider', on: true, key: 'spider' }
@@ -255,7 +266,8 @@ module.exports = {
         additive: true,
         breakdowns: [{
             name: 'Media type',
-            breakdownName: 'media_type',
+            key: 'media_type',
+            allValue: 'all-media-types',
             values: [
                 { name: 'Image', on: true, key: 'image' },
                 { name: 'Video', on: true, key: 'video' },

@@ -6,7 +6,7 @@ import StatusOverlay from 'Src/components/StatusOverlay';
 import AQS from 'Src/apis/aqs';
 import AnnotationApi from 'Src/apis/annotation';
 
-const breakdownChecks = {
+const splittingAllowedChecks = {
     'ONLY_IF_PER_DOMAIN': (p) => !utils.isProjectFamily(p),
 };
 
@@ -28,8 +28,7 @@ class GraphModel {
         this.breakdowns.splice(0, 0, {
             total: true,
             name: 'Total',
-            // this undefined is meaningful as a second parameter to DimensionalData.breakdown
-            breakdownName: null,
+            key: null,
             values: [
                 { name: 'total', on: true, key: 'total' },
             ],
@@ -79,8 +78,8 @@ class GraphModel {
                 this.status = StatusOverlay.NON_GLOBAL_FAMILY(this.config.fullName, this.project);
                 return;
             }
-            if (!this.breakdownAllowed(this.project) && this.activeBreakdown.name !== 'Total') {
-                this.preventUnallowedBreakdown();
+            if (!this.splittingAllowed(this.project) && this.activeBreakdown.name !== 'Total') {
+                this.preventUnallowedSplit();
             }
             const aqsApi = new AQS();
             const defaults = this.config.defaults || {
@@ -110,22 +109,8 @@ class GraphModel {
             if (this.config.structure === 'top') {
                 Object.assign(commonParameters, utils.getLastFullMonth(commonParameters.end));
             }
-            const breakdown = this.activeBreakdown;
-            if (breakdown && !breakdown.total) {
-                let breakdownKeys = breakdown.values.filter(bv => bv.on).map(bv => bv.key);
 
-                // in this case, the user de-selected the last value, toggle back to Total
-                if (!breakdownKeys.length) {
-                    // also re-select everything otherwise this will loop
-                    // to see what I mean, try deleting the next line and de-selecting all values
-                    breakdown.values.forEach(bv => bv.on = true);
-                    this.activeBreakdown = this.breakdowns[0];
-                    return;
-                }
-                uniqueParameters[breakdown.breakdownName] = breakdownKeys;
-            }
-
-            let dataPromise = aqsApi.getData(uniqueParameters, commonParameters);
+            let dataPromise = aqsApi.getData(uniqueParameters, commonParameters, this.dimensions);
             this.status = StatusOverlay.LOADING;
 
             dataPromise.catch((req, status, error) => {
@@ -154,51 +139,45 @@ class GraphModel {
         return (!this.config.global && this.project === config.ALL_PROJECTS);
     }
 
-    preventUnallowedBreakdown () {
+    preventUnallowedSplit () {
         this.activeBreakdown = this.getDefaultBreakdown();
     }
 
-    breakdownAllowed () {
-        if (!(this.breakdowns) || !(this.breakdowns.length > 1)) {
+    splittingAllowed () {
+        if (!this.dimensions || this.dimensions.length < 1) {
             return false;
         }
-
-        const check = this.config.breakdownCheck;
-        return !check || breakdownChecks[check](this.project);
+        const check = this.config.splittingCheck;
+        return !check || splittingAllowedChecks[check](this.project);
     }
 
-    setData (data) {
+    setData (data, dimensions) {
         this.data = data;
-
-        const xAxisValue = 'timestamp';
+        let xAxisValue = 'timestamp';
         const yAxisValue = this.config.value;
 
-
         if (this.config.structure === 'top') {
-            this.graphData = topXByY(this.data, this.config).map(row => {
-
-                row.total = {
-                    total: row[yAxisValue]
-                };
+            xAxisValue = this.config.key;
+            this.graphData = this.topXByY(xAxisValue, yAxisValue).map(row => {
+                row.total = row[yAxisValue]
                 row.month = utils.createDate(row.timestamp);
                 row.timeRange = timestampToTimeRange(row.timestamp, this.granularity);
-
                 delete row[yAxisValue];
                 return row;
             });
             return;
         } else {
             this.data.measure(xAxisValue);
-            const rawValues = this.datasetFunction(
-                this.data.breakdown(yAxisValue, this.activeBreakdown.breakdownName)
-            );
-            this.graphData = this.cutForTimerange(rawValues.map((row) => {
+            const filterAndSplitValues = this.data.filterSplit(this.dimensions, this.config.value);
+            const sorted = _.sortBy(filterAndSplitValues, row => row.timestamp);
+            const rawValues = this.datasetFunction(sorted);
+            const graphFormattedData = rawValues.map((row) => {
                 var ts = row.timestamp;
                 const month = utils.createDate(ts);
                 const timeRange = timestampToTimeRange(ts, this.granularity);
                 return {month: month, total: row[yAxisValue], timeRange: timeRange};
-            }), this.timeRange);
-
+            });
+            this.graphData = this.cutForTimerange(graphFormattedData, this.timeRange);
             //this.timeRange.end = this.graphData[this.graphData.length - 1].timeRange.end;
 
             if (this.config.truncatedThreshold) {
@@ -206,6 +185,19 @@ class GraphModel {
             }
         }
 
+    }
+
+    topXByY (valueColumn, measureColumn) {
+        // Value column is the name of the thing that is being ranked (articles, user names, countries)
+        const formattedData = this.data.filterSplit(this.dimensions, measureColumn, valueColumn);
+        const sorted = _.sortBy(formattedData, row => row[measureColumn].total).reverse();
+        const timestamp = this.data.getAllItems()[0].timestamp;
+        const rankedAndTimestamped = sorted.map((row, i) => {
+            row.rank = i + 1;
+            row.timestamp = timestamp;
+            return row;
+        });
+        return rankedAndTimestamped;
     }
 
     hasTruncatedValues () {
@@ -299,23 +291,21 @@ class GraphModel {
     }
 
     getAggregatedValues (limitToLastN) {
-        const activeDict = this.getActiveBreakdownValues();
         const values = this.graphData.map((d) => {
-            return _.sum(_.map(d.total, (breakdownValue, key) => {
-                return key in activeDict ? breakdownValue : 0;
-            }));
+            return _.sum(_.map(d.total, (dimensionValue, key) => dimensionValue));
         });
         const limit = Math.min(limitToLastN || values.length, values.length);
         return _.takeRight(values, limit);
     }
 
-    getActiveBreakdownValues () {
-        const actives = this.activeBreakdown.values.filter(bv => bv.on).map(bv => bv.key);
+    getActiveDimensionValues () {
+        const splittingDimension = this.dimensions.find(d => d.active);
+        const actives = splittingDimension.values.filter(bv => bv.on).map(bv => bv.key);
         return actives.reduce((r, a) => { r[a] = true; return r; }, {});
     }
 
     activateBreakdownIfAvailable (breakdown) {
-        const found = _.find(this.breakdowns, b => b.breakdownName === breakdown.breakdownName);
+        const found = _.find(this.breakdowns, b => b.key === breakdown.key);
         if (found) {
             found.values.forEach(bv => {
                 const foundValue = _.find(breakdown.values, x => x.key === bv.key);
@@ -326,7 +316,6 @@ class GraphModel {
     }
 
     getMinMax () {
-        const activeDict = this.getActiveBreakdownValues();
         if (this.config.structure === 'top') {
             const sorted = _.sortBy(this.graphData, row => row.rank);
             return {
@@ -338,8 +327,10 @@ class GraphModel {
         let min = 0;
         let max = 0;
 
+        const splittingDimension = this.dimensions.find(d => d.splitting);
+        const activeSplitValues = splittingDimension ? splittingDimension.values.filter(v => v.on).map(v => v.key) : ['total'];
         _.forEach(this.graphData, d => {
-            const active = _.toPairs(d.total).filter(r => r[0] in activeDict).map(r => r[1]);
+            const active = _.toPairs(d.total).filter(r => activeSplitValues.find(v => v === r[0])).map(r => r[1]);
             min = Math.min(min, _.min(active));
             max = Math.max(max, _.max(active));
         });
@@ -390,16 +381,6 @@ function timestampToTimeRange (timestamp, granularity) {
 }
 
 
-/**
-* Stateless function that pivots the data
-**/
-function topXByY (data, config) {
-        const x = config.key;
-        const y = config.value;
-        data.measure(x);
-        const results = data.breakdown(y);
-        return _.take(_.sortBy(results, (row) => row[y]).reverse(), results.length);
-}
 /**
 * Convert an nested object in a set of flat key value pairs
 * {some: { a:1, b:2 }} will be converted to {some.a :1, some.b:2}
