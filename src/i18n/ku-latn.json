@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bikarhêner"
+			"Bikarhêner",
+			"Guherto"
 		]
 	},
 	"general-title": "Statîstîkên Wîkîmedyayê",
@@ -9,7 +10,7 @@
 	"general-year": "sal",
 	"general-last_12_months": "12 mehên dawî",
 	"general-12_month_average": "averaja 12 mehan",
-	"general-no_data": "(dane tine)",
+	"general-no_data": "(dane nîne)",
 	"general-total": "tevahî",
 	"general-date": "dem",
 	"general-name": "nav",
@@ -66,10 +67,10 @@
 	"metrics-edited-pages-breakdowns-page_type-values-content-name": "Naverok",
 	"metrics-edited-pages-breakdowns-page_type-values-non-content-name": "Bênaverok",
 	"metrics-edited-pages-breakdowns-activity_level-name": "Asta çalakiyê",
-	"metrics-edited-pages-breakdowns-activity_level-values-1..4-edits-name": "Ji 1ê heta 4an guherandin",
-	"metrics-edited-pages-breakdowns-activity_level-values-5..24-edits-name": "Ji 5ê heta 24an guherandin",
-	"metrics-edited-pages-breakdowns-activity_level-values-25..99-edits-name": "Ji 25ê heta 99an guherandin",
-	"metrics-edited-pages-breakdowns-activity_level-values-100..-edits-name": "100 an zêdetir guherandin",
+	"metrics-edited-pages-breakdowns-activity_level-values-1..4-edits-name": "Ji 1ê heta 4an guhertin",
+	"metrics-edited-pages-breakdowns-activity_level-values-5..24-edits-name": "Ji 5ê heta 24an guhertin",
+	"metrics-edited-pages-breakdowns-activity_level-values-25..99-edits-name": "Ji 25ê heta 99an guhertin",
+	"metrics-edited-pages-breakdowns-activity_level-values-100..-edits-name": "100 an zêdetir guhertin",
 	"metrics-net-bytes-difference-name": "Ferqa baytan yê net",
 	"metrics-net-bytes-difference-breakdowns-editor_type-values-user-name": "Bikarhêner",
 	"metrics-net-bytes-difference-breakdowns-page_type-name": "Cureya rûpelê",
