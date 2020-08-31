@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Haxpett",
+			"Sabelöga",
 			"WikiPhoenix"
 		]
 	},
@@ -23,7 +24,7 @@
 	"topic_explorer-default_description": "Sök eller bläddra bland frågor och välj en för att se svaren",
 	"dashboard-monthly_overview": "Månadsöversikt",
 	"metrics-total-page-views-name": "Totalt antal sidvisningar",
-	"metrics-total-page-views-description": "Sidvisningar på Wikimediaprojekten räknar visningar av artiklar. I den här siffran försöker vi exkludera bottrafik och fokusera på visningar för människor.",
+	"metrics-total-page-views-description": "Sidvisningar på Wikimediaprojekten räknar visningar av artiklar. I den här siffran försöker vi separera robottrafik och fokusera på visningar för människor.",
 	"metrics-total-page-views-tooltip": "En sidvisning är en begäran för innehållet på en webbsida. Sidvisningar på Wikimediaprojekten är vårt viktigaste mätetal för visning av innehåll. Definitionen av sidvisningar försöker räkna sidvisningar av innehåll för användare.",
 	"metrics-total-page-views-question": "Hur många gånger visas artiklar?",
 	"metrics-total-page-views-breakdowns-access-name": "Åtkomstmetod",
@@ -148,10 +149,12 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-video-name": "Video",
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Ljud",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Dokument",
+	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Övrigt",
 	"months-January": "Januari",
 	"months-February": "Februari",
 	"months-March": "Mars",
 	"months-April": "April",
+	"months-May": "Maj",
 	"months-June": "Juni",
 	"months-July": "Juli",
 	"months-August": "Augusti",
@@ -161,7 +164,12 @@
 	"months-December": "December",
 	"graph_panel-no_data_yet": "Ingen data ännu",
 	"graph_panel-add_annotations_link": "Du kan {0}",
+	"detail_sidebar-metrics": "Mått",
 	"breakdowns-filter": "Filter",
+	"breakdowns-filter_and_split": "Filtrera och dela",
+	"breakdowns-split": "Dela",
+	"breakdowns-breakdown_action": "{operation} av {breakdownName}",
+	"breakdowns-overall": "Sammanlagt",
 	"charts-line": "rad",
 	"charts-map": "karta",
 	"charts-table": "tabell",
@@ -169,10 +177,12 @@
 	"granularities-daily": "dagligen",
 	"granularities-monthly": "månatligen",
 	"footer-design_credit": "Designad av {aislinn}",
+	"footer-license": "Creative Commons CC0 dedikation",
 	"footer-documentation": "Dokumentation",
 	"footer-about_wikistats": "Om Wikistats",
 	"footer-technology": "Teknik",
 	"footer-data_it_uses": "Data den använder",
+	"footer-privacy_policy": "Integritetspolicy",
 	"footer-report_a_bug": "Rapportera en bugg",
 	"footer-new_feature": "Ny funktion",
 	"footer-community": "Gemenskap",
@@ -187,5 +197,6 @@
 	"tooltip-breakdown-anonymous": "En användare som inte har loggat in",
 	"tooltip-breakdown-group-bot": "En bot som är registrerad och del av botanvändargruppen",
 	"tooltip-breakdown-user": "En registrerad inloggad användare",
-	"tooltip-breakdown-non-content": "Diskussionssidor, användarsidor, etc. kallas \"Inget innehåll\""
+	"tooltip-breakdown-non-content": "Diskussionssidor, användarsidor, etc. kallas \"Inget innehåll\"",
+	"widget_header-subtitle_for_last_month": "{subtitle} för {lastMonthLabel}"
 }
