@@ -39,6 +39,7 @@
 	"metrics-legacy-page-views-description": "Tidigare sidvisningar är föregångaren till sidvisningar. De inkluderar data från januari 2008 till juli 2016.",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Mobilwebbplats",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Datorwebbplats",
+	"metrics-page-views-by-country-subtitle": "Länder med flest visningar",
 	"metrics-page-views-by-country-breakdowns-access-name": "Åtkomstmetod",
 	"metrics-page-views-by-country-breakdowns-access-values-desktop-name": "Dator",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-app-name": "Mobilapp",
