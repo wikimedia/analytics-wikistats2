@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kiran Gopi",
 			"Praveenp"
 		]
 	},
@@ -32,6 +33,7 @@
 	"metrics-total-page-views-breakdowns-agent-name": "ഏജന്റ് തരം",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "ഉപയോക്താവ്",
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "സ്പൈഡർ",
+	"metrics-total-page-views-breakdowns-agent-values-automated-name": "സ്വയം പ്രവർത്തിതം",
 	"metrics-legacy-page-views-name": "പഴയ താൾ എടുത്തുനോക്കലുകൾ",
 	"metrics-legacy-page-views-description": "താൾ എടുത്തുനോക്കലുകളുടെ മുൻഗാമിയാണ് മുൻ താൾ എടുത്തുനോക്കൽ. അതിൽ ജനുവരി 2008 മുതൽ ജൂലൈ 2016 വരെയുള്ള വിവരങ്ങൾ ഉൾക്കൊള്ളുന്നു.",
 	"metrics-legacy-page-views-tooltip": "വിക്കിമീഡിയ പദ്ധതികളിലെ മുൻ താൾ എടുത്തുനോക്കലിൽ ജനുവരി 2008 മുതൽ ജൂലൈ 2016 വരെയുള്ള ലേഖന ഉള്ളടക്കങ്ങളുടെ എടുത്തുനോക്കലുകളുടെ എണ്ണം ഉണ്ട്. നിലവിലുള്ള താൾ എടുത്തുനോക്കലുമായുള്ള പ്രധാനവ്യത്യാസം പഴയതിൽ സ്വയം റിപ്പോർട്ട് ചെയ്തിട്ടുള്ള ബോട്ടുകളെ അരിച്ച് മാറ്റാനുള്ള സൗകര്യം ഇല്ല എന്നതാണ്, യാന്ത്രികവും മനുഷ്യരുടേയും ആയ ട്രാഫിക്ക് അതിനാൽ ഒരുമിച്ച് കണ്ടേക്കാം.",
