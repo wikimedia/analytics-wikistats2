@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Moj",
 			"Pyscowicz"
 		]
 	},
@@ -8,6 +9,7 @@
 	"general-month": "kuukausi",
 	"general-year": "vuosi",
 	"general-name": "nimi",
+	"topic_explorer-default_description": "Hae tai selaa kysymyksiä ja valitse niistä jokin nähdäksesi vastaus siihen",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "Työpöytä",
 	"metrics-total-page-views-breakdowns-access-values-mobile-app-name": "Mobiilisovellus",
 	"metrics-total-page-views-breakdowns-access-values-mobile-web-name": "Mobiilisivusto",
@@ -32,6 +34,9 @@
 	"metrics-edits-name": "Muokkaukset",
 	"metrics-edits-breakdowns-editor_type-values-user-name": "Käyttäjä",
 	"metrics-user-edits-name": "Käyttäjän muokkaukset",
+	"metrics-new-pages-name": "Uudet sivut",
+	"metrics-new-pages-description": "Luotujen uusien sivujen määrä johon ei ole otettu lukuun uudelleenohjaussivuja",
+	"metrics-new-pages-question": "Kuinka monta uutta sivua kuukausittain tulee?",
 	"metrics-new-pages-breakdowns-editor_type-values-user-name": "Käyttäjä",
 	"metrics-new-registered-users-name": "Uudet rekisteröityneet käyttäjät",
 	"metrics-top-editors-breakdowns-editor_type-values-user-name": "Käyttäjä",
@@ -95,6 +100,7 @@
 	"footer-privacy_policy": "Tietosuojakäytäntö",
 	"footer-new_feature": "Uusi ominaisuus",
 	"footer-community": "Yhteisö",
+	"time_range-all": "Koko ajalta",
 	"tooltip-help-copy": "Kopioi leikepöydälle",
 	"tooltip-breakdown-anonymous": "Käyttäjä, joka ei ole kirjautunut sisään",
 	"status_overlay-general_error": "Jotain meni vikaan"
