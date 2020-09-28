@@ -5,31 +5,41 @@
         <wiki-selector :single="false"></wiki-selector>
     </div>
 
-    <div class="time" v-if="graphModel">
-        <div @click="toggleTimeSelection" class="ui label">
-            <i class="calendar alternate icon"></i>
-            {{formattedDateRange}}
-        </div>
-    </div>
-    <div class="time" v-if="graphModel">
-        <div @click="switchGranularity" :class="{untoggle: graphModel.availableGranularities().length === 1 }" v-if="graphModel && graphModel.graphData" class="ui label">{{$t(`granularities-${graphModel.granularity}`)}}</div>
-    </div>
+    <wiki-button
+        class="time toggle"
+        @click="toggleTimeSelection"
+        v-if="graphModel">
+        <i class="calendar alternate icon"></i>
+        {{formattedDateRange}}
+    </wiki-button>
+
+    <wiki-button
+        class="time"
+        @click="switchGranularity"
+        v-if="graphModel && graphModel.graphData"
+        :class="{disabled: graphModel.availableGranularities().length === 1 }">
+        {{$t(`granularities-${graphModel.granularity}`)}}
+    </wiki-button>
 
     <div class="ui clearing divider"></div>
 
     <h3 class="header">{{$t('detail_sidebar-metrics')}}</h3>
-
-    <router-link v-for="o in otherMetrics" :key="o.name"
-        :to="{project, area, metric: o.name}"
-        class="ui line label">
-        {{$t(`metrics-${o.name}-name`)}}
-    </router-link>
+    <div class = 'metricsList'>
+        <router-link v-for="o in otherMetrics" :key="o.name"
+            :to="{project, area, metric: o.name}">
+            <wiki-button
+                :class="{pressed: o.name === metric}">
+                {{$t(`metrics-${o.name}-name`)}}
+            </wiki-button>
+        </router-link>
+    </div>
 
     <!--p v-if="otherMetrics.length > 1">
         <a @click.prevent="viewMoreMetrics" href="#">View more metrics</a>
     </p-->
     <div class="ui clearing divider"></div>
-    <breakdowns :graphModel="graphModel" v-if="graphModel && graphModel.config.structure === 'timeseries' && graphModel.splittingAllowed(project)"/>
+    <h3 class="header" v-hint:filterAndSplit>Filter/split</h3>
+    <filter-split v-if="graphModel"/>
 </section>
 </template>
 
@@ -37,8 +47,9 @@
 import { mapState } from 'vuex';
 
 import WikiSelector from '../WikiSelector';
-import Breakdowns from './Breakdowns';
+import FilterSplit from './filterSplit/FilterSplit';
 import RouterLink from '../RouterLink';
+import WikiButton from 'Src/components/WikiButton';
 
 import utils from 'Src/utils'
 
@@ -57,13 +68,15 @@ export default {
     },
     components: {
         WikiSelector,
-        Breakdowns,
         RouterLink,
+        FilterSplit,
+        WikiButton
     },
     computed: Object.assign(
         mapState([
             'project',
             'area',
+            'metric',
             'selectingTime'
         ]),
         mapState('detail', [
@@ -128,19 +141,12 @@ export default {
     margin-bottom: 2px;
 }
 .time {
-    margin-top: 5px;
-}
-.time > .ui.label {
-    cursor: pointer;
-    border: solid 0.5px #999;
+    margin-top: 6px;
     text-transform: capitalize;
 }
-.time > .ui.label.untoggle {
-    cursor: default;
-    background-color: #E8E8E8;
-    border: none;
-}
-.time > div:hover {
-    background-color: #ccc;
+
+.metricsList a {
+    display: block;
+    margin-top: 6px;
 }
 </style>

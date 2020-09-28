@@ -2,6 +2,7 @@ import _ from '../lodash-custom-bundle';
 import utils from '../utils';
 import config from 'Src/config';
 import TimeRange from 'Src/models/TimeRange';
+import Dimension from 'Src/models/Dimension';
 import StatusOverlay from 'Src/components/StatusOverlay';
 import AQS from 'Src/apis/aqs';
 import AnnotationApi from 'Src/apis/annotation';
@@ -24,6 +25,7 @@ class GraphModel {
         this.annotationPromise = null;
 
         this.breakdowns = utils.cloneDeep(this.config.breakdowns || []);
+        this.dimensions = this.breakdowns.map(dimension => new Dimension(dimension));
         // insert a "total" breakdown as a default breakdown
         this.breakdowns.splice(0, 0, {
             total: true,
@@ -34,6 +36,7 @@ class GraphModel {
             ],
         })
         this.activeBreakdown = this.breakdowns[0];
+        this.splitDimension = this.dimensions.find(dimension => dimension.splitting);
 
         // Unless we are modifying the dataset (i.e. with a cumulative metric),
         // datasetFunction returns the same data it's passed.

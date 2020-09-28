@@ -2,11 +2,14 @@ import utils from '../utils';
 import detailURL from '../router/urls/detail';
 import config from 'Src/config';
 import TimeRange from 'Src/models/TimeRange';
+import Vue from 'vue';
 
 const module = {
     namespaced: true,
 
-    state: {},
+    state: {
+        dimensionsModalEnabled: false
+    },
 
     mutations: {
         reset (state) {
@@ -32,6 +35,9 @@ const module = {
         granularity (state, arg) {
             state.granularity = arg.granularity;
         },
+        dimensionsModalEnabled (state, {enabled}) {
+            Vue.set(state, 'dimensionsModalEnabled', enabled);
+        }
     },
 };
 

@@ -2,7 +2,7 @@ import store from 'Src/store/dimensions';
 import Vuex from 'vuex';
 import Vue from 'vue';
 import getVueComponent from '../util/getVueComponent';
-import Breakdowns from 'Src/components/detail/Breakdowns';
+import WikiTimeBar from 'Src/components/detail/WikiTimeBar';
 import config from 'Src/config';
 import Dimension from 'Src/models/Dimension'
 
@@ -11,7 +11,7 @@ const metricConfig = config.metricConfig(metric);
 
 describe('The dimensions state store', () => {
     it('should reset dimensions if all are disabled', () => {
-        const vm = getVueComponent(Breakdowns, {
+        const vm = getVueComponent(WikiTimeBar, {
             template: '<div><test></test></div>'
         });
         vm.$store.state.metric = metric;
@@ -32,7 +32,7 @@ describe('The dimensions state store', () => {
     });
 
     it('should split by default when the first dimension is enabled', () => {
-        const vm = getVueComponent(Breakdowns, {
+        const vm = getVueComponent(WikiTimeBar, {
             template: '<div><test></test></div>'
         });
         vm.$store.state.metric = metric;
@@ -44,7 +44,7 @@ describe('The dimensions state store', () => {
     });
 
     it('should disable any previous split if split is changed', () => {
-        const vm = getVueComponent(Breakdowns, {
+        const vm = getVueComponent(WikiTimeBar, {
             template: '<div><test></test></div>'
         });
         vm.$store.state.metric = metric;
@@ -65,7 +65,7 @@ describe('The dimensions state store', () => {
     });
 
     it('should disable the split for a disabled dimension', () => {
-        const vm = getVueComponent(Breakdowns, {
+        const vm = getVueComponent(WikiTimeBar, {
             template: '<div><test></test></div>'
         });
         vm.$store.state.metric = metric;
@@ -81,7 +81,7 @@ describe('The dimensions state store', () => {
     });
 
     it('should disable the dimension if all values are disabled', () => {
-        const vm = getVueComponent(Breakdowns, {
+        const vm = getVueComponent(WikiTimeBar, {
             template: '<div><test></test></div>'
         });
         vm.$store.state.metric = metric;
@@ -100,7 +100,7 @@ describe('The dimensions state store', () => {
     });
 
     it('should all values enabled if all values are disabled and then dimension is enabled again', () => {
-        const vm = getVueComponent(Breakdowns, {
+        const vm = getVueComponent(WikiTimeBar, {
             template: '<div><test></test></div>'
         });
         vm.$store.state.metric = metric;
