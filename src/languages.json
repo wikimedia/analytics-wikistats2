@@ -38,5 +38,20 @@
 		"numbroCode": "uk-UA",
 		"englishName": "Ukrainian",
 		"nativeName": "українська"
+	},
+	"de": {
+		"numbroCode": "de-DE",
+		"englishName": "German",
+		"nativeName": "Deutsch"
+	},
+	"es": {
+		"numbroCode": "es-ES",
+		"englishName": "Spanish",
+		"nativeName": "Español"
+	},
+	"vi": {
+		"numbroCode": "en",
+		"englishName": "Vietnamese",
+		"nativeName": "Tiếng Việt"
 	}
 }
