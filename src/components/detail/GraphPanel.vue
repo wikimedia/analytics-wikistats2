@@ -86,7 +86,6 @@
         </div>
         <status-overlay v-if="overlayMessage" :overlayMessage="overlayMessage" :project="graphModel.project" :metricName="$t(`metrics-${graphModel.metricId}-name`)"/>
     </div>
-    <time-selector-tooltip :graphModel="graphModel" v-if="!mobile && selectingTime"/>
     <div class="ui right floated icon button"
          v-if="!mobile && !overlayMessage"
          @click="toggleFullscreen"
@@ -102,7 +101,6 @@ import WikiSelector from '../WikiSelector'
 import WikiButton from '../WikiButton'
 import MetricsDropdown from '../MetricsDropdown'
 import ArrowIcon from '../ArrowIcon';
-import TimeSelectorTooltip from '../TimeSelector/TimeSelectorTooltip';
 import WikiTimeBar from './WikiTimeBar';
 import SimpleLegend from './SimpleLegend';
 import BarChart from './chart/BarChart';
@@ -126,7 +124,6 @@ export default {
 
     components: {
         ArrowIcon,
-        TimeSelectorTooltip,
         SimpleLegend,
         BarChart,
         LineChart,
@@ -218,10 +215,6 @@ export default {
     ),
 
     methods: {
-        toggleTimeSelection () {
-            const toggled = !this.selectingTime;
-            this.$store.commit('selectingTime', { selectingTime: toggled });
-        },
         changeChart (t) {
             this.$store.commit('detail/chartType', {chartType: t.chart});
         },
@@ -254,7 +247,7 @@ export default {
                 const endYPos = initialYPos + bbox.height;
                 // Hardcoding the language bar's height;
                 const offset = Math.min(endYPos - initialHeight - 300, Math.max(0, scroll - initialYPos));
-                this.scrollOffset = offset;
+                this.scrollOffset = Math.max(0, offset);
             })
         },
         // Gets the filtered values from the state and applies i18n to them

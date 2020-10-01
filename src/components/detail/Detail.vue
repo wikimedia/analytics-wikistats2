@@ -17,6 +17,7 @@
     <transition name="filter-modal-transition">
         <filter-split-modal v-if="dimensionsModalEnabled" class="filtersplitmodal" />
     </transition>
+    <time-selector-tooltip :graphModel="graphModel" v-if="!mobile && selectingTime"/>
 </div>
 </template>
 
@@ -29,6 +30,7 @@ import StatusOverlay from '../StatusOverlay';
 import GraphPanel from './GraphPanel';
 import DetailSidebar from './DetailSidebar';
 import MetricsDropdown from '../MetricsDropdown';
+import TimeSelectorTooltip from '../TimeSelector/TimeSelectorTooltip';
 
 import config from '../../config';
 import utils from '../../utils';
@@ -46,7 +48,8 @@ export default {
         GraphPanel,
         DetailSidebar,
         MetricsDropdown,
-        FilterSplitModal
+        FilterSplitModal,
+        TimeSelectorTooltip,
     },
 
     mixins: [titleMixin],
@@ -70,6 +73,7 @@ export default {
             'area',
             'metric',
             'project',
+            'selectingTime'
         ]),
         mapState('dimensions', [
             'dimensions'
