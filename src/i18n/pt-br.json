@@ -295,6 +295,7 @@
 	"tooltip-help-annotations": "Anotações",
 	"tooltip-help-split-total": "Veja o total geral",
 	"tooltip-help-split": "Divida o total em partes para ver mais detalhes. Filtre as partes de seu interesse usando as caixas de seleção",
+	"tooltip-help-toggle-dimension": "Alterne para dividir e/ou filtrar por esta dimensão.",
 	"tooltip-wikistats1Metric": "Esta é uma métrica do Wikistats 1. Clique aqui para ir para a versão herdada.",
 	"tooltip-filterAndSplit": "Divida o total em diferentes categorias e oculte uma ou mais categorias",
 	"tooltip-breakdown-desktop": "O site destinado a dispositivos de desktop (pode ser visualizado em dispositivos móveis)",

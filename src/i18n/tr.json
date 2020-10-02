@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"BaRaN6161 TURK"
+			"BaRaN6161 TURK",
+			"MuratTheTurkish"
 		]
 	},
 	"general-title": "Wikimedia İstatistikleri",
@@ -276,6 +277,7 @@
 	"footer-privacy_policy": "Gizlilik Politikası",
 	"footer-contributing": "Katkı sağlama",
 	"footer-contributing_guide": "Katkı kılavuzu",
+	"footer-translate": "Vikidurumları Çevirmeye Yardım Edin",
 	"footer-report_a_bug": "Hata bildir",
 	"footer-new_feature": "Yeni özellik",
 	"footer-community": "Topluluk",
@@ -294,6 +296,7 @@
 	"tooltip-help-annotations": "Ek açıklamalar",
 	"tooltip-help-split-total": "Toplamı görün",
 	"tooltip-help-split": "Daha fazla ayrıntı görmek için toplamı parçalara ayırın. Onay kutularını kullanarak ilgilendiğiniz parçalara filtre uygulayın",
+	"tooltip-help-toggle-dimension": "Bu boyuta göre bölmek ve/veya filtrelemek için geçiş yapın.",
 	"tooltip-wikistats1Metric": "Bu bir Vikidurum 1 metriğidir. Eski sürüme gitmek için burayı tıklayın.",
 	"tooltip-filterAndSplit": "Toplamı farklı kategorilere ayırın ve bir veya daha fazla kategoriyi gizleyin",
 	"tooltip-breakdown-desktop": "Masaüstü cihazlara yönelik site (mobil cihazlarda görüntülenebilir)",

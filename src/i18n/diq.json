@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"1917 Ekim Devrimi",
+			"Mirzali",
 			"Orbot707"
 		]
 	},
@@ -233,7 +234,7 @@
 	"time_range-3-month": "Peyên 3 mengi",
 	"time_range-last-month": "Menga verên",
 	"time_range-all": "Zemani pêro",
-	"tooltip-help-minimize": "Panela kışte peyser bia",
+	"tooltip-help-minimize": "Panelê kışte peyser bıya",
 	"tooltip-help-permalink": "Gıreyo daimi",
 	"tooltip-help-copy": "pano ra kopya ker",
 	"tooltip-help-change-chart": "Grafiki bıvurne",

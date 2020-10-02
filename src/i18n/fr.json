@@ -300,6 +300,7 @@
 	"tooltip-help-annotations": "Annotations",
 	"tooltip-help-split-total": "Voir le total global",
 	"tooltip-help-split": "Diviser les données pour voir plus de détails. N’affichez que ce qui vous intéresse en utilisant les cases à cocher.",
+	"tooltip-help-toggle-dimension": "Basculer pour partager ou filtrer selon cette dimension",
 	"tooltip-wikistats1Metric": "Ceci est une mesure de Wikistats 1. Cliquez ici pour voir l’ancienne version.",
 	"tooltip-filterAndSplit": "Séparer les données en différentes catégories et masquer une ou plusieurs d’entre elles.",
 	"tooltip-breakdown-desktop": "Le site est conçu pour les ordinateurs de bureau (peut être vu sur les appareils mobiles)",
