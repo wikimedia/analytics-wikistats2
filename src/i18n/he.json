@@ -296,6 +296,7 @@
 	"tooltip-help-annotations": "הערות",
 	"tooltip-help-split-total": "לראות את סך הכול",
 	"tooltip-help-split": "יש לפצל את סך הכול לחלקים כדי לראות יותר פרטים. סננו את החלקים שאתם מעוניינים בהם באמצעות תיבות הסימון",
+	"tooltip-help-toggle-dimension": "החלפת מצב תפצל ו/או תסנן לפי ממד זה.",
 	"tooltip-wikistats1Metric": "זה מדד של ויקיסטטס 1. נא ללחוץ כאן לגרסה הישנה.",
 	"tooltip-filterAndSplit": "פיצול הסך לקטגוריות שונות, והסתרת קטגוריה אחת או יותר",
 	"tooltip-breakdown-desktop": "האתר מיועד למחשבים שולחניים (יכול להיות מוצג במכשירים ניידים)",
