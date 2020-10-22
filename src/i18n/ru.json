@@ -73,6 +73,7 @@
 	"metrics-active-editors-name": "Активные редакторы",
 	"metrics-active-editors-description": "Количество редакторов с пятью или более правками, в том числе на страницах перенаправления",
 	"metrics-active-editors-breakdowns-editor_type-name": "Тип редактора",
+	"metrics-active-editors-breakdowns-editor_type-values-anonymous-name": "Аноним",
 	"metrics-active-editors-breakdowns-editor_type-values-user-name": "Участник",
 	"metrics-active-editors-breakdowns-page_type-name": "Тип страницы",
 	"metrics-edits-name": "Правки",

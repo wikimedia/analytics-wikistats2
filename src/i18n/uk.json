@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Andriy.v",
 			"Movses",
 			"Piramidion"
 		]
@@ -42,7 +43,7 @@
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Мобільна версія",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Стаціонарна версія",
 	"metrics-page-views-by-country-name": "Перегляди за країною",
-	"metrics-page-views-by-country-description": "Країни, звідки цей проект відвідують найчастіше. Країни, звідки було менше, ніж 100 переглядів, не враховуються в цьому звіті, і на карті їх не виділено",
+	"metrics-page-views-by-country-description": "Країни, звідки цей проєкт відвідують найчастіше. Країни, звідки було менше, ніж 100 переглядів, не враховуються в цьому звіті, і на карті їх не виділено",
 	"metrics-page-views-by-country-subtitle": "Країни з найбільшою кількістю переглядів",
 	"metrics-page-views-by-country-tooltip": "Перегляд сторінки — це запит на доступ до контенту вебсторінки. Перегляди сторінок проектів Вікімедіа — найважливіший статистичний показник споживання контенту. Підрахунок переглядів сторінок намагається враховувати лише перегляди контенту, які здійснювали люди, а не боти.",
 	"metrics-page-views-by-country-question": "Звідки походять відвідувачі проекту?",
@@ -51,7 +52,7 @@
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-app-name": "Мобільний застосунок",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-web-name": "Мобільна версія",
 	"metrics-unique-devices-name": "Унікальні пристрої",
-	"metrics-unique-devices-description": "Скільки окремих пристроїв відвідують певний проект за заданий період часу",
+	"metrics-unique-devices-description": "Скільки окремих пристроїв відвідують певний проєкт за заданий період часу",
 	"metrics-unique-devices-tooltip": "Статистика унікальних пристроїв повідомляє нам, скільки окремих пристроїв відвідують наші вебсайти за заданий період часу. Команда аналітиків підраховує кількість унікальних пристроїв на день та місяць у такий спосіб, який не дозволяє унікально ідентифікувати, окреслювати відбитки, чи в будь-який інший спосіб відстежувати користувачів.",
 	"metrics-unique-devices-question": "Скільки унікальних пристроїв отримують доступ до контенту?",
 	"metrics-unique-devices-breakdowns-access-site-name": "Сайт доступу",

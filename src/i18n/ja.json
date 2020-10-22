@@ -3,7 +3,8 @@
 		"authors": [
 			"A2y4",
 			"Fdansv",
-			"Kkairri"
+			"Kkairri",
+			"Waki285"
 		]
 	},
 	"general-title": "ウィキメディア統計",
@@ -15,7 +16,7 @@
 	"general-total": "合計",
 	"general-date": "日付",
 	"general-name": "名前",
-	"general-original_wikistats": "オリジナルの Wikistats",
+	"general-original_wikistats": "オリジナルのウィキステータス",
 	"areas-reading": "閲覧",
 	"areas-contributing": "編集",
 	"areas-content": "内容",
