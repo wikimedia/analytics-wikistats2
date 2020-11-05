@@ -29,6 +29,11 @@
 		"englishName": "Turkish",
 		"nativeName": "Türkçe"
 	},
+	"fi": {
+		"numbroCode": "fi-FI",
+		"englishName": "Finnish",
+		"nativeName": "Suomi"
+	},
 	"fr": {
 		"numbroCode": "fr-FR",
 		"englishName": "French",

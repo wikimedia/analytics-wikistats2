@@ -293,7 +293,7 @@ describe('The dimensions encoder', () => {
         expect(encoder(dimensions)).toEqual('~total');
 
     } )
-    it('should put a dash on non-splitting enabled dimensions', () => {
+    it('should wrap non-splitting enabled dimensions in parens', () => {
         const metric = 'editors';
         const metricConfig = config.metricConfig(metric);
         const dimensions = Dimension.fromMetricConfig(metricConfig);
@@ -307,9 +307,9 @@ describe('The dimensions encoder', () => {
         dimensions[2].splitting = true;
         const encoded = encoder(dimensions);
         const editorTypePosition = encoded.indexOf('editor_type');
-        expect(encoded[editorTypePosition + 'editor_type'.length]).toEqual('-');
+        expect(encoded[editorTypePosition + 'editor_type'.length]).toEqual(')');
         const pageTypePosition = encoded.indexOf('page_type');
-        expect(encoded[pageTypePosition + 'page_type'.length]).toEqual('-');
+        expect(encoded[pageTypePosition + 'page_type'.length]).toEqual(')');
     })
     it('should only include enabled dimensions', () => {
         const metric = 'editors';

@@ -4,13 +4,13 @@ import config from 'Src/config';
 import Dimension from 'Src/models/Dimension';
 
 const TOP_LEVEL     = '|',
+      FIRST_LEVEL  = '+',
       SECOND_LEVEL  = '~',
       THIRD_LEVEL   = '*',
       DATE_FORMAT   = 'yyyy-mm-dd';
 
 function writeToURL (detail) {
-    // simpler: return encodeURIComponent(JSON.stringify(detail));
-    if (Object.keys(detail).length === 0) return '';
+    if (!detail || !detail.timeRange) return '';
     const timeRange = new TimeRange(detail.timeRange);
     return [
         detail.fullscreen ? 'full' : 'normal',
@@ -40,71 +40,64 @@ function readFromURL (encodedDetail, state) {
         fullscreen: parts[0] === 'full',
         chartType: parts[1],
         timeRange: timeRange,
+        // TODO: refactor out breakdowns again later
         breakdown: breakdownParts ? {
             key: breakdownParts[0],
             values: breakdownParts[1].split(THIRD_LEVEL).map(key => ({ key, on: true })),
         } : {values: [{key: 'total', on: true}]},
-        dimensions: dimensionsEncoded && decodeDimensionsStateFromEncoded(dimensionsEncoded, state.metric),
+        dimensions: decodeDimensionsStateFromEncoded(dimensionsEncoded, state.metric),
         granularity: granularity
     };
 }
 
 const decodeDimensionsStateFromEncoded = (encoded, metric) => {
+    if (!encoded) { return null; }
+
     const metricConfig = config.metricConfig(metric);
+    // TODO: refactor out breakdowns again later
     const dimensionsConfig = metricConfig.breakdowns || [];
     const decoded = {};
-    const mainParts = encoded.split(SECOND_LEVEL);
-    if (mainParts[0] !== '') {
-        for (let i = 0; i < mainParts.length; i += 2){
-            let dimensionKey = mainParts[i];
-            // split if key has a dash at its end
-            let splitting = true;
-            if (dimensionKey.substr(-1) === '-') {
-                splitting = false;
-                dimensionKey = dimensionKey.substr(0, dimensionKey.length - 1);
-            };
-            const encodedDimensionValues = mainParts[i + 1];
-            const activeDimensionValues = encodedDimensionValues.split(THIRD_LEVEL);
+
+    encoded.split(FIRST_LEVEL).forEach(dimString => {
+        const [dimKey, activeValues] = dimString.split(SECOND_LEVEL);
+        // decode dimensions except the special case ~total
+        if (dimKey && dimKey.length) {
+            const splitting = !(dimKey[0] === '(' && dimKey[dimKey.length - 1] === ')');
+            const dimensionKey = splitting ? dimKey : dimKey.substring(1, dimKey.length - 1);
+
             decoded[dimensionKey] = {
-                values: activeDimensionValues,
+                values: new Set(activeValues.split(THIRD_LEVEL)),
                 splitting
-            }
+            };
         }
-    }
+    });
+
     return dimensionsConfig.map(dimensionConfig => {
         const dimension = new Dimension(dimensionConfig);
-        const key = dimension.key;
-        const dimensionFromURL = decoded[key];
+        const dimensionFromURL = decoded[dimension.key];
+
         dimension.active = !!dimensionFromURL;
         if (dimension.active) {
             dimension.splitting = dimensionFromURL.splitting;
-            dimension.values.forEach(value => {
-                value.on = false;
-                if (dimensionFromURL.values.includes(value.key)) value.on = true;
-            })
+            dimension.values.forEach(value => { value.on = dimensionFromURL.values.has(value.key); })
         }
         return dimension;
     })
 };
 
+/**
+ * Encodes like: splitting-dimension~value1*value2+(non-splitting-dimension)~value1*value3*value4
+ */
 const encodeDimensionsState = (dimensions = []) => {
     const activeDimensions = dimensions.filter(dimension => dimension.active);
     if (activeDimensions.length === 0) {
         return SECOND_LEVEL + 'total';
     }
-    let encodedParts = [];
-    dimensions.forEach(dimension => {
-        let encoded = '';
-        if (!dimension.active) return;
-        encoded += dimension.key;
-        if (!dimension.splitting) encoded += '-';
-        encoded += SECOND_LEVEL;
-        const values = dimension.values;
-        const activeValueKeys = values.filter(v => v.on).map(v => v.key);
-        encoded += activeValueKeys.join(THIRD_LEVEL);
-        encodedParts.push(encoded);
-    });
-    return encodedParts.join(SECOND_LEVEL);
+    return activeDimensions.map(dimension => {
+        const values = dimension.values.filter(v => v.on).map(v => v.key);
+        const dim = dimension.splitting ? dimension.key : `(${dimension.key})`;
+        return dim + SECOND_LEVEL + values.join(THIRD_LEVEL);
+    }).join(FIRST_LEVEL);
 };
 
 export default {
