@@ -145,6 +145,7 @@
 	"metrics-top-edited-pages-breakdowns-page_type-name": "Sidtyp",
 	"metrics-top-edited-pages-breakdowns-page_type-values-content-name": "Innehåll",
 	"metrics-top-edited-pages-breakdowns-page_type-values-non-content-name": "Inget innehåll",
+	"metrics-absolute-bytes-diff-breakdowns-editor_type-name": "Redigerartyp",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-anonymous-name": "Anonym",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-group-bot-name": "Gruppbot",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-name-bot-name": "Namnrobot",
