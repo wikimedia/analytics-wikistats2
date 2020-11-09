@@ -218,5 +218,6 @@
 	"metrics-total-mediarequests-breakdowns-media_type-values-document-name": "Document",
 	"metrics-total-mediarequests-breakdowns-media_type-values-other-name": "Un altre",
 	"metrics-total-mediarequests-breakdowns-agent-name": "Tipus d'agent",
-	"metrics-total-mediarequests-breakdowns-agent-values-user-name": "Usuari"
+	"metrics-total-mediarequests-breakdowns-agent-values-user-name": "Usuari",
+	"metrics-total-mediarequests-breakdowns-agent-values-spider-name": "Aranya web"
 }

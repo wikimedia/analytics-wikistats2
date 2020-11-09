@@ -5,7 +5,7 @@
 			"Pyscowicz"
 		]
 	},
-	"general-title": "Wikimedia-tilastot",
+	"general-title": "Wikimedia Tilastot",
 	"general-month": "kuukausi",
 	"general-year": "vuosi",
 	"general-last_12_months": "viimeiset 12 kuukautta",
@@ -97,7 +97,7 @@
 	"metrics-edits-breakdowns-page_type-name": "Sivun tyyppi",
 	"metrics-edits-breakdowns-page_type-values-content-name": "Sisältösivut",
 	"metrics-edits-breakdowns-page_type-values-non-content-name": "Ei-sisältösivut",
-	"metrics-user-edits-name": "Käyttäjän muokkaukset",
+	"metrics-user-edits-name": "Käyttäjien muokkaukset",
 	"metrics-user-edits-description": "Ihmiskäyttäjien tekemien muokkausten (tai sivuversioiden) määrä",
 	"metrics-user-edits-tooltip": "Ihmiskäyttäjien tekemien muokkausten (tai sivuversioiden) määrä muokkaukset ohjaussivuihin mukaan laskettuna",
 	"metrics-user-edits-question": "Kuinka paljon muokkauksia käyttäjät ovat tehneet?",
@@ -153,7 +153,7 @@
 	"metrics-edited-pages-name": "Muokatut sivut",
 	"metrics-edited-pages-description": "Muokattujen sivujen määrä (ohjaussivut eivät mukana)",
 	"metrics-edited-pages-tooltip": "Muokattujen sivujen määrä (ohjaussivut eivät mukana)",
-	"metrics-edited-pages-question": "Kuinka monta sivua on muokattu?",
+	"metrics-edited-pages-question": "Kuinka montaa sivua on muokattu?",
 	"metrics-edited-pages-breakdowns-editor_type-name": "Muokkaajan tyyppi",
 	"metrics-edited-pages-breakdowns-editor_type-values-anonymous-name": "Anonyymi",
 	"metrics-edited-pages-breakdowns-editor_type-values-group-bot-name": "Ryhmäbotti",
