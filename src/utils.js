@@ -6,7 +6,8 @@ const dimensionsKeyExplode = (dimensions, defaultDimensionValues) => {
 
     let explodedKeys = dimensions.map(dimension => {
         const allValuesActive = !dimension.values.some(value => !value.on);
-        const useAllValue = !dimension.active || (!dimension.splitting && allValuesActive);
+        const lockedDimension = dimension.locked;
+        const useAllValue = !lockedDimension && !dimension.active || (!dimension.splitting && allValuesActive);
         if (useAllValue) {
             let keyed = {};
             keyed[dimension.key] = dimension.allValue;

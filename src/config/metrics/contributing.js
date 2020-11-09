@@ -183,6 +183,18 @@ module.exports = {
                 { name: 'Content', on: true, key: 'content' },
                 { name: 'Non content', on: true, key: 'non-content' }
             ]
+        },
+        {
+            name: 'Editor type',
+            key: 'editor_type',
+            allValue: 'all-editor-types',
+            locked: true,
+            values: [
+                { name: 'Anonymous', on: false, key: 'anonymous' },
+                { name: 'Group bot', on: false, key: 'group-bot' },
+                { name: 'Name bot', on: false, key: 'name-bot' },
+                { name: 'User', on: true, key: 'user' },
+            ]
         }]
     },
     'new-pages': {
