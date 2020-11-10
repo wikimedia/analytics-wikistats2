@@ -58,5 +58,20 @@
 		"numbroCode": "en",
 		"englishName": "Vietnamese",
 		"nativeName": "Tiếng Việt"
+	},
+	"it": {
+		"numbroCode": "it-IT",
+		"englishName": "Italian",
+		"nativeName": "Italiano"
+	},
+	"pt": {
+		"numbroCode": "pt-PT",
+		"englishName": "Portuguese",
+		"nativeName": "Português"
+	},
+	"ja": {
+		"numbroCode": "ja-JP",
+		"englishName": "Japanese",
+		"nativeName": "日本語"
 	}
 }
