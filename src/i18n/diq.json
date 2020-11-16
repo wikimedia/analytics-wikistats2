@@ -201,6 +201,7 @@
 	"months-December": "Kanun",
 	"graph_panel-no_data_yet": "Hewna data çinıya",
 	"graph_panel-add_annotations_link": "{0} şenê",
+	"period_change-no_data": "(seba {period}ê peyêni data çıniyo)",
 	"period_change-month_over_month": "{change}% meng ra meng",
 	"period_change-year_over_year": "{change}% ser ra ser",
 	"detail_sidebar-metrics": "Metriki",
@@ -245,6 +246,7 @@
 	"tooltip-help-change-chart": "Grafiki bıvurne",
 	"tooltip-help-annotations": "Ole izahati",
 	"tooltip-help-split-total": "Arêdayışi bıvênê",
+	"tooltip-breakdown-user": "Qeydıno, cıkewtış kerde yew karbero",
 	"status_overlay-loading": "Matrisi benê bar...",
 	"status_overlay-general_error": "Tayê çi ğelet şi",
 	"widget_header-subtitle_for_last_month": "{lastMonthLabel} seba {subtitle}"

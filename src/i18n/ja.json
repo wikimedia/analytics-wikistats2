@@ -102,6 +102,7 @@
 	"metrics-user-edits-breakdowns-page_type-values-non-content-name": "記事でないページ",
 	"metrics-new-pages-name": "新しいページ",
 	"metrics-new-pages-description": "リダイレクトを除く、ページの新規作成件数",
+	"metrics-new-pages-question": "毎月どれだけのページが作られましたか?",
 	"metrics-new-pages-breakdowns-editor_type-name": "編集者の種類",
 	"metrics-new-pages-breakdowns-editor_type-values-anonymous-name": "匿名",
 	"metrics-new-pages-breakdowns-editor_type-values-group-bot-name": "ボット (グループ)",
