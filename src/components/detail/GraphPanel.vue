@@ -242,6 +242,7 @@ export default {
             let initialYPos = boundingBox.y;
             let initialHeight = boundingBox.height;
             $(document.body).on('scroll', ({target}) => {
+                if(this.chartType === 'table') return ;
                 const scroll = target.scrollTop;
                 const bbox = this.$el.getBoundingClientRect();
                 const endYPos = initialYPos + bbox.height;
