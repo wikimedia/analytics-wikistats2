@@ -127,7 +127,11 @@
 	"metrics-new-pages-breakdowns-page_type-values-content-name": "Innehåll",
 	"metrics-new-pages-breakdowns-page_type-values-non-content-name": "Inget innehåll",
 	"metrics-new-registered-users-name": "Nya registrerade användare",
+	"metrics-new-registered-users-question": "Hur många nya användare finns det?",
+	"metrics-top-editors-name": "Toppredigerare",
+	"metrics-top-editors-description": "Mest produktiva användare",
 	"metrics-top-editors-tooltip": "Redigerare rankade efter antalet redigeringar.",
+	"metrics-top-editors-question": "Vilka användare har redigerat flest artiklar?",
 	"metrics-top-editors-breakdowns-editor_type-name": "Redigerartyp",
 	"metrics-top-editors-breakdowns-editor_type-values-anonymous-name": "Anonym",
 	"metrics-top-editors-breakdowns-editor_type-values-group-bot-name": "Gruppbot",
@@ -137,6 +141,9 @@
 	"metrics-top-editors-breakdowns-page_type-values-content-name": "Innehåll",
 	"metrics-top-editors-breakdowns-page_type-values-non-content-name": "Inget innehåll",
 	"metrics-top-edited-pages-name": "Mest redigerade sidor",
+	"metrics-top-edited-pages-description": "Mest redigerade sidor",
+	"metrics-top-edited-pages-tooltip": "Sidor rankade efter antalet redigeringar.",
+	"metrics-top-edited-pages-question": "Vilka sidor har flest redigeringar?",
 	"metrics-top-edited-pages-breakdowns-editor_type-name": "Redigerartyp",
 	"metrics-top-edited-pages-breakdowns-editor_type-values-anonymous-name": "Anonym",
 	"metrics-top-edited-pages-breakdowns-editor_type-values-group-bot-name": "Gruppbot",
@@ -249,5 +256,6 @@
 	"tooltip-breakdown-group-bot": "En bot som är registrerad och del av botanvändargruppen",
 	"tooltip-breakdown-user": "En registrerad inloggad användare",
 	"tooltip-breakdown-non-content": "Diskussionssidor, användarsidor, etc. kallas \"Inget innehåll\"",
+	"status_overlay-general_error": "Något blev fel",
 	"widget_header-subtitle_for_last_month": "{subtitle} för {lastMonthLabel}"
 }
