@@ -118,7 +118,7 @@ export default {
             this.currentPage++;
         },
         geti8nBreakdownModeKey (breakdownKey, valueKey) {
-            if (!breakdownKey ) return 'general-total';
+            if (!breakdownKey || breakdownKey === 'total') return 'general-total';
             return `metrics-${this.graphModel.metricId}-breakdowns-${breakdownKey}-values-${valueKey}-name`;
         }
     }
