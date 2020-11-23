@@ -3,7 +3,8 @@
 		"authors": [
 			"Andriy.v",
 			"Movses",
-			"Piramidion"
+			"Piramidion",
+			"Ата"
 		]
 	},
 	"general-title": "Статистика Вікімедіа",
@@ -278,6 +279,7 @@
 	"footer-privacy_policy": "Політика конфіденційності",
 	"footer-contributing": "Внесок",
 	"footer-contributing_guide": "Як зробити внесок",
+	"footer-translate": "Допомогти з перекладом Wikistats",
 	"footer-report_a_bug": "Повідомити про помилку",
 	"footer-new_feature": "Нова функція",
 	"footer-community": "Спільнота",
@@ -296,6 +298,7 @@
 	"tooltip-help-annotations": "Анотації",
 	"tooltip-help-split-total": "Переглянути дані загалом",
 	"tooltip-help-split": "Розділити загальну статистику на частини, аби побачити більше подробиць. Фільтруйте статистику за частинами, в яких ви зацікавлені, розставляючи галочки.",
+	"tooltip-help-toggle-dimension": "Перемкніть щоб розбити та/або фільтрувати за цим показником.",
 	"tooltip-wikistats1Metric": "Це — статистика з Wikistats 1. Клацніть тут, щоб перейти на стару версію.",
 	"tooltip-filterAndSplit": "Розділіть загальну статистику на різні категорії та приховайте одну чи більше з них",
 	"tooltip-breakdown-desktop": "Цей сайт розрахований на стаціонарні пристрої (його можна переглядати з мобільних)",
