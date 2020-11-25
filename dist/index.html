@@ -11,7 +11,7 @@
         Wiktionary, Wikibooks, Wikinews, Wikiquote, Wikiversity"/>
         <title> Wikistats - Statistics For Wikimedia Projects </title>
         <link rel="shortcut icon" href="assets-v2/analytics.png">
-        <link rel="stylesheet" type="text/css" href="assets-v2/main.bundle.2.8.2.css">
+        <link rel="stylesheet" type="text/css" href="assets-v2/main.bundle.2.8.3.css">
     </head>
     <body>
         <div id="wikistats-app"></div>
@@ -37,7 +37,7 @@
             var __globalLocale = __selectedLocale || (navigator.language || navigator.userLanguage).split('-')[0];
             __globalLocale = __availableLocales.indexOf(__globalLocale) > -1 ? __globalLocale : 'en';
             window.localStorage.setItem('language', __globalLocale);
-            var jsFile = "main.bundle.2.8.2.en.js";
+            var jsFile = "main.bundle.2.8.3.en.js";
             var fileComponents = jsFile.split('.');
             fileComponents[fileComponents.length-2] = __globalLocale;
             var scriptElement = document.createElement('script');
