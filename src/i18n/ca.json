@@ -7,6 +7,7 @@
 			"Jmontane",
 			"Mguix",
 			"Papapep",
+			"Paucabot",
 			"Xavier Dengra"
 		]
 	},
@@ -132,7 +133,7 @@
 	"metrics-new-pages-breakdowns-page_type-values-non-content-name": "No-contingut",
 	"metrics-new-registered-users-name": "Nous usuaris registrats",
 	"metrics-new-registered-users-description": "Recompte de nous usuaris registrats de creació pròpia",
-	"metrics-new-registered-users-tooltip": "Xifra de nous usuaris que han iniciat sessió per primer cop en un projecte wiki determinat. S'empra com a indicador per a la captació d'usuaris.",
+	"metrics-new-registered-users-tooltip": "Nombre de nous usuaris que han iniciat sessió per primer cop en un projecte wiki determinat. S'empra com a indicador per a la captació d'usuaris.",
 	"metrics-new-registered-users-question": "Quants usuaris nous hi ha?",
 	"metrics-top-editors-name": "Editors més actius",
 	"metrics-top-editors-description": "Editors més prolífics",
