@@ -290,7 +290,7 @@
 	"tooltip-breakdown-25..99-edits": "Tehnyt 25–99 muokkausta näytettäväksi valittuina päivinä tai kuukausina",
 	"tooltip-breakdown-100..-edits": "Tehnyt yli sata muokkausta näytettäväksi valittuina päivinä tai kuukausina",
 	"status_overlay-no_data": "Tästä projektista ei ole saatavilla tätä dataa valitulta aikaväliltä.",
-	"status_overlay-non_global": "{metricName}-mittaria ei voi käyttää kaikille wikeille yhteensä. Valitse vasemmalta yksittäinen wiki",
+	"status_overlay-non_global": "{metricName}-mittarista ei ole saatavilla kaikkien wikien yhteistuloksia. Valitse yksittäinen wiki.",
 	"status_overlay-non_global_family": "{metricName}-mittaria ei voi käyttää {project}-projektille. Valitse vasemmalta toinen yksittäinen wiki",
 	"status_overlay-loading": "Ladataan mittaria...",
 	"status_overlay-general_error": "Jotain meni vikaan",
