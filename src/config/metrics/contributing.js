@@ -361,5 +361,42 @@ module.exports = {
         global: true,
         additive: false,
         globalFamily: true
-    }
+    },
+    'active-editors-by-country': {
+        disabled: false,
+        fullName: 'Active editors by country',
+        description: 'The count by country of editors with five or more edits, including on redirect pages',
+        question: 'Which countries do active editors come from?',
+        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Editors',
+        tooltip: 'The count by country of editors with five or more edits, including on redirect pages.',
+        defaults: {
+            unique: {
+                'activity-level': ['5..99-edits']
+            },
+            common: {
+                granularity: 'monthly',
+                metric: 'active-editors-by-country'
+            }
+        },
+        type: 'map',
+        structure: 'top',
+        area: 'contributing',
+        value: 'editors-ceil',
+        valueTitle: 'editors',
+        key: 'country',
+        arrayName: 'countries',
+        global: false,
+        globalFamily: false,
+        availableGranularities: ['monthly'],
+        breakdowns: [{
+            name: 'Activity level',
+            key: 'activity-level',
+            values: [
+                { name: '5 to 99 edits', key: '5..99-edits', on: true },
+                { name: '100 or more edits', key: '100..-edits', on: true }
+            ]
+        }],
+        additive: false,
+        knownStart: '2018-01-01',
+    },
 };

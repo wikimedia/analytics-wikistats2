@@ -68,4 +68,28 @@ describe('The dimension card', () => {
             expect($('.button.split', vm.$el).length).toEqual(0);
         })
     })
+
+    it('should show radio buttons when dimension doesnt have an all-value', () => {
+        const dimensionConfig = JSON.parse(JSON.stringify(metrics['total-page-views'].breakdowns));
+        delete dimensionConfig[0].allValue;
+        const dimension = dimensionConfig.map(d => new Dimension(d))[0];
+        const vm = getVueComponent(DimensionCard, {
+            template: '<div><test :dimension="dimension"></test></div>',
+            components: {
+                'test': DimensionCard
+            },
+            data () {
+                return {
+                    dimension
+                }
+            }
+        });
+        vm.$store.state.metric ='total-page-views';
+        vm.$mount();
+        dimension.enable();
+        Vue.nextTick(() => {
+            const radios = $('.ui.radio.checkbox', vm.$el);
+            expect(radios.length).toEqual(3);
+        })
+    })
 });

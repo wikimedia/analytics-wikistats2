@@ -15,7 +15,7 @@ describe('The filter/split component', () => {
             }
         });
         vm.$store.state.metric = metric;
-        vm.$store.commit('dimensions/metric', metric);
+        vm.$store.dispatch('dimensions/setMetric', metric);
         vm.$mount();
         const filterSplitChildren = vm.$children[0].$children;
         expect(filterSplitChildren.length).toEqual(1);
@@ -31,7 +31,7 @@ describe('The filter/split component', () => {
             }
         });
         vm.$store.state.metric = metric;
-        vm.$store.commit('dimensions/metric', metric);
+        vm.$store.dispatch('dimensions/setMetric', metric);
         vm.$store.dispatch('dimensions/enableDimension', dimensions[0].key);
         vm.$store.dispatch('dimensions/enableDimension', dimensions[1].key);
         vm.$mount();
@@ -39,6 +39,25 @@ describe('The filter/split component', () => {
             const filterSplitChildren = vm.$children[0].$children;
             const transitionChildren = filterSplitChildren[1].$children;
             expect(transitionChildren.length).toEqual(2);
+        })
+    });
+
+    it('should not spawn dimension selector card if there is only one dimension', () => {
+        const dimensions = [metrics[metric].breakdowns[0]].map(d => new Dimension(d));
+        const vm = getVueComponent(FilterSplit, {
+            template: '<div><test></test></div>',
+            components: {
+                'test': FilterSplit
+            }
+        });
+        vm.$store.state.metric = metric;
+        vm.$store.dispatch('dimensions/setMetric', metric);
+        vm.$mount();
+        Vue.nextTick(() => {
+            const filterSplitChildren = vm.$children[0].$children;
+            const transitionChildren = filterSplitChildren[1].$children;
+            expect(filterSplitChildren.length).toEqual(1);
+            expect(filterSplitChildren[0].$options.name).not.toEqual('dimension-selector-card');
         })
     });
 });

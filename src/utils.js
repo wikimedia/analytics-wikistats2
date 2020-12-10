@@ -2,8 +2,7 @@ import dateFormat from 'dateformat';
 import config from './config';
 import TimeRange from 'Src/models/TimeRange';
 
-const dimensionsKeyExplode = (dimensions, defaultDimensionValues) => {
-
+const dimensionsKeyExplode = (dimensions) => {
     let explodedKeys = dimensions.map(dimension => {
         const allValuesActive = !dimension.values.some(value => !value.on);
         const lockedDimension = dimension.locked;

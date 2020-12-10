@@ -1,3 +1,5 @@
+import utils from 'Src/utils';
+
 class Dimension {
     constructor (config) {
         this.key = config.key || config.key;
@@ -27,7 +29,7 @@ class Dimension {
     }
 
     static fromMetricConfig(metricConfig) {
-        const dimensionConfigs = metricConfig.breakdowns;
+        const dimensionConfigs = utils.cloneDeep(metricConfig.breakdowns || []);
         if (!dimensionConfigs) { return []; }
         return dimensionConfigs.map(dimensionConfig => new Dimension(dimensionConfig));
     }

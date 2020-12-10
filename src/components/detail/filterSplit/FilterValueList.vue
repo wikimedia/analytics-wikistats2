@@ -3,11 +3,12 @@
         <div
             class="ui checkbox"
             v-for="value in dimension.values"
-            :class="{checked: value.on}"
+            :class="{radio: radioMode, checked: value.on}"
             v-bind:key="value.key"
-            @click="toggleFilterValue(value.key)"
+            @click="toggleFilterValue(value.key, $event)"
             v-hint:breakdown.e="value.key">
-            <input :checked="value.on" type="checkbox">
+            <input v-if="radioMode" :checked="value.on" type="radio">
+            <input v-else :checked="value.on" type="checkbox">
             <label>{{$t(geti8nDimensionValueKey(dimension.key, value.key))}}</label>
         </div>
     </div>
@@ -18,7 +19,11 @@
         name: 'filter-value-list',
         computed: Object.assign(mapState([
             'metric'
-        ]), {}),
+        ]), {
+            radioMode () {
+                return !this.dimension.allValue;
+            }
+        }),
         props: [
             'dimension'
         ],
@@ -29,15 +34,17 @@
                 geti8nDimensionValueKey (dimensionKey, valueKey) {
                     return `metrics-${this.metric}-breakdowns-${dimensionKey}-values-${valueKey}-name`;
                 },
-                toggleFilterValue (key) {
+                toggleFilterValue (key, event) {
                     const value = this.dimension.values.find(v => v.key === key);
                     const valueInfo = {
                         dimensionKey: this.dimension.key,
                         filterValueKey: key
                     }
-                    value.on ?
-                        this.disableDimensionValue(valueInfo) :
+                    if(value.on && !this.radioMode){
+                        this.disableDimensionValue(valueInfo);
+                    } else {
                         this.enableDimensionValue(valueInfo);
+                    }
                 }
             }
         )
@@ -56,5 +63,10 @@
 
     .ui.checkbox label {
         cursor: pointer!important;
+    }
+
+    .ui.checkbox {
+        display: block;
+        margin-bottom: 6px;
     }
 </style>

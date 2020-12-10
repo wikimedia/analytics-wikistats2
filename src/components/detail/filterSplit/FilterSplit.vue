@@ -1,13 +1,13 @@
 <template>
     <div class="filtersplit">
-        <dimension-selector-card
+        <dimension-selector-card v-if="dimensions.length > 1"
             :dimensions="dimensions"
         />
         <transition-group v-if="activeDimensions.length > 0" name="cardfade" tag="div">
             <dimension-card
                 class="cardfade-item"
                 v-for="dimension in activeDimensions"
-                v-bind:key="dimension.key"
+                :key="dimension.key"
                 :dimension="dimension"
                 :splittable="dimensionIsSplittable"
             />

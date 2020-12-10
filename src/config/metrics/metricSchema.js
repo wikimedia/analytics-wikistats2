@@ -34,7 +34,7 @@ const metricSchema = {
             },
             allValue: {
                 type: 'string',
-                required: true
+                required: false
             },
             values: {
                 type: 'array',

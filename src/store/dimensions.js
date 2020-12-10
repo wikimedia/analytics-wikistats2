@@ -8,11 +8,6 @@ const state = {
 };
 
 const mutations = {
-    metric(state, metric) {
-        const metricConfig = config.metricConfig(metric);
-        const metricDimensions = utils.cloneDeep(metricConfig.breakdowns || []);
-        state.dimensions = metricDimensions.map(dimension => new Dimension(dimension));
-    },
     dimensions(state, dimensions) {
         state.dimensions = dimensions;
     },
@@ -44,6 +39,24 @@ const mutations = {
 };
 
 const actions = {
+    setDimensions ({commit, getters, dispatch}, dimensions) {
+        commit('dimensions', dimensions);
+        if (dimensions.length === 1) {
+            commit('enable', {key: dimensions[0].key});
+        }
+        dimensions.forEach(dimension => {
+            if (!dimension.allValue) {
+                commit('enable', {key: dimension.key});
+                const filterValueKey = dimension.values[0].key;
+                dispatch('disableAllValuesExcept', {dimensionKey: dimension.key, filterValueKey});
+            }
+        })
+    },
+    setMetric ({dispatch}, key) {
+        const metricConfig = config.metricConfig(key);
+        const metricDimensions = Dimension.fromMetricConfig(metricConfig);
+        dispatch('setDimensions', metricDimensions);
+    },
     disableDimension ({commit, getters}, key) {
         commit('disable', {key});
         const dimension = getters.dimension(key);
@@ -60,7 +73,8 @@ const actions = {
         );
         const dimensions = getters.dimensions;
         const splittable = config.metricConfig(this.state.metric).structure !== 'top';
-        if (splittable && !dimensions.some(d => d.splitting)) {
+        const noOtherSplit = !dimensions.some(d => d.splitting);
+        if (splittable && noOtherSplit) {
             commit('enableSplit', {key});
         }
     },
@@ -78,8 +92,22 @@ const actions = {
             dispatch('disableDimension', dimensionKey);
         }
     },
-    enableDimensionValue({getters, commit}, {dimensionKey, filterValueKey}) {
+    enableDimensionValue({getters, commit, dispatch}, {dimensionKey, filterValueKey}) {
+        const dimension = getters.dimension(dimensionKey);
+        // When there's no "all-value" (meaning, dimension is not additive), we can't have
+        // more than one dimension value active, so the value selectors turn into radio buttons.
+        if(!dimension.allValue) {
+            dispatch('disableAllValuesExcept', {dimensionKey, filterValueKey});
+        } else {
+            commit('enableDimensionValue', {dimensionKey, filterValueKey});
+        }
+    },
+    disableAllValuesExcept({getters, commit}, {dimensionKey, filterValueKey}) {
+        const dimension = getters.dimension(dimensionKey);
         commit('enableDimensionValue', {dimensionKey, filterValueKey});
+        dimension.values.filter(value => value.key !== filterValueKey).forEach(value => {
+            commit('disableDimensionValue', {dimensionKey, filterValueKey: value.key});
+        });
     }
 };
 

@@ -49,7 +49,7 @@ export default new Vuex.Store({
         navigate (state, arg) {
             state.mainComponent = arg.component;
         },
-        // Sets all poperties passed, and sets any remaining navigation properties to empty string.
+        // Sets all properties passed, and sets any remaining navigation properties to empty string.
         reload (state, arg) {
             navigationStateKeys.forEach(k => state[k] = '');
             this.commit('detail/reset');
@@ -57,7 +57,9 @@ export default new Vuex.Store({
                 const readFromURL = complexStateAdapters[k] || (x => x);
                 state[k] = readFromURL(arg[k], state);
             });
-            this.commit('dimensions/dimensions', state.detail.dimensions);
+            if (state.detail.dimensions) {
+                this.dispatch('dimensions/setDimensions', state.detail.dimensions);
+            }
         },
         project (state, arg) {
             state.project = arg.project;

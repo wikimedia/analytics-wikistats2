@@ -107,7 +107,8 @@ const mainMetricsByArea = [
                 'wikistats1',
                 'top-editors',
                 'editors',
-                'top-edited-pages'
+                'top-edited-pages',
+                'active-editors-by-country'
             ]
         }
     },
@@ -226,9 +227,11 @@ export default {
         'total-mediarequests': {
             endpoint: AQS_HOST + '/mediarequests/aggregate/{{project}}/{{media_type}}/{{agent}}/{{granularity}}/{{start}}/{{end}}'
         },
-
         'top-mediarequests': {
             endpoint: AQS_HOST + '/mediarequests/top/{{project}}/{{media_type}}/{{year}}/{{month}}/{{day}}'
+        },
+        'active-editors-by-country': {
+            endpoint: AQS_HOST + '/editors/by-country/{{project}}/{{activity-level}}/{{year}}/{{month}}'
         }
     },
 
