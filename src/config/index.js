@@ -63,26 +63,14 @@ const darkColor = {
 
 const startDate = Date.parse('1980-01-01T00:00:00Z');
 
-const areasWithMetrics = _.transform(questions, function (result, q) {
-    let area = result.find((a) => a.name === q.a);
-    if (!area) {
-        area = {
-            name: q.a,
-            order: { reading: 1, contributing: 2, content: 3 }[q.a],
-            color: colors[q.a][1],
-            metrics: []
-        };
-        result.unshift(area);
-    }
+const metricNames = Object.keys(metrics);
 
-    area.metrics.push({
-        name: _.kebabCase(q.m),
-        fullName: q.m
-    });
-
-    result.sort((a, b) => a.order > b.order);
-    return result;
-}, []);
+const questions = metricNames.map(k => ({
+    id: k,
+    metric: metrics[k].fullName,
+    area: metrics[k].area,
+    question: metrics[k].question,
+})).sort((a, b) => a.area > b.area || a.metric > b.metric);
 
 const mainMetricsByArea = [
     {
@@ -134,14 +122,6 @@ const availableChartTypes = {
     map     : { chart: 'map', icon: 'globe' },
     table   : { chart: 'table', icon: 'table' },
 };
-
-const metricNames = Object.keys(metrics);
-const questions = metricNames.map(k => ({
-    id: k,
-    metric: metrics[k].fullName,
-    area: metrics[k].area,
-    question: metrics[k].question,
-})).sort((a, b) => a.area > b.area || a.metric > b.metric);
 
 const metricGroups = {};
 _.forEach(metricNames.filter(n => metrics[n].metricGroup), n => {
@@ -296,7 +276,6 @@ export default {
     stableColorIndexes,
     questions,
     metricGroups,
-    areasWithMetrics,
     months,
     availableChartTypes,
     startDate,

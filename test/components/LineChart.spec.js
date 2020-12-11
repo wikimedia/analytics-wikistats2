@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import LineChart from '../../src/components/detail/chart/LineChart.vue'
+import LineChart from '../../src/components/detail/chart/LineChart'
 import GraphModel from '../../src/models/GraphModel'
 import Dimension from '../../src/models/Dimension'
 import TimeRange from '../../src/models/TimeRange'
@@ -23,6 +23,7 @@ const metric = Object.freeze({
     }]
 });
 
+SVGElement.prototype.getBBox = () => { return {width: 0, height: 0} }
 
 describe('The line chart', () => {
     it('should generate one line when there are no breakdowns selected', (done) => {

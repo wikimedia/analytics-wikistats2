@@ -1,6 +1,6 @@
-import AQS from '../../src/apis/aqs'
-import TimeRange from '../../src/models/TimeRange'
-import Dimension from 'Src/models/Dimension'
+import AQS from '../../src/apis/aqs';
+import TimeRange from '../../src/models/TimeRange';
+import Dimension from 'Src/models/Dimension';
 
 
 let uniqueParameters = {
@@ -14,15 +14,9 @@ let commonParameters = {
 };
 
 describe('AQS', function () {
-    beforeEach(function() {
-        jasmine.Ajax.install();
-      });
-
-    afterEach(function() {
-        jasmine.Ajax.uninstall();
-    });
 
     it('should call pageviews with correct parameters', function () {
+        const spy = jest.spyOn($, "ajax");
         const dimensions = [{
             key: 'access',
             active: true,
@@ -47,8 +41,7 @@ describe('AQS', function () {
         let a = new AQS();
         let answer = a.getData(uniqueParameters, commonParameters, dimensions);
 
-        expect(jasmine.Ajax.requests.count()).toEqual(3);
-        expect(jasmine.Ajax.requests.first().url)
-            .toEqual('https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/en.wikipedia/desktop/user/monthly/2017010100/2017060100');
+        expect(spy).toHaveBeenCalledTimes(3);
+        expect(spy.mock.calls[0][0].url).toEqual('https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/en.wikipedia/desktop/user/monthly/2017010100/2017060100');
     });
 });

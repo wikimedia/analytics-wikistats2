@@ -40,6 +40,7 @@ const mutations = {
 
 const actions = {
     setDimensions ({commit, getters, dispatch}, dimensions) {
+        if (!dimensions) return;
         commit('dimensions', dimensions);
         if (dimensions.length === 1) {
             commit('enable', {key: dimensions[0].key});

@@ -22,7 +22,6 @@ describe('The dimension card', () => {
         vm.$mount();
         dimension.split();
         Vue.nextTick(() => {
-            debugger;
             expect($('.button.split', vm.$el).hasClass('pressed')).toEqual(true);
         })
     });

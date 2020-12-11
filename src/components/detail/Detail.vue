@@ -57,9 +57,6 @@ export default {
     data () {
         return {
             graphModel: null,
-
-            areasWithMetrics: config.areasWithMetrics,
-
             defaultMetrics: {
                 contributing: 'active-editors',
                 reading: 'total-pageviews',

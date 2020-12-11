@@ -22,7 +22,7 @@ describe('The filter/split component', () => {
         expect(filterSplitChildren[0].$options.name).toEqual('dimension-selector-card');
     });
 
-    it('should spawn as many dimension cards as active dimensions', () => {
+    it('should spawn as many dimension cards as active dimensions', (done) => {
         const dimensions = metrics[metric].breakdowns.map(d => new Dimension(d));
         const vm = getVueComponent(FilterSplit, {
             template: '<div><test></test></div>',
@@ -39,6 +39,7 @@ describe('The filter/split component', () => {
             const filterSplitChildren = vm.$children[0].$children;
             const transitionChildren = filterSplitChildren[1].$children;
             expect(transitionChildren.length).toEqual(2);
+            done()
         })
     });
 
@@ -51,13 +52,10 @@ describe('The filter/split component', () => {
             }
         });
         vm.$store.state.metric = metric;
-        vm.$store.dispatch('dimensions/setMetric', metric);
+        vm.$store.dispatch('dimensions/setDimensions', dimensions);
         vm.$mount();
-        Vue.nextTick(() => {
             const filterSplitChildren = vm.$children[0].$children;
-            const transitionChildren = filterSplitChildren[1].$children;
             expect(filterSplitChildren.length).toEqual(1);
             expect(filterSplitChildren[0].$options.name).not.toEqual('dimension-selector-card');
-        })
     });
 });

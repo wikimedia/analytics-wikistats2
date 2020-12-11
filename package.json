@@ -4,15 +4,15 @@
     "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
     "main": "index.js",
     "scripts": {
-        "test": "./node_modules/karma/bin/karma start --single-run --browsers ChromeHeadless,FirefoxHeadless",
-        "testDev": "./node_modules/karma/bin/karma start",
+        "test": "./node_modules/jest/bin/jest.js",
+        "testDev": "./node_modules/jest/bin/jest.js --watch",
         "build": "./webpack/build.js",
         "start": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
         "dev": "./node_modules/webpack/bin/webpack.js --config webpack/dev.config.js --progress --watch",
         "server": "python -m SimpleHTTPServer 5000"
     },
     "dependencies": {
-        "babel-polyfill": "^6.23.0",
+        "@babel/polyfill": "^7.12.1",
         "crossfilter": "^1.3.12",
         "d3": "^4.7.1",
         "d3-scale-chromatic": "^1.1.1",
@@ -34,34 +34,55 @@
         "wmui-base": "wikimedia/wikimedia-ui-base"
     },
     "devDependencies": {
+        "@babel/cli": "^7.12.10",
+        "@babel/core": "^7.12.10",
+        "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+        "@babel/preset-env": "^7.12.10",
         "@vue/test-utils": "^1.0.3",
-        "babel-core": "^6.25.0",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-jest": "^26.6.3",
         "babel-loader": "^7.0.0",
-        "babel-plugin-dynamic-import-webpack": "^1.0.2",
-        "babel-plugin-transform-object-rest-spread": "^6.23.0",
-        "babel-preset-env": "^1.5.2",
+        "babel-plugin-dynamic-import-webpack": "^1.1.0",
         "css-loader": "^0.28.2",
         "exports-loader": "^0.6.4",
         "extract-text-webpack-plugin": "^2.1.0",
         "file-loader": "^0.11.1",
         "html-webpack-plugin": "^2.28.0",
-        "jasmine-core": "^2.9.0",
-        "karma": "^3.0.0",
-        "karma-chrome-launcher": "^2.1.1",
-        "karma-firefox-launcher": "^1.0.1",
-        "karma-jasmine": "^2.0.1",
-        "karma-jasmine-ajax": "^0.1.13",
-        "karma-webpack": "^2.0.3",
+        "jest": "^26.6.3",
         "string-replace-loader": "^1.3.0",
         "style-loader": "^0.18.1",
         "uglifyjs-webpack-plugin": "^0.4.6",
         "url-loader": "^1.1.2",
+        "vue-jest": "^3.0.7",
         "vue-loader": "^12.0.4",
         "vue-template-compiler": "2.6.10",
         "webpack": "^2.5.1",
         "webpack-bundle-analyzer": "^2.8.2",
         "webpack-dev-server": "^2.11.5",
         "webpack-merge": "^4.1.0"
+    },
+    "jest": {
+        "moduleNameMapper": {
+            "Src(.*)$": "<rootDir>/src/$1",
+            "^vue$": "vue/dist/vue.common.js",
+            "\\$": "<rootDir>/node_modules/jquery"
+        },
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "jsx",
+            "ts",
+            "tsx",
+            "node",
+            "vue"
+        ],
+        "transform": {
+            "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+            ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+        },
+        "setupFiles": [
+            "<rootDir>/test/setup.js"
+        ]
     },
     "repository": {
         "type": "git",
