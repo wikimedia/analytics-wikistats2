@@ -46,7 +46,7 @@ export default {
     }
 
 }
-.ui.mini.image {
+.wikititle .ui.mini.image {
     width: 46px;
     height: 46px;
     vertical-align: middle;

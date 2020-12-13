@@ -1,1 +1,2 @@
-export default require('./WidgetChart');
+import WidgetChart from './WidgetChart';
+export default WidgetChart;

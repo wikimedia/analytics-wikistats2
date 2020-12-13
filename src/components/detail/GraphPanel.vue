@@ -316,6 +316,10 @@ export default {
     border-right: none;
 }
 
+.buttons > .dropdown {
+    background-color: #fff!important;
+}
+
 .graph.panel p {
     margin: 0;
 }

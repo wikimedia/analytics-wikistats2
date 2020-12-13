@@ -66,7 +66,7 @@ export default {
 
 <style scoped>
 
-a {
+a, a:visited {
     color: #e6e6e7;
     font-weight: 300;
 }

@@ -10,55 +10,31 @@ const thousands = n => numbro(n).format({
     thousandSeparated: true
 });
 
-// given 1234 will return "3"
-function getNumberOfDigits(num){
-     return parseInt(num).toString().length;
-}
-
-
 // Formats to 'Three significan digits'
 const kmb = (n) => {
-    if (n < 1000) {
-        return n;
-    }
 
-    const r = getNumberOfDigits(n) % 3;
-    const format = {
-        optionalMantissa: true,
-        mantissa: r === 1 && n % 1000 !== 0 ? 1 :  0,
-        average: true
-    }
-
-    const units = numbro(n).format(format);
+    const units = numbro(n).format({
+        average: true,
+        roundingFunction: x => x,
+    });
 
     return units.toUpperCase();
 }
 const bytes = n => {
-    let f = '';
-    if (n < 0) f = '-';
 
-    n = Math.abs(n);
-
-    if (n < 1000) {
-        return n;
-    }
-
-    var r = getNumberOfDigits(n) % 3;
-
-    const format = {
-        optionalMantissa: true,
-        mantissa: r == 1 && n % 1000 !== 0 ? 1 : 0,
+    const units = numbro(n).format({
         average: true,
-        output: "byte",
-        base: "decimal",
-    }
+        roundingFunction: x => x,
+        output: 'byte',
+        base: 'decimal',
+    });
 
-    var units = numbro(n).format(format);
-    return f + units;
+    return units;
 };
 const filterRange = (filter, str) => {
     return filter(parseInt(str.split('-')[0])).toUpperCase() + '→' + filter(parseInt(str.split('-')[1])).toUpperCase();
 };
+
 // Register filters
 Vue.filter('thousands', (n) => {
     if (typeof n === 'string' && n.indexOf('-') > -1) {
@@ -67,10 +43,11 @@ Vue.filter('thousands', (n) => {
 });
 
 Vue.filter('kmb', (n) => {
-    if (typeof n === 'string' && n.indexOf('-') > -1) {
+    if (typeof n === 'string' && n.indexOf('-') > 0) {
         return filterRange(kmb, n).toUpperCase();
     } else return kmb(n);
 });
+
 Vue.filter('bytes', (n) => bytes(n) );
 Vue.filter('ISOdateUTC', (date, format) => dateformat(date, format || 'yyyy-mm-dd', true));
 Vue.filter('elipsis', (n, l) => n.substring(0, l) + (l <= n.length ? '...' : ''));
@@ -86,13 +63,7 @@ Vue.filter('getMonthLabel', (date, months, abbridged) => {
 })
 
 Vue.filter('bytesOrKmb', (n , unit) => {
-    if (unit === 'bytes') {
-        return bytes(n);
-    } else {
-        return kmb(n);
-    }
+    return unit === 'bytes' ? bytes(n) : kmb(n);
 })
 
-
 Vue.filter('monthShortName', (date)=> dateformat(date, 'mmm yyyy',true ));
-

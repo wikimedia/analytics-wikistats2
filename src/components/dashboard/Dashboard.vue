@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .widgets { padding: 0; margin: 0; }
 .widgets > .segment { padding: 0; }
 

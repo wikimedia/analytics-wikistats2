@@ -203,12 +203,12 @@ export default {
 .widget.column.last { margin-left: 0.6666666666%; margin-right: 0%; }
 
 
-.ui.small.horizontal.statistic > .value {
+div.ui.small.horizontal.statistic > .value {
     text-align: left;
     font-size: 21px!important;
     font-weight: bold!important;
 }
-.ui.small.horizontal.statistic > .label {
+div.ui.small.horizontal.statistic > .label {
     margin-left: 10px;
     text-transform: none;
     font-size: 13px;
@@ -218,7 +218,7 @@ export default {
     font-style: italic;
     font-weight: 400;
 }
-.ui.horizontal.statistic {
+div.ui.horizontal.statistic {
     margin: 4px 2px 2px 2px;
 }
 .subdued {

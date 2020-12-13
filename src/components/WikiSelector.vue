@@ -323,6 +323,17 @@ export default {
 </script>
 
 <style>
+.ui.search .ui.icon.input {
+    margin-right: 0;
+}
+.widgets .ui.input > input {
+    width: 310px;
+    border: 1px solid #aaa9a9;
+    border-radius: 4px;
+    height: 48px;
+    color: #4A4A4A;
+    font-size: 16px;
+}
 .ui.search.focus .ui.input input {
     background-color: #c0c1c2;
     border-color: #979797;

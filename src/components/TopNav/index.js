@@ -1,1 +1,2 @@
-export default require('./TopNav');
+import TopNav from './TopNav';
+export default TopNav;

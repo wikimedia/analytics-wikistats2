@@ -4,13 +4,16 @@ const utils = require('./utils');
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = merge(baseConfig, {
+    mode: 'development',
     output: {
         filename: 'bundle.js',
         chunkFilename: '[name].js',
-        path: utils.resolve('dist-dev')
+        path: utils.resolve('dist-dev'),
+        publicPath: '',
     },
     module: {
         rules: [
@@ -20,9 +23,23 @@ module.exports = merge(baseConfig, {
                 exclude: /node_modules/,
                 include: [utils.resolve('src'), utils.resolve('test')]
             },
+            {
+                test: /\.css$/i,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    }, 'css-loader'
+                ],
+            },
         ]
     },
+    devServer: {
+        contentBase: utils.resolve('dist-dev'),
+        compress: true,
+        port: 8008
+    },
     plugins: [
+        new MiniCssExtractPlugin(),
         new webpack.ProvidePlugin({
             userMessages: path.join(__dirname, '../src/i18n/en.json'),
             timeLocale: path.join(__dirname, '../node_modules/date-fns/locale/en-US')

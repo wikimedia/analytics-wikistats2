@@ -60,7 +60,7 @@ export default {
 
 </script>
 
-<style type="text/css">
+<style scoped type="text/css">
 .marea {
     line-height: 30px;
     margin-left: 8px;

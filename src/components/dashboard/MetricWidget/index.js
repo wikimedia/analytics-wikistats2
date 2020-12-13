@@ -1,1 +1,2 @@
-export default require('./MetricWidget');
+import MetricWidget from './MetricWidget';
+export default MetricWidget;

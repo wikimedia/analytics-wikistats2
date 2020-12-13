@@ -53,7 +53,10 @@ export default {
 </script>
 
 <style scoped>
-.ui.dropdown { margin-left: 10px; }
+.ui.dropdown {
+    margin-left: 10px;
+    background-color: #fff;
+}
 section {
     color: #fff;
     font-size: 12px;

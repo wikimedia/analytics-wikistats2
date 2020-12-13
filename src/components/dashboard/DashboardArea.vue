@@ -159,28 +159,21 @@ export default {
     flex-wrap: nowrap;
 }
 
-.area .header {
+.area div.ui.top.attached.header {
     border: none;
 }
-.area.contributing .header {
+.area.contributing div.ui.top.attached.header {
     border-bottom: 2px solid #D4E6F1;
 }
-.area.reading .header {
+.area.reading div.ui.top.attached.header {
     border-bottom: 2px solid #D1F2EB;
 }
-.area.content .header {
+.area.content div.ui.top.attached.header {
     border-bottom: 2px solid #F9E79F;
 }
 
-.ui.attached.basic.segment {
+div.ui.attached.basic.segment {
     border: none;
-}
-
-.contributing {
-}
-.reading {
-}
-.content {
 }
 
 @media (max-width: 450px) {
