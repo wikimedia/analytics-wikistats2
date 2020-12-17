@@ -73,5 +73,15 @@
 		"numbroCode": "ja-JP",
 		"englishName": "Japanese",
 		"nativeName": "日本語"
+	},
+	"ca": {
+		"numbroCode": "es-ES",
+		"englishName": "Catalan",
+		"nativeName": "Català"
+	},
+	"el": {
+		"numbroCode": "el",
+		"englishName": "Greek",
+		"nativeName": "Ελληνικά"
 	}
 }
