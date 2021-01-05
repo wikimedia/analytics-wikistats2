@@ -8,7 +8,7 @@ In [Wikistats 2.0](https://stats.wikimedia.org/v2) we are not only updating the 
 
 ### Cloning the project
 
-The minimum requirements to install the Wikistats UI are Node.js 8 (with the npm package manager) and Git. The project is hosted in a [Phabricator repository](https://phabricator.wikimedia.org/source/wikistats/)
+The minimum requirements to install the Wikistats UI are Node.js 8+, npm 6+, and git. The project is hosted in a [Phabricator repository](https://phabricator.wikimedia.org/source/wikistats/)
 
 ```bash
 git clone https://gerrit.wikimedia.org/r/analytics/wikistats2
@@ -62,6 +62,7 @@ Please read through our [contributing guidelines](https://wikitech.wikimedia.org
 
 ## Built With
 
+- [npm](https://npmjs.com) - Version 6+
 - [Vue.js](https://vuejs.org/) — The web framework used
 - [d3](https://d3js.org/) — Version 4+ for visualizations
 - [CrossFilter](https://github.com/crossfilter/crossfilter) — For exploring large multivariate datasets in the browser
