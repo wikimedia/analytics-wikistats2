@@ -42,8 +42,9 @@ const actions = {
     setDimensions ({commit, getters, dispatch}, dimensions) {
         if (!dimensions) return;
         commit('dimensions', dimensions);
-        if (dimensions.length === 1) {
-            commit('enable', {key: dimensions[0].key});
+        const nonLockedDimensions = dimensions.filter(d => !d.locked);
+        if (nonLockedDimensions.length === 1) {
+            commit('enable', {key: nonLockedDimensions[0].key});
         }
         dimensions.forEach(dimension => {
             if (!dimension.allValue) {
