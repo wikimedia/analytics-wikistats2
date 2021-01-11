@@ -1,13 +1,19 @@
 {
 	"@metadata": {
 		"authors": [
+			"Dipsacus fullonum",
 			"Saederup92"
 		]
 	},
+	"general-title": "Wikimediastatistik",
 	"general-month": "måned",
 	"general-year": "år",
+	"general-no_data": "(ingen data)",
+	"general-total": "i alt",
 	"general-date": "dato",
 	"general-name": "navn",
+	"areas-reading": "Læsning",
+	"areas-contributing": "Bidrag",
 	"areas-content": "Indhold",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Bruger",
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatiseret",
@@ -78,6 +84,10 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Lyd",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Dokument",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Andet",
+	"metrics-active-editors-by-country-name": "Aktive skribenter efter land",
+	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Aktivitetsniveau",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5 til 99 redigeringer",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 eller flere redigeringer",
 	"months-January": "januar",
 	"months-February": "februar",
 	"months-March": "marts",
