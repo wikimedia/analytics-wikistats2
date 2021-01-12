@@ -1,0 +1,49 @@
+
+.map.legend {
+    width: 300px;
+    position: absolute;
+    bottom: 120px;
+    right: 10px;
+    background-color: rgba(255,255,255,0.8);
+}
+.map.legend .title {
+    margin: 15px;
+}
+.map.legend svg {
+    height: 45px;
+}
+.map.legend text {
+    font-size: 8px;
+    text-anchor: middle;
+}
+
+
+.tooltip {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 15px;
+    background-color: white;
+    pointer-events: none;
+}
+.tooltip .number {
+    font-size: 20px;
+}
+
+
+.map.canvas {
+    width: 100%;
+    height: 400px;
+    margin-bottom:40px;
+}
+.country {
+    stroke: #555;
+    stroke-width: 0.5px;
+    vector-effect: non-scaling-stroke;
+}
+@media(max-width: 450px) {
+.map.canvas {
+        height: 250px;
+}
+}
+
