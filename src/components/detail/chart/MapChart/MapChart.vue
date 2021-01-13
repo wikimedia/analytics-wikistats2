@@ -118,8 +118,9 @@ export default {
             let {min, max} = this.graphModel.getMinMax();
             const d3s = scales.scaleLog()
                     .domain([min, max])
-                    .range([0,1]);
+                    .range([0, 1]);
             const scale = (number) => {
+                if (!number) return '#f6f6f7';
                 return colorPalette(d3s(number));
             };
             scale.min = min;
