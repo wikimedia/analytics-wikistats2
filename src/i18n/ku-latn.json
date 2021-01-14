@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bikarhêner",
+			"Biyolojiyabikurdi",
 			"Guherto"
 		]
 	},
@@ -102,9 +103,10 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Deng",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Dokument",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Yê din",
+	"metrics-active-editors-by-country-name": "Li gor welatan edîtorên çalak",
 	"metrics-active-editors-by-country-question": "Bikarhênerên çalak ji kîjan welata tên?",
 	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Asta çalakiyê",
-	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5 heta 99 guhartin",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "ji 5 heta 99 guhartin",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 yan bêhtir guhartin",
 	"months-January": "Kanûna paşîn",
 	"months-February": "Sibat",
@@ -121,6 +123,7 @@
 	"graph_panel-no_data_yet": "Hêj ti dane tine",
 	"graph_panel-change_over_range": "{change}% di vê qada demê de",
 	"time_range-all": "Hemû wextan",
+	"tooltip-breakdown-5..99-edits": "Yên her roj an jî mehê 5 heta 99 guhertinan kirine hatine nîşankirin.",
 	"status_overlay-loading": "Metrîk bar dibin...",
 	"status_overlay-general_error": "Tişteke şaş çû",
 	"widget_header-subtitle_for_last_month": "{subtitle} ji bo {lastMonthLabel}"

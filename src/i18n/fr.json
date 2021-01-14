@@ -326,7 +326,7 @@
 	"tooltip-breakdown-content": "Aussi appelé « Espace de noms principal », inclut les articles dans l’espace de noms zéro et quelques autres.",
 	"tooltip-breakdown-non-content": "Les pages de discussion, les pages utilisateur, etc. sont appelées « Pages hors contenus ».",
 	"tooltip-breakdown-1..4-edits": "A fait entre 1 et 4 modifications pour chaque mois ou jour affiché.",
-	"tooltip-breakdown-5..99-edits": "Affichage de ceux ayant fait entre 5 et 99 modifications chaque mois ou jour",
+	"tooltip-breakdown-5..99-edits": "Affichage de ceux ayant fait entre 5 et 99 modifications chaque mois ou jour",
 	"tooltip-breakdown-5..24-edits": "A fait entre 5 et 24 modifications pour chaque mois ou jour affiché.",
 	"tooltip-breakdown-25..99-edits": "A fait entre 25 et 99 modifications pour chaque mois ou jour affiché.",
 	"tooltip-breakdown-100..-edits": "A fait 100 modifications ou plus pour chaque mois ou jour affiché.",
