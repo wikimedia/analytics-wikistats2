@@ -256,6 +256,7 @@
 	"tooltip-breakdown-group-bot": "En bot som är registrerad och del av botanvändargruppen",
 	"tooltip-breakdown-user": "En registrerad inloggad användare",
 	"tooltip-breakdown-non-content": "Diskussionssidor, användarsidor, etc. kallas \"Inget innehåll\"",
+	"status_overlay-loading": "Laddar mätetal...",
 	"status_overlay-general_error": "Något blev fel",
 	"widget_header-subtitle_for_last_month": "{subtitle} för {lastMonthLabel}"
 }

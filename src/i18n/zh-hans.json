@@ -5,6 +5,7 @@
 			"A Chinese Wikipedian",
 			"Hzy980512",
 			"Tp8",
+			"Yfdyh000",
 			"沈澄心"
 		]
 	},
@@ -204,6 +205,7 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "音频",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "文档",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "其他",
+	"metrics-active-editors-by-country-name": "按国家或地区划分的活跃编者",
 	"metrics-active-editors-by-country-breakdowns-activity-level-name": "活跃水平",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5至99次编辑",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100次编辑或更多",

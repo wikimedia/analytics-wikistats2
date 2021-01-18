@@ -8,7 +8,8 @@
 			"Helpau",
 			"Kareyac",
 			"Okras",
-			"Pacha Tchernof"
+			"Pacha Tchernof",
+			"Wileyfoxyx"
 		]
 	},
 	"general-title": "Статистика Викимедии",
@@ -167,6 +168,7 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Другое",
 	"metrics-active-editors-by-country-tooltip": "Количество редакторов по странам с пятью или более правками, в том числе на страницах перенаправления",
 	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Уровень активности",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "От 5 до 99 правок",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 или более правок",
 	"months-January": "январь",
 	"months-February": "февраль",
