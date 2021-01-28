@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Beta16",
+			"Joetaras",
 			"Luca.favorido"
 		]
 	},
@@ -229,6 +230,7 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Audio",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Documento",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Altro",
+	"metrics-active-editors-by-country-name": "Contributori attivi per nazione",
 	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Livello di attività",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "Da 5 a 99 modifiche",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 o più modifiche",
