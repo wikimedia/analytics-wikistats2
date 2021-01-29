@@ -22,7 +22,7 @@ borders.objects.countries.geometries.forEach(f => {
 export default (colorScale, dataByCountry) => {
     borders.objects.countries.geometries.forEach(f => {
         f.properties.number = dataByCountry[numericLookup[f.id].iso] || null;
-        f.properties.color = colorScale(f.properties.number || colorScale.min);
+        f.properties.color = colorScale(f.properties.number);
     });
 
     return topojson.feature(borders, borders.objects.countries).features;
