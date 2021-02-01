@@ -3,16 +3,16 @@
     class="widget column" :class="{last: this.isLast()}"
     @mouseover="hovering=true" @mouseleave="hovering=false"
     >
-    <div v-if="overlayMessage && !groupShifting">
+    <div v-if="overlayMessage">
         <metric-placeholder-widget/>
         <status-overlay
             :project="project.replace(/-/g, ' ')"
-            :metricName="$t(`metrics-${metricName}-name`)"
+            :metricName="$t(`metrics-${metric}-name`)"
             :overlayMessage="overlayMessage"/>
     </div>
     <div class="content">
         <div v-if="metricReady">
-            <router-link class="metric link" :to="{project, area: area, metric: metricName}">
+            <router-link class="metric link" :to="{project, area: area, metric: metric}">
                 <widget-header :graphModel="graphModel" :graphData="graphData" />
             </router-link>
             <widget-chart :graphData="graphData" :graphModel="graphModel" />
@@ -46,14 +46,11 @@ let aqsApi = new AQS();
 
 export default {
     name: 'metric-widget',
-    props: ['metrics', 'position', 'parentWidgetCount', 'parentMetricCount'],
+    props: ['metric', 'position', 'parentWidgetCount', 'parentMetricCount'],
     data () {
         return {
-            groupName: null,
-            metricIndex: 0,
-            groupShifting: null,
             hovering: false,
-            graphModel: new GraphModel(this.$store.state.project, this.metrics[0])
+            graphModel: new GraphModel(this.$store.state.project, this.metric)
         }
     },
 
@@ -70,19 +67,6 @@ export default {
     mounted () {
         this.graphModel.dimensions = Dimension.fromMetricConfig(this.metricConfig);
         this.loadData();
-        if (this.metrics.length > 1 && !this.mobile) {
-            setInterval(() => {
-                if (this.hovering || !document.hasFocus()) { return; }
-                this.groupShifting = true;
-                $('.content', this.$el).fadeOut(500, () => {
-                    this.metricIndex = (this.metricIndex + 1) % this.metrics.length;
-                    $('.content', this.$el).fadeIn(500, () => {
-                        this.groupShifting = false;
-                    });
-                });
-
-            }, 8000);
-        }
     },
 
     computed: Object.assign(
@@ -92,17 +76,14 @@ export default {
             params () {
                 return {
                     area: this.area,
-                    metric: this.metricName,
+                    metric: this.metric,
                     metricConfig: this.metricConfig,
                     timeRange: utils.getDefaultTimeRange(this.metricConfig),
                     granularity: 'monthly',
                 };
             },
-            metricName () {
-                return this.metrics[this.metricIndex];
-            },
             metricConfig () {
-                return config.metricConfig(this.metrics[0]);
+                return config.metricConfig(this.metric);
             },
             overlayMessage () {
                 return this.graphModel.status;

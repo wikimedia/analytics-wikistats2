@@ -92,7 +92,8 @@ const mainMetricsByArea = [
             metrics: [
                 'edits',
                 'new-registered-users',
-                'wikistats1',
+                'active-editors',
+                'user-edits',
                 'top-editors',
                 'editors',
                 'top-edited-pages',

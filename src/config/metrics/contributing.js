@@ -59,7 +59,7 @@ module.exports = {
         disabled: false,
         basedOn: 'editors',
         fullName: 'Active editors',
-        metricGroup: 'wikistats1',
+        //metricGroup: 'wikistats1',
         description: 'The count of registered user editors with five or more edits, including on redirect pages',
         question: 'How many active registered editors are there?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Active_editors',
@@ -157,7 +157,7 @@ module.exports = {
     'user-edits': {
         disabled: false,
         basedOn: 'edits',
-        metricGroup: 'wikistats1',
+        //metricGroup: 'wikistats1',
         fullName: 'User edits',
         description: 'The count of edits (or revisions) made by human users',
         question: 'How many edits have been made by users?',

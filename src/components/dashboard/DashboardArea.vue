@@ -11,8 +11,8 @@
             <metric-widget
                 v-for="(m, i) in availableMetrics"
                 v-if="!isPending(i)"
-                :key="m[0]"
-                :metrics="m"
+                :key="m"
+                :metric="m"
                 :position="i"
                 :parentWidgetCount="availableMetricSlots"
                 :parentMetricCount="availableMetrics.length">
@@ -113,28 +113,25 @@ export default {
             return availableSlots;
         },
         availableMetrics () {
-            const metricGroups = [];
+            const available = [];
             const unavailable = [];
-            this.area.metrics.forEach(metricOrGroup => {
-                const group = config.metricGroups[metricOrGroup] || [metricOrGroup]
-                const filteredGroup = group.filter(m => {
-                    const c = config.metricConfig(m);
-                    return (c.global || this.notGlobal) &&
-                           (c.globalFamily || this.notGlobalFamily);
-                });
+            // NOTE: The group mechanic was previously used here, check git blame for the logic
+            this.area.metrics.forEach(metric => {
+                const c = config.metricConfig(metric);
+                if ((c.global || this.notGlobal) &&
+                    (c.globalFamily || this.notGlobalFamily)) {
+                    available.push(metric);
 
-                if (filteredGroup && filteredGroup.length) {
-                    metricGroups.push(filteredGroup);
                 } else {
-                    unavailable.push(group);
+                    unavailable.push(metric);
                 }
             });
 
             const metricsToShow = this.mobile ?
-                metricGroups.length :
-                Math.max(metricGroups.length, this.availableMetricSlots);
+                available.length :
+                Math.max(available.length, this.availableMetricSlots);
 
-            return metricGroups.concat(unavailable).slice(0, metricsToShow);
+            return available.concat(unavailable).slice(0, metricsToShow);
         }
     }),
     mounted () {
