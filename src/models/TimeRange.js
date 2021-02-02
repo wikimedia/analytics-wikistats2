@@ -1,5 +1,5 @@
 import dateFormat from 'dateformat';
-import { format } from 'date-fns';
+import { format, subMonths as subtractMonths} from 'date-fns';
 import utils from 'Src/utils';
 
 class TimeRange {
@@ -80,8 +80,8 @@ class TimeRange {
     }
 
     goBackOneMonth () {
-        this.start.setMonth(this.start.getUTCMonth() - 1);
-        this.end.setMonth(this.end.getUTCMonth() - 1);
+        this.start = subtractMonths(this.start, 1);
+        this.end = subtractMonths(this.end, 1);
     }
 
     getSpan (granularity) {
