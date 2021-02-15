@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Alan Mena",
 			"Alvaro Vidal-Abarca",
 			"Fitoschido",
 			"FranSisPac",
@@ -237,6 +238,13 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Àudio",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Document",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Altres",
+	"metrics-active-editors-by-country-name": "Editors actius per país",
+	"metrics-active-editors-by-country-description": "Recompte d'editors amb cinc o més edicions, incloses les fetes en pàgines de redirecció",
+	"metrics-active-editors-by-country-tooltip": "Recompte per país d'editors amb cinc o més edicions, incloses les fetes en pàgines de redirecció.",
+	"metrics-active-editors-by-country-question": "De quins països són els editors actius?",
+	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Nivell d'activitat",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "Edicions 5 a 99",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 o més edicions",
 	"months-January": "gener",
 	"months-February": "febrer",
 	"months-March": "març",
@@ -321,6 +329,7 @@
 	"tooltip-breakdown-content": "També anomenat «Espai de noms principal», inclou articles a l'espai de noms zero (bàsic) i uns quants altres",
 	"tooltip-breakdown-non-content": "Les pàgines de discussió, pàgines d'usuari, etc. s'anomenen «No-contingut»",
 	"tooltip-breakdown-1..4-edits": "Va realitzar entre 1 i 4 modificacions cada mes o dia mostrat",
+	"tooltip-breakdown-5..99-edits": "Va realitzar entre 5 i 99 modificacions cada mes o dia mostrat",
 	"tooltip-breakdown-5..24-edits": "Va realitzar entre 5 i 24 modificacions cada mes o dia mostrat",
 	"tooltip-breakdown-25..99-edits": "Va realitzar entre 25 i 99 modificacions cada mes o dia mostrat",
 	"tooltip-breakdown-100..-edits": "Va realitzar 100 o més modificacions cada mes o dia mostrat",
