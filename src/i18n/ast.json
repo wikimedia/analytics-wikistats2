@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
+			"Tokvo",
 			"Xuacu"
 		]
 	},
@@ -103,5 +104,11 @@
 	"metrics-new-pages-name": "Páxines nueves",
 	"metrics-top-editors-breakdowns-page_type-values-non-content-name": "Non conteníu",
 	"metrics-absolute-bytes-diff-breakdowns-page_type-values-non-content-name": "Non conteníu",
-	"metrics-edited-pages-breakdowns-page_type-values-non-content-name": "Non conteníu"
+	"metrics-edited-pages-breakdowns-page_type-values-non-content-name": "Non conteníu",
+	"metrics-top-mediarequests-breakdowns-media_type-values-image-name": "Imaxe",
+	"months-January": "Xineru",
+	"months-February": "Febreru",
+	"months-March": "Marzu",
+	"months-April": "Abril",
+	"months-May": "Mayu"
 }
