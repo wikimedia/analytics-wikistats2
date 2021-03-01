@@ -6,7 +6,8 @@
 			"Ferdinand0101",
 			"ManuelFranz",
 			"Symposiarch",
-			"Unkn0wnCat"
+			"Unkn0wnCat",
+			"XenonX3"
 		]
 	},
 	"general-title": "Wikimedia Statistiken",
@@ -233,6 +234,11 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Audio",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Dokument",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Andere",
+	"metrics-active-editors-by-country-name": "Aktive Autoren nach Land",
+	"metrics-active-editors-by-country-description": "Die Anzahl von Autoren nach Land mit fünf oder mehr Bearbeitungen inklusive Weiterleitungsseiten",
+	"metrics-active-editors-by-country-tooltip": "Die Anzahl von Autoren nach Land mit fünf oder mehr Bearbeitungen inklusive Weiterleitungsseiten",
+	"metrics-active-editors-by-country-question": "Aus welchen Ländern kommen aktive Autoren?",
+	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Aktivitätsstufe",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5 bis 99 Bearbeitungen",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 oder mehr Bearbeitungen",
 	"months-January": "Januar",
@@ -283,7 +289,7 @@
 	"footer-privacy_policy": "Datenschutzrichtlinie",
 	"footer-contributing": "Beitragend",
 	"footer-contributing_guide": "Beitragsguide",
-	"footer-translate": "Helfen sie beim Übersetzen von Wikistats",
+	"footer-translate": "Helfen Sie beim Übersetzen von Wikistats",
 	"footer-report_a_bug": "Einen Fehler melden",
 	"footer-new_feature": "Neue Funktion",
 	"footer-community": "Gemeinschaft",
