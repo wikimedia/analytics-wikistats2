@@ -3,6 +3,10 @@
     "version": "2.9.0",
     "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
     "main": "index.js",
+    "engines": {
+      "node": "10.24.0",
+      "npm": "6.14.11"
+    },
     "scripts": {
         "test": "./node_modules/jest/bin/jest.js",
         "testDev": "./node_modules/jest/bin/jest.js --watch",
