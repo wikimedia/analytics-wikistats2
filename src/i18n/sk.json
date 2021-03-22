@@ -311,7 +311,7 @@
 	"tooltip-breakdown-mobile-site": "Stránka určená pre mobilné zariadenia (môže byť prezeraná aj na počítačoch)",
 	"tooltip-breakdown-desktop-site": "Stránka určená pre počítače (môže byť prezeraná aj na mobilných zariadeniach)",
 	"tooltip-breakdown-anonymous": "Neprihlásený používateľ",
-	"tooltip-breakdown-group-bot": "Bot, ktorý je registrovaný a je súčasťou skupiny botov",
+	"tooltip-breakdown-group-bot": "Bot (robot/program), ktorý je registrovaný a je súčasťou skupiny botov",
 	"tooltip-breakdown-name-bot": "Používateľ, ktorý má vo svojom mene \"bot\" (berte prosím na vedomie, že to môže byť aj meno ako Jozef Sobota)",
 	"tooltip-breakdown-user": "Registrovaný a prihlásený používateľ",
 	"tooltip-breakdown-spider": "Počítačový program, ktorý indexuje stránky cez ktoré prechádza. Zvyčajne sa jedná o vyhľadávače webových stránok",
