@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Moj",
+			"Nwme",
 			"Pyscowicz"
 		]
 	},
-	"general-title": "Wikimedia Tilastot",
+	"general-title": "Wikimedia-tilastot",
 	"general-month": "kuukausi",
 	"general-year": "vuosi",
 	"general-last_12_months": "viimeiset 12 kuukautta",
