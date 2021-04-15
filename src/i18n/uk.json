@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Andriy.v",
+			"Arxivist",
 			"Movses",
 			"Piramidion",
 			"Ата"
@@ -231,6 +232,13 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Аудіо",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Документ",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Інші",
+	"metrics-active-editors-by-country-name": "Активні редактори за країнами",
+	"metrics-active-editors-by-country-description": "Підрахунок редакторів, що мають п'ять чи більше редагувань, включно зі сторінками перенаправлень",
+	"metrics-active-editors-by-country-tooltip": "Підрахунок редакторів, що мають п'ять чи більше редагувань, включно зі сторінками перенаправлень.",
+	"metrics-active-editors-by-country-question": "Які країни походження активних редакторів?",
+	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Рівень активності",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "25—99 редагувань",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 або більше редагувань",
 	"months-January": "Січень",
 	"months-February": "Лютий",
 	"months-March": "Березень",
@@ -315,6 +323,7 @@
 	"tooltip-breakdown-content": "Також відомий як «основний простір назв», включає статті в нульовому просторі назв, а також у декількох інших просторах",
 	"tooltip-breakdown-non-content": "Сторінки обговорення, сторінки користувачів тощо, тут — позначені як «допоміжні»",
 	"tooltip-breakdown-1..4-edits": "Зробили від 1-го до 4-х редагувань за кожен показаний місяць чи день",
+	"tooltip-breakdown-5..99-edits": "Зробили від 5-ти до 99-ти редагувань за кожен показаний місяць чи день",
 	"tooltip-breakdown-5..24-edits": "Зробили від 5-ти до 24-х редагувань за кожен показаний місяць чи день",
 	"tooltip-breakdown-25..99-edits": "Зробили від 25-ти до 4-х редагувань за кожен показаний місяць чи день",
 	"tooltip-breakdown-100..-edits": "Зробили 100 чи більше редагувань за кожен показаний місяць чи день",
