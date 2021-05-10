@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Beta16",
 			"Joetaras",
 			"Luca.favorido"
@@ -36,8 +37,8 @@
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Crawler",
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatizzato",
 	"metrics-legacy-page-views-name": "Visualizzazioni di pagina preesistenti",
-	"metrics-legacy-page-views-description": "Le visualizzazioni di pagina preesistenti sono la metrica antecedente alle visualizzazioni di pagina. Queste includono i dati da Gennaio 2008 a Luglio 2016.",
-	"metrics-legacy-page-views-tooltip": "Le visualizzazioni di pagina preesistenti sui progetti Wikimedia contano le visualizzazioni delle voci da Gennaio 2008 a Luglio 2016. La differenza principale rispetto ai dati attuali di visualizzazione delle pagine è la mancanza di filtraggio dei bot auto-proclamati, quindi il traffico automatizzato e quello umano vengono indicati insieme.",
+	"metrics-legacy-page-views-description": "Le visualizzazioni di pagina preesistenti sono la metrica antecedente alle visualizzazioni di pagina. Queste includono i dati da gennaio 2008 a luglio 2016.",
+	"metrics-legacy-page-views-tooltip": "Le visualizzazioni di pagina preesistenti sui progetti Wikimedia contano le visualizzazioni delle voci da gennaio 2008 a luglio 2016. La differenza principale rispetto ai dati attuali di visualizzazione delle pagine è la mancanza di filtraggio dei bot auto-proclamati, quindi il traffico automatizzato e quello umano vengono indicati insieme.",
 	"metrics-legacy-page-views-question": "Quante volte sono stati viste le voci secondo la precedente definizione di pagine visualizzate?",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "Accesso al sito",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Sito mobile",
