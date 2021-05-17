@@ -21,7 +21,7 @@
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "{{identical|User}}",
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Probably “web crawler”, as “[[w:Web spider]]”.",
 	"metrics-legacy-page-views-name": "Linked to [[meta:Research:Wikistats metrics/Legacy page view]].",
-	"metrics-legacy-page-views-breakdowns-access-site-name": "It means \"The site that people are accessing\".",
+	"metrics-legacy-page-views-breakdowns-access-site-name": "It means \"The site that people are accessing\".\n\nIt constitutes {breakdownName} variable in {{msg-wm|Wikistats-breakdowns-breakdown action}} (where {operation} may be {{msg-wm|Wikistats-breakdowns-split}})\n\n{{Identical|Access site}}",
 	"metrics-unique-devices-breakdowns-access-site-name": "{breakdownName} variable in {{msg-wm|Wikistats-breakdowns-breakdown action}}.\n\n({operation} may be {{msg-wm|Wikistats-breakdowns-split}})\n\n{{Identical|Access site}}",
 	"metrics-top-viewed-articles-breakdowns-access-values-desktop-name": "{{identical|Desktop}}",
 	"metrics-editors-breakdowns-editor_type-values-anonymous-name": "{{identical|Anonymous}}",
