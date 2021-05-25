@@ -23,7 +23,7 @@
         "lodash": "~4.17.20",
         "numbro": "~2.3.2",
         "primer-tooltips": "~1.5.11",
-        "semantic-ui": "~2.4.2",
+        "fomantic-ui": "~2.8.8",
         "topojson-client": "~3.1.0",
         "vue": "~2.6.10",
         "vue-i18n": "~8.22.2",

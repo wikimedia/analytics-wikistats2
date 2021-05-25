@@ -82,6 +82,15 @@ describe('Router', function () {
         expect(result.area).toEqual('reading');
     });
 
+    it('should pick the first element when an array of projects is passed', function () {
+        let routes = [
+            ['/:project/:area', {mainComponent: 'detail'}],
+        ];
+        let path = '/en.wikipedia.org,de.wikisource.org,hy.wikipedia.org/reading';
+        let result = router.getStateFromPath(path, routes);
+        expect(result.project).toEqual('en.wikipedia.org');
+    });
+
     it('should get the state from a given path with function redirect', function () {
         let redirectPath = function (params) {
             expect(params).not.toBeUndefined();

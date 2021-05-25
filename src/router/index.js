@@ -30,7 +30,9 @@ function matchPath (route, info, path) {
     let params = {};
     for (let [routePart, pathPart] of _.zip(routeParts, pathParts)) {
         if (routePart.startsWith(':') && pathPart !== '') {
-            params[routePart.slice(1)] = pathPart;
+            // preparing the ground for multiple metrics and wikis to be selected
+            const values = pathPart.split(',');
+            params[routePart.slice(1)] = values[0]
         } else if (routePart !== pathPart) {
             return;
         }
