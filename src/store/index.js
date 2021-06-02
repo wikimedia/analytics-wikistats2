@@ -5,7 +5,7 @@ import detail from './detail';
 import dimensions from './dimensions';
 import _ from '../lodash-custom-bundle';
 
-const navigationStateKeys = ['project', 'area', 'metric', 'mainComponent', 'section'];
+const navigationStateKeys = ['projects', 'area', 'metric', 'mainComponent', 'section'];
 const complexStateAdapters = {'detail': detail.readFromURL};
 
 Vue.use(Vuex);
@@ -16,7 +16,7 @@ export default new Vuex.Store({
         dimensions
     },
     state: {
-        project: '',
+        projects: [],
         area: '',
         metric: '',
         mainComponent: '',
@@ -29,7 +29,7 @@ export default new Vuex.Store({
         // Do not add mainComponent to mainState
         // to avoid infinite update loops.
         mainState: state => ({
-            project: state.project,
+            project: state.projects[0],
             area: state.area,
             metric: state.metric,
             section: state.section
@@ -43,7 +43,8 @@ export default new Vuex.Store({
             }
             return forURL;
         },
-        getWidth: state => state.width
+        getWidth: state => state.width,
+        project: state => state.projects[0]
     },
     mutations: {
         navigate (state, arg) {
@@ -62,7 +63,7 @@ export default new Vuex.Store({
             }
         },
         project (state, arg) {
-            state.project = arg.project;
+            state.projects = [arg.project]; 
         },
         metric (state, arg) {
             state.section = '';

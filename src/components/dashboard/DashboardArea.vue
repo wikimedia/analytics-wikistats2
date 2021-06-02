@@ -24,7 +24,7 @@
 
 <script>
 import MetricWidget from './MetricWidget';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import config from '../../config';
 
 const globalProjects = {
@@ -68,10 +68,10 @@ export default {
 
     },
 
-    computed: Object.assign(mapState([
-        'project',
-        'width',
-    ]), {
+    computed: Object.assign(mapGetters(['project']),
+        mapState([
+            'width',
+        ]),{
         gridClass() {
             return {
                 1: 'one',

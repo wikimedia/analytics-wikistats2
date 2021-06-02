@@ -21,9 +21,8 @@ export default {
     /**
     * This creates properties to watch with less boiler plate that using $store.state
     **/
-    computed: Object.assign(mapState([
-                    'metric',
-                    'project'])),
+    computed: Object.assign(mapGetters(['project']), mapState([
+                    'metric'])),
 
     methods: {
         updateTitle(project, metric) {

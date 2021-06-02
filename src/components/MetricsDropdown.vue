@@ -50,7 +50,7 @@ export default {
         goToMetric(area, metric) {
             if (metric !== this.metric.name)
             this.$store.commit('reload', {
-                project: this.$store.state.project,
+                project: this.$store.getters.project,
                 metric: metric,
                 area: area
             });

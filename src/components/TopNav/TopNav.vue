@@ -1,6 +1,6 @@
 <template>
 <div>
-    <router-link :to="{project: $store.state.project}">
+    <router-link :to="{project: $store.getters.project}">
         <div class="wikititle ui left floated header">
             <img class="ui mini image" src="../../assets/Wikimedia-logo.svg" alt="Wikimedia">
             <span class="text">{{ $t('general-title') }}</span>

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import WikiSelector from '../WikiSelector';
 import FilterSplit from './filterSplit/FilterSplit';
@@ -73,8 +73,8 @@ export default {
         WikiButton
     },
     computed: Object.assign(
+        mapGetters(['project']),
         mapState([
-            'project',
             'area',
             'metric',
             'selectingTime'

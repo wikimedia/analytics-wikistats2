@@ -55,28 +55,28 @@ describe('Router', function () {
 
     it('should get the state from a given path', function () {
         let routes = [
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
         let path = '/en.wikipedia.org/reading';
         let result = router.getStateFromPath(path, routes);
 
         expect(result).not.toBeUndefined();
         expect(Object.keys(result).length).toEqual(2);
-        expect(result.project).toEqual('en.wikipedia.org');
+        expect(result.projects).toEqual(['en.wikipedia.org']);
         expect(result.area).toEqual('reading');
     });
 
     it('should get the state from a given path with string redirect', function () {
         let routes = [
-            ['/:project', {redirect: '/en.wikipedia.org/reading'}],
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects', {redirect: '/en.wikipedia.org/reading'}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
         let path = '/en.wikipedia.org';
         let result = router.getStateFromPath(path, routes);
 
         expect(result).not.toBeUndefined();
 
-        // state now should be {project:en.wikipedia.org, area:reading}
+        // state now should be {projects:en.wikipedia.org, area:reading}
         // as from /en.wikipedia.org it was redirected to /en.wikipedia.org/reading
         expect(Object.keys(result).length).toEqual(2);
         expect(result.area).toEqual('reading');
@@ -84,30 +84,30 @@ describe('Router', function () {
 
     it('should pick the first element when an array of projects is passed', function () {
         let routes = [
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
         let path = '/en.wikipedia.org,de.wikisource.org,hy.wikipedia.org/reading';
         let result = router.getStateFromPath(path, routes);
-        expect(result.project).toEqual('en.wikipedia.org');
+        expect(result.projects).toEqual(['en.wikipedia.org']);
     });
 
     it('should get the state from a given path with function redirect', function () {
         let redirectPath = function (params) {
             expect(params).not.toBeUndefined();
             expect(Object.keys(params).length).toEqual(1);
-            expect(params.project).toEqual('en.wikipedia.org');
+            expect(params.projects).toEqual(['en.wikipedia.org']);
             return '/en.wikipedia.org/reading';
         };
         let routes = [
-            ['/:project', {redirect: redirectPath}],
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects', {redirect: redirectPath}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
         let path = '/en.wikipedia.org';
         let result = router.getStateFromPath(path, routes);
 
         expect(result).not.toBeUndefined();
         expect(Object.keys(result).length).toEqual(2);
-        expect(result.project).toEqual('en.wikipedia.org');
+        expect(result.projects).toEqual(['en.wikipedia.org']);
         expect(result.area).toEqual('reading');
     });
 
@@ -131,19 +131,19 @@ describe('Router', function () {
         let redirectPath = function (params) {
             expect(params).not.toBeUndefined();
             expect(Object.keys(params).length).toEqual(1);
-            expect(params.project).toEqual('en.wikipedia.org');
+            expect(params.projects).toEqual(['en.wikipedia.org']);
             return '/en.wikipedia.org/reading';
         };
         let routes = [
-            ['/:project', {redirect: redirectPath}],
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects', {redirect: redirectPath}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
-        let state = {project: 'en.wikipedia.org'};
+        let state = {projects: ['en.wikipedia.org']};
         let result = router.getRedirectedState(state, routes);
 
         expect(result).not.toBeUndefined();
         expect(Object.keys(result).length).toEqual(2);
-        expect(result.project).toEqual('en.wikipedia.org');
+        expect(result.projects).toEqual(['en.wikipedia.org']);
         expect(result.area).toEqual('reading');
     });
 
@@ -159,9 +159,9 @@ describe('Router', function () {
 
     it('should get the path corresponding to a given state', function () {
         let routes = [
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
-        let state = {project: 'en.wikipedia.org', area: 'reading'};
+        let state = {projects: 'en.wikipedia.org', area: 'reading'};
         let root = '/';
         let result = router.getPathFromState(root, state, routes);
 
@@ -172,18 +172,18 @@ describe('Router', function () {
         let storeMock = new StoreMock();
         let windowMock = new WindowMock('/', '#/en.wikipedia.org/reading');
         let routes = [
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
         let r = new router.Router(storeMock, routes, windowMock);
 
         expect(windowMock.history.replaceState).toHaveBeenCalledWith(
-            {project: 'en.wikipedia.org', area: 'reading'},
+            {projects: ['en.wikipedia.org'], area: 'reading'},
             '',
             '/#/en.wikipedia.org/reading',
         );
         expect(storeMock.commit).toHaveBeenCalledWith(
             'reload',
-            {project: 'en.wikipedia.org', area: 'reading', mainComponent: 'detail'},
+            {projects: ['en.wikipedia.org'], area: 'reading', mainComponent: 'detail'},
         );
     });
 
@@ -191,14 +191,14 @@ describe('Router', function () {
         let storeMock = new StoreMock();
         let windowMock = new WindowMock('/', '#/en.wikipedia.org');
         let routes = [
-            ['/:project', {mainComponent: 'dashboard'}],
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects', {mainComponent: 'dashboard'}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
         let r = new router.Router(storeMock, routes, windowMock);
 
         expect(storeMock.watch).toHaveBeenCalled();
         let watchCallback = storeMock.watch.calls.mostRecent().args[1];
-        let newState = {project: 'en.wikipedia.org', area: 'reading'};
+        let newState = {projects: 'en.wikipedia.org', area: 'reading'};
         watchCallback(newState);
 
         expect(storeMock.commit).toHaveBeenCalledWith(
@@ -206,7 +206,7 @@ describe('Router', function () {
             {component: 'detail'},
         );
         expect(windowMock.history.pushState).toHaveBeenCalledWith(
-            {project: 'en.wikipedia.org', area: 'reading'},
+            {projects: 'en.wikipedia.org', area: 'reading'},
             '',
             '/#/en.wikipedia.org/reading',
         );
@@ -216,20 +216,20 @@ describe('Router', function () {
         let storeMock = new StoreMock();
         let windowMock = new WindowMock('/', '#/en.wikipedia.org');
         let routes = [
-            ['/:project', {mainComponent: 'dashboard'}],
-            ['/:project/:area', {redirect: '/en.wikipedia.org/reading/total-page-views'}],
-            ['/:project/:area/:metric', {mainComponent: 'dashboard'}],
+            ['/:projects', {mainComponent: 'dashboard'}],
+            ['/:projects/:area', {redirect: '/en.wikipedia.org/reading/total-page-views'}],
+            ['/:projects/:area/:metric', {mainComponent: 'dashboard'}],
         ];
         let r = new router.Router(storeMock, routes, windowMock);
 
         expect(storeMock.watch).toHaveBeenCalled();
         let watchCallback = storeMock.watch.calls.mostRecent().args[1];
-        let newState = {project: 'en.wikipedia.org', area: 'reading'};
+        let newState = {projects: ['en.wikipedia.org'], area: 'reading'};
         watchCallback(newState);
 
         expect(storeMock.commit).toHaveBeenCalledWith(
             'reload',
-            {project: 'en.wikipedia.org', area: 'reading', metric: 'total-page-views'},
+            {projects: ['en.wikipedia.org'], area: 'reading', metric: 'total-page-views'},
         );
     });
 
@@ -237,16 +237,16 @@ describe('Router', function () {
         let storeMock = new StoreMock();
         let windowMock = new WindowMock('/', '#/en.wikipedia.org');
         let routes = [
-            ['/:project', {mainComponent: 'dashboard'}],
-            ['/:project/:area', {mainComponent: 'detail'}],
+            ['/:projects', {mainComponent: 'dashboard'}],
+            ['/:projects/:area', {mainComponent: 'detail'}],
         ];
         let r = new router.Router(storeMock, routes, windowMock);
-        let newState = {project: 'en.wikipedia.org', area: 'reading'};
+        let newState = {projects: ['en.wikipedia.org'], area: 'reading'};
         windowMock.onpopstate({state: newState});
 
         expect(storeMock.commit).toHaveBeenCalledWith(
             'reload',
-            {project: 'en.wikipedia.org', area: 'reading'},
+            {projects: ['en.wikipedia.org'], area: 'reading'},
         );
     });
 });

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import WidgetChart from './WidgetChart';
 import WidgetHeader from './WidgetHeader';
@@ -50,7 +50,7 @@ export default {
     data () {
         return {
             hovering: false,
-            graphModel: new GraphModel(this.$store.state.project, this.metric)
+            graphModel: new GraphModel(this.$store.getters.project, this.metric)
         }
     },
 
@@ -70,7 +70,7 @@ export default {
     },
 
     computed: Object.assign(
-        mapState([
+        mapGetters([
             'project'
         ]), {
             params () {

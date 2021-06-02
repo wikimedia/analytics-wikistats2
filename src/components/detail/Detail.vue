@@ -66,10 +66,10 @@ export default {
     },
 
     computed: Object.assign(
+        mapGetters(['project']),
         mapState([
             'area',
             'metric',
-            'project',
             'selectingTime'
         ]),
         mapState('dimensions', [

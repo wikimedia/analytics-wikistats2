@@ -32,7 +32,11 @@ function matchPath (route, info, path) {
         if (routePart.startsWith(':') && pathPart !== '') {
             // preparing the ground for multiple metrics and wikis to be selected
             const values = pathPart.split(',');
-            params[routePart.slice(1)] = values[0]
+            if(routePart.slice(1) !== 'projects') {
+                params[routePart.slice(1)] = values[0];
+            } else {
+                params[routePart.slice(1)] = [values[0]];
+            }
         } else if (routePart !== pathPart) {
             return;
         }
@@ -132,6 +136,13 @@ function matchState (route, info, state) {
  * undefined is returned.
  */
 function getRedirectedState (state, routes) {
+    // for now only the state and routing knows about "project" as an array
+    // but the router-link component uses this function to generate hrefs
+    // so we need to temporarily translate between the string value and the array here
+    if (typeof state.project !== 'undefined') {
+        state.projects = [state.project]
+        delete state.project;
+    }
     for (let [route, info] of routes) {
         if (matchState(route, info, state)) {
             if (typeof info.redirect === 'string') {
@@ -179,7 +190,13 @@ function getPathFromState (root, state, routes) {
         if (matchState(route, info, state)) {
             let path = route;
             for (let key of Object.keys(state)) {
-                path = path.replace(':' + key, state[key]);
+                let element = state[key];
+                // While multi project is not activated,
+                // we force the router to choose the first element of the list of projects.
+                if (Array.isArray(element)) {
+                    element = element[0];
+                }
+                path = path.replace(':' + key, element);
             }
             pathFromStateCache[cacheKey] = `${root}#${path}`;
             return pathFromStateCache[cacheKey];

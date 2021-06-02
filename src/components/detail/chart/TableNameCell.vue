@@ -14,7 +14,7 @@
 </template>
 <script type="text/javascript">
 import isoLookup from "./MapChart/isoLookup";
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import utils from "../../../utils"
 
 export default {
@@ -48,7 +48,7 @@ export default {
         }
     },
     computed: Object.assign(
-        mapState([
+        mapGetters([
             'project',
         ]), {
             link() {

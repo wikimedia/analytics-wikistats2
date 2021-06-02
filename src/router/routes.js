@@ -25,11 +25,11 @@ import Dimension from 'Src/models/Dimension';
  */
 const routes = [
     ['/', { redirect: '/' + config.ALL_PROJECTS }],
-    ['/:project', { mainComponent: 'dashboard' }],
-    ['/:section/:project', {matchIf: (s) => s.section === 'metrics', mainComponent: 'metrics-matrix'}],
-    ['/:project/:area', { redirect: getDefaultMetricPath }],
-    ['/:project/:area/:metric', { redirect: getDefaultMetricPath }],
-    ['/:project/:area/:metric/:detail', { mainComponent: 'detail' }],
+    ['/:projects', { mainComponent: 'dashboard' }],
+    ['/:section/:projects', {matchIf: (s) => s.section === 'metrics', mainComponent: 'metrics-matrix'}],
+    ['/:projects/:area', { redirect: getDefaultMetricPath }],
+    ['/:projects/:area/:metric', { redirect: getDefaultMetricPath }],
+    ['/:projects/:area/:metric/:detail', { mainComponent: 'detail' }],
 ];
 
 const userPreferences = new UserPreferences();
@@ -55,7 +55,7 @@ function getDefaultMetricPath (params) {
         metric = area.state.metrics[0];
     }
     const detail = getMergedDetail(metric);
-    return ['', params.project, params.area, metric, detailURL.writeToURL(detail)].join('/');
+    return ['', params.projects[0], params.area, metric, detailURL.writeToURL(detail)].join('/');
 }
 
 function getMergedDetail (metric) {

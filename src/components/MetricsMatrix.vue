@@ -37,14 +37,14 @@
     import RouterLink from 'Src/components/RouterLink';
     import utils from 'Src/utils';
     import StatusOverlay from 'Src/components/StatusOverlay';
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     export default {
         name: 'metrics-matrix',
         components: {
             RouterLink
         },
         computed: Object.assign(
-            mapState([
+            mapGetters([
                 'project',
             ]),{
                 metricsByArea () {

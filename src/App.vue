@@ -32,7 +32,7 @@ import BottomFooter from './components/BottomFooter';
 import Dashboard from './components/dashboard/Dashboard';
 import MetricsMatrix from './components/MetricsMatrix';
 
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import Vue from 'vue';
 import 'vue-resize/dist/vue-resize.css';
@@ -115,9 +115,10 @@ export default {
         };
     },
     computed: Object.assign(mapState([
-        'project',
         'mainComponent',
         'topicsMinimized',
+    ]), mapGetters([
+        'project'
     ]), {
         mobile () {
             return this.$mq === 'mobile';

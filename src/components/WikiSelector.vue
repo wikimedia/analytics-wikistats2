@@ -122,7 +122,7 @@ export default {
     methods: {
         initWithCurrentWiki () {
             // Initialize the input text from the state project.
-            const stateProject = this.$store.state.project;
+            const stateProject = this.$store.getters.project;
             sitematrix.getWikiOrGroupFromHostname(stateProject).then(wikiInfo => {
                 if (wikiInfo) {
                     if (wikiInfo.type === 'wikiGroup') {
