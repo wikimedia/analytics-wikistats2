@@ -74,6 +74,7 @@
 	"metrics-editors-breakdowns-activity_level-values-100..-edits-name": "100 или более правок",
 	"metrics-active-editors-name": "Активные редакторы",
 	"metrics-active-editors-description": "Количество редакторов с пятью или более правками, в том числе на страницах перенаправления",
+	"metrics-active-editors-question": "Сколько здесь активных редакторов?",
 	"metrics-active-editors-breakdowns-editor_type-name": "Тип редактора",
 	"metrics-active-editors-breakdowns-editor_type-values-anonymous-name": "Аноним",
 	"metrics-active-editors-breakdowns-editor_type-values-user-name": "Участник",
