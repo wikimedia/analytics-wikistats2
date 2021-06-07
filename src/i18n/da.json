@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Askeuhd",
 			"Dipsacus fullonum",
 			"Saederup92"
 		]
@@ -8,6 +9,7 @@
 	"general-title": "Wikimediastatistik",
 	"general-month": "måned",
 	"general-year": "år",
+	"general-last_12_months": "seneste 12 måneder",
 	"general-no_data": "(ingen data)",
 	"general-total": "i alt",
 	"general-date": "dato",
@@ -15,6 +17,12 @@
 	"areas-reading": "Læsning",
 	"areas-contributing": "Bidrag",
 	"areas-content": "Indhold",
+	"areas-all_metrics": "Alle metrikker",
+	"topic_explorer-explore_topics": "Udforsk emner",
+	"topic_explorer-default_description": "Søg eller Gennemse spørgsmål og vælg ét for at se svar",
+	"dashboard-monthly_overview": "Månedsoversigt",
+	"metrics-total-page-views-name": "Samlet antal sidevisninger",
+	"metrics-total-page-views-description": "Sidevisninger på Wikimedia projekter tæller visningen af artiklens indhold. I denne data prøver vi at frasortere bot-trafik og fokusere på menneskelige sidevisninger",
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "Bruger",
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatiseret",
 	"metrics-unique-devices-name": "Unikke enheder",
