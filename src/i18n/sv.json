@@ -3,6 +3,7 @@
 		"authors": [
 			"Haxpett",
 			"Sabelöga",
+			"Technic2",
 			"WikiPhoenix"
 		]
 	},
@@ -15,7 +16,7 @@
 	"general-total": "totalt",
 	"general-date": "datum",
 	"general-name": "namn",
-	"general-original_wikistats": "Original Wikistats",
+	"general-original_wikistats": "Ursprungliga Wikistats",
 	"areas-reading": "Läsning",
 	"areas-contributing": "Bidrag",
 	"areas-content": "Innehåll",
@@ -24,8 +25,8 @@
 	"topic_explorer-default_description": "Sök eller bläddra bland frågor och välj en för att se svaren",
 	"dashboard-monthly_overview": "Månadsöversikt",
 	"metrics-total-page-views-name": "Totalt antal sidvisningar",
-	"metrics-total-page-views-description": "Sidvisningar på Wikimediaprojekten räknar visningar av artiklar. I den här siffran försöker vi separera robottrafik och fokusera på visningar för människor.",
-	"metrics-total-page-views-tooltip": "En sidvisning är en begäran för innehållet på en webbsida. Sidvisningar på Wikimediaprojekten är vårt viktigaste mätetal för visning av innehåll. Definitionen av sidvisningar försöker räkna sidvisningar av innehåll för användare.",
+	"metrics-total-page-views-description": "Sidvisningar på Wikimediaprojekten räknar visningar av artiklar. I den här siffran försöker vi separera robottrafik och fokusera på visningar för människor",
+	"metrics-total-page-views-tooltip": "En sidvisning är en begäran för innehållet på en webbsida. Sidvisningar på Wikimediaprojekten är vårt viktigaste mätvärde för visning av innehåll. Definitionen av sidvisningar försöker räkna sidvisningar av innehåll för användare.",
 	"metrics-total-page-views-question": "Hur många gånger visas artiklar?",
 	"metrics-total-page-views-breakdowns-access-name": "Åtkomstmetod",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "Stationär dator",
@@ -327,7 +328,7 @@
 	"tooltip-breakdown-100..-edits": "Gjorde 100 eller fler redigeringar för varje visad månad eller dag",
 	"status_overlay-no_data": "Det finns ingen tillgänglig data för denna tidsrymd på det här projektet",
 	"status_overlay-non_global": "{metricName} är inte tillgänglig på alla projekt. Välj en specifik wiki",
-	"status_overlay-non_global_family": "{metricName} är inte tillgänglig på alla projekt. Välj en specifik wiki",
+	"status_overlay-non_global_family": "{metricName} är inte tillgänglig på {project}. Välj en specifik wiki",
 	"status_overlay-no_service": "Analysfrågetjänsten verkar inte fungera",
 	"status_overlay-loading": "Laddar mätetal...",
 	"status_overlay-general_error": "Något blev fel",
