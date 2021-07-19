@@ -37,7 +37,7 @@
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "אוטומטי",
 	"metrics-legacy-page-views-name": "הצגות דפים בשיטה המיושנת",
 	"metrics-legacy-page-views-description": "הצגות דפים בשיטה המיושנת הן הגרסה הקודמת של הצגות דפים. הן כוללות נתונים מאז ינואר 2008 עד יולי 2016.",
-	"metrics-legacy-page-views-tooltip": "הצגות דפים בשיטה המיושנת סופרות הצגות של תוכן ערך מינואר 2008 עד יולי 2016. ההבדל העיקרי בהשוואה לנתוני הצגות הדפים הנוכחיים הוא המחסור בסינון בוטים שמדווחים על עצמם, ולכן תעבורה אנושים ואוטומטית מדווחת יחד.",
+	"metrics-legacy-page-views-tooltip": "הצגות דפים בשיטה המיושנת סופרות הצגות של תוכן ערך מינואר 2008 עד יולי 2016. ההבדל העיקרי בהשוואה לנתוני הצגות הדפים הנוכחיים הוא המחסור בסינון בוטים שמדווחים על עצמם, ולכן תעבורה אנושית ואוטומטית מדווחת יחד.",
 	"metrics-legacy-page-views-question": "כמה פעמים הערכים מוצגים לפני הגדרת הצגת הדפים הנוכחית?",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "האתר שניגשים אליו",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "אתר נייד",
