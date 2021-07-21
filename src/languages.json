@@ -1,33 +1,33 @@
 {
+	"bg": {
+		"numbroCode": "bg",
+		"englishName": "Bulgarian",
+		"nativeName": "български"
+	},
+	"ca": {
+		"numbroCode": "es-ES",
+		"englishName": "Catalan",
+		"nativeName": "Català"
+	},
+	"de": {
+		"numbroCode": "de-DE",
+		"englishName": "German",
+		"nativeName": "Deutsch"
+	},
+	"el": {
+		"numbroCode": "el",
+		"englishName": "Greek",
+		"nativeName": "Ελληνικά"
+	},
 	"en": {
 		"numbroCode": "en",
 		"englishName": "English",
 		"nativeName": "English"
 	},
-	"zh-hant": {
-		"numbroCode": "zh-TW",
-		"englishName": "Traditional Chinese",
-		"nativeName": "中文(繁體)‎"
-	},
-	"lb": {
-		"numbroCode": "en",
-		"englishName": "Luxembourguish",
-		"nativeName": "Lëtzebuergesch"
-	},
-	"mk": {
-		"numbroCode": "en",
-		"englishName": "Macedonian",
-		"nativeName": "Mакедонски"
-	},
-	"pt-br": {
-		"numbroCode": "pt-BR",
-		"englishName": "Brazilian Portuguese",
-		"nativeName": "Português do Brasil"
-	},
-	"tr": {
-		"numbroCode": "tr-TR",
-		"englishName": "Turkish",
-		"nativeName": "Türkçe"
+	"es": {
+		"numbroCode": "es-ES",
+		"englishName": "Spanish",
+		"nativeName": "Español"
 	},
 	"fi": {
 		"numbroCode": "fi-FI",
@@ -39,49 +39,99 @@
 		"englishName": "French",
 		"nativeName": "Français"
 	},
-	"uk": {
-		"numbroCode": "uk-UA",
-		"englishName": "Ukrainian",
-		"nativeName": "українська"
-	},
-	"de": {
-		"numbroCode": "de-DE",
-		"englishName": "German",
-		"nativeName": "Deutsch"
-	},
-	"es": {
-		"numbroCode": "es-ES",
-		"englishName": "Spanish",
-		"nativeName": "Español"
-	},
-	"vi": {
-		"numbroCode": "en",
-		"englishName": "Vietnamese",
-		"nativeName": "Tiếng Việt"
-	},
 	"it": {
 		"numbroCode": "it-IT",
 		"englishName": "Italian",
 		"nativeName": "Italiano"
-	},
-	"pt": {
-		"numbroCode": "pt-PT",
-		"englishName": "Portuguese",
-		"nativeName": "Português"
 	},
 	"ja": {
 		"numbroCode": "ja-JP",
 		"englishName": "Japanese",
 		"nativeName": "日本語"
 	},
-	"ca": {
-		"numbroCode": "es-ES",
-		"englishName": "Catalan",
-		"nativeName": "Català"
+	"ko": {
+		"numbroCode": "ko-KR",
+		"englishName": "Korean",
+		"nativeName": "한국어"
 	},
-	"el": {
-		"numbroCode": "el",
-		"englishName": "Greek",
-		"nativeName": "Ελληνικά"
+	"lb": {
+		"numbroCode": "en",
+		"englishName": "Luxembourguish",
+		"nativeName": "Lëtzebuergesch"
+	},
+	"mk": {
+		"numbroCode": "en",
+		"englishName": "Macedonian",
+		"nativeName": "Mакедонски"
+	},
+	"ml": {
+		"numbroCode": "en",
+		"englishName": "Malayalam",
+		"nativeName": "മലയാളം"
+	},
+	"nl": {
+		"numbroCode": "nl-NL",
+		"englishName": "Dutch",
+		"nativeName": "Nederlands"
+	},
+	"pt": {
+		"numbroCode": "pt-PT",
+		"englishName": "Portuguese",
+		"nativeName": "Português"
+	},
+	"pt-br": {
+		"numbroCode": "pt-BR",
+		"englishName": "Brazilian Portuguese",
+		"nativeName": "Português do Brasil"
+	},
+	"roa-tara": {
+		"numbroCode": "en",
+		"englishName": "Tarantino",
+		"nativeName": "Tarantino"
+	},
+	"sk": {
+		"numbroCode": "sk-SK",
+		"englishName": "Slovak",
+		"nativeName": "Slovenčina"
+	},
+	"sv": {
+		"numbroCode": "sv-SE",
+		"englishName": "Swedish",
+		"nativeName": "Svenska"
+	},
+	"tr": {
+		"numbroCode": "tr-TR",
+		"englishName": "Turkish",
+		"nativeName": "Türkçe"
+	},
+	"uk": {
+		"numbroCode": "uk-UA",
+		"englishName": "Ukrainian",
+		"nativeName": "українська"
+	},
+	"vec": {
+		"numbroCode": "en",
+		"englishName": "Venetian",
+		"nativeName": "Vèneto"
+	},
+	"vi": {
+		"numbroCode": "en",
+		"englishName": "Vietnamese",
+		"nativeName": "Tiếng Việt"
+	},
+	"diq": {
+		"numbroCode": "en",
+		"englishName": "Zaza",
+		"nativeName": "Zazakî"
+	},
+	"zh-hans": {
+		"numbroCode": "zh-CN",
+		"englishName": "Simplified Chinese",
+		"nativeName": "中文(汉语)‎"
+	},
+	"zh-hant": {
+		"numbroCode": "zh-TW",
+		"englishName": "Traditional Chinese",
+		"nativeName": "中文(繁體)‎"
 	}
 }
