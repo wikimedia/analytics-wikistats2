@@ -39,7 +39,7 @@ module.exports = merge(baseConfig, {
                 test: /semantic\.css$/,
                 loader: 'string-replace-loader',
                 options: {
-                    search: 'https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin',
+                    search: 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400%3B0,700%3B1,400%3B1,700&subset=latin&display=swap',
                     replace: '',
                     strict: true
                 }

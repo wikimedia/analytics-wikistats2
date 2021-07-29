@@ -45,38 +45,38 @@
 }
 
 
-.marea[data-v-577bc607] {
+.marea[data-v-f25308a0] {
     line-height: 30px;
     margin-left: 8px;
 }
-.ui.floating.dropdown.button[data-v-577bc607] {
+.ui.floating.dropdown.button[data-v-f25308a0] {
     width: calc(100vw - 3em);
     background: #f8f8f8;
 }
-.dropdown.icon[data-v-577bc607] {
+.dropdown.icon[data-v-f25308a0] {
     float: right;
 }
-.text.metric.name[data-v-577bc607] {
+.text.metric.name[data-v-f25308a0] {
     font-size: 15px;
     font-weight: bold;
 }
-.granularity[data-v-577bc607] {
+.granularity[data-v-f25308a0] {
     font-style: italic;
     font-weight: 100;
 }
-.menu.hidden[data-v-577bc607] {
+.menu.hidden[data-v-f25308a0] {
     display: none;
 }
-.menu.shown[data-v-577bc607] {
+.menu.shown[data-v-f25308a0] {
     display: block!important;
     opacity: 1;
-    animation-name: fadeInOpacity-data-v-577bc607;
+    animation-name: fadeInOpacity-data-v-f25308a0;
     animation-duration: 0.5s;
     max-height: 70vh;
     overflow: scroll;
     overflow-x: hidden;
 }
-@keyframes fadeInOpacity-data-v-577bc607 {
+@keyframes fadeInOpacity-data-v-f25308a0 {
 0% {
         opacity: 0;
 }
@@ -384,8 +384,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*!
- * # Semantic UI 2.4.2 - Transition
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI 2.8.8 - Transition
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -473,8 +473,8 @@ td.right.aligned[data-v-2e6bba28] {
 */
 
 /*--------------
-     Browse
----------------*/
+       Browse
+  ---------------*/
 
 .transition.browse {
   -webkit-animation-duration: 500ms;
@@ -631,8 +631,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-     Drop
----------------*/
+       Drop
+  ---------------*/
 
 .drop.transition {
   -webkit-transform-origin: top center;
@@ -702,8 +702,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-      Fade
----------------*/
+        Fade
+  ---------------*/
 
 .transition.fade.in {
   -webkit-animation-name: fadeIn;
@@ -975,8 +975,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-     Flips
----------------*/
+       Flips
+  ---------------*/
 
 .flip.transition.in,
 .flip.transition.out {
@@ -1101,8 +1101,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-      Scale
----------------*/
+        Scale
+  ---------------*/
 
 .scale.transition.in {
   -webkit-animation-name: scaleIn;
@@ -1164,8 +1164,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-      Fly
----------------*/
+        Fly
+  ---------------*/
 
 
 /* Inward */
@@ -1623,8 +1623,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-     Slide
----------------*/
+       Slide
+  ---------------*/
 
 .transition.slide.in,
 .transition[class*="slide down"].in {
@@ -1642,14 +1642,14 @@ td.right.aligned[data-v-2e6bba28] {
 .transition[class*="slide left"].in {
   -webkit-animation-name: slideInX;
           animation-name: slideInX;
-  -webkit-transform-origin: center right;
-          transform-origin: center right;
+  -webkit-transform-origin: right center;
+          transform-origin: right center;
 }
 .transition[class*="slide right"].in {
   -webkit-animation-name: slideInX;
           animation-name: slideInX;
-  -webkit-transform-origin: center left;
-          transform-origin: center left;
+  -webkit-transform-origin: left center;
+          transform-origin: left center;
 }
 .transition.slide.out,
 .transition[class*="slide down"].out {
@@ -1667,14 +1667,14 @@ td.right.aligned[data-v-2e6bba28] {
 .transition[class*="slide left"].out {
   -webkit-animation-name: slideOutX;
           animation-name: slideOutX;
-  -webkit-transform-origin: center right;
-          transform-origin: center right;
+  -webkit-transform-origin: right center;
+          transform-origin: right center;
 }
 .transition[class*="slide right"].out {
   -webkit-animation-name: slideOutX;
           animation-name: slideOutX;
-  -webkit-transform-origin: center left;
-          transform-origin: center left;
+  -webkit-transform-origin: left center;
+          transform-origin: left center;
 }
 
 /* In */
@@ -1778,8 +1778,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-     Swing
----------------*/
+       Swing
+  ---------------*/
 
 .transition.swing {
   -webkit-animation-duration: 800ms;
@@ -1800,14 +1800,14 @@ td.right.aligned[data-v-2e6bba28] {
 .transition[class*="swing left"].in {
   -webkit-animation-name: swingInY;
           animation-name: swingInY;
-  -webkit-transform-origin: center right;
-          transform-origin: center right;
+  -webkit-transform-origin: right center;
+          transform-origin: right center;
 }
 .transition[class*="swing right"].in {
   -webkit-animation-name: swingInY;
           animation-name: swingInY;
-  -webkit-transform-origin: center left;
-          transform-origin: center left;
+  -webkit-transform-origin: left center;
+          transform-origin: left center;
 }
 .transition.swing.out,
 .transition[class*="swing down"].out {
@@ -1825,14 +1825,14 @@ td.right.aligned[data-v-2e6bba28] {
 .transition[class*="swing left"].out {
   -webkit-animation-name: swingOutY;
           animation-name: swingOutY;
-  -webkit-transform-origin: center right;
-          transform-origin: center right;
+  -webkit-transform-origin: right center;
+          transform-origin: right center;
 }
 .transition[class*="swing right"].out {
   -webkit-animation-name: swingOutY;
           animation-name: swingOutY;
-  -webkit-transform-origin: center left;
-          transform-origin: center left;
+  -webkit-transform-origin: left center;
+          transform-origin: left center;
 }
 
 /* In */
@@ -2032,8 +2032,8 @@ td.right.aligned[data-v-2e6bba28] {
 }
 
 /*--------------
-      Zoom
----------------*/
+        Zoom
+  ---------------*/
 
 .transition.zoom.in {
   -webkit-animation-name: zoomIn;
