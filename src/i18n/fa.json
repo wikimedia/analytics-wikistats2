@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Darafsh",
 			"FarsiNevis",
 			"Huji"
 		]
@@ -229,6 +230,13 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "صوت",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "مدرک",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "سایر",
+	"metrics-active-editors-by-country-name": "ویراستاران فعال بر پایهٔ کشور",
+	"metrics-active-editors-by-country-description": "شمار ویرایشگران دارای پنج ویرایش یا بیشتر، از جمله در صفحه‌های تغییرمسیر",
+	"metrics-active-editors-by-country-tooltip": "شمار ویرایشگران دارای پنج ویرایش یا بیشتر، از جمله در صفحه‌های تغییرمسیر.",
+	"metrics-active-editors-by-country-question": "ویراستاران فعال اهل کدام کشورها هستند؟",
+	"metrics-active-editors-by-country-breakdowns-activity-level-name": "سطح فعالیت",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "۵ تا ۹۹ ویرایش",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "۱۰۰ ویرایش یا بیشتر",
 	"months-January": "ژانویه",
 	"months-February": "فوریه",
 	"months-March": "مارس",
@@ -277,6 +285,7 @@
 	"footer-privacy_policy": "سیاست محرمانگی",
 	"footer-contributing": "مشارکت",
 	"footer-contributing_guide": "راهنمای مشارکت",
+	"footer-translate": "به ترجمهٔ Wikistats کمک کنید",
 	"footer-report_a_bug": "گزارش یک اشکال",
 	"footer-new_feature": "ویژگی جدید",
 	"footer-community": "اجتماع",
@@ -295,6 +304,7 @@
 	"tooltip-help-annotations": "یادداشت‌ها",
 	"tooltip-help-split-total": "مشاهدهٔ مجموع کل",
 	"tooltip-help-split": "مجموع را به چند قسمت بشکنید تا جزئیات بیشتر دیده شود. با تیک زدن جعبه‌ها، داده‌ها را پالایش کنید تا قسمت‌هایی که مورد نظرتان هست را ببینید.",
+	"tooltip-help-toggle-dimension": "برای تقسیم و/یا فیلتر کردن بر اساس این بعد تغییر وضعیت دهید.",
 	"tooltip-wikistats1Metric": "این یک سنجه از نسخهٔ ۱ آمار ویکی است. برای دیدنن نسخهٔ قدیمی اینجا کلیک کنید.",
 	"tooltip-filterAndSplit": "جمع کل را به چند بخش بشکنید و یک یا چند بخش را پنهان کنید",
 	"tooltip-breakdown-desktop": "نسخهٔ رایانهٔ رومیزی وب‌گاه (ممکن است توسط تلفن همراه هم بازدید شده باشد)",
@@ -311,6 +321,7 @@
 	"tooltip-breakdown-content": "این فضای نام که به آن «اصلی» هم گفته می‌شود، شامل مقاله‌هایی است که در فضای نام صفر و غیر از آن قرار دارند",
 	"tooltip-breakdown-non-content": "صفحه‌های بحث، صفحه‌های کاربری و غیره را «غیر محتوایی» نام می‌دهند",
 	"tooltip-breakdown-1..4-edits": "در ماه یا روز نمایش‌یافته ۱ تا ۴ ویرایش انجام داد",
+	"tooltip-breakdown-5..99-edits": "در ماه یا روز نمایش‌یافته ۵ تا ۹۹ ویرایش انجام داد",
 	"tooltip-breakdown-5..24-edits": "در ماه یا روز نمایش‌یافته ۵ تا ۲۴ ویرایش انجام داد",
 	"tooltip-breakdown-25..99-edits": "در ماه یا روز نمایش‌یافته ۲۵ تا ۹۹ ویرایش انجام داد",
 	"tooltip-breakdown-100..-edits": "در ماه یا روز نمایش‌یافته ۱۰۰ ویرایش یا بیشتر انجام داد",
