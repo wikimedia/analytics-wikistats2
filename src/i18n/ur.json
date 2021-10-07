@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Obaid Raza"
+			"Obaid Raza",
+			"محمد-عثمان"
 		]
 	},
 	"general-title": "ویکیمیڈیا شماریات",
@@ -35,24 +36,30 @@
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "خودکار",
 	"metrics-legacy-page-views-name": "مشاہدات صفحات (قدیم شماریات)",
 	"metrics-legacy-page-views-description": "قدیم شماریات میں پہلی والی صفحہ دیکھنے کی تعریف کے مطابق جنوری 2008ء سے جولائی 2016ء تک کی شماریات شامل ہیں۔",
+	"metrics-legacy-page-views-tooltip": "وکی‌میڈیا منصوبہ‌جات پر ورثہ کے صفحات کے خیالات جنوری 2008 سے جولائی 2016 تک مضامین کے مواد کو دیکھنے میں شمار ہوتے ہیں۔ موجودہ صفحے کے دیکھنے کے ڈیٹا کے مقابلے میں بنیادی فرق سیلف رپورٹڈ بوٹس کو مقطر کرنے کی کمی ہے ، اس طرح خودکار اور انسانی ٹریفک کو ایک ساتھ رپورٹ کیا جاتا ہے۔",
 	"metrics-legacy-page-views-question": "موجودہ صفحہ دیکھنے کی تعریف سے پہلے مضامین کو کتنی بار دیکھا گيا تھا؟",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "طریق استعمال",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "موبائل سائٹ",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "ڈیسک ٹاپ",
 	"metrics-page-views-by-country-name": "مشاہدات صفحات بلحاظ ملک",
+	"metrics-page-views-by-country-description": "وہ ممالک جہاں اس منصوبے کا سب سے زیادہ دورہ کیا جاتا ہے۔  100 سے کم دیکھے جانے والے ممالک کی اطلاع نہیں دی جاتی اور نقشے میں خالی ہوتے ہیں",
 	"metrics-page-views-by-country-subtitle": "ممالک بلحاظ کثیر مشاہدہ",
+	"metrics-page-views-by-country-tooltip": "صفحہ نمائی ایک ویب صفحہ کے مواد کی درخواست ہے۔  وکیمیڈیا پروجیکٹس پر صفحہ نمائیں ہماریی سب سے اہم مواد کی کھپت کی پیمائش ہے۔  پصفحہ نمائی کی تعریف صارفین کو پہنچائے گئے مواد کے صفحہ نمائی کو گننے کی کوشش کرتی ہے۔",
 	"metrics-page-views-by-country-question": "منصوبے کے مشاہدین کہاں سے آرہے ہیں؟",
 	"metrics-page-views-by-country-breakdowns-access-name": "طریق استعمال",
 	"metrics-page-views-by-country-breakdowns-access-values-desktop-name": "ڈیسک ٹاپ",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-app-name": "موبائل ایپ",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-web-name": "موبائل ویب",
 	"metrics-unique-devices-name": "منفرد ڈیوائسیں",
+	"metrics-unique-devices-description": "ہم نے ایک مقررہ مدت میں کتنے الگ الگ آلات پراجیکٹ کا دورہ کیا ہے۔",
+	"metrics-unique-devices-tooltip": "انوکھا ڈیوائسز میٹرک ہمیں بتاتا ہے کہ ہم نے ایک مقررہ مدت میں کتنی الگ الگ ڈیوائسز اپنی ویب پراپرٹیز پر دیکھی ہیں۔ اینالیٹکس ٹیم فی پروجیکٹ فی دن اور مہینے منفرد ڈیوائسز کا شمار کرتی ہے جو منفرد طریقے سے شناخت ، فنگر پرنٹ یا بصورت دیگر صارفین کو ٹریک نہیں کرتی ہے۔",
 	"metrics-unique-devices-question": "کتنے منفرد (یونیک) آلات/ڈیواس سے مواد تک رسائی حاصل ہوتی ہے؟",
 	"metrics-unique-devices-breakdowns-access-site-name": "طریق استعمال",
 	"metrics-unique-devices-breakdowns-access-site-values-mobile-site-name": "موبائل سائٹ",
 	"metrics-unique-devices-breakdowns-access-site-values-desktop-site-name": "ڈیسک ٹاپ",
 	"metrics-top-viewed-articles-name": "کثیر مشاہدہ صفحات",
 	"metrics-top-viewed-articles-description": "سب سے زیادہ مشاہدہ کردہ صفحات",
+	"metrics-top-viewed-articles-tooltip": "پیج ویو ایک ویب پیج کے مواد کی درخواست ہے۔  وکیمیڈیا پروجیکٹس پر پیج ویوز ہماری سب سے اہم مواد کی کھپت کی پیمائش ہے۔  پیج ویو کی تعریف صارفین کو پہنچائے گئے مواد کے پیج ویو کو گننے کی کوشش کرتی ہے۔",
 	"metrics-top-viewed-articles-question": "سب سے زیادہ مشاہدہ کردہ مضامین کون سے ہیں؟",
 	"metrics-top-viewed-articles-breakdowns-access-name": "طریق استعمال",
 	"metrics-top-viewed-articles-breakdowns-access-values-desktop-name": "ڈیسک ٹاپ",
@@ -241,6 +248,8 @@
 	"time_range-3-month": "آخری 12 ماہ",
 	"time_range-last-month": "آخری ماہ",
 	"time_range-all": "مکمل",
+	"tooltip-breakdown-anonymous": "ایک صارف جو داخل نہیں ہوا",
+	"status_overlay-no_data": "اس منصوبے پر اس تاریخ کی حد تک کوئی ڈیٹا دستیاب نہیں ہے۔",
 	"status_overlay-loading": "شماریات لوڈ ہ ورہی ہیں ۔ ۔ ۔",
 	"status_overlay-general_error": "کچھ غلط ہو گیا ہے"
 }
