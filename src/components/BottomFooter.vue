@@ -29,7 +29,7 @@
         <ul class="list-content">
             <li><a target="_blank" href="//phabricator.wikimedia.org/tag/analytics-wikistats/">Phabricator</a></li>
             <li><a target="_blank" href="//github.com/wikimedia/analytics-wikistats2">Github</a></li>
-            <li><a target="_blank" href="//webchat.freenode.net/?channels=#wikimedia-analytics">IRC</a></li>
+            <li><a target="_blank" href="//web.libera.chat/?channels=#wikimedia-analytics">IRC</a></li>
         </ul>
     </div>
     <div class="bottom-footer-container">
