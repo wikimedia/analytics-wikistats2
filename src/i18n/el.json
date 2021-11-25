@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Geraki",
 			"NikosLikomitros",
 			"Nikosgranturismogt"
 		]
@@ -229,6 +230,13 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Ήχος",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Έγγραφο",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Άλλο",
+	"metrics-active-editors-by-country-name": "Ενεργοί συντάκτες κατά χώρα",
+	"metrics-active-editors-by-country-description": "Η καταμέτρηση κατά χώρα των συντακτών με πέντε ή περισσότερες επεξεργασίες, συμπεριλαμβανομένων σε σελίδες ανακατεύθυνσης",
+	"metrics-active-editors-by-country-tooltip": "Η καταμέτρηση κατά χώρα των συντακτών με πέντε ή περισσότερες επεξεργασίες, συμπεριλαμβανομένων σε σελίδες ανακατεύθυνσης.",
+	"metrics-active-editors-by-country-question": "Από ποιες χώρες προέρχονται οι ενεργοί συντάκτες;",
+	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Επίπεδο δραστηριότητας",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5-99 επεξεργασίες",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 ή περισσότερες επεξεργασίες",
 	"months-January": "Ιανουάριος",
 	"months-February": "Φεβρουάριος",
 	"months-March": "Μάρτιος",
@@ -313,6 +321,7 @@
 	"tooltip-breakdown-content": "Επίσης αναφέρεται με τον όρο \"Κύριος ονοματοχώρος\", περιλαμβάνει άρθρα στον ονοματοχώρο μηδέν και κάποια άλλα",
 	"tooltip-breakdown-non-content": "Οι σελίδες χρήστη, οι σελίδες συζήτησης κτλ. λέγονται σελίδες μη περιεχομένου",
 	"tooltip-breakdown-1..4-edits": "Έκανε από 1 έως 4 επεξεργασίες σε κάθε μήνα ή ημέρα που εμφανίζεται",
+	"tooltip-breakdown-5..99-edits": "Έκανε από 5 μέχρι 99 επεξεργασίες σε κάθε μήνα ή ημέρα που εμφανίζεται",
 	"tooltip-breakdown-5..24-edits": "Έκανε από 5 μέχρι 24 επεξεργασίες σε κάθε μήνα ή ημέρα που εμφανίζεται",
 	"tooltip-breakdown-25..99-edits": "Έκανε από 25 μέχρι 99 επεξεργασίες σε κάθε μήνα ή ημέρα που εμφανίζεται",
 	"tooltip-breakdown-100..-edits": "Έκανε από 100 και παραπάνω επεξεργασίες σε κάθε μήνα ή ημέρα που εμφανίζεται",
