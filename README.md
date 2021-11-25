@@ -71,7 +71,7 @@ Please read through our [contributing guidelines](https://wikitech.wikimedia.org
 
 Get updates on Wikistats 2.0 development and chat with the project maintainers and community members.
 
-- Chat with community members on [IRC](https://webchat.freenode.net/) server, in the `#wikimedia-analytics` channel.
+- Chat with community members on [IRC](https://web.libera.chat/) server, in the `#wikimedia-analytics` channel.
 
 ## Copyright
 
