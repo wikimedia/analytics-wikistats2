@@ -25,7 +25,7 @@
 	"topic_explorer-default_description": "Cerca o Sfoglia le domande e scegline una per vedere le risposte",
 	"dashboard-monthly_overview": "Panoramica mensile",
 	"metrics-total-page-views-name": "Visualizzazioni complessive della pagina",
-	"metrics-total-page-views-description": "Le pagine visualizzate sui progetti Wikimedia contano le visualizzazioni dei contenuti degli articoli. In questi dati cerchiamo di separare il traffico dei bot e di concentrarci sulle visualizzazioni delle pagine degli utenti umani",
+	"metrics-total-page-views-description": "Le pagine visualizzate sui progetti Wikimedia contano le visualizzazioni dei contenuti delle voci. Per impostazione predefinita, questi dati mostrano sia le pagine visualizzate da traffico automatico che da traffico umano. Per focalizzare sulle pagine visualizzate da utenti umani, usa il filtro sul tipo agente.",
 	"metrics-total-page-views-tooltip": "La visualizzazione di una pagina è la richiesta del contenuto di una pagina web. La visualizzazione delle pagine dei progetti Wikimedia è il nostro più importante indicatore di fruizione di contenuti. La definizione di visualizzazione di una pagina cerca di contare la visualizzazione dei contenuti da parte degli utenti.",
 	"metrics-total-page-views-question": "Quante volte sono visualizzate le voci?",
 	"metrics-total-page-views-breakdowns-access-name": "Metodo di accesso",
