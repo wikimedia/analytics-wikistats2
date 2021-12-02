@@ -2,9 +2,9 @@ module.exports = {
     'total-page-views': {
         disabled: false,
         fullName: 'Total page views',
-        description: 'Page views on Wikimedia projects count the viewing of article content. In this data we try to exclude bot traffic and focus on human user page views',
+        description: 'Page views on Wikimedia projects count the viewing of article content. By default, this data shows page views from automated traffic as well as human traffic.  To focus on human user page views, please use the Agent type filter.',
         question: 'How many times are articles viewed?',
-        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        infoUrl: 'https://wikitech.wikimedia.org/wiki/Analytics/AQS/Pageviews',
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users.',
         defaults: {
             unique: {
@@ -85,7 +85,7 @@ module.exports = {
         subtitle: 'Countries with the most views',
         description: 'Countries where this project is visited the most. Those countries with less than 100 views are not reported and are blank in the map',
         question: 'Where are the project\'s visitors coming from?',
-        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        infoUrl: 'https://wikitech.wikimedia.org/wiki/Analytics/AQS/Pageviews#Pageviews_split_by_country',
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'map',
         availableGranularities: ['monthly'],
@@ -162,7 +162,7 @@ module.exports = {
         subtitle: 'Most viewed articles',
         description: 'Most viewed articles',
         question: 'What are the most viewed articles?',
-        infoUrl: 'https://meta.wikimedia.org/wiki/Research:Page_view',
+        infoUrl: 'https://wikitech.wikimedia.org/wiki/Analytics/AQS/Pageviews#Most_viewed_articles',
         tooltip: 'A page view is a request for the content of a web page. Page views on Wikimedia projects is our most important content consumption metric. The pageview definition tries to count pageviews of content delivered to users',
         type: 'list',
         structure: 'top',
