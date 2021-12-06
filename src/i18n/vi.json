@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Minh Nguyen",
-			"Nguyễn Mạnh An"
+			"Nguyễn Mạnh An",
+			"NhacNy2412"
 		]
 	},
 	"general-title": "Thống kê Wikimedia",
@@ -125,6 +126,7 @@
 	"metrics-new-registered-users-name": "Số người dùng mới mở tài khoản",
 	"metrics-top-editors-name": "Người sửa đổi nhiều nhất",
 	"metrics-top-editors-description": "Người dùng sửa đổi nhiều nhất",
+	"metrics-top-editors-tooltip": "Xếp hạng biên tập viên theo số sửa đổi",
 	"metrics-top-editors-breakdowns-editor_type-name": "Kiểu người sửa đổi",
 	"metrics-top-editors-breakdowns-editor_type-values-anonymous-name": "Vô danh",
 	"metrics-top-editors-breakdowns-editor_type-values-group-bot-name": "Bot nhóm",
