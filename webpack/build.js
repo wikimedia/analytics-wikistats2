@@ -15,20 +15,6 @@ const availableTimeLocales = new Set(fs.readdirSync(timei18nPath));
 const version = require("../package.json").version;
 const configLanguages = require("../src/languages.json");
 
-const deleteFolderRecursive = function(pathToDir) {
-  if (fs.existsSync(pathToDir)) {
-    fs.readdirSync(pathToDir).forEach((file, index) => {
-      const curPath = pathToDir + "/" + file;
-      if (fs.lstatSync(curPath).isDirectory()) { // recurse
-        deleteFolderRecursive(curPath);
-      } else { // delete file
-        fs.unlinkSync(curPath);
-      }
-    });
-    fs.rmdirSync(pathToDir);
-  }
-};
-
 const getLocalesToBuild = () => {
     let availableLocales = fs.readdirSync(i18nSrcPath).map(file => file.replace('.json', ''));
     const languagesIndex = process.argv.indexOf('languages');
@@ -74,8 +60,6 @@ const moveAssetsToV2Dir = () => {
         })
     ;
 }
-
-deleteFolderRecursive(distPath);
 
 const locales = getLocalesToBuild();
 console.info(`Building languages ${locales.join(', ')}`);
