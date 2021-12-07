@@ -1,11 +1,11 @@
 {
     "name": "wikistats",
-    "version": "2.9.1",
+    "version": "2.9.2",
     "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
     "main": "index.js",
     "engines": {
-      "node": "10.24.0",
-      "npm": "6.14.11"
+        "node": "10.24.0",
+        "npm": "6.14.11"
     },
     "scripts": {
         "test": "./node_modules/jest/bin/jest.js",
@@ -23,11 +23,11 @@
         "d3-svg-annotation": "~2.5.1",
         "date-fns": "~2.16.1",
         "dateformat": "~2.2.0",
+        "fomantic-ui": "~2.8.8",
         "jquery": "~3.5.1",
         "lodash": "~4.17.20",
         "numbro": "~2.3.2",
         "primer-tooltips": "~1.5.11",
-        "fomantic-ui": "~2.8.8",
         "topojson-client": "~3.1.0",
         "vue": "~2.6.10",
         "vue-i18n": "~8.22.2",
