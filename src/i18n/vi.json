@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Keo010122",
 			"Minh Nguyen",
 			"Nguyễn Mạnh An",
 			"NhacNy2412"
@@ -202,6 +203,8 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Âm thanh",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Tài liệu",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Khác",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5 đến 99 sửa đổi",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 sửa đổi trở lên",
 	"months-January": "tháng 1",
 	"months-February": "tháng 2",
 	"months-March": "tháng 3",
@@ -215,6 +218,8 @@
 	"months-November": "tháng 11",
 	"months-December": "tháng 12",
 	"graph_panel-no_data_yet": "Chưa có dữ liệu",
+	"graph_panel-add_annotations_link": "Bạn có thể {0}",
+	"period_change-year_over_year": "{change}% năm qua năm",
 	"detail_sidebar-metrics": "Thống kê",
 	"breakdowns-filter": "Lọc",
 	"breakdowns-filter_and_split": "Lọc và chia",
@@ -238,6 +243,7 @@
 	"footer-privacy_policy": "Quy định về quyền riêng tư",
 	"footer-contributing": "Đóng góp",
 	"footer-contributing_guide": "Hướng dẫn đóng góp",
+	"footer-translate": "Giúp dịch Wikistats",
 	"footer-report_a_bug": "Báo cáo lỗi",
 	"footer-new_feature": "Tính năng mới",
 	"footer-community": "Cộng đồng",
@@ -247,6 +253,7 @@
 	"time_range-3-month": "3 tháng qua",
 	"time_range-last-month": "Tháng qua",
 	"time_range-all": "Từ trước đến nay",
+	"tooltip-help-download": "Tải về dữ liệu bạn đang xem",
 	"tooltip-help-permalink": "Liên kết thường trực",
 	"tooltip-help-copy": "Chép vào bảng tạm",
 	"tooltip-help-change-chart": "Thay đổi biểu đồ",
