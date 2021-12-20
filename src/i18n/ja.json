@@ -4,6 +4,7 @@
 			"A2y4",
 			"Fdansv",
 			"Kkairri",
+			"Omotecho",
 			"Waki285"
 		]
 	},
@@ -25,6 +26,8 @@
 	"topic_explorer-default_description": "検索するかあなたの知りたい質問を選択します",
 	"dashboard-monthly_overview": "月ごとの概要",
 	"metrics-total-page-views-name": "合計ページビュー",
+	"metrics-total-page-views-description": "ウィキメディアのプロジェクト群におけるページ閲覧数は記事の内容を閲覧した回数を数えます。既定ではこのデータは自動化されたトラフィックと人間によるトラフィックの両方を計測します。人間の利用者のページ閲覧数にしぼりこむには、エージェント Agent という種別のフィルタをかけてください。",
+	"metrics-total-page-views-tooltip": "ページ閲覧とは特定のウェブページのコンテンツを呼び出すことです。ウィキメディアのプロジェクト群では、これはコンテンツ消費を示す最も重要な指標です。ページビュー定義 pageview definition は利用者に配信されたコンテンツのページ閲覧数を計測ようとします。",
 	"metrics-total-page-views-question": "記事は何回閲覧されていますか?",
 	"metrics-total-page-views-breakdowns-access-name": "アクセス方法",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "デスクトップ",
@@ -36,6 +39,7 @@
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "自動",
 	"metrics-legacy-page-views-name": "古いページビュー",
 	"metrics-legacy-page-views-description": "古いページビューは、過去に記録されていたページビューです。2008年1月から2016年7月までのデータが取り込まれています。",
+	"metrics-legacy-page-views-tooltip": "ウィキメディアのプロジェクト群において、旧版のページ閲覧数は2008年1月より2016年7月まで、記事内容の閲覧を計測してきました。現在のページ閲覧データとの主な差異は自己報告型のボットのフィルタができなかった点で、そのため自動化と人間とのトラフィックを合算していました。",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "サイトアクセス",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "モバイルサイト",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "デスクトップサイト",
