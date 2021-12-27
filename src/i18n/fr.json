@@ -30,7 +30,7 @@
 	"topic_explorer-default_description": "Chercher ou parcourir les questions et en choisir une pour voir les réponses",
 	"dashboard-monthly_overview": "Vue générale mensuelle",
 	"metrics-total-page-views-name": "Total de pages vues",
-	"metrics-total-page-views-description": "Les pages vues sur les projets Wikimedia comptabilisent la consultation du contenu des articles. Par défaut, ces données montrent les pages vues provenant du trafic automatisé ainsi que du trafic humain.  Pour vous concentrer sur les pages vues par des utilisateurs humains, veuillez utiliser le filtre Type d'agent.",
+	"metrics-total-page-views-description": "Les pages vues sur les projets Wikimedia comptabilisent la consultation du contenu des articles. Par défaut, ces données montrent les pages vues provenant du trafic automatisé ainsi que du trafic humain. Pour n’afficher que les pages vues par des utilisateurs humains, vous pouvez utiliser le filtre Type d’agent.",
 	"metrics-total-page-views-tooltip": "Une page vue est une requête du contenu d’une page web. Les pages vues sur les projets Wikimédia constituent notre métrique de consommation de contenu la plus importante. La définition d’une page vue essaye de compter le nombre de visualisations du contenu envoyé aux utilisateurs.",
 	"metrics-total-page-views-question": "Combien de fois les articles sont-ils vus ?",
 	"metrics-total-page-views-breakdowns-access-name": "Méthode d’accès",
