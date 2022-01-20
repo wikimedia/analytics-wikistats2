@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"ArticleEditor404",
+			"Danniel07",
 			"Fdansv",
 			"Fitoschido",
 			"Geryescalier",
@@ -29,7 +30,7 @@
 	"topic_explorer-default_description": "Busca o explora preguntas y elige una para ver respuestas",
 	"dashboard-monthly_overview": "Vista general mensual",
 	"metrics-total-page-views-name": "Pageviews totales",
-	"metrics-total-page-views-description": "Las vistas de página en proyectos de Wikimedia cuentan la visualización del contenido del artículo. En estos datos tratamos de separar el tráfico de bots y centrarnos en las vistas de páginas de usuarios humanos",
+	"metrics-total-page-views-description": "Las vistas de página en proyectos de Wikimedia cuentan la visualización del contenido del artículo. Por defecto, estos datos muestran páginas vistas por tráfico automático al igual que humano. Para enfocarse en vistas de la página por usuarios humanos, por favor, usa el filtro de tipo de agente.",
 	"metrics-total-page-views-tooltip": "Una pageview es una petición del contenido de una página web. Las pageviews a proyectos de Wikimedia son nuestra métrica más importante relacionada con el consumo de contenido.",
 	"metrics-total-page-views-question": "¿Cuántas veces son vistos los artículos?",
 	"metrics-total-page-views-breakdowns-access-name": "Método de acceso",
