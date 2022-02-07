@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
+			"Hedda",
 			"Joseph",
 			"MuratTheTurkish",
 			"SaldırganSincap"
@@ -25,7 +26,7 @@
 	"topic_explorer-default_description": "Soruları arayın veya tarayın ve yanıtları görmek için birini seçin",
 	"dashboard-monthly_overview": "Aylık genel bakış",
 	"metrics-total-page-views-name": "Toplam sayfa görüntüleme sayısı",
-	"metrics-total-page-views-description": "Wikimedia projelerindeki sayfa görünümleri madde içeriğinin görüntülenmesini sayar. Bu verilerde bot trafiğini ayırmaya ve insan kullanıcı sayfası görünümlerine odaklanmaya çalışıyoruz",
+	"metrics-total-page-views-description": "Wikimedia projelerindeki sayfa görünümleri, madde içeriğinin görüntülenmesini hesaplar. Varsayılan olarak eklenen bu veriler, insan trafiğinin yanı sıra otomatik trafikten gelen sayfa görüntülemelerini de içerir. İnsan kullanıcı sayfa görünümlerine odaklanmak için lütfen Aracı türü filtresini kullanın.",
 	"metrics-total-page-views-tooltip": "Sayfa görünümü, bir web sayfasının içeriği için bir istektir. Wikimedia projelerine ilişkin sayfa görüntülemeleri, en önemli içerik tüketimi ölçümümüzdür. Sayfa görüntüleme tanımı, kullanıcılara yayınlanan içeriğin sayfa görüntülemelerini saymaya çalışır.",
 	"metrics-total-page-views-question": "Maddeler kaç kez görüntülendi?",
 	"metrics-total-page-views-breakdowns-access-name": "Erişim yöntemi",
