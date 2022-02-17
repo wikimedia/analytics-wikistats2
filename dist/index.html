@@ -19,7 +19,7 @@
             var __globalLocale = __selectedLocale || (navigator.language || navigator.userLanguage).split('-')[0];
             __globalLocale = __availableLocales.indexOf(__globalLocale) > -1 ? __globalLocale : 'en';
             window.localStorage.setItem('language', __globalLocale);
-            var jsFile = "main.bundle.2.9.2.en.js";
+            var jsFile = "main.bundle.2.9.3.en.js";
             var fileComponents = jsFile.split('.');
             fileComponents[fileComponents.length-2] = __globalLocale;
             var scriptElement = document.createElement('script');
