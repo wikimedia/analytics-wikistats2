@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eduardo Addad de Oliveira",
-			"Eduardoaddad"
+			"Eduardoaddad",
+			"TheEduGobi"
 		]
 	},
 	"general-title": "Estatísticas da Wikimedia",
@@ -23,7 +24,7 @@
 	"topic_explorer-default_description": "Pesquise ou navegue pelas perguntas e escolha uma para ver as respostas",
 	"dashboard-monthly_overview": "Visão geral mensal",
 	"metrics-total-page-views-name": "Total de visualizações da página",
-	"metrics-total-page-views-description": "As visualizações de página nos projetos Wikimedia contam a visualização do conteúdo do artigo. Nesses dados, tentamos separar o tráfego de robô e focar nas visualizações de páginas de usuários humanos",
+	"metrics-total-page-views-description": "As visualizações de página nos projetos da Wikimedia contam a visualização do conteúdo do artigo. Por padrão, esses dados mostram visualizações de página vindas tanto de tráfego automatizado (robôs) como humano. Para focar nas visualizações de página por humanos, utilize o filtro “Tipo de agente”.",
 	"metrics-total-page-views-tooltip": "Uma visualização de página é uma solicitação para o conteúdo de uma página da web. A visualização de páginas em projetos Wikimedia é a nossa métrica de consumo de conteúdo mais importante. A definição de exibição de página tenta contar as exibições de página do conteúdo entregue aos usuários.",
 	"metrics-total-page-views-question": "Quantas vezes os artigos são visualizados?",
 	"metrics-total-page-views-breakdowns-access-name": "Método de acesso",

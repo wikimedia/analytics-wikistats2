@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Giodiassi5",
+			"Giromin Cangiaxo",
 			"N. Longo"
 		]
 	},
@@ -20,7 +21,7 @@
 	"areas-content": "Contegnûo",
 	"areas-all_metrics": "Tùtte e métriche",
 	"topic_explorer-explore_topics": "Esplóra i argoménti",
-	"topic_explorer-default_description": "Çèrchia ò Sféuggia e domànde e seleçiónn-a 'na de quéste pe védde e rispòste",
+	"topic_explorer-default_description": "Çèrca ò Sféuggia e domànde e seleçiónn-a unn-a de quéste pe védde e rispòste",
 	"dashboard-monthly_overview": "Panoràmica mensîle",
 	"metrics-total-page-views-name": "Vizoalizaçioìn conplescîve da pàgina",
 	"metrics-total-page-views-description": "E pàgine vizoalizæ in scî progètti Wikimedia cóntan e vizoalizaçioìn di contegnûi di artìcoli. Segóndo e çèrnie predefinîe, 'sti dæti chi fan védde e vizoalizaçioìn de pàgine ségge de bot che de uténti umâni. Pe védde e vizoalizaçioìn da umâni, dêuviâ o fìltro sôlo in sciô tîpo agénte.",
