@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Haxpett",
+			"Larske",
 			"Sabelöga",
 			"Technic2",
 			"WikiPhoenix"
@@ -267,7 +268,7 @@
 	"breakdowns-breakdown_action": "{operation} av {breakdownName}",
 	"breakdowns-overall": "Sammanlagt",
 	"charts-bar": "stapel",
-	"charts-line": "rad",
+	"charts-line": "linje",
 	"charts-map": "karta",
 	"charts-table": "tabell",
 	"charts-table-load_more_rows": "Läs in fler rader...",
