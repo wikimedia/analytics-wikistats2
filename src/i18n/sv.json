@@ -26,7 +26,7 @@
 	"topic_explorer-default_description": "Sök eller bläddra bland frågor och välj en för att se svaren",
 	"dashboard-monthly_overview": "Månadsöversikt",
 	"metrics-total-page-views-name": "Totalt antal sidvisningar",
-	"metrics-total-page-views-description": "Sidvisningar på Wikimediaprojekten räknar visningar av artiklar. I den här siffran försöker vi separera robottrafik och fokusera på visningar för människor",
+	"metrics-total-page-views-description": "Sidvisningar på Wikimediaprojekten räknar visningar av artiklar. Som standard visar den här siffran sidvisningar från automatiserad trafik samt mänsklig trafik. För att fokusera på visningar för människor behöver du använda typfiltret Agent.",
 	"metrics-total-page-views-tooltip": "En sidvisning är en begäran för innehållet på en webbsida. Sidvisningar på Wikimediaprojekten är vårt viktigaste mätvärde för visning av innehåll. Definitionen av sidvisningar försöker räkna sidvisningar av innehåll för användare.",
 	"metrics-total-page-views-question": "Hur många gånger visas artiklar?",
 	"metrics-total-page-views-breakdowns-access-name": "Åtkomstmetod",
