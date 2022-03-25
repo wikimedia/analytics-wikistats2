@@ -63,7 +63,7 @@
                         Filter and split this metric
                     </wiki-button>
                 </div>
-                <h5 v-if="graphModel.config.structure === 'timeseries'">
+                <h5 v-if="graphModel.hasAggregate()">
                     {{graphModel.getAggregateLabel()}}:
                     {{ aggregate | bytesOrKmb(unit)}}
                 </h5>

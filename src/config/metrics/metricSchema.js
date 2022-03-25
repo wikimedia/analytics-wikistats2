@@ -111,6 +111,10 @@ const metricSchema = {
         type: 'string',
         required: false
     },
+    syntheticAll: {
+        type: 'boolean',
+        required: false
+    },
     tooltip: {
         type: 'string',
         required: false

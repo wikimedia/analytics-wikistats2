@@ -272,9 +272,17 @@ class GraphModel {
     get darkColor () {
         return this.config.darkColor;
     }
+    get syntheticAll () {
+        return this.config.syntheticAll ?? false;
+    }
 
     getAggregateLabel () {
         return this.config.additive ? 'Total' : 'Average';
+    }
+
+    hasAggregate () {
+        return this.config.structure === 'timeseries' ||
+              (this.config.structure === 'top' && this.syntheticAll)
     }
 
     getAggregate () {

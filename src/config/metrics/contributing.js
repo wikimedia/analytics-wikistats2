@@ -365,10 +365,10 @@ module.exports = {
     'active-editors-by-country': {
         disabled: false,
         fullName: 'Active editors by country',
-        description: 'The count by country of editors with five or more edits, including on redirect pages',
+        description: 'Editors by country at different activity levels; edits on redirect pages are included.',
         question: 'Which countries do active editors come from?',
         infoUrl: 'https://meta.wikimedia.org/wiki/Research:Wikistats_metrics/Editors',
-        tooltip: 'The count by country of editors with five or more edits, including on redirect pages.',
+        tooltip: 'Editors by country at different activity levels; edits on redirect pages are included.',
         defaults: {
             unique: {
                 'activity-level': ['5..99-edits']
@@ -380,6 +380,7 @@ module.exports = {
         },
         type: 'map',
         structure: 'top',
+        syntheticAll: true,
         area: 'contributing',
         value: 'editors-ceil',
         valueTitle: 'editors',
@@ -396,7 +397,7 @@ module.exports = {
                 { name: '100 or more edits', key: '100..-edits', on: true }
             ]
         }],
-        additive: false,
+        additive: true,
         knownStart: '2018-01-01',
     },
 };
