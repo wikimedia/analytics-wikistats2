@@ -397,6 +397,9 @@ module.exports = {
                 { name: '100 or more edits', key: '100..-edits', on: true }
             ]
         }],
+        // NOTE: this is not additive on the time dimension, just the country dimension
+        // TODO: refactor this property to be a list of dimensions along which this
+        //       metric is additive.  Eg: additiveForDimensions: ['country', 'time', etc]
         additive: true,
         knownStart: '2018-01-01',
     },
