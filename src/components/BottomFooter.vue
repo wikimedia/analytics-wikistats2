@@ -36,7 +36,7 @@
         <div class="credit">
             <i18n path="footer-design_credit">
                 <template #aislinn >
-                    <a target="_blank" href="//aislinngrigas.com/about/"><span class="base-footer">Aislinn Grigas</span></a>
+                    <a target="_blank" href="https://aislinngrigas.com/"><span class="base-footer">Aislinn Grigas</span></a>
                 </template>
             </i18n>
         </div>

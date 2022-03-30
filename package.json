@@ -10,7 +10,7 @@
     "scripts": {
         "test": "./node_modules/jest/bin/jest.js",
         "testDev": "./node_modules/jest/bin/jest.js --watch",
-        "build": "./webpack/build.js",
+        "build": "rm -r dist/* && ./webpack/build.js",
         "start": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
         "dev": "./node_modules/webpack/bin/webpack.js --config webpack/dev.config.js --progress --watch",
         "server": "python -m http.server 5000",
