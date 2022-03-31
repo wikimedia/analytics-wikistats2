@@ -323,7 +323,6 @@
 	"tooltip-breakdown-name-bot": "Un usuario que tiene un nombre que contiene la palabra \"bot\" (esto podría incluir nombres como BottlenoseDolphin)",
 	"tooltip-breakdown-user": "Un usuario registrado y editando desde su cuenta",
 	"tooltip-breakdown-spider": "Un programa informático que corre a través de sitios web para indexarlos, generalmente procedentes de buscadores web",
-	"tooltip-breakdown-bot": "Un programa informático pidiendo una página de forma automática",
 	"tooltip-breakdown-content": "También llamado \"Espacio de nombres principal\", incluye artículos en el espacio de nombres 0 y otros.",
 	"tooltip-breakdown-non-content": "Páginas de discusión, páginas de usuario, etc., se denominan No Contenido",
 	"tooltip-breakdown-1..4-edits": "Hizo entre una y cuatro ediciones en cada mes o días mostrado",

@@ -315,7 +315,6 @@
 	"tooltip-breakdown-name-bot": "Používateľ, ktorý má vo svojom mene \"bot\" (berte prosím na vedomie, že to môže byť aj meno ako Jozef Sobota)",
 	"tooltip-breakdown-user": "Registrovaný a prihlásený používateľ",
 	"tooltip-breakdown-spider": "Počítačový program, ktorý indexuje stránky cez ktoré prechádza. Zvyčajne sa jedná o vyhľadávače webových stránok",
-	"tooltip-breakdown-bot": "Počítačový program, ktorý automaticky posiela požiadavky na stránku",
 	"tooltip-breakdown-content": "Taktiež označované ako \"Hlavné menné priestory\"",
 	"tooltip-breakdown-non-content": "Diskusie, osobné stránky používateľov, fóra a podobne sú nazývané ako stránky \"Nie obsahové\"",
 	"tooltip-breakdown-1..4-edits": "Urobené medzi 1 a 4 úpravami a zobrazené za každý mesiac alebo deň",

@@ -5,7 +5,8 @@
 			"Fdansv",
 			"Kkairri",
 			"Omotecho",
-			"Waki285"
+			"Waki285",
+			"春春眠眠"
 		]
 	},
 	"general-title": "ウィキメディア統計",
@@ -204,6 +205,7 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "ドキュメント",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "その他",
 	"metrics-active-editors-by-country-name": "国別のアクティブな編集者",
+	"metrics-active-editors-by-country-tooltip": "さまざまな活動レベルの国別の編集者；これにはリダイレクトページの編集が含まれます。",
 	"metrics-active-editors-by-country-question": "編集者はどこの国から来ていますか?",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5から99回の編集",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100回以上の編集",
@@ -271,7 +273,6 @@
 	"tooltip-breakdown-name-bot": "名前に「bot」と含まれている利用者 (BottlenoseDolphin のような名前も含まれます)",
 	"tooltip-breakdown-user": "登録済みでログインしている利用者",
 	"tooltip-breakdown-spider": "一般的にウェブ検索エンジンと呼ばれるようなサイトをクロールしインデックスを作成するコンピュータープログラム",
-	"tooltip-breakdown-bot": "自動的にページを要求するコンピュータープログラム",
 	"tooltip-breakdown-content": "また「メインの名前空間」とも呼び、対象は名前空間 zero and ならびにその他のもの複数件です",
 	"tooltip-breakdown-non-content": "会話ページ、利用者ページなどは記事ではありません",
 	"tooltip-breakdown-1..4-edits": "表示した月次もしくは日次の編集が1回以上4回以内",

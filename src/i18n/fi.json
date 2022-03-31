@@ -293,7 +293,6 @@
 	"tooltip-breakdown-name-bot": "Käyttäjä jonka nimeen sisältyy \"bot\" (tähän lukuun saattaa sisältyä sellaisia tavallisia käyttäjiä, joiden nimeen sisältyy \"bot\", esimerkiksi \"BottlenoseDolphin\")",
 	"tooltip-breakdown-user": "Rekisteröitynyt, sisäänkirjautunut käyttäjä",
 	"tooltip-breakdown-spider": "Tietokoneohjelma, yleensä verkkohakukone, joka käy \nsivustoja läpi indeksoidakseen ne.",
-	"tooltip-breakdown-bot": "Sivulle pyynnön automaattisesti suorittanut tietokone-ohjelma",
 	"tooltip-breakdown-content": "Tunnetaan myös nimellä \"päänimiavaruus\", johon sisältyy pääasiassa artikkeleita nimiavaruudessa 0",
 	"tooltip-breakdown-non-content": "Ei-sisältösivuja ovat keskustelusivut, käyttäjäsivut yms.",
 	"tooltip-breakdown-1..4-edits": "Tehnyt 1–4 muokkausta näytettäväksi valittuina päivinä tai kuukausina",

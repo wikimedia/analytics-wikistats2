@@ -320,7 +320,6 @@
 	"tooltip-breakdown-name-bot": "Ein Benutzer, dessen Name \"bot\" beinhaltet (beachte, dass dies Namen wie BotanischerDelfin beinhalten kann)",
 	"tooltip-breakdown-user": "Ein registrierter, eingeloggter Benutzer",
 	"tooltip-breakdown-spider": "Ein Computerprogramm, dass durch Seiten kriecht um diese zu indexieren, meistens Suchmaschienen",
-	"tooltip-breakdown-bot": "Ein Computerprogramm, das automatisch eine Seite anfragt",
 	"tooltip-breakdown-content": "Auch als \"Hauptnamensraum\" bekannt, beinhaltet Seiten im Namensraum Null und ein paar anderen",
 	"tooltip-breakdown-non-content": "Diskussionsseiten, Nutzerseiten, etc. werden als Nicht-Inhalt bezeichnet",
 	"tooltip-breakdown-1..4-edits": "Hat zwischen 1 und 4 Bearbeitungen in jedem gezeigten Monat oder Tag gemacht",

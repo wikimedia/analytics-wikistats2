@@ -325,7 +325,6 @@
 	"tooltip-breakdown-name-bot": "Un usuari que té un nom que conté «bot» (tingueu present que això podria incloure noms com ara Paucabot)",
 	"tooltip-breakdown-user": "Un usuari registrat i amb la sessió iniciada",
 	"tooltip-breakdown-spider": "Un programa d'ordinador que recorre llocs web per a indexar-los; generalment són motors de cerca web",
-	"tooltip-breakdown-bot": "Un programa d'ordinador que sol·licita una pàgina de forma automàtica",
 	"tooltip-breakdown-content": "També anomenat «Espai de noms principal», inclou articles a l'espai de noms zero (bàsic) i uns quants altres",
 	"tooltip-breakdown-non-content": "Les pàgines de discussió, pàgines d'usuari, etc. s'anomenen «No-contingut»",
 	"tooltip-breakdown-1..4-edits": "Va realitzar entre 1 i 4 modificacions cada mes o dia mostrat",

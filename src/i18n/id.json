@@ -288,7 +288,6 @@
 	"tooltip-breakdown-name-bot": "Pengguna yang namanya mengandung \"bot\" (perhatikan bahwa ini bisa memasukkan nama seperti BotolAir)",
 	"tooltip-breakdown-user": "Pengguna yang terdaftar dan masuk log",
 	"tooltip-breakdown-spider": "Program komputer yang merayap ke situs-situs untuk mengindeks mereka, biasanya mesin pencarian web",
-	"tooltip-breakdown-bot": "Program komputer yang secara otomatis meminta halaman",
 	"tooltip-breakdown-content": "Juga disebut sebagai \"Ruang Nama Utama\", yaitu artikel-artikel dalam ruang nama nol dan beberapa ruang nama lainnya",
 	"tooltip-breakdown-non-content": "Halaman pembicaraan, halaman pengguna, dsb. disebut Nonkonten",
 	"tooltip-breakdown-1..4-edits": "Membuat di antara 1 dan 4 suntingan di setiap bulan atau hari yang ditampilkan",

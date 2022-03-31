@@ -296,7 +296,6 @@
 	"tooltip-breakdown-name-bot": "一个用户名中包含“bot”的用户（注意像“BottlenoseDolphin”的用户名也算）",
 	"tooltip-breakdown-user": "一个注册且登录了的用户",
 	"tooltip-breakdown-spider": "一种计算机程序，通常在网站搜索引擎中通过网站进行爬网以对其进行索引",
-	"tooltip-breakdown-bot": "一个自动请求页面的计算机程序",
 	"tooltip-breakdown-content": "还称为“主命名空间”，包括命名空间零的条目，还有其他",
 	"tooltip-breakdown-non-content": "讨论页和用户页等被称为非内容页面",
 	"tooltip-breakdown-1..4-edits": "在所示的每月或每天进行1到4次编辑",

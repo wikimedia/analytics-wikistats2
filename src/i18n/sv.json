@@ -319,7 +319,6 @@
 	"tooltip-breakdown-name-bot": "En användare med ett namn som innehåller \"bot\" (notera att detta kan innehålla namn som BottenViken)",
 	"tooltip-breakdown-user": "En registrerad inloggad användare",
 	"tooltip-breakdown-spider": "Ett datorprogram som går igenom webbplatser för att indexera dem, vanligtvis webbaserade sökmotorer",
-	"tooltip-breakdown-bot": "Ett datorprogram som automatiskt förfrågar en sida",
 	"tooltip-breakdown-content": "Benämns också som \"Huvudnamnrymden\", räknar in artiklar i namnrymden noll och några andra",
 	"tooltip-breakdown-non-content": "Diskussionssidor, användarsidor, osv. kallas \"Inget innehåll\"",
 	"tooltip-breakdown-1..4-edits": "Gjorde mellan 1 och 4 redigeringar för varje visad månad eller dag",

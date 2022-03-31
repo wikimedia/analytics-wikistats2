@@ -317,7 +317,6 @@
 	"tooltip-breakdown-name-bot": "Een gebruiker wiens naam \"bot\" bevat (merk op dat dit ook namen omvat zoals BottlenoseDolphin)",
 	"tooltip-breakdown-user": "Een geregistreerde, aangemelde gebruiker",
 	"tooltip-breakdown-spider": "Een computerprogramma dat door sites crawlt om ze te indexeren, over het algemeen webzoekmachines",
-	"tooltip-breakdown-bot": "Een computerprogramma dat automatisch een pagina opvraagt",
 	"tooltip-breakdown-content": "Ook wel \"Hoofdnaamruimte\" genoemd, bevat artikelen in naamruimte nul en een paar andere",
 	"tooltip-breakdown-non-content": "Overlegpagina's, gebruikerspagina's, enz. worden niet-inhoud genoemd",
 	"tooltip-breakdown-1..4-edits": "Tussen de 1 en 4 bewerkingen gedaan in elke weergegeven maand of dag",
