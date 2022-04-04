@@ -3,6 +3,7 @@
 		"authors": [
 			"Ciell",
 			"Mainframe98",
+			"McDutchie",
 			"Romaine"
 		]
 	},
@@ -24,7 +25,7 @@
 	"topic_explorer-default_description": "Zoek of blader door vragen en kies er een om antwoorden te zien",
 	"dashboard-monthly_overview": "Maandelijks overzicht",
 	"metrics-total-page-views-name": "Totaal aantal bekeken pagina's",
-	"metrics-total-page-views-description": "Paginaweergaven op Wikimedia-projecten tellen de weergave van artikelinhoud. In deze gegevens proberen we botverkeer te scheiden en ons te concentreren op paginaweergaven van menselijke gebruikers",
+	"metrics-total-page-views-description": "Paginaweergaven op Wikimedia-projecten tellen de weergave van artikelinhoud. Standaard tonen deze gegevens de weergaven afkomstig van zowel geautomatiseerd verkeer als menselijk verkeer. Om alleen paginaweergaven van menselijke gebruikers te zien kunt u het filter Agenttype gebruiken.",
 	"metrics-total-page-views-tooltip": "Een paginaweergave is een verzoek om de inhoud van een webpagina. Paginaweergaven op Wikimediaprojecten is ons belangrijkste meetgegeven voor inhoudsconsumptie. De paginaweergave-definitie probeert de paginaweergaves te tellen van de inhoud die aan gebruikers wordt geleverd.",
 	"metrics-total-page-views-question": "Hoeveel keer zijn artikelen bekeken?",
 	"metrics-total-page-views-breakdowns-access-name": "Toegangswijze",
@@ -231,8 +232,8 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Document",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Overige",
 	"metrics-active-editors-by-country-name": "Actieve redacteuren per land",
-	"metrics-active-editors-by-country-description": "Het aantal gebruiker met vijf of meer bewerkingen, inclusief bewerkingen van automatische doorverwijzingen",
-	"metrics-active-editors-by-country-tooltip": "Het aantal gebruiker met vijf of meer bewerkingen, inclusief bewerkingen van automatische doorverwijzingen",
+	"metrics-active-editors-by-country-description": "Bewerkers per land op verschillende activiteitenniveaus; bewerkingen op doorverwijspagina's zijn inbegrepen.",
+	"metrics-active-editors-by-country-tooltip": "Bewerkers per land op verschillende activiteitenniveaus; bewerkingen op doorverwijspagina's zijn inbegrepen.",
 	"metrics-active-editors-by-country-question": "Uit welke landen komen actieve redacteuren?",
 	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Activiteitsniveau",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5 tot 99 bewerkingen",
@@ -315,8 +316,9 @@
 	"tooltip-breakdown-anonymous": "Een gebruiker die niet is aangemeld",
 	"tooltip-breakdown-group-bot": "Een bot die is geregistreerd en deel uitmaakt van de botgebruikersgroep",
 	"tooltip-breakdown-name-bot": "Een gebruiker wiens naam \"bot\" bevat (merk op dat dit ook namen omvat zoals BottlenoseDolphin)",
-	"tooltip-breakdown-user": "Een geregistreerde, aangemelde gebruiker",
+	"tooltip-breakdown-user": "Een geregistreerde, aangemelde gebruiker voor het bewerken van statistieken; een menselijke gebruiker voor het uitlezen van statistieken",
 	"tooltip-breakdown-spider": "Een computerprogramma dat door sites crawlt om ze te indexeren, over het algemeen webzoekmachines",
+	"tooltip-breakdown-automated": "Een gebruiker die op grond van heuristiek is aangemerkt als computerprogramma",
 	"tooltip-breakdown-content": "Ook wel \"Hoofdnaamruimte\" genoemd, bevat artikelen in naamruimte nul en een paar andere",
 	"tooltip-breakdown-non-content": "Overlegpagina's, gebruikerspagina's, enz. worden niet-inhoud genoemd",
 	"tooltip-breakdown-1..4-edits": "Tussen de 1 en 4 bewerkingen gedaan in elke weergegeven maand of dag",
