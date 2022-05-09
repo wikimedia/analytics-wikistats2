@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Beginneruser",
 			"Darafsh",
 			"FarsiNevis",
 			"Huji"
@@ -40,7 +41,7 @@
 	"metrics-legacy-page-views-tooltip": "نسخهٔ قدیمی بازدید صفحه‌ها حاوی اطلاعات مربوط به ژانویهٔ ۲۰۰۸ تا ژوئیهٔ ۲۰۱۶ است. تفاوت اصلی آن با نسخهٔ فعلی در آن است که از پالایش اطلاعات برای حذف بازدیدهایی که توسط حساب‌های ربات شده برخوردار نیست، در نتیجه اطلاعاتش شامل مجموع بازدیدهای حساب‌های خودکار و انسانی است.",
 	"metrics-legacy-page-views-question": "تا پیش از تعریف شمارگر فعلی بازدید صفحه‌ها، مقاله‌ها چند بار دیده شده بودند؟",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "نسخهٔ مورد دسترسی",
-	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "نسخهٔ تلفن همراه",
+	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "وبگاه همراه",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "نسخهٔ رایانهٔ رومیزی",
 	"metrics-page-views-by-country-name": "بازدیدهای صفحه بر پایهٔ کشور",
 	"metrics-page-views-by-country-description": "کشورهایی که این پروژه بیشترین بازدید را از آن‌ها داشته‌است. کشورهایی که زیر ۱۰۰ بازدید داشته باشند نمایش نمی‌یابند و در نقشه به صورت خالی دیده می‌شوند.",
@@ -49,7 +50,7 @@
 	"metrics-page-views-by-country-question": "بازدیدکنندگان این پروژه از کجا می‌آیند؟",
 	"metrics-page-views-by-country-breakdowns-access-name": "روش دسترسی",
 	"metrics-page-views-by-country-breakdowns-access-values-desktop-name": "رایانهٔ رومیزی",
-	"metrics-page-views-by-country-breakdowns-access-values-mobile-app-name": "نرم‌افزار تلفن همراه",
+	"metrics-page-views-by-country-breakdowns-access-values-mobile-app-name": "برنامهٔ همراه",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-web-name": "وب‌گاه روی تلفن همراه",
 	"metrics-unique-devices-name": "دستگاه‌های یگانه",
 	"metrics-unique-devices-description": "چند دستگاه یگانه برای بازدید صفحه‌های پروژه در بازهٔ زمانی مشخص‌شده به کار رفته‌اند؟",
