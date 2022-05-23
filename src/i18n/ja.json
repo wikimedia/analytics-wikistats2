@@ -5,6 +5,7 @@
 			"Fdansv",
 			"Kkairri",
 			"Omotecho",
+			"Shirayuki",
 			"Waki285",
 			"春春眠眠"
 		]
@@ -205,7 +206,7 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "ドキュメント",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "その他",
 	"metrics-active-editors-by-country-name": "国別のアクティブな編集者",
-	"metrics-active-editors-by-country-tooltip": "さまざまな活動レベルの国別の編集者；これにはリダイレクトページの編集が含まれます。",
+	"metrics-active-editors-by-country-tooltip": "さまざまな活動レベルの国別の編集者。これにはリダイレクトページの編集が含まれます。",
 	"metrics-active-editors-by-country-question": "編集者はどこの国から来ていますか?",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "5から99回の編集",
 	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100回以上の編集",
