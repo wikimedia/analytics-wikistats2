@@ -294,14 +294,14 @@ section[data-v-64235fa5] {
 }
 
 
-a[data-v-da94052c], a[data-v-da94052c]:visited {
+a[data-v-3168d1e5], a[data-v-3168d1e5]:visited {
     color: #e6e6e7;
     font-weight: 300;
 }
-a[data-v-da94052c]:hover {
+a[data-v-3168d1e5]:hover {
     color: #ffffff;
 }
-.page-footer[data-v-da94052c] {
+.page-footer[data-v-3168d1e5] {
     display: grid;
     grid-gap: 20px;
     grid-template-areas:
@@ -315,24 +315,24 @@ a[data-v-da94052c]:hover {
     margin-right: -1rem;
     margin-bottom: -1rem;
 }
-.img-container[data-v-da94052c] {
+.img-container[data-v-3168d1e5] {
     grid-area: img-container;
     padding: 1rem 5rem;
     margin-right: 100px;
 }
-.list-documentation[data-v-da94052c] {
+.list-documentation[data-v-3168d1e5] {
     grid-area: list-documentation;
     padding: 1rem;
 }
-.list-contributing[data-v-da94052c] {
+.list-contributing[data-v-3168d1e5] {
     grid-area: list-contributing;
     padding: 1rem;
 }
-.list-community[data-v-da94052c] {
+.list-community[data-v-3168d1e5] {
     grid-area: list-community;
     padding: 1rem;
 }
-.bottom-footer-container[data-v-da94052c] {
+.bottom-footer-container[data-v-3168d1e5] {
     grid-area: bottom-footer-container;
     display: flex;
     overflow: hidden;
@@ -340,68 +340,68 @@ a[data-v-da94052c]:hover {
     color: rgba(255, 255, 255, 0.6);
     padding: 1rem 2rem;
 }
-.wikimedia-logo[data-v-da94052c]{
+.wikimedia-logo[data-v-3168d1e5]{
     width: 100px;
     height: 100px;
 }
-.list-container[data-v-da94052c] {
+.list-container[data-v-3168d1e5] {
     padding-bottom: 0;
 }
-.list-heading[data-v-da94052c] {
+.list-heading[data-v-3168d1e5] {
     font-weight: 400;
     font-size: 1.3rem;
 }
-.list-content[data-v-da94052c] {
+.list-content[data-v-3168d1e5] {
     list-style: none;
     padding: 0;
     line-height: 1.7;
 }
-.copyright[data-v-da94052c] {
+.copyright[data-v-3168d1e5] {
     margin-left: 200px;
 }
 @media(max-width: 767px) {
-.page-footer[data-v-da94052c] {
+.page-footer[data-v-3168d1e5] {
         grid-template-areas:
           'img-container img-container img-container'
           'list-documentation list-contributing list-community'
           'bottom-footer-container bottom-footer-container bottom-footer-container';
 }
-.list-container[data-v-da94052c] {
+.list-container[data-v-3168d1e5] {
       margin: auto;
 }
-.img-container[data-v-da94052c] {
+.img-container[data-v-3168d1e5] {
         display: block;
         margin: auto;
 }
 }
 @media(max-width: 500px) {
-.page-footer[data-v-da94052c] {
+.page-footer[data-v-3168d1e5] {
         grid-template-areas:
           'img-container img-container'
           'list-documentation list-contributing'
           'list-community list-community'
           'bottom-footer-container bottom-footer-container';
 }
-.list-documentation[data-v-da94052c] {
+.list-documentation[data-v-3168d1e5] {
         display: block;
         margin: auto;
 }
-.list-contributing[data-v-da94052c] {
+.list-contributing[data-v-3168d1e5] {
         display: block;
         margin: auto;
 }
-.list-community[data-v-da94052c]  {
+.list-community[data-v-3168d1e5]  {
         display: block;
         margin: auto;
 }
-.bottom-footer-container[data-v-da94052c] {
+.bottom-footer-container[data-v-3168d1e5] {
         display: flex;
         flex-direction: column;
         margin: auto;
         text-align: center;
         justify-content: center;
 }
-.copyright[data-v-da94052c] {
+.copyright[data-v-3168d1e5] {
         margin: auto;
 }
 }
