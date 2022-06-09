@@ -15,7 +15,8 @@
 			"Okras",
 			"Pacha Tchernof",
 			"Tanzun",
-			"Wileyfoxyx"
+			"Wileyfoxyx",
+			"Артём 13327"
 		]
 	},
 	"general-title": "Статистика Викимедии",
@@ -127,6 +128,8 @@
 	"metrics-user-edits-breakdowns-page_type-values-content-name": "Содержание (контент)",
 	"metrics-user-edits-breakdowns-page_type-values-non-content-name": "Неконтентные",
 	"metrics-new-pages-name": "Новые страницы",
+	"metrics-new-pages-description": "Количество созданных страниц не считая перенаправления",
+	"metrics-new-pages-question": "Сколько создаётся страниц каждый месяц?",
 	"metrics-new-pages-breakdowns-editor_type-name": "Тип редактора",
 	"metrics-new-pages-breakdowns-editor_type-values-anonymous-name": "Аноним",
 	"metrics-new-pages-breakdowns-editor_type-values-group-bot-name": "Групповой бот",
@@ -162,6 +165,7 @@
 	"metrics-top-edited-pages-breakdowns-page_type-name": "Тип страницы",
 	"metrics-top-edited-pages-breakdowns-page_type-values-content-name": "Содержание (контент)",
 	"metrics-top-edited-pages-breakdowns-page_type-values-non-content-name": "Неконтентные",
+	"metrics-absolute-bytes-diff-question": "Сколько всего байтов было добавлено и удалено?",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-name": "Тип редактора",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-anonymous-name": "Аноним",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-group-bot-name": "Групповой бот",
@@ -261,6 +265,7 @@
 	"granularities-daily": "ежедневно",
 	"granularities-monthly": "ежемесячно",
 	"metrics_matrix-all_metrics": "Все метрики Викистатистики",
+	"footer-design_credit": "Разработано {aislinn}",
 	"footer-copyright": "Все данные, диаграммы и другой контент доступны по {license}",
 	"footer-documentation": "Документация",
 	"footer-about_wikistats": "О Викистатистике",
@@ -288,6 +293,8 @@
 	"tooltip-help-annotations": "Аннотации",
 	"tooltip-help-split": "Фрагментируйте, чтобы узнать более подробно. Выбирайте интересующие вас фрагменты, используя чекбоксы",
 	"tooltip-breakdown-desktop-site": "Сайт предназначен для настольных устройств (можно просматривать на мобильных устройствах)",
+	"tooltip-breakdown-anonymous": "Неавторизованный пользователь",
+	"tooltip-breakdown-group-bot": "Зарегистрированный бот входящий в группу ботов",
 	"tooltip-breakdown-non-content": "Страницы обсуждений, страницы участников и т.д. все вместе называются «неконтентными»",
 	"tooltip-breakdown-1..4-edits": "Внесено от 1 до 4 правок за каждый указанный месяц или день",
 	"tooltip-breakdown-5..24-edits": "Внесено от 5 до 24 правок за каждый указанный месяц или день",
