@@ -319,6 +319,7 @@
 	"tooltip-breakdown-name-bot": "\"Bot\" içeren bir adı olan bir kullanıcı (bunun BottlenoseDolphin gibi adlar içerebileceğini unutmayın)",
 	"tooltip-breakdown-user": "Metrikleri düzenlemek için kayıtlı, oturum açmış bir kullanıcı; metrikleri okuyan bir insan kullanıcı",
 	"tooltip-breakdown-spider": "Genellikle web arama motorları olmak üzere, siteleri dizine ekleyen bir bilgisayar programı",
+	"tooltip-breakdown-automated": "Buluşsal yöntemler tarafından gerçekten bir bilgisayar programı olduğu belirlenen bir kullanıcı aracısı",
 	"tooltip-breakdown-content": "\"Ana Ad Alanı\" olarak da adlandırılır, sıfır ve diğer birkaç ad alanındaki maddeleri içerir",
 	"tooltip-breakdown-non-content": "Tartışma sayfaları, kullanıcı sayfaları vb. içeriksiz olarak adlandırılır",
 	"tooltip-breakdown-1..4-edits": "Gösterilen her ay veya günde 1 ile 4 arasında düzenleme yapıldı",
