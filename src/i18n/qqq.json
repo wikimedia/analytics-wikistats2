@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Amire80",
 			"BaRaN6161 TURK",
 			"Eneelk",
@@ -12,6 +13,7 @@
 	"general-title": "Website's name.",
 	"general-month": "{{identical|Month}}",
 	"general-year": "{{identical|Year}}",
+	"general-total": "{{Identical|Total}}",
 	"general-date": "{{identical|date}}",
 	"general-name": "{{identical|Name}}",
 	"general-original_wikistats": "Linked to previous Wikistats version.",
