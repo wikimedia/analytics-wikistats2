@@ -6,6 +6,7 @@
 			"FakeGreenHand",
 			"GuoPC",
 			"Hzy980512",
+			"Stang",
 			"Tp8",
 			"Whatsok",
 			"Yfdyh000",
@@ -307,6 +308,6 @@
 	"status_overlay-non_global": "指标{metricName}不对所有项目适用。请选择一个特定的维基。",
 	"status_overlay-non_global_family": "指标{metricName}不对项目{project}适用。请选择一个特定的维基。",
 	"status_overlay-no_service": "分析请求服务似乎已下线",
-	"status_overlay-loading": "载入指标...",
+	"status_overlay-loading": "加载指标...",
 	"status_overlay-general_error": "出错了"
 }
