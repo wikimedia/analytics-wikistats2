@@ -312,7 +312,7 @@
 	"tooltip-breakdown-mobile-site": "Mobil qurilmalar uchun moʻljallangan sayt (desktop qurilmalarda ham koʻrilishi mumkin)",
 	"tooltip-breakdown-desktop-site": "Desktop qurilmalar uchun moʻljallangan sayt (mobil qurilmalarda ham koʻrilishi mumkin)",
 	"tooltip-breakdown-anonymous": "Tizimga kirmagan foydalanuvchi",
-	"tooltip-breakdown-group-bot": "Roʻyxatdan oʻtgan va bot foydalanuvchilari guruhi aʼzosi boʻlgan boʻlgan bot",
+	"tooltip-breakdown-group-bot": "Roʻyxatdan oʻtgan va bot foydalanuvchilari guruhi aʼzosi boʻlgan bot",
 	"tooltip-breakdown-name-bot": "Nomida „bot“ soʻzi boʻlgan foydalanuvchi (unutmang, bu BottlenoseDolphin kabi nomlarni ham oʻz ichiga oladi)",
 	"tooltip-breakdown-user": "Tahrirlash koʻrsatkichlarida roʻyxatdan oʻtgan, tizimga kirgan foydalanuvchi; oʻqish koʻrsatkichlarida inson foydalanuvchisi",
 	"tooltip-breakdown-spider": "Saytlarni indekslash uchun saytlarni koʻrib chiqadigan komputer dasturi; odatda veb-qidiruv tizimlari",
