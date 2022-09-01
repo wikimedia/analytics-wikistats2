@@ -258,7 +258,7 @@
 	"graph_panel-no_data_yet": "Pas encore de données",
 	"graph_panel-change_over_range": "{change} % sur cette période de temps",
 	"graph_panel-change_cant_calculate": "Le pourcentage de modification ne peut pas être calculé sur cette plage de temps.",
-	"graph_panel-more_info": "Plus d’informations sur cette mesure.",
+	"graph_panel-more_info": "Davantage d’informations sur cette mesure.",
 	"graph_panel-wikistats1_counterpart": "Cette mesure est filtrée pour être cohérente avec le décompte de Wikistats 1.",
 	"graph_panel-add_annotations_link": "Vous pouvez {0}",
 	"graph_panel-annotations_link_action": "voir ou ajouter des annotations pour cette donnée sur cet article wiki.",
