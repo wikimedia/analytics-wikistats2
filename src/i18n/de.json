@@ -6,6 +6,7 @@
 			"Ferdinand0101",
 			"ManuelFranz",
 			"Symposiarch",
+			"Tkarcher",
 			"Unkn0wnCat",
 			"XenonX3"
 		]
@@ -87,7 +88,7 @@
 	"metrics-editors-breakdowns-activity_level-values-5..24-edits-name": "5 bis 24 Bearbeitungen",
 	"metrics-editors-breakdowns-activity_level-values-25..99-edits-name": "25 bis 99 Bearbeitungen",
 	"metrics-editors-breakdowns-activity_level-values-100..-edits-name": "100 oder mehr Bearbeitungen",
-	"metrics-active-editors-name": "Aktive Autoren",
+	"metrics-active-editors-name": "Aktive Autoren und Autorinnen",
 	"metrics-active-editors-description": "Die Anzahl von Autoren mit 5 oder mehr Bearbeitungen inklusive Weiterleitungsseiten",
 	"metrics-active-editors-tooltip": "Die Anzahl von Autoren mit 5 oder mehr Bearbeitungen inklusive Weiterleitungsseiten.",
 	"metrics-active-editors-question": "Wie viele aktive Autoren gibt es?",

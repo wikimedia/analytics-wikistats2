@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"EdoAug",
 			"Jon Harald Søby"
 		]
 	},
@@ -22,7 +23,7 @@
 	"topic_explorer-default_description": "Søk eller gå gjennom spørsmål og velg ett for å se svar",
 	"dashboard-monthly_overview": "Månedlig oversikt",
 	"metrics-total-page-views-name": "Totalt antall sidevisninger",
-	"metrics-total-page-views-description": "Sidevisninger på Wikimedia-prosjektene teller visning av artikkelinnhold. I disse dataene prøver vi å skille ut bottrafikk og fokusere på visninger for faktiske mennesker.",
+	"metrics-total-page-views-description": "Sidevisninger på Wikimedia-prosjektene teller visning av artikkelinnhold. Som standard viser dataen sidevisninger fra både automatisk trafikk og menneskelig trafikk. For å fokusere på menneskelige sidevisninger, kan du benytte filtertypen Agent.",
 	"metrics-total-page-views-tooltip": "En sidevisning er en forespørsel etter innholdet på en nettside. Sidevisninger på Wikimedia-prosjektene er vår viktigste måling av hvordan innholdet vårt brukes. Definisjonen av en sidevisning prøver å telle sidevisninger for innhold som leveres til brukere.",
 	"metrics-total-page-views-question": "Hvor mange ganger vises artikler?",
 	"metrics-total-page-views-breakdowns-access-name": "Tilgangsmetode",
@@ -181,5 +182,10 @@
 	"metrics-edited-pages-breakdowns-activity_level-values-5..24-edits-name": "5 til 24 redigeringer",
 	"metrics-edited-pages-breakdowns-activity_level-values-25..99-edits-name": "25 til 99 redigeringer",
 	"metrics-edited-pages-breakdowns-activity_level-values-100..-edits-name": "100 eller flere redigeringer",
-	"metrics-net-bytes-difference-name": "Nettoforskjell i antall byte"
+	"metrics-net-bytes-difference-name": "Nettoforskjell i antall byte",
+	"metrics-net-bytes-difference-breakdowns-editor_type-name": "Bidragsytertype",
+	"metrics-net-bytes-difference-breakdowns-editor_type-values-anonymous-name": "Anonym",
+	"metrics-net-bytes-difference-breakdowns-editor_type-values-user-name": "Bruker",
+	"metrics-net-bytes-difference-breakdowns-page_type-name": "Sidetype",
+	"metrics-net-bytes-difference-breakdowns-page_type-values-content-name": "Innhold"
 }
