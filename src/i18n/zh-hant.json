@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly"
+			"Kly",
+			"Winston Sung"
 		]
 	},
 	"general-title": "維基媒體統計",
@@ -280,7 +281,7 @@
 	"footer-about_wikistats": "關於 Wikistats",
 	"footer-technology": "應用技術",
 	"footer-data_it_uses": "使用的資料",
-	"footer-privacy_policy": "隱私政策",
+	"footer-privacy_policy": "隱私權政策",
 	"footer-contributing": "貢獻",
 	"footer-contributing_guide": "貢獻指南",
 	"footer-translate": "協助翻譯 Wikistats",
