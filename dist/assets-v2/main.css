@@ -294,14 +294,14 @@ section[data-v-64235fa5] {
 }
 
 
-a[data-v-3168d1e5], a[data-v-3168d1e5]:visited {
+a[data-v-b5f73c76], a[data-v-b5f73c76]:visited {
     color: #e6e6e7;
     font-weight: 300;
 }
-a[data-v-3168d1e5]:hover {
+a[data-v-b5f73c76]:hover {
     color: #ffffff;
 }
-.page-footer[data-v-3168d1e5] {
+.page-footer[data-v-b5f73c76] {
     display: grid;
     grid-gap: 20px;
     grid-template-areas:
@@ -315,24 +315,24 @@ a[data-v-3168d1e5]:hover {
     margin-right: -1rem;
     margin-bottom: -1rem;
 }
-.img-container[data-v-3168d1e5] {
+.img-container[data-v-b5f73c76] {
     grid-area: img-container;
     padding: 1rem 5rem;
     margin-right: 100px;
 }
-.list-documentation[data-v-3168d1e5] {
+.list-documentation[data-v-b5f73c76] {
     grid-area: list-documentation;
     padding: 1rem;
 }
-.list-contributing[data-v-3168d1e5] {
+.list-contributing[data-v-b5f73c76] {
     grid-area: list-contributing;
     padding: 1rem;
 }
-.list-community[data-v-3168d1e5] {
+.list-community[data-v-b5f73c76] {
     grid-area: list-community;
     padding: 1rem;
 }
-.bottom-footer-container[data-v-3168d1e5] {
+.bottom-footer-container[data-v-b5f73c76] {
     grid-area: bottom-footer-container;
     display: flex;
     overflow: hidden;
@@ -340,68 +340,68 @@ a[data-v-3168d1e5]:hover {
     color: rgba(255, 255, 255, 0.6);
     padding: 1rem 2rem;
 }
-.wikimedia-logo[data-v-3168d1e5]{
+.wikimedia-logo[data-v-b5f73c76]{
     width: 100px;
     height: 100px;
 }
-.list-container[data-v-3168d1e5] {
+.list-container[data-v-b5f73c76] {
     padding-bottom: 0;
 }
-.list-heading[data-v-3168d1e5] {
+.list-heading[data-v-b5f73c76] {
     font-weight: 400;
     font-size: 1.3rem;
 }
-.list-content[data-v-3168d1e5] {
+.list-content[data-v-b5f73c76] {
     list-style: none;
     padding: 0;
     line-height: 1.7;
 }
-.copyright[data-v-3168d1e5] {
+.copyright[data-v-b5f73c76] {
     margin-left: 200px;
 }
 @media(max-width: 767px) {
-.page-footer[data-v-3168d1e5] {
+.page-footer[data-v-b5f73c76] {
         grid-template-areas:
           'img-container img-container img-container'
           'list-documentation list-contributing list-community'
           'bottom-footer-container bottom-footer-container bottom-footer-container';
 }
-.list-container[data-v-3168d1e5] {
+.list-container[data-v-b5f73c76] {
       margin: auto;
 }
-.img-container[data-v-3168d1e5] {
+.img-container[data-v-b5f73c76] {
         display: block;
         margin: auto;
 }
 }
 @media(max-width: 500px) {
-.page-footer[data-v-3168d1e5] {
+.page-footer[data-v-b5f73c76] {
         grid-template-areas:
           'img-container img-container'
           'list-documentation list-contributing'
           'list-community list-community'
           'bottom-footer-container bottom-footer-container';
 }
-.list-documentation[data-v-3168d1e5] {
+.list-documentation[data-v-b5f73c76] {
         display: block;
         margin: auto;
 }
-.list-contributing[data-v-3168d1e5] {
+.list-contributing[data-v-b5f73c76] {
         display: block;
         margin: auto;
 }
-.list-community[data-v-3168d1e5]  {
+.list-community[data-v-b5f73c76]  {
         display: block;
         margin: auto;
 }
-.bottom-footer-container[data-v-3168d1e5] {
+.bottom-footer-container[data-v-b5f73c76] {
         display: flex;
         flex-direction: column;
         margin: auto;
         text-align: center;
         justify-content: center;
 }
-.copyright[data-v-3168d1e5] {
+.copyright[data-v-b5f73c76] {
         margin: auto;
 }
 }
@@ -1028,7 +1028,6 @@ p.loading { font-size: 1.2em; padding: 1.2em; color: #72777d;
  * http://opensource.org/licenses/MIT
  *
  */
-@import url('');
 /*!
  * # Fomantic-UI 2.8.8 - Reset
  * http://github.com/fomantic/Fomantic-UI/
