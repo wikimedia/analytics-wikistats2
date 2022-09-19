@@ -81,8 +81,10 @@ config.plugins.push(
 config.output.filename = `main.bundle.${version}.en.js`;
 
 webpack(config, (err, stats) => {
-    console.log(`Build took ${(stats.endTime - stats.startTime) / 1000} seconds`);
-    if (err || stats.hasErrors()) {
+    if (stats) { console.log(`Build took ${(stats.endTime - stats.startTime) / 1000} seconds`); }
+    if (err) {
+        console.error(err);
+    } else if (stats && stats.hasErrors()) {
         console.error(stats.toJson().errors);
     } else {
         const initialBundle = fs.readFileSync(`${distPath}/${config.output.filename}`);
