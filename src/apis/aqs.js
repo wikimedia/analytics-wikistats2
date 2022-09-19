@@ -58,7 +58,7 @@ class AQS {
                     */
                     if (
                         config.metrics[commonParameters.metric].structure === "top" &&
-                        dimensionalData.getAllItems().length === 0 &&
+                        dimensionalData.isEmpty() &&
                         tries--
                     ) {
                         commonParameters.timeRange.goBackOneMonth();
@@ -83,6 +83,8 @@ class AQS {
         const apiConfig = config.aqs[commonParameters.metric];
         const metricConfig = config.metrics[commonParameters.metric];
         if (metricConfig.cumulative === true) {
+            // Cumulative metrics are more expensive.  We have to fetch all history
+            // so we can keep a tally from the start until the day requested by the user.
             commonParameters.start = '1980010100';
         }
 

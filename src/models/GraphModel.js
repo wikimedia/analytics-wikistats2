@@ -120,7 +120,7 @@ class GraphModel {
                 this.status = StatusOverlay.getMessageForStatus(req.status);
             });
             dataPromise.then(dimensionalData => {
-                if (dimensionalData.getAllItems().length === 0) {
+                if (dimensionalData.isEmpty()) {
                     this.status = StatusOverlay.NO_DATA;
                 } else {
                     this.status = null;
