@@ -17,12 +17,11 @@ npm install
 
 ### Third-party UI elements
 
-Wikistats uses many components from the Semantic UI library, which requires a special initialization with gulp when installing the project:
+Wikistats uses many components from the Fomantic UI library.  This should build itself with gulp when it's first loaded.  If there are any changes to `semantic/src/site/globals/site.variables`, fomantic css will need to be rebuilt:
 
 ```bash
-npm install -g gulp
-cd semantic
-gulp build
+cd node_modules/fomantic-ui
+./node_modules/gulp/bin/gulp.js build-css
 ```
 
 ### Generating the bundle
@@ -36,20 +35,19 @@ npm run dev
 This command will set up a watcher that will rebuild the bundle each time a project file changes. The production environment won't minify the bundle so that code is readable within the browser developer tools. This will generate the static site in `./dist-dev` within your wikistats repository directory. In order to see the built site you need a simple http server such as python's SimpleHTTPServer
 
 ```bash
-python -m SimpleHTTPServer 5000
+npm run server
 ```
 
 The application should be now working in `localhost:5000`
 
 ## Tests
 
-Tests are located in the `test` directory. We use Jasmine as our testing library and Karma as the test runner. Running the following:
+Tests are located in the `test` directory. We use Jest as our test runner. Running the following:
 
 ```bash
 npm test
 ```
 
-will initialize a karma watcher that will run the webpack bundler each time a test change, and evaluate the whole test suite, printing out any failures in the console. Beware the by default, npm test will use Google Chrome as the testing browser. If you're using a different browser or environment you should change it in `karma.conf.js`
 Additionally, there are smoke tests to be performed with each significant change to the codebase, which are described in [Analytics/Wikistats 2/Smoke testing](https://wikitech.wikimedia.org/wiki/Analytics/Wikistats_2/Smoke_Testing).
 
 ## Bug report and Feature request

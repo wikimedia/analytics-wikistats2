@@ -33,17 +33,6 @@ module.exports = merge(baseConfig, {
                     }, 'css-loader'
                 ],
             },
-            // Replacing googleapis fonts in semantic with ...ahem nothing so they do not run
-            // the css needed is included in lato.css
-            {
-                test: /semantic\.css$/,
-                loader: 'string-replace-loader',
-                options: {
-                    search: 'https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin',
-                    replace: '',
-                    strict: true
-                }
-            }
         ]
     },
 
