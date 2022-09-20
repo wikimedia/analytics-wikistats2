@@ -109,6 +109,11 @@
 		"englishName": "Ukrainian",
 		"nativeName": "українська"
 	},
+	"uz": {
+		"numbroCode": "en",
+		"englishName": "Uzbek",
+		"nativeName": "Oʻzbekcha"
+	},
 	"vec": {
 		"numbroCode": "en",
 		"englishName": "Venetian",

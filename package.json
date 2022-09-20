@@ -1,6 +1,6 @@
 {
     "name": "wikistats",
-    "version": "2.9.6",
+    "version": "2.9.7",
     "description": "A front end for Wikimedia project statistics.  This is a new version implemented with Vue and Semantic UI.",
     "main": "index.js",
     "engines": {
