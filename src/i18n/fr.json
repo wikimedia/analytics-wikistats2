@@ -339,7 +339,7 @@
 	"status_overlay-no_data": "Il n’y a aucune donnée disponible pour cette plage de dates sur ce projet.",
 	"status_overlay-non_global": "L’indicateur {metricName} n’est pas disponible pour tous les projets. Veuillez choisir un wiki spécifique.",
 	"status_overlay-non_global_family": "L’indicateur {metricName} n’est pas disponible pour {project}. Veuillez choisir un autre wiki.",
-	"status_overlay-no_service": "Le service de requête pour l’analyse des données semble hors-service.",
+	"status_overlay-no_service": "Le service de requête de données analytiques semble hors-service",
 	"status_overlay-loading": "Chargement des indicateurs...",
 	"status_overlay-general_error": "Quelque chose s’est mal passé",
 	"widget_header-subtitle_for_last_month": "{subtitle} pour {lastMonthLabel}"
