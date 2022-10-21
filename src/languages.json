@@ -4,6 +4,11 @@
 		"englishName": "Bulgarian",
 		"nativeName": "български"
 	},
+    "bn": {
+        "numbroCode": "en",
+        "englishName": "Bengali",
+        "nativeName": "বাংলা"
+    },
 	"ca": {
 		"numbroCode": "es-ES",
 		"englishName": "Catalan",
