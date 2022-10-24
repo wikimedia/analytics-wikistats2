@@ -287,7 +287,7 @@
 	"footer-technology": "প্রযুক্তি",
 	"footer-data_it_uses": "ব্যবহৃত উপাত্ত",
 	"footer-privacy_policy": "গোপনীয়তার নীতি",
-	"footer-contributing": "অবদান রাখছেন",
+	"footer-contributing": "অবদান রাখুন",
 	"footer-contributing_guide": "অবদানের নির্দেশিকা",
 	"footer-translate": "উইকিপরিসংখ্যান অনুবাদ করুন",
 	"footer-report_a_bug": "ত্রুটির প্রতিবেদন করুন",
@@ -340,5 +340,5 @@
 	"status_overlay-no_service": "বিশ্লেষণী কুয়েরি সেবা অনুপলব্ধ বলে প্রতীয়মান",
 	"status_overlay-loading": "পরিসংখ্যান লোড করা হচ্ছে...",
 	"status_overlay-general_error": "কিছু একটায় ত্রুটি হয়েছে",
-	"widget_header-subtitle_for_last_month": "{lastMonthLabel} এর জন্য {subtitle}"
+	"widget_header-subtitle_for_last_month": "{lastMonthLabel}-এ {subtitle}"
 }
