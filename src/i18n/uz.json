@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Malikxan",
-			"Nataev"
+			"Nataev",
+			"Zafar Shamsiddinov"
 		]
 	},
 	"general-title": "Vikimedia statistikasi",
@@ -324,6 +325,11 @@
 	"tooltip-breakdown-5..24-edits": "Koʻrsatilgan oy yoki kunda 5 tadan 24 tagacha tahrir qilgan",
 	"tooltip-breakdown-25..99-edits": "Koʻrsatilgan oy yoki kunda 25 tadan 99 tagacha tahrir qilgan",
 	"tooltip-breakdown-100..-edits": "Koʻrsatilgan oy yoki kunda 100 ta yoki undan koʻp tahrir qilgan",
+	"tooltip-breakdown-image": "Tasvir fayli, odatda umumiy fayllarda saqlanadi va boshqa vikilardan bogʻlanadi",
+	"tooltip-breakdown-video": "Odatda umumiy fayllarda saqlanadigan va boshqa vikilardan bogʻlangan videofayl",
+	"tooltip-breakdown-audio": "Odatda umumiy fayllarda saqlanadigan va boshqa vikilardan bogʻlangan audio fayl",
+	"tooltip-breakdown-document": "Hujjat fayli, odatda umumiy fayllarda saqlanadi va boshqa vikilardan bogʻlanadi",
+	"tooltip-breakdown-other": "Odatda umumiy fayllarda saqlanadigan va boshqa vikilardan bogʻlangan boshqa fayl turi",
 	"status_overlay-no_data": "Ushbu loyiha boʻyicha koʻrsatilgan vaqt oraligʻi uchun hech qanday maʼlumot mavjud emas",
 	"status_overlay-non_global": "{metricName} metrikasi barcha loyihalar uchun mavjud emas. Muayyan vikini tanlang.",
 	"status_overlay-non_global_family": "{metricName} metrikasi {project} loyihasi uchun mavjud emas. Muayyan vikini tanlang.",
