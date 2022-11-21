@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Balyozxane",
 			"Bikarhêner",
 			"Biyolojiyabikurdi",
 			"Guherto"
@@ -55,10 +56,10 @@
 	"metrics-editors-breakdowns-page_type-name": "Cureya rûpelê",
 	"metrics-editors-breakdowns-page_type-values-content-name": "Naverok",
 	"metrics-editors-breakdowns-page_type-values-non-content-name": "Bênaverok",
-	"metrics-editors-breakdowns-activity_level-values-1..4-edits-name": "Ji 1ê heta 4an guhertin",
-	"metrics-editors-breakdowns-activity_level-values-5..24-edits-name": "Ji 5ê heta 24an guhertin",
-	"metrics-editors-breakdowns-activity_level-values-25..99-edits-name": "Ji 25ê heta 99an guhertin",
-	"metrics-editors-breakdowns-activity_level-values-100..-edits-name": "100 an zêdetir guhertin",
+	"metrics-editors-breakdowns-activity_level-values-1..4-edits-name": "Ji 1ê heta 4an guhartin",
+	"metrics-editors-breakdowns-activity_level-values-5..24-edits-name": "Ji 5ê heta 24an guhartin",
+	"metrics-editors-breakdowns-activity_level-values-25..99-edits-name": "Ji 25ê heta 99an guhartin",
+	"metrics-editors-breakdowns-activity_level-values-100..-edits-name": "100 an zêdetir guhartin",
 	"metrics-new-pages-breakdowns-editor_type-values-anonymous-name": "Anonîm",
 	"metrics-new-pages-breakdowns-editor_type-values-user-name": "Bikarhêner",
 	"metrics-new-pages-breakdowns-page_type-name": "Cureya rûpelê",
@@ -77,10 +78,10 @@
 	"metrics-edited-pages-breakdowns-page_type-values-content-name": "Naverok",
 	"metrics-edited-pages-breakdowns-page_type-values-non-content-name": "Bênaverok",
 	"metrics-edited-pages-breakdowns-activity_level-name": "Asta çalakiyê",
-	"metrics-edited-pages-breakdowns-activity_level-values-1..4-edits-name": "Ji 1ê heta 4an guhertin",
-	"metrics-edited-pages-breakdowns-activity_level-values-5..24-edits-name": "Ji 5ê heta 24an guhertin",
-	"metrics-edited-pages-breakdowns-activity_level-values-25..99-edits-name": "Ji 25ê heta 99an guhertin",
-	"metrics-edited-pages-breakdowns-activity_level-values-100..-edits-name": "100 an zêdetir guhertin",
+	"metrics-edited-pages-breakdowns-activity_level-values-1..4-edits-name": "Ji 1ê heta 4an guhartin",
+	"metrics-edited-pages-breakdowns-activity_level-values-5..24-edits-name": "Ji 5ê heta 24an guhartin",
+	"metrics-edited-pages-breakdowns-activity_level-values-25..99-edits-name": "Ji 25ê heta 99an guhartin",
+	"metrics-edited-pages-breakdowns-activity_level-values-100..-edits-name": "100 an zêdetir guhartin",
 	"metrics-net-bytes-difference-name": "Ferqa baytan yê net",
 	"metrics-net-bytes-difference-breakdowns-editor_type-values-user-name": "Bikarhêner",
 	"metrics-net-bytes-difference-breakdowns-page_type-name": "Cureya rûpelê",
@@ -123,7 +124,7 @@
 	"graph_panel-no_data_yet": "Hêj ti dane tine",
 	"graph_panel-change_over_range": "{change}% di vê qada demê de",
 	"time_range-all": "Hemû wextan",
-	"tooltip-breakdown-5..99-edits": "Yên her roj an jî mehê 5 heta 99 guhertinan kirine hatine nîşankirin.",
+	"tooltip-breakdown-5..99-edits": "Yên her roj an jî mehê 5 heta 99 guhartinan kirine hatine nîşankirin.",
 	"status_overlay-loading": "Metrîk bar dibin...",
 	"status_overlay-general_error": "Tişteke şaş çû",
 	"widget_header-subtitle_for_last_month": "{subtitle} ji bo {lastMonthLabel}"

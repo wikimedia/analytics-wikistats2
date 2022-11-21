@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bináris",
 			"Hanna Tardos",
 			"Lois131",
 			"Worrida"
@@ -314,7 +315,7 @@
 	"tooltip-breakdown-desktop-site": "Asztali eszközöknek szánt oldal (mobileszközökön is megtekinthető)",
 	"tooltip-breakdown-anonymous": "Egy felhasználó, aki nem jelentkezett be",
 	"tooltip-breakdown-group-bot": "Egy regisztrált és a bot felhasználói csoporthoz tartozó bot.",
-	"tooltip-breakdown-name-bot": "Olyan felhasználó, akinek a neve tartalmazza a \"bot\" kifejezést (fontos, hogy ez olyan neveket is tartalmazhat, mint a BottlenoseDolphin)",
+	"tooltip-breakdown-name-bot": "Olyan felhasználó, akinek a neve tartalmazza a \"bot\" kifejezést (fontos, hogy ez olyan neveket is tartalmazhat, mint a Botos Marcella)",
 	"tooltip-breakdown-user": "Regisztrált, bejelentkezett felhasználó a mérőszámok szerkesztéséhez; emberi felhasználó a mérőszámok olvasásában",
 	"tooltip-breakdown-spider": "Számítógépes program, ami bejárja a webhelyeket, hogy indexelje azokat, általában ezek webes keresőmotorok",
 	"tooltip-breakdown-automated": "Egy olyan felhasználói ügynök, melyről a heurisztikus módszerekkel megállapították, hogy valójában egy számítógépes program",
