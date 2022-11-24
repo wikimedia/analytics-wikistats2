@@ -313,7 +313,7 @@
 	"tooltip-breakdown-anonymous": "Uporabnik, ki se ni prijavil",
 	"tooltip-breakdown-group-bot": "Bot, ki je registriran in del uporabniške skupine botov",
 	"tooltip-breakdown-name-bot": "Uporabnik, čigar ime vsebuje besedo »bot« (upoštevajte, da lahko to vključuje imena, kot na primer BottlenoseDolphin)",
-	"tooltip-breakdown-user": "Registrirani, prijavljeni uporabnik pri urejanju metrik; človeški uporabnik pri branju metrik",
+	"tooltip-breakdown-user": "Registriran, prijavljen uporabnik pri urejanju metrik; človeški uporabnik pri branju metrik",
 	"tooltip-breakdown-spider": "Računalniški program, ki prečesava spletna mesta, da jih indeksira, na splošno spletni iskalniki",
 	"tooltip-breakdown-automated": "Uporabniški agent, za katerega je bilo hevristično ugotovljeno, da je pravzaprav računalniški program",
 	"tooltip-breakdown-content": "Imenovan tudi »Glavni imenski prostor«; vključuje članke v imenskem prostoru nič in nekaj drugih",
