@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kly",
-			"Winston Sung"
+			"Winston Sung",
+			"捍粵者"
 		]
 	},
 	"general-title": "維基媒體統計",
@@ -315,7 +316,7 @@
 	"tooltip-breakdown-group-bot": "已註冊並且隸屬機器人群組的機器人",
 	"tooltip-breakdown-name-bot": "名稱帶有「bot」的使用者（請注意這可能會包含像是 BottlenoseDolphin 這樣的名稱）",
 	"tooltip-breakdown-user": "用於編輯度量項目的已註冊登入使用者，與用於閱讀度量項目的真人使用者",
-	"tooltip-breakdown-spider": "一種通常在網路搜尋引擎透過站台擷取內容來進行索引的電腦程式",
+	"tooltip-breakdown-spider": "這種電腦程式通常在網絡搜尋器擷取網站內容來索引網站",
 	"tooltip-breakdown-automated": "已被判斷實際上為電腦程式啟發的使用者代理",
 	"tooltip-breakdown-content": "另外也被提及為「主命名空間」，包含有在命名空間 zero 與一些其它裡頭的條目",
 	"tooltip-breakdown-non-content": "討論頁、使用者頁面、其它等等被稱為非內容",
