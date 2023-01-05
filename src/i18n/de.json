@@ -261,7 +261,7 @@
 	"graph_panel-more_info": "Mehr Infos über diese Metrik.",
 	"graph_panel-wikistats1_counterpart": "Diese Metrik wird gefiltert um mit ihrem Wikistats 1 Gegenstück überein zu stimmen.",
 	"graph_panel-add_annotations_link": "Du kannst {0}",
-	"graph_panel-annotations_link_action": "Betrachte oder füge Anmerkungen für diese Daten in diesem Wiki Artikel hinzu.",
+	"graph_panel-annotations_link_action": "Anmerkungen für diese Daten in diesem Wiki Artikel betrachten oder hinzufügen.",
 	"period_change-no_data": "(keine Daten für letzte(n/s) {period})",
 	"period_change-month_over_month": "{change}% monatlich",
 	"period_change-year_over_year": "{change}% jährlich",
