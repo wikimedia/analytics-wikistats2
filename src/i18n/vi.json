@@ -3,6 +3,7 @@
 		"authors": [
 			"Keo010122",
 			"Minh Nguyen",
+			"NguoiDungKhongDinhDanh",
 			"Nguyễn Mạnh An",
 			"NhacNy2412"
 		]
@@ -235,7 +236,8 @@
 	"granularities-monthly": "hàng tháng",
 	"metrics_matrix-all_metrics": "Tất cả thống kê Wikistats",
 	"footer-design_credit": "Do {aislinn} thiết kế",
-	"footer-license": "Bản công hiến Creative Commons CC0",
+	"footer-copyright": "Toàn bộ dữ liệu, biểu đồ và các nội dung khác được phân phối theo {license}",
+	"footer-license": "Bản hiến tặng Creative Commons CC0",
 	"footer-documentation": "Tài liệu",
 	"footer-about_wikistats": "Giới thiệu về Wikistats",
 	"footer-technology": "Kỹ thuật",
