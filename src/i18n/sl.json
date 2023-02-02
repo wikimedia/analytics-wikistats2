@@ -325,7 +325,7 @@
 	"tooltip-breakdown-100..-edits": "V vsakem prikazanem mesecu ali dnevu opravil 100 ali več urejanj",
 	"tooltip-breakdown-image": "Slikovna datoteka, običajno shranjena v Zbirki in povezana z drugimi vikiji",
 	"tooltip-breakdown-video": "Video datoteka, običajno shranjena v Zbirki in povezana z drugimi vikiji",
-	"tooltip-breakdown-audio": "Zvočna datoteka, običajno shranjena v Zbirki in povezana z drugimi vikiji",
+	"tooltip-breakdown-audio": "Zvočna datoteka, običajno shranjena v Zbirki in povezana iz drugih vikijev",
 	"tooltip-breakdown-document": "Datoteka dokumenta, običajno shranjena v Zbirki in povezana z drugimi vikiji",
 	"tooltip-breakdown-other": "Druga vrsta datoteke, običajno shranjena v Zbirki in povezana z drugimi vikiji",
 	"status_overlay-no_data": "Za to časovno obdobje v tem projektu podatki niso na voljo",

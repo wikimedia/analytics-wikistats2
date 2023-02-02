@@ -4,6 +4,7 @@
 			"Duke of Wikipädia",
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
+			"Mello25",
 			"TheEduGobi",
 			"YuriNikolai"
 		]
@@ -327,6 +328,11 @@
 	"tooltip-breakdown-5..24-edits": "Realizado entre 5 e 24 edições em cada mês ou dia mostrado",
 	"tooltip-breakdown-25..99-edits": "Realizadas entre 25 e 99 edições em cada mês ou dia mostrado",
 	"tooltip-breakdown-100..-edits": "Realizou 100 ou mais edições em cada mês ou dia mostrado",
+	"tooltip-breakdown-image": "Um arquivo de imagem, geralmente armazenado em commons e vinculado a outras wikis",
+	"tooltip-breakdown-video": "Um arquivo de vídeo, geralmente armazenado em commons e vinculado a outras wikis",
+	"tooltip-breakdown-audio": "Um arquivo de áudio, geralmente armazenado em commons e vinculado a outras wikis",
+	"tooltip-breakdown-document": "Um arquivo de documento, geralmente armazenado em commons e vinculado a outras wikis",
+	"tooltip-breakdown-other": "Outro tipo de arquivo, geralmente armazenado em commons e vinculado a outras wikis",
 	"status_overlay-no_data": "Não há dados disponíveis para este período neste projeto",
 	"status_overlay-non_global": "A métrica {metricName} não está disponível para todos os projetos. Selecione uma wiki específica",
 	"status_overlay-non_global_family": "A métrica {metricName} não está disponível para {project}. Selecione uma wiki específica",
