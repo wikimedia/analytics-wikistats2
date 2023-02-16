@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
-	"general-title": "Wikimedia Statistiken",
+	"general-title": "Wikimedia-Statistiken",
 	"general-month": "Mount",
 	"general-year": "Joer",
 	"general-last_12_months": "Déi 12 lescht Méint",
@@ -30,7 +31,8 @@
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "Spider",
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "Automatesch",
 	"metrics-legacy-page-views-name": "gekuckt Säiten (al Method)",
-	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Mobillen Internet",
+	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Mobil Säit",
+	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Desktop-Säit",
 	"metrics-page-views-by-country-name": "Gewise Säite pro Land",
 	"metrics-page-views-by-country-description": "Länner wou de Projet am dackste besicht gëtt. D'Länner mat manner wéi 100 gekuckte Säite ginn net gewisen a sinn op der Kaart eidel",
 	"metrics-page-views-by-country-subtitle": "Länner wou am meeschte gekuckt gouf",
@@ -43,7 +45,8 @@
 	"metrics-unique-devices-description": "Wéi vill verschidden Apparater hunn e Projet an enger bestëmmter Period besicht",
 	"metrics-unique-devices-tooltip": "D'Statistik vun de verschiddenen Apparaten seet eis wéi vill verschidden Apparater mir hunn déi eisen Internetsite besichen. D'Ekipp vun den Analysten zielt déi verschidden Apparater pro Projet pro Dag a Mount op eng Manéier déi net eendeiteg identifizéiert, keng Empreinte hëlt oder op eng aner Manéier d'Benotzer verfollegt.",
 	"metrics-unique-devices-question": "Wéi vill verschidden Apparater hunn op den Inhalt zougegraff?",
-	"metrics-unique-devices-breakdowns-access-site-values-mobile-site-name": "Mobillen Internet",
+	"metrics-unique-devices-breakdowns-access-site-values-mobile-site-name": "Mobil Säit",
+	"metrics-unique-devices-breakdowns-access-site-values-desktop-site-name": "Desktop-Säit",
 	"metrics-top-viewed-articles-name": "Am dackste gekuckt Artikelen",
 	"metrics-top-viewed-articles-description": "Artikelen déi am meeschte gewise ginn",
 	"metrics-top-viewed-articles-question": "Wat sinn déi am dackste gewisen Artikelen?",
