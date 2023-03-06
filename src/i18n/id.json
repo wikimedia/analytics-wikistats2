@@ -4,7 +4,8 @@
 			"Daud I.F. Argana",
 			"Mnam23",
 			"Naufal06",
-			"RaymondSutanto94"
+			"RaymondSutanto94",
+			"Veracious"
 		]
 	},
 	"general-title": "Statistik Wikimedia",
@@ -195,6 +196,7 @@
 	"metrics-pages-to-date-breakdowns-page_type-name": "Tipe halaman",
 	"metrics-pages-to-date-breakdowns-page_type-values-content-name": "Konten",
 	"metrics-pages-to-date-breakdowns-page_type-values-non-content-name": "Nonkonten",
+	"metrics-total-mediarequests-name": "Jumlah permintaan media",
 	"metrics-total-mediarequests-breakdowns-media_type-name": "Jenis media",
 	"metrics-total-mediarequests-breakdowns-media_type-values-image-name": "Gambar",
 	"metrics-total-mediarequests-breakdowns-media_type-values-video-name": "Video",
@@ -269,6 +271,7 @@
 	"time_range-3-month": "3 bulan terakhir",
 	"time_range-last-month": "Bulan lalu",
 	"time_range-all": "Sepanjang masa",
+	"tooltip-help-maximize": "Sembunyikan panel samping dan buat grafik lebih besar",
 	"tooltip-help-download": "Unduh data yang Anda baca",
 	"tooltip-help-permalink": "Pranala permanen",
 	"tooltip-help-copy": "Salin ke papan klip",
