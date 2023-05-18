@@ -331,7 +331,7 @@
 	"status_overlay-no_data": "Za to časovno obdobje v tem projektu podatki niso na voljo",
 	"status_overlay-non_global": "Metrika {metricName} ni na voljo za vse projekte. Izberite posamezen viki",
 	"status_overlay-non_global_family": "Metrika {metricName} za {project} ni na voljo. Izberite posamezen viki",
-	"status_overlay-no_service": "Analitična storitev poizvedbe se zdi nedelujoča",
+	"status_overlay-no_service": "Storitev poizvedbe po analitičnih podatkih se zdi nedelujoča",
 	"status_overlay-loading": "Nalagam metriko ...",
 	"status_overlay-general_error": "Nekaj je šlo narobe",
 	"widget_header-subtitle_for_last_month": "{subtitle} za {lastMonthLabel}"
