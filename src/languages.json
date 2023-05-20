@@ -44,6 +44,12 @@
 		"englishName": "French",
 		"nativeName": "Français"
 	},
+	"he": {
+		"numbroCode": "he-IL",
+		"englishName": "Hebrew",
+		"nativeName": "עברית",
+		"direction": "rtl"
+	},
 	"hu": {
 		"numbroCode": "hu-HU",
 		"englishName": "Hungarian",
