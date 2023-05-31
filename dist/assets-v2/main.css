@@ -269,21 +269,21 @@ ul.search.results span.subtitle {
 }
 
 
-.ui.dropdown[data-v-64235fa5] {
+.ui.dropdown[data-v-ca8aa1cc] {
     margin-left: 10px;
     background-color: #fff;
 }
-section[data-v-64235fa5] {
+section[data-v-ca8aa1cc] {
     color: #fff;
     font-size: 12px;
 }
-.alreadySelected[data-v-64235fa5] {
+.alreadySelected[data-v-ca8aa1cc] {
     cursor: default;
 }
-.menu.hidden[data-v-64235fa5] {
+.menu.hidden[data-v-ca8aa1cc] {
     display: none;
 }
-.menu.shown[data-v-64235fa5] {
+.menu.shown[data-v-ca8aa1cc] {
     display: block!important;
     opacity: 1;
     animation-name: fadeInOpacity;
@@ -1023,7 +1023,7 @@ p.loading { font-size: 1.2em; padding: 1.2em; color: #72777d;
  * https://github.com/fomantic/Fomantic-UI
  * http://fomantic-ui.com/
  *
- * Copyright 2022 Contributors
+ * Copyright 2023 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
