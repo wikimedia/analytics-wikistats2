@@ -16,6 +16,7 @@
 	"general-total": "{{Identical|Total}}",
 	"general-date": "{{identical|date}}",
 	"general-name": "{{identical|Name}}",
+	"general-choose-language": "Label to tell users to select their preferred language",
 	"general-original_wikistats": "Linked to previous Wikistats version.",
 	"areas-content": "{{identical|Content}}",
 	"metrics-total-page-views-description": "\"Agent type\" is {{msg-wm|Wikistats-metrics-total-page-views-breakdowns-agent-name}}.",
