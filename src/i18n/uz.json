@@ -83,7 +83,7 @@
 	"metrics-editors-breakdowns-activity_level-values-5..24-edits-name": "5 dan 24 gacha tahrirlar",
 	"metrics-editors-breakdowns-activity_level-values-25..99-edits-name": "25 dan 99 gacha tahrirlar",
 	"metrics-editors-breakdowns-activity_level-values-100..-edits-name": "100 yoki undan koʻp tahrirlar",
-	"metrics-active-editors-name": "Faol foydalanuvchilar",
+	"metrics-active-editors-name": "Faol tahrirchilar",
 	"metrics-active-editors-description": "Besh yoki undan oshiq tahrir qilgan, jumladan, yoʻnaltirish sahifalarida tahrir qilgan tahrirchilar soni",
 	"metrics-active-editors-tooltip": "Besh yoki undan oshiq tahrir qilgan, jumladan, yoʻnaltirish sahifalarida tahrir qilgan tahrirchilar soni",
 	"metrics-active-editors-question": "Bu yerda necha faol tahrirchi bor?",
