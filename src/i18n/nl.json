@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Ciell",
+			"HanV",
 			"Mainframe98",
 			"McDutchie",
 			"Romaine"
@@ -16,6 +17,7 @@
 	"general-total": "totaal",
 	"general-date": "datum",
 	"general-name": "naam",
+	"general-choose-language": "Kies uw voorkeurstaal",
 	"general-original_wikistats": "Originele Wikistats",
 	"areas-reading": "Lezend",
 	"areas-contributing": "Bijdragen",
