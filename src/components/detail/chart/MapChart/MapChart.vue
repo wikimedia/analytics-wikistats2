@@ -176,7 +176,7 @@ export default {
             const t = zoom.zoomTransform(g).translate(c.xi, c.yi).scale(c.scale);
 
             const zoomBehavior = zoom.zoom()
-                .scaleExtent([c.scale-0.2, 8])
+                .scaleExtent([c.scale-0.2, 16])
                 .translateExtent([[c.x0, c.y0],[c.x1, c.y1]])
                 .on('zoom', () => {
                     g.attr('transform', d3.event.transform);
