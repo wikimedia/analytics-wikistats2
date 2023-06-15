@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Asma",
 			"Meno25",
 			"Mr. Ibrahem",
 			"NEHAOUA",
@@ -16,6 +17,7 @@
 	"general-total": "إجمالي",
 	"general-date": "التاريخ",
 	"general-name": "الاسم",
+	"general-choose-language": "اختر لغتك المفضلة",
 	"general-original_wikistats": "ويكيستاتس الأصلي",
 	"areas-reading": "قراءة",
 	"areas-contributing": "المساهمات",
