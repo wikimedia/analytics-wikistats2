@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Asma",
 			"BaRaN6161 TURK",
 			"Hedda",
 			"Joseph",
@@ -18,6 +19,7 @@
 	"general-total": "toplam",
 	"general-date": "tarih",
 	"general-name": "ad",
+	"general-choose-language": "tercih ettiğiniz dili seçin",
 	"general-original_wikistats": "Özgün Vikisayım",
 	"areas-reading": "Okuma",
 	"areas-contributing": "Katkı Sağlama",
