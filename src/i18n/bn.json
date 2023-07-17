@@ -8,7 +8,8 @@
 			"Meghmollar2017",
 			"WikiAbuHuraira",
 			"আজিজ",
-			"আফতাবুজ্জামান"
+			"আফতাবুজ্জামান",
+			"খাত্তাব হাসান"
 		]
 	},
 	"general-title": "উইকিমিডিয়া পরিসংখ্যান",
@@ -20,6 +21,7 @@
 	"general-total": "মোট",
 	"general-date": "তারিখ",
 	"general-name": "নাম",
+	"general-choose-language": "আপনার পছন্দের ভাষা বেছে নিন",
 	"general-original_wikistats": "প্রথম উইকিপরিসংখ্যান",
 	"areas-reading": "পড়ছেন",
 	"areas-contributing": "অবদান রেখেছে",
