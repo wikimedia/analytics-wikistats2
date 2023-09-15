@@ -115,6 +115,11 @@
 		"englishName": "Dutch",
 		"nativeName": "Nederlands"
 	},
+	"pa": {
+		"numbroCode": "en-GB",
+		"englishName": "Punjabi",
+		"nativeName": "ਪੰਜਾਬੀ"
+	},
 	"pt": {
 		"numbroCode": "pt-PT",
 		"englishName": "Portuguese",
