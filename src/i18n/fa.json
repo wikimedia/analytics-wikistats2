@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Arian Ar",
 			"Beginneruser",
 			"Darafsh",
 			"FarsiNevis",
@@ -16,6 +17,7 @@
 	"general-total": "مجموع",
 	"general-date": "تاریخ",
 	"general-name": "نام",
+	"general-choose-language": "زبان مورد نظر خود را انتخاب کنید",
 	"general-original_wikistats": "نسخهٔ قدیمی آمارهای ویکی",
 	"areas-reading": "مطالعه",
 	"areas-contributing": "مشارکت",
