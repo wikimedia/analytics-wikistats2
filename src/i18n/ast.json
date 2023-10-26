@@ -3,7 +3,8 @@
 		"authors": [
 			"Fitoschido",
 			"Tokvo",
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"general-title": "Wikimedia Estadístiques",
@@ -42,8 +43,8 @@
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Sitiu móvil",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Sitiu pa escritoriu",
 	"metrics-page-views-by-country-name": "Vistes de páxina per pais",
-	"metrics-page-views-by-country-description": "Paises dende los qu'esti proyeutu visítase más. Los paises con menos de 100 visites nun apaecen y figuren en blancu nel mapa.",
-	"metrics-page-views-by-country-subtitle": "Paises col mayor númberu de visites",
+	"metrics-page-views-by-country-description": "Países dende los qu'esti proyeutu visítase más. Los países con menos de 100 visites nun apaecen y figuren en blancu nel mapa.",
+	"metrics-page-views-by-country-subtitle": "Países col mayor númberu de visites",
 	"metrics-page-views-by-country-breakdowns-access-name": "Métodu d'accesu",
 	"metrics-page-views-by-country-breakdowns-access-values-desktop-name": "Escritoriu",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-app-name": "App pa móvil",
