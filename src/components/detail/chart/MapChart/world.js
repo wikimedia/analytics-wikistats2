@@ -10,6 +10,7 @@ import * as topojson from 'topojson-client';
 import borders from './countries-50m';
 import isoLookup from './isoLookup';
 
+const HIDDEN = -1;
 const numericLookup = {};
 Object.keys(isoLookup).forEach(k => {
     const v = isoLookup[k];
@@ -30,7 +31,9 @@ borders.objects.countries.geometries.forEach(f => {
 export default (colorScale, dataByCountry) => {
     borders.objects.countries.geometries.forEach(f => {
         f.properties.number = dataByCountry[numericLookup[f.id].iso] || null;
-        f.properties.color = colorScale(f.properties.number);
+        f.properties.color = f.properties.number === HIDDEN ?
+            '#a2a9b1'
+            : colorScale(f.properties.number);
     });
 
     return topojson.feature(borders, borders.objects.countries).features;
