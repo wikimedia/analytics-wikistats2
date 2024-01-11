@@ -26,7 +26,7 @@
 	"dashboard-monthly_overview": "Oylik obzor",
 	"metrics-total-page-views-name": "Jami koʻrishlar",
 	"metrics-total-page-views-description": "Vikimedia loyihalaridagi sahifalarga tashriflar soni maqola kontenti necha marta koʻrilganini koʻrsatadi. Sukutga koʻra, bu maʼlumotlar avtomatlashtirilgan trafikni ham, shaxslar tashriflarini ham oʻz ichiga oladi. Faqat odamlar tashriflarini koʻrishni istasangiz, „Agent turi“ filtridan foydalaning.",
-	"metrics-total-page-views-tooltip": "Sahifaga tashriflar — bu veb-sahifa mazmunini koʻrish uchun qilingan soʻrov. Vikimedia loyihalarida sahifalarga tashriflar kontent isteʼmoli boʻyicha eng muhim koʻrsatkichdir. Sahifakarga tashriflar foydalanuvchilarga yetkazilgan kontent necha marta koʻrilganini hisoblashga harakat qiladi.",
+	"metrics-total-page-views-tooltip": "Sahifaga tashriflar — bu veb-sahifa mazmunini koʻrish uchun qilingan soʻrov. Vikimedia loyihalarida sahifalarga tashriflar kontent isteʼmoli boʻyicha eng muhim koʻrsatkichdir. Sahifalarga tashriflar foydalanuvchilarga yetkazilgan kontent necha marta koʻrilganini hisoblashga harakat qiladi.",
 	"metrics-total-page-views-question": "Maqolalar necha marta koʻrilgan?",
 	"metrics-total-page-views-breakdowns-access-name": "Ochish metodi",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "Desktop",
