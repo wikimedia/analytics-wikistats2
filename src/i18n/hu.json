@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bináris",
+			"Dj",
 			"Hanna Tardos",
 			"Lois131",
 			"Worrida"
@@ -16,6 +17,7 @@
 	"general-total": "összesen",
 	"general-date": "dátum",
 	"general-name": "név",
+	"general-choose-language": "Válaszd ki a kívánt nyelvet",
 	"general-original_wikistats": "Eredeti wikistatisztika",
 	"areas-reading": "Olvasás",
 	"areas-contributing": "Közreműködés",
