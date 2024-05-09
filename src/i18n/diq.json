@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"1917 Ekim Devrimi",
+			"GolyatGeri",
 			"Mirzali",
 			"Orbot707"
 		]
@@ -15,6 +16,7 @@
 	"general-total": "Pêro piya",
 	"general-date": "tarix",
 	"general-name": "name",
+	"general-choose-language": "Zonê tercihi weçinen",
 	"general-original_wikistats": "Wikiistatistikê oricinali",
 	"areas-reading": "Waniyeno",
 	"areas-contributing": "İştırakiye",
