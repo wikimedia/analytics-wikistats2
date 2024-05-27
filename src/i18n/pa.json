@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Cabal",
 			"Kuldeepburjbhalaike"
 		]
 	},
@@ -255,7 +256,7 @@
 	"footer-privacy_policy": "ਪਰਦਾ ਨੀਤੀ",
 	"footer-contributing": "ਯੋਗਦਾਨ ਪਾ ਰਿਹਾ ਹੈ",
 	"footer-contributing_guide": "ਯੋਗਦਾਨ ਗਾਈਡ",
-	"footer-translate": "ਵਿਕੀਅੰਕੜੇ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰੋ",
+	"footer-translate": "ਵਿਕੀ-ਅੰਕੜੇਆਂ ਦਾ ਤਰਜਮੇ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰੋ",
 	"footer-report_a_bug": "ਕਿਸੇ ਦੋਸ਼ ਦੀ ਇਤਲਾਹ ਦਿਉ",
 	"footer-new_feature": "ਨਵੀਂ ਵਿਸ਼ੇਸ਼ਤਾ",
 	"footer-community": "ਭਾਈਚਾਰਾ",
