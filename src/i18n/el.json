@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"AntonyFragakis",
 			"Dogogos123",
 			"Geraki",
 			"NikosLikomitros",
@@ -15,8 +16,8 @@
 	"general-12_month_average": "μέσος όρος 12 μηνών",
 	"general-no_data": "(χωρίς δεδομένα)",
 	"general-total": "συνολικά",
-	"general-date": "Ημερομηνία",
-	"general-name": "Όνομα",
+	"general-date": "ημερομηνία",
+	"general-name": "όνομα",
 	"general-choose-language": "Επιλέξτε τη γλώσσα προτίμησης σας",
 	"general-original_wikistats": "Πρωτότυπο Wikistats",
 	"areas-reading": "Ανάγνωση",
