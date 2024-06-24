@@ -8,7 +8,7 @@ In [Wikistats 2.0](https://stats.wikimedia.org/v2) we are not only updating the 
 
 ### Cloning the project
 
-The minimum requirements to install the Wikistats UI are Node.js 8+, npm 6+, and git. The project is hosted in a [Phabricator repository](https://phabricator.wikimedia.org/source/wikistats/)
+The minimum requirements to install the Wikistats UI are Node.js 8+, npm 6+, and git. The project is hosted in a [Gerrit repository](https://gerrit.wikimedia.org/r/analytics/wikistats2).
 
 ```bash
 git clone https://gerrit.wikimedia.org/r/analytics/wikistats2
@@ -48,7 +48,7 @@ Tests are located in the `test` directory. We use Jest as our test runner. Runni
 npm test
 ```
 
-Additionally, there are smoke tests to be performed with each significant change to the codebase, which are described in [Analytics/Wikistats 2/Smoke testing](https://wikitech.wikimedia.org/wiki/Analytics/Wikistats_2/Smoke_Testing).
+Additionally, there are smoke tests to be performed with each significant change to the codebase, which are described in [Data_Platform/Systems/Wikistats_2/Smoke testing](https://wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats_2/Smoke_Testing).
 
 ## Bug report and Feature request
 
@@ -56,7 +56,7 @@ Please fill this [Phabricator template](https://phabricator.wikimedia.org/maniph
 
 ## Contributing and Deployment
 
-Please read through our [contributing guidelines](https://wikitech.wikimedia.org/wiki/Analytics/Wikistats_2#Contributing_and_Deployment). Included are directions for code reviews, and notes on deployment.
+Please read through our [contributing guidelines](https://wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats_2#Contributing_and_Deployment). Included are directions for code reviews, and notes on deployment.
 
 ## Built With
 
