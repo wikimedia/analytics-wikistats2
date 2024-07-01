@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Oujon",
 			"Teslaton",
 			"Yardom78"
 		]
@@ -14,6 +15,7 @@
 	"general-total": "celkom",
 	"general-date": "dátum",
 	"general-name": "názov",
+	"general-choose-language": "Vyberte si svoj preferovaný jazyk",
 	"general-original_wikistats": "Originálna Wikištatistika",
 	"areas-reading": "Čítanie",
 	"areas-contributing": "Prispievanie",
@@ -324,6 +326,10 @@
 	"tooltip-breakdown-5..24-edits": "Urobené medzi 5 a 24 úpravami a zobrazené za každý mesiac alebo deň",
 	"tooltip-breakdown-25..99-edits": "Urobené medzi 25 a 99 úpravami a zobrazené za každý mesiac alebo deň",
 	"tooltip-breakdown-100..-edits": "Urobených viac než 100 úprav a zobrazené za každý mesiac alebo deň",
+	"tooltip-breakdown-image": "Obrázkový súbor, ktorý je zvyčajne uložený na spoločných stránkach a prepojený s inými wikiami",
+	"tooltip-breakdown-video": "Video súbor, ktorý je zvyčajne uložený na spoločných stránkach a prepojený s inými wikiami",
+	"tooltip-breakdown-audio": "Zvukový súbor, ktorý je zvyčajne uložený na spoločných stránkach a prepojený s ostatnými wikiami",
+	"tooltip-breakdown-document": "Dokumentový súbor, ktorý je zvyčajne uložený na spoločných stránkach a prepojený s ostatnými wikiami",
 	"status_overlay-no_data": "Pre tento projekt nie sú za toto obdobie dostupné dáta",
 	"status_overlay-non_global": "Merací údaj {metricName} nie je dostupný pre všetky projekty. Vyberte si konkrétnu wiki",
 	"status_overlay-non_global_family": "Merací nástroj {metricName} nie je dostupný pre {project}. Vyberte si inú wiki",

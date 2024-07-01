@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Cookai1205",
 			"Kly",
 			"Winston Sung",
 			"捍粵者"
@@ -313,7 +314,7 @@
 	"tooltip-breakdown-mobile-web": "適用於行動設備的站台（可在桌上型設備上觀看）",
 	"tooltip-breakdown-mobile-site": "適用於行動設備的站台（可在桌上型設備上觀看）",
 	"tooltip-breakdown-desktop-site": "適用於桌上型設備的站台（可在行動設備上觀看）",
-	"tooltip-breakdown-anonymous": "尚未登陸的使用者",
+	"tooltip-breakdown-anonymous": "尚未登入的使用者",
 	"tooltip-breakdown-group-bot": "已註冊並且隸屬機器人群組的機器人",
 	"tooltip-breakdown-name-bot": "名稱帶有「bot」的使用者（請注意這可能會包含像是 BottlenoseDolphin 這樣的名稱）",
 	"tooltip-breakdown-user": "用於編輯度量項目的已註冊登入使用者，與用於閱讀度量項目的真人使用者",
