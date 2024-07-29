@@ -5,7 +5,8 @@
 			"HanV",
 			"Mainframe98",
 			"McDutchie",
-			"Romaine"
+			"Romaine",
+			"Siebrand"
 		]
 	},
 	"general-title": "Wikimedia statistieken",
@@ -27,7 +28,7 @@
 	"topic_explorer-default_description": "Zoek of blader door vragen en kies er een om antwoorden te zien",
 	"dashboard-monthly_overview": "Maandelijks overzicht",
 	"metrics-total-page-views-name": "Totaal aantal bekeken pagina's",
-	"metrics-total-page-views-description": "Paginaweergaven op Wikimedia-projecten tellen de weergave van artikelinhoud. Standaard tonen deze gegevens de weergaven afkomstig van zowel geautomatiseerd verkeer als menselijk verkeer. Om alleen paginaweergaven van menselijke gebruikers te zien kunt u het filter Agenttype gebruiken.",
+	"metrics-total-page-views-description": "Paginaweergaven op Wikimedia-projecten tellen de weergaves van paginainhoud. Standaard geven deze gegevens de weergaven weer afkomstig van zowel geautomatiseerd verkeer als menselijk verkeer. Om alleen paginaweergaven van menselijke gebruikers te zien kunt u het filter Agenttype gebruiken.",
 	"metrics-total-page-views-tooltip": "Een paginaweergave is een verzoek om de inhoud van een webpagina. Paginaweergaven op Wikimediaprojecten is ons belangrijkste meetgegeven voor inhoudsconsumptie. De paginaweergave-definitie probeert de paginaweergaves te tellen van de inhoud die aan gebruikers wordt geleverd.",
 	"metrics-total-page-views-question": "Hoeveel keer zijn artikelen bekeken?",
 	"metrics-total-page-views-breakdowns-access-name": "Toegangswijze",
