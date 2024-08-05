@@ -4,7 +4,8 @@
 			"Moj",
 			"Nwme",
 			"Pyscowicz",
-			"SMAUG"
+			"SMAUG",
+			"Samoasambia"
 		]
 	},
 	"general-title": "Wikimedia-tilastot",
@@ -16,6 +17,7 @@
 	"general-total": "yhteensä",
 	"general-date": "päivämäärä",
 	"general-name": "nimi",
+	"general-choose-language": "Valitse haluamasi kieli",
 	"general-original_wikistats": "Alkuperäinen sivusto",
 	"areas-reading": "Lukeminen",
 	"areas-contributing": "Muokkaaminen",
