@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Blackisnewyellow",
-			"З. ӘЙЛЕ"
+			"З. ӘЙЛЕ",
+			"Ильгиз"
 		]
 	},
 	"general-title": "Викимедиа статистикасы",
@@ -38,6 +39,7 @@
 	"metrics-legacy-page-views-name": "Битләрнең искергән караулары",
 	"metrics-legacy-page-views-description": "Битләрнең искергән караулары битләрне караулардан элегрәк булган. Алар 2008 елның гыйнварыннан 2016 елның июленә кадәрге чорны үз эченә ала.",
 	"metrics-legacy-page-views-tooltip": "Викимедиа проектларындагы битләрнең искергән караулары 2008 елның гыйнварыннан 2016 елның июленә кадәрге мәкаләләр контентын карауларын исәпкә ала. Хәзерге битләрне караулардан төп аерма - искергән карауларда кешеләр тарафыннан билгеләнгән ботлар буенча сөзләү юк. Шуңа күрә автоматик һәм кеше трафигы бергә исәпләнә.",
+	"metrics-legacy-page-views-question": "Агымдагы битне билгеләгәнче, мәкаләләр ничә тапкыр карала?",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "Сайтка керү",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Мобиль сайт",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Санак өчен сайт",
@@ -276,6 +278,7 @@
 	"metrics_matrix-wikistats1-learn_more": "Вики статистиканың иске һәм яңа күрсәткечләре арасындагы аермалар турында күбрәк белегез",
 	"footer-design_credit": "{aislinn} тарафыннан ясалган",
 	"footer-copyright": "Барлык бирелмәләр, диаграммалар һәм башка контент {license} лицензиясе белән кулланыла",
+	"footer-license": "Универсаль CC0 1.0 (CC0 1.0)",
 	"footer-documentation": "Документация",
 	"footer-about_wikistats": "Викистатистика турында",
 	"footer-technology": "Технология",
@@ -301,6 +304,7 @@
 	"tooltip-help-change-chart": "Диаграмманы үзгәртергә",
 	"tooltip-help-annotations": "Аннотацияләр",
 	"tooltip-help-split-total": "Гомуми нәтиҗәне карарга",
+	"tooltip-help-split": "Күбрәк нечкәлекләрне күрү өчен фрагментлагыз. Чекбокслар кулланып, үзегезне кызыксындырган фрагментларны сайлагыз",
 	"tooltip-help-toggle-dimension": "Бүленешле һәм/яки бу параметр буенча фильтрлы күренешкә күчәргә.",
 	"tooltip-wikistats1Metric": "Бу Вики статистика 1 күрсәткече. Элеккеге версиягә күчү өчен монда басыгыз.",
 	"tooltip-filterAndSplit": "Статистиканы төрле төркемнәргә бүлүче, бер яки берничә төркемне яшерүче опцияләр",
