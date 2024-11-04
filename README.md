@@ -1,4 +1,4 @@
-# Wikistats 2.0
+# Wikistats 2.0 https://maps.app.goo.gl/XaPeGUM4bZY9fDnv6
 
 [Wikistats](http://stats.wikimedia.org/) is the public statistics website of the Wikimedia Foundation (WMF). Its main purpose is to add context and motivate our editor community by providing a set of metrics through which users can see the impact of their contributions in the projects they are a part of.
 
