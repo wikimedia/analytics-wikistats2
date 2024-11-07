@@ -114,7 +114,7 @@
 	"metrics-user-edits-breakdowns-page_type-values-content-name": "Контент",
 	"metrics-user-edits-breakdowns-page_type-values-non-content-name": "Контентсиз",
 	"metrics-new-pages-name": "Джангы бетле",
-	"metrics-new-pages-description": "Джангыдан джолландырылгъан бетлени санамай, къуралгъан бетлени саны",
+	"metrics-new-pages-description": "Джолландырылгъан бетлени санамай, къуралгъан бетлени саны",
 	"metrics-new-pages-tooltip": "Джангыдан джолландырылгъан бетлени санамай, къуралгъан бетлени саны. Буну эски бетлени джаратыуларыны эмда кери джюклемелерини къошуб, эмда белгили бир ай ючюн бет кетериу ишлени чыгъарыб ёлчлейбиз.",
 	"metrics-new-pages-question": "Хар ай сайын ненча джангы бет къуралады?",
 	"metrics-new-pages-breakdowns-editor_type-name": "Редакторну типи",
