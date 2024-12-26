@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bugoslav",
+			"MaGa",
 			"Neptune, the Mystic"
 		]
 	},
@@ -14,9 +15,12 @@
 	"general-total": "ukupno",
 	"general-date": "datum",
 	"general-name": "naziv",
+	"general-choose-language": "Izaberite željeni jezik",
 	"general-original_wikistats": "Izvorna Wikistatistika",
 	"areas-reading": "Čitanje",
+	"areas-contributing": "Doprinosi",
 	"areas-content": "Sadržaj",
+	"areas-all_metrics": "Sva mjerenja",
 	"topic_explorer-explore_topics": "Istražite teme",
 	"dashboard-monthly_overview": "Mjesečni pregled",
 	"metrics-total-page-views-name": "Ukupan broj posjeta stranice",
@@ -104,6 +108,7 @@
 	"footer-design_credit": "Dizajnirao {aislinn}",
 	"footer-copyright": "Svi podatci, grafikoni i ostali sadržaj dostupni su pod {license}",
 	"footer-documentation": "Dokumentacija",
+	"footer-contributing": "Doprinosi",
 	"footer-report_a_bug": "Prijavi programsku pogrešku",
 	"footer-community": "Zajednica",
 	"time_range-all": "Sve vrijeme",

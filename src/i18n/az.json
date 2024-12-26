@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"NMW03",
-			"Nemoralis"
+			"Nemoralis",
+			"Əkrəm Cəfər"
 		]
 	},
 	"general-title": "Vikimedia Statistikaları",
@@ -299,7 +300,7 @@
 	"tooltip-help-minimize": "Yan paneli bərpa edin",
 	"tooltip-help-download": "Baxdığınız datanı yükləyin",
 	"tooltip-help-permalink": "Daimi keçid",
-	"tooltip-help-copy": "Mübadilə buferinə kopyala",
+	"tooltip-help-copy": "Mübadilə buferinə kopiyala",
 	"tooltip-help-change-chart": "Diaqramı dəyişdir",
 	"tooltip-help-annotations": "Annotasiyalar",
 	"tooltip-help-split-total": "Ümumi nəticəyə baxın",
