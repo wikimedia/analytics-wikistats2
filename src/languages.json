@@ -1,4 +1,10 @@
 {
+	"ar": {
+		"numbroCode": "ar",
+		"englishName": "Arabic",
+		"nativeName": "العربية",
+		"direction": "rtl"
+	},
 	"bg": {
 		"numbroCode": "bg",
 		"englishName": "Bulgarian",
