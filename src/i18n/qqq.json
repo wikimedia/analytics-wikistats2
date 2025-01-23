@@ -5,6 +5,7 @@
 			"Amire80",
 			"BaRaN6161 TURK",
 			"Eneelk",
+			"PanWor",
 			"Pols12",
 			"Raymond",
 			"Robby"
@@ -18,6 +19,7 @@
 	"general-name": "{{identical|Name}}",
 	"general-choose-language": "Label to tell users to select their preferred language",
 	"general-original_wikistats": "Linked to previous Wikistats version.",
+	"areas-reading": "Subtitle for stats covering Total page views, Unique devices and Page views by country",
 	"areas-content": "{{identical|Content}}",
 	"metrics-total-page-views-description": "\"Agent type\" is {{msg-wm|Wikistats-metrics-total-page-views-breakdowns-agent-name}}.",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "{{identical|Desktop}}",
