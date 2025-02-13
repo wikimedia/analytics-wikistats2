@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Hakimi97",
 			"Haziq Faruqi",
 			"Tofeiku"
 		]
@@ -41,7 +42,7 @@
 	"metrics-legacy-page-views-question": "Berapa kali rencana dilihat sebelum takrifan paparan halaman semasa?",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "Tapak capaian",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "Tapak Mudah Alih",
-	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Tapak Desktop",
+	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "Tapak Atas Meja",
 	"metrics-page-views-by-country-name": "Tatapan halaman mengikut negara",
 	"metrics-page-views-by-country-description": "Negara-negara yang paling banyak mengunjungi projek ini. Negara-negara yang kurang daripada 100 tatapan tidak dilaporkan dan adalah kosong dalam peta",
 	"metrics-page-views-by-country-subtitle": "Negara dengan tatapan terbanyak",
