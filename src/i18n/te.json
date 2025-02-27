@@ -36,7 +36,7 @@
 	"metrics-legacy-page-views-name": "లెగసీ పేజీవ్యూలు",
 	"metrics-legacy-page-views-description": "లెగసీ పేజీ వ్యూలు, పేజీ వ్యూలకు పూర్వం ఉండేది. అందులో 2008 జనవరి నుండి 2016 జూలై వరకూ ఉన్న డేటా ఉంటుంది.",
 	"metrics-legacy-page-views-tooltip": "లెగసీ పేజీవ్యూలు వికీమీడియా ప్రాజెక్టుల్లో 2008 జనవరి నుండి 2016 జూలై వరకూ ఉన్న వ్యూలను చూపిస్తాయి. ప్రస్తుత పేజీ వ్యూ డేటాకూ దీనికీ ఉన్న ప్రధానమైన తేడా ఏంటంటే దీనిలో ఆటోమేటిక్ బాట్‌లు, మనుషులూ చూసిన డేటా కలిసిపోయి ఉంటాయి, విడిగా చూడలేం.",
-	"metrics-legacy-page-views-question": "ప్రస్తుత పేఝీ వ్యూ నిర్వచనానికి ముందు వ్యాసాలను ఎన్నిసార్లు చూసారు?",
+	"metrics-legacy-page-views-question": "ప్రస్తుత పేజీ వ్యూ నిర్వచనానికి ముందు వ్యాసాలను ఎన్నిసార్లు చూసారు?",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "చూసిన సైటు",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "మొబైల్ సైటు",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "డెస్క్‌టాప్ సైటు",
