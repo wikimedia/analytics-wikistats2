@@ -45,6 +45,11 @@
 		"englishName": "Estonian",
 		"nativeName": "eesti"
 	},
+	"fa": {
+		"numbroCode": "fa",
+		"englishName": "Persian",
+		"nativeName": "فارسی"
+	},
 	"fi": {
 		"numbroCode": "fi-FI",
 		"englishName": "Finnish",
