@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Codenstory",
+			"Tensama0415",
 			"Ykhwong",
 			"그냥기여자",
 			"아라"
@@ -184,7 +185,7 @@
 	"metrics-pages-to-date-breakdowns-editor_type-values-name-bot-name": "이름 봇",
 	"metrics-pages-to-date-breakdowns-editor_type-values-user-name": "사용자",
 	"metrics-pages-to-date-breakdowns-page_type-name": "문서 유형",
-	"metrics-pages-to-date-breakdowns-page_type-values-content-name": "콘텐츠",
+	"metrics-pages-to-date-breakdowns-page_type-values-content-name": "내용",
 	"metrics-pages-to-date-breakdowns-page_type-values-non-content-name": "비콘텐츠",
 	"metrics-total-mediarequests-name": "총 미디어 요청",
 	"metrics-total-mediarequests-description": "이미지, 비디오, 오디오 등 미디어 파일에 내려진 요청의 총량",
