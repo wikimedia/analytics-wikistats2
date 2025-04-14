@@ -210,6 +210,7 @@
 	"graph_panel-change_cant_calculate": "% verandering kan nie oor hierdie tydperk bereken word nie.",
 	"graph_panel-more_info": "Meer inligting oor hierdie maatstaf.",
 	"graph_panel-add_annotations_link": "Jy kan {0}",
+	"period_change-no_data": "(geen data vir laaste {period})",
 	"period_change-month_over_month": "{change}% maand na maand",
 	"period_change-year_over_year": "{change}% jaar na jaar",
 	"detail_sidebar-metrics": "Mate",
