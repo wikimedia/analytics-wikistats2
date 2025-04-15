@@ -11,7 +11,7 @@
             <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats_2#Technology">{{$t('footer-technology')}}</a></li>
             <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Discover_data">{{$t('footer-data_it_uses')}}</a></li>
             <li><a target="_blank" href="//foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">{{$t('footer-privacy_policy')}}</a></li>
-            <li><a style="color: #ffd;" target="_blank" href="//stats.wikimedia.org/index-v1.html">{{$t('general-original_wikistats')}}</a></li>
+            <li><a style="color: #ffd;" target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats" title="The original Wikistats website is now offline.  This link points to technical documentation.  If you're looking for something else, please contact us on Phabricator or IRC">{{$t('general-original_wikistats')}}</a></li>
         </ul>
     </div>
     <div class="list-container list-contributing">
