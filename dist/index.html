@@ -14,12 +14,12 @@
         <!-- End Piwik Code -->
 
         (function () {
-            var __availableLocales = "bg,bn,ca,de,diq,el,en,es,fi,fr,he,hu,id,io,is,it,ja,ko,krc,lb,lij,mk,ml,nl,pa,pt-br,pt,roa-tara,ru,sk,sl,sv,te,tr,uk,uz,vec,vi,zh-hans,zh-hant".split(',');
+            var __availableLocales = "ar,bg,bn,ca,de,diq,el,en,es,fi,fr,he,hu,id,io,is,it,ja,ko,krc,lb,lij,mk,ml,nl,pa,pt-br,pt,roa-tara,ru,sk,sl,sv,te,tr,uk,uz,vec,vi,zh-hans,zh-hant".split(',');
             var __selectedLocale = window.localStorage.getItem('language');
             var __globalLocale = __selectedLocale || (navigator.language || navigator.userLanguage).split('-')[0];
             __globalLocale = __availableLocales.indexOf(__globalLocale) > -1 ? __globalLocale : 'en';
             window.localStorage.setItem('language', __globalLocale);
-            var jsFile = "main.bundle.2.10.4.en.js";
+            var jsFile = "main.bundle.2.10.5.en.js";
             var fileComponents = jsFile.split('.');
             fileComponents[fileComponents.length-2] = __globalLocale;
             var scriptElement = document.createElement('script');
