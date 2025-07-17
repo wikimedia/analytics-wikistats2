@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"JeffreyKim",
 			"Winston Sung"
 		]
 	},
@@ -13,9 +14,20 @@
 	"general-total": "總數",
 	"general-date": "日子",
 	"general-name": "名",
+	"general-choose-language": "揀你鍾意嘅語言",
+	"general-original_wikistats": "原始維基統計資料",
+	"areas-reading": "閲讀",
 	"areas-contributing": "貢獻",
 	"areas-content": "內容",
+	"areas-all_metrics": "所有指標",
 	"topic_explorer-explore_topics": "探索主題",
+	"topic_explorer-default_description": "搜尋或者瀏覽問題，然後揀一個嚟睇答案",
+	"dashboard-monthly_overview": "每月概覽",
+	"metrics-total-page-views-name": "頁面瀏覽量總數",
+	"metrics-total-page-views-description": "維基媒體項目嘅頁面瀏覽次數計埋文章內容嘅瀏覽次數。預設情況下，呢啲數據會顯示自動流量同埋人流流量嘅頁面瀏覽次數。如果要專注於人類使用者嘅頁面瀏覽量，請使用代理類型篩選器。",
+	"metrics-total-page-views-tooltip": "頁面檢視係指對網頁內容嘅要求。維基媒體項目嘅頁面瀏覽量係我哋最重要嘅內容消費指標。 頁面瀏覽量定義會嘗試計算傳送畀使用者嘅內容嘅頁面瀏覽次數。",
+	"metrics-total-page-views-question": "文章睇咗幾多次？",
+	"metrics-total-page-views-breakdowns-access-name": "存取方法",
 	"metrics-total-page-views-breakdowns-access-values-desktop-name": "電腦版",
 	"metrics-total-page-views-breakdowns-access-values-mobile-app-name": "流動應用程式",
 	"metrics-total-page-views-breakdowns-access-values-mobile-web-name": "流動網頁",
@@ -23,7 +35,14 @@
 	"metrics-total-page-views-breakdowns-agent-values-user-name": "用戶",
 	"metrics-total-page-views-breakdowns-agent-values-spider-name": "網路爬蟲",
 	"metrics-total-page-views-breakdowns-agent-values-automated-name": "自動",
+	"metrics-legacy-page-views-name": "舊版頁面瀏覽量",
+	"metrics-legacy-page-views-description": "舊版頁面瀏覽量係頁面瀏覽量嘅前身。佢哋包括2008年1月至2016年7月嘅數據。",
+	"metrics-legacy-page-views-tooltip": "維基媒體項目嘅舊版頁面瀏覽量係計2008年1月至2016年7月嘅文章內容瀏覽量。同而家嘅頁面瀏覽數據相比，主要嘅分別係缺乏對自我報告嘅機器人進行過濾，因此自動化同人流量會一齊報告。",
+	"metrics-legacy-page-views-question": "文章係喺目前嘅頁面瀏覽定義之前睇過幾多次？",
+	"metrics-legacy-page-views-breakdowns-access-site-name": "存取網站",
+	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "流動網站",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "電腦版網頁",
+	"metrics-page-views-by-country-name": "按國家 / 地區分類嘅頁面瀏覽量",
 	"metrics-page-views-by-country-breakdowns-access-values-desktop-name": "電腦版",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-app-name": "流動應用程式",
 	"metrics-page-views-by-country-breakdowns-access-values-mobile-web-name": "流動網頁",
