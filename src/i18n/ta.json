@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Siddhan",
 			"தமிழ்க்குரிசில்"
 		]
 	},
@@ -9,7 +10,7 @@
 	"general-year": "ஆண்டு",
 	"general-last_12_months": "கடந்த 12 மாதங்கள்",
 	"general-12_month_average": "12 மாத சராசரி",
-	"general-no_data": "(தகவல் இல்லை",
+	"general-no_data": "(தகவல் இல்லை)",
 	"general-total": "மொத்தம்",
 	"general-date": "தேதி",
 	"general-name": "பெயர்",
@@ -255,14 +256,14 @@
 	"graph_panel-wikistats1_counterpart": "இந்த அளவீடு அதன் விக்கிஸ்டாட்ஸ் 1 எண்ணுடன் பொருந்துமாறு வடிகட்டப்பட்டுள்ளது.",
 	"graph_panel-add_annotations_link": "நீங்கள் {0}",
 	"graph_panel-annotations_link_action": "இந்த விக்கி கட்டுரையில் இந்தத் தரவிற்கான குறிப்புகளைப் பார்க்கவும் அல்லது சேர்க்கவும்.",
-	"period_change-no_data": "(கடந்த {காலகட்டம்} க்கான தரவு இல்லை)",
+	"period_change-no_data": "(கடந்த {period} க்கான தரவு இல்லை)",
 	"period_change-month_over_month": "மாதத்திற்கு மாதம் {change}%",
 	"period_change-year_over_year": "வருடா வருடம் {change}%",
 	"detail_sidebar-metrics": "அளவீடுகள்",
 	"breakdowns-filter": "வடிகட்டி",
 	"breakdowns-filter_and_split": "வடிகட்டி பிரி",
 	"breakdowns-split": "பிரி",
-	"breakdowns-breakdown_action": "{breakdownName} ஆல் {செயல்பாடு}",
+	"breakdowns-breakdown_action": "{breakdownName} ஆல் {operation}",
 	"breakdowns-overall": "ஒட்டுமொத்தமாக",
 	"charts-bar": "பட்டை",
 	"charts-line": "கோடு",
@@ -275,7 +276,7 @@
 	"metrics_matrix-wikistats1-info": "விக்கிமீடியா லோகோவுடன் குறிக்கப்பட்ட அளவீடுகள் விக்கிஸ்டாட்ஸ் 1 இல் காட்டப்பட்டுள்ள அதே வடிகட்டுதல் மற்றும் அளவுருக்களைக் கொண்டுள்ளன.",
 	"metrics_matrix-wikistats1-learn_more": "பழைய மற்றும் புதிய விக்கிஸ்டாட்ஸ் அளவீடுகளுக்கு இடையிலான வேறுபாடுகளைப் பற்றி மேலும் அறிக.",
 	"footer-design_credit": "{aislinn} வடிவமைத்தார்",
-	"footer-copyright": "அனைத்து தரவு, விளக்கப்படங்கள் மற்றும் பிற உள்ளடக்கம் {உரிமம்} இன் கீழ் கிடைக்கின்றன.",
+	"footer-copyright": "அனைத்து தரவு, விளக்கப்படங்கள் மற்றும் பிற உள்ளடக்கம் {license} இன் கீழ் கிடைக்கின்றன.",
 	"footer-license": "கிரியேட்டிவ் காமன்ஸ் CC0 அர்ப்பணிப்பு",
 	"footer-documentation": "ஆவணமாக்கல்",
 	"footer-about_wikistats": "விக்கித்தரவைப் பற்றி",
