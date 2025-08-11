@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"JeffreyKim",
-			"Winston Sung"
+			"Winston Sung",
+			"Yueman"
 		]
 	},
 	"general-title": "維基媒體統計",
@@ -38,7 +39,7 @@
 	"metrics-legacy-page-views-name": "舊版頁面瀏覽量",
 	"metrics-legacy-page-views-description": "舊版頁面瀏覽量係頁面瀏覽量嘅前身。佢哋包括2008年1月至2016年7月嘅數據。",
 	"metrics-legacy-page-views-tooltip": "維基媒體項目嘅舊版頁面瀏覽量係計2008年1月至2016年7月嘅文章內容瀏覽量。同而家嘅頁面瀏覽數據相比，主要嘅分別係缺乏對自我報告嘅機器人進行過濾，因此自動化同人流量會一齊報告。",
-	"metrics-legacy-page-views-question": "文章係喺目前嘅頁面瀏覽定義之前睇過幾多次？",
+	"metrics-legacy-page-views-question": "文章係喺而家嘅頁面瀏覽定義之前睇過幾多次？",
 	"metrics-legacy-page-views-breakdowns-access-site-name": "存取網站",
 	"metrics-legacy-page-views-breakdowns-access-site-values-mobile-site-name": "流動網站",
 	"metrics-legacy-page-views-breakdowns-access-site-values-desktop-site-name": "電腦版網頁",
