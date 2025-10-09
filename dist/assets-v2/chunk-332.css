@@ -70,13 +70,13 @@
 .menu.shown[data-v-f25308a0] {
     display: block!important;
     opacity: 1;
-    animation-name: fadeInOpacity-data-v-f25308a0;
+    animation-name: fadeInOpacity-f25308a0;
     animation-duration: 0.5s;
     max-height: 70vh;
     overflow: scroll;
     overflow-x: hidden;
 }
-@keyframes fadeInOpacity-data-v-f25308a0 {
+@keyframes fadeInOpacity-f25308a0 {
 0% {
         opacity: 0;
 }

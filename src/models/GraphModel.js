@@ -273,7 +273,7 @@ class GraphModel {
         return this.config.darkColor;
     }
     get syntheticAll () {
-        return this.config.syntheticAll ?? false;
+        return !!this.config.syntheticAll;
     }
 
     getAggregateLabel () {
