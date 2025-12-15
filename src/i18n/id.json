@@ -4,6 +4,7 @@
 			"Daud I.F. Argana",
 			"Mnam23",
 			"Naufal06",
+			"Penyuwangi",
 			"RaymondSutanto94",
 			"Veracious"
 		]
@@ -306,7 +307,7 @@
 	"tooltip-help-change-chart": "Ubah bagan",
 	"tooltip-help-annotations": "Anotasi",
 	"tooltip-help-split-total": "Lihat total keseluruhan",
-	"tooltip-help-split": "Pisahkan total menjadi bagian-bagian untuk melihat lebih banyak detail. Saring ke bagian-bagian yang Anda minati menggunakan kotak centang",
+	"tooltip-help-split": "Pisahkan total menjadi bagian-bagian untuk melihat rincian lebih. Saring ke bagian-bagian yang Anda minati menggunakan kotak centang",
 	"tooltip-help-toggle-dimension": "Tekan untuk membagi dan/atau menyaring menurut dimensi ini.",
 	"tooltip-wikistats1Metric": "Ini merupakan sebuah metrik Wikistats 1. Tekan di sini untuk pergi ke versi warisan.",
 	"tooltip-filterAndSplit": "Membagi total menjadi beberapa kategori, dan sembunyikan satu kategori atau lebih",
