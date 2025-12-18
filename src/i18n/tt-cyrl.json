@@ -261,7 +261,7 @@
 	"period_change-month_over_month": "айдан айга {change}%",
 	"period_change-year_over_year": "елдан елга {change}%",
 	"detail_sidebar-metrics": "Күрсәткечләр",
-	"breakdowns-filter": "Фильтр",
+	"breakdowns-filter": "Сөзгеч",
 	"breakdowns-filter_and_split": "Фильтрлау һәм аеру",
 	"breakdowns-split": "Бүлергә",
 	"breakdowns-breakdown_action": "{breakdownName} аркасында {operation}",
