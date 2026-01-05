@@ -163,7 +163,7 @@
 	"metrics-top-edited-pages-breakdowns-page_type-values-non-content-name": "Page hors contenus",
 	"metrics-absolute-bytes-diff-name": "Diff absolu en octets",
 	"metrics-absolute-bytes-diff-description": "La somme des différences absolues en octets effectuées par chaque modification (ou révision), y compris les modifications de redirections. En d’autres termes, compte comme positives les différences négatives.",
-	"metrics-absolute-bytes-diff-tooltip": "La somme des différences absolues en octets effectuées par chaque modification (ou révision), y compris les modifications des redirections. En d’autres termes, compte comme positives les différences négatives.",
+	"metrics-absolute-bytes-diff-tooltip": "La somme des différences absolues en octets effectuées par chaque modification (ou révision), y compris les modifications des redirections. Ainsi, les différences d’octets négatives comptent comme positives.",
 	"metrics-absolute-bytes-diff-question": "Quel est le nombre total d’octets ajoutés et supprimés ?",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-name": "Type de rédacteur",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-anonymous-name": "Anonyme",
