@@ -7,18 +7,18 @@
     <div class="list-container list-documentation">
         <h5 class="list-heading">{{$t('footer-documentation')}}</h5>
         <ul class="list-content">
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Wikistats2.0">{{$t('footer-about_wikistats')}}</a></li>
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Technology">{{$t('footer-technology')}}</a></li>
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics#Datasets">{{$t('footer-data_it_uses')}}</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats_2">{{$t('footer-about_wikistats')}}</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats_2#Technology">{{$t('footer-technology')}}</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Discover_data">{{$t('footer-data_it_uses')}}</a></li>
             <li><a target="_blank" href="//foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">{{$t('footer-privacy_policy')}}</a></li>
-            <li><a style="color: #ffd;" target="_blank" href="//stats.wikimedia.org/index-v1.html">{{$t('general-original_wikistats')}}</a></li>
+            <li><a style="color: #ffd;" target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats" title="The original Wikistats website is now offline.  This link points to technical documentation.  If you're looking for something else, please contact us on Phabricator or IRC">{{$t('general-original_wikistats')}}</a></li>
         </ul>
     </div>
     <div class="list-container list-contributing">
         <h5 class="list-heading">{{$t('footer-contributing')}}</h5>
         <ul class="list-content">
             <li><a target="_blank" href="https://github.com/wikimedia/analytics-wikistats2/search?o=desc&q=release&s=committer-date&type=Commits">Wikistats {{version}}</a></li>
-            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Analytics/Systems/Wikistats_2#Contributing_and_Deployment">{{$t('footer-contributing_guide')}}</a></li>
+            <li><a target="_blank" href="//wikitech.wikimedia.org/wiki/Data_Platform/Systems/Wikistats_2#Contributing_and_Deployment">{{$t('footer-contributing_guide')}}</a></li>
             <li><a target="_blank" href="//translatewiki.net/wiki/Translating:Wikistats_2.0">{{$t('footer-translate')}}</a></li>
             <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/form/43/?projectPHIDs=Analytics-Wikistats,Analytics">{{$t('footer-report_a_bug')}}</a></li>
             <li><a target="_blank" href="//phabricator.wikimedia.org/maniphest/task/edit/form/102/?projectPHIDs=Analytics-Wikistats,Analytics">{{$t('footer-new_feature')}}</a></li>
@@ -36,7 +36,7 @@
         <div class="credit">
             <i18n path="footer-design_credit">
                 <template #aislinn >
-                    <a target="_blank" href="https://aislinngrigas.com/"><span class="base-footer">Aislinn Grigas</span></a>
+                    <a target="_blank" href="https://www.linkedin.com/in/aislinn"><span class="base-footer">Aislinn Grigas</span></a>
                 </template>
             </i18n>
         </div>

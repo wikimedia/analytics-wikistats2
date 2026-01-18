@@ -1,7 +1,7 @@
 <template>
 <section>
     <i class="ui globe icon"/>
-    Choose your preferred language
+    {{$t('general-choose-language')}}
     <div v-if="languages" class="ui floating dropdown button"  @click = "toggleVisibility()">
         <span>{{selectedLanguageTitle}}</span>
         <div class="menu" v-bind:class="{shown: visible, hidden: !visible}">

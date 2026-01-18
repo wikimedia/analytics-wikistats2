@@ -1,5 +1,5 @@
 <template>
-<div class="app">
+<div class="app" :dir="textDirection">
     <central-notice v-if="$store.state.centralNotice" />
     <header class="ui top attached clearing segment">
         <top-nav :wikiCode="project"></top-nav>
@@ -39,6 +39,7 @@ import 'vue-resize/dist/vue-resize.css';
 import VueResize from 'vue-resize';
 import VueMq from 'vue-mq';
 import Vue2TouchEvents from 'vue2-touch-events';
+import languageMap from "./languages.json";
 
 Vue.use(Vue2TouchEvents)
 
@@ -122,6 +123,12 @@ export default {
     ]), {
         mobile () {
             return this.$mq === 'mobile';
+        },
+        textDirection() {
+            const currentLanguageCode = window.localStorage.getItem('language') || 'en'
+            const currentLanguage = languageMap[currentLanguageCode]
+
+            return currentLanguage.direction || 'ltr'
         }
     })
 };

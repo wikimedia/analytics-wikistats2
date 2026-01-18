@@ -38,12 +38,14 @@ import * as d3_color from 'd3-scale-chromatic';
 import { mapState } from 'vuex';
 import eckert from './eckert3';
 import worldBy from './world';
+import protectedCountries from './protected-countries';
 
 import MapLegend from './MapLegend';
 import MapTooltip from './MapTooltip';
 import config from '../../../../config';
 
 const projection = geo.geoPath().projection(eckert());
+const HIDDEN = -1;
 
 export default {
     name: 'map-chart',
@@ -127,10 +129,14 @@ export default {
             scale.max = max;
             this.colorScale = scale;
 
-            this.dataByCountry = this.graphModel.graphData.reduce((p,c) => {
+            let dataByCountry = this.graphModel.graphData.reduce((p,c) => {
                 p[c.country] = c.total.total;
                 return p;
             }, {});
+            // TODO: make this list dynamic, or at least update it
+            protectedCountries.countries.forEach(c => dataByCountry[c.code] = HIDDEN);
+
+            this.dataByCountry = dataByCountry
         },
 
         drawChoropleth () {
@@ -154,7 +160,12 @@ export default {
                             d3.select(diagonalHatch.node().firstChild).style('fill', d.properties.color);
                             d3.select(this).attr('fill', 'url(#diagonalHatch)');
                             const svgBBox = svg.node().getBBox();
-                            self.currentHover = {
+                            self.currentHover = d.properties.number === HIDDEN ? {
+                                name: 'Data for ' + d.properties.name + ' is hidden for privacy reasons',
+                                number: -1,
+                                x: d3.event.layerX,
+                                y: d3.event.layerY
+                            } : {
                                 name: d.properties.name,
                                 number: d.properties.number,
                                 x: d3.event.layerX,
@@ -176,7 +187,7 @@ export default {
             const t = zoom.zoomTransform(g).translate(c.xi, c.yi).scale(c.scale);
 
             const zoomBehavior = zoom.zoom()
-                .scaleExtent([c.scale-0.2, 8])
+                .scaleExtent([c.scale-0.2, 16])
                 .translateExtent([[c.x0, c.y0],[c.x1, c.y1]])
                 .on('zoom', () => {
                     g.attr('transform', d3.event.transform);

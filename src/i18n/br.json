@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Adriendelucca",
 			"Fulup"
 		]
 	},
@@ -120,6 +121,7 @@
 	"metrics-total-mediarequests-breakdowns-media_type-values-video-name": "Video",
 	"metrics-total-mediarequests-breakdowns-media_type-values-audio-name": "Son",
 	"metrics-total-mediarequests-breakdowns-media_type-values-document-name": "Teul",
+	"metrics-total-mediarequests-breakdowns-media_type-values-other-name": "All",
 	"metrics-total-mediarequests-breakdowns-agent-values-user-name": "Implijer",
 	"metrics-total-mediarequests-breakdowns-agent-values-spider-name": "Robot menegeriñ",
 	"metrics-top-mediarequests-breakdowns-media_type-values-image-name": "Skeudenn",

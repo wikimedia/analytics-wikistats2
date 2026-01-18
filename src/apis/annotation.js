@@ -40,7 +40,7 @@ function parseMediawikiDashikiFormat (data) {
  * And the result array will be sorted by date
  *
  * Parameters
- *  metricConfig        : {Object} Details on the metric to get annotations for
+ *  url: where to fetch the annotations from
  *
  */
 function fetchAnnotations (url) {
@@ -77,7 +77,7 @@ class AnnotationApi {
      */
     getAnnotations (graphModel) {
         if (graphModel.config.structure === 'top') return;
-        return fetchAnnotations(config.annotationPath(graphModel.config.name))
+        return fetchAnnotations(config.annotationPath(graphModel.metricId))
             .then(annotations => processRawAnnotations(annotations, graphModel));
     }
 }

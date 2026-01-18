@@ -89,10 +89,20 @@ class DimensionalData {
         return Object.keys(dimensionValues);
     }
 
+    // NOTE: this is expensive to the point of falling into an infinite loop
+    // when the dataset is large enough. Bug T312717 showed that daily data
+    // for the cumulative pages metric is big enough to break crossfilter's sort
+    // That shouldn't happen, but in any case, be careful when calling this function.
+    // It's better to use isEmpty or similar logic when you just need
+    // the count and not the actual items.
     getAllItems () {
         return this.crossfilter.dimension(
             item => item[this.currentMeasure]
         ).top(Infinity);
+    }
+
+    isEmpty () {
+        return this.crossfilter.size() === 0;
     }
 
     measure (column) {

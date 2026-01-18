@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Ciell",
+			"HanV",
 			"Mainframe98",
 			"McDutchie",
-			"Romaine"
+			"Romaine",
+			"Siebrand"
 		]
 	},
 	"general-title": "Wikimedia statistieken",
@@ -16,6 +18,7 @@
 	"general-total": "totaal",
 	"general-date": "datum",
 	"general-name": "naam",
+	"general-choose-language": "Kies uw voorkeurstaal",
 	"general-original_wikistats": "Originele Wikistats",
 	"areas-reading": "Lezend",
 	"areas-contributing": "Bijdragen",
@@ -25,7 +28,7 @@
 	"topic_explorer-default_description": "Zoek of blader door vragen en kies er een om antwoorden te zien",
 	"dashboard-monthly_overview": "Maandelijks overzicht",
 	"metrics-total-page-views-name": "Totaal aantal bekeken pagina's",
-	"metrics-total-page-views-description": "Paginaweergaven op Wikimedia-projecten tellen de weergave van artikelinhoud. Standaard tonen deze gegevens de weergaven afkomstig van zowel geautomatiseerd verkeer als menselijk verkeer. Om alleen paginaweergaven van menselijke gebruikers te zien kunt u het filter Agenttype gebruiken.",
+	"metrics-total-page-views-description": "Paginaweergaven op Wikimedia-projecten tellen de weergaves van paginainhoud. Standaard geven deze gegevens de weergaven weer afkomstig van zowel geautomatiseerd verkeer als menselijk verkeer. Om alleen paginaweergaven van menselijke gebruikers te zien kunt u het filter Agenttype gebruiken.",
 	"metrics-total-page-views-tooltip": "Een paginaweergave is een verzoek om de inhoud van een webpagina. Paginaweergaven op Wikimediaprojecten is ons belangrijkste meetgegeven voor inhoudsconsumptie. De paginaweergave-definitie probeert de paginaweergaves te tellen van de inhoud die aan gebruikers wordt geleverd.",
 	"metrics-total-page-views-question": "Hoeveel keer zijn artikelen bekeken?",
 	"metrics-total-page-views-breakdowns-access-name": "Toegangswijze",
@@ -326,6 +329,11 @@
 	"tooltip-breakdown-5..24-edits": "Tussen de 5 en 24 bewerkingen gedaan in elke weergegeven maand of dag",
 	"tooltip-breakdown-25..99-edits": "Tussen de 25 en 99 bewerkingen gedaan in elke weergegeven maand of dag",
 	"tooltip-breakdown-100..-edits": "Honderd of meer bewerkingen gedaan in elke weergegeven maand of dag",
+	"tooltip-breakdown-image": "Een afbeeldingsbestand, over het algemeen opgeslagen op Commons en gekoppeld vanuit de andere wiki's",
+	"tooltip-breakdown-video": "Een videobestand, over het algemeen opgeslagen op Commons en gekoppeld vanuit de andere wiki's",
+	"tooltip-breakdown-audio": "Een audiobestand, over het algemeen opgeslagen op Commons en gekoppeld vanuit de andere wiki's",
+	"tooltip-breakdown-document": "Een documentbestand, over het algemeen opgeslagen op Commons en gekoppeld vanuit de andere wiki's",
+	"tooltip-breakdown-other": "Een ander type bestand, over het algemeen opgeslagen op Commons en gekoppeld vanuit de andere wiki's",
 	"status_overlay-no_data": "Er zijn geen gegevens beschikbaar voor deze periode voor dit project",
 	"status_overlay-non_global": "De statistiek {metricName} is niet voor alle projecten beschikbaar. Selecteer een specifieke wiki",
 	"status_overlay-non_global_family": "De statistiek {metricName} is niet beschikbaar voor {project}. Selecteer een specifieke wiki",

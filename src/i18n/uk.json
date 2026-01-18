@@ -7,7 +7,8 @@
 			"Ice bulldog",
 			"Movses",
 			"Piramidion",
-			"Ата"
+			"Ата",
+			"Пан Хаунд"
 		]
 	},
 	"general-title": "Статистика Вікімедіа",
@@ -19,6 +20,7 @@
 	"general-total": "загалом",
 	"general-date": "дата",
 	"general-name": "назва",
+	"general-choose-language": "Виберіть бажану мову",
 	"general-original_wikistats": "Оригінальна вікістатистика",
 	"areas-reading": "Читання",
 	"areas-contributing": "Внесок",
@@ -329,6 +331,11 @@
 	"tooltip-breakdown-5..24-edits": "Зробили від 5-ти до 24-х редагувань за кожен показаний місяць чи день",
 	"tooltip-breakdown-25..99-edits": "Зробили від 25-ти до 4-х редагувань за кожен показаний місяць чи день",
 	"tooltip-breakdown-100..-edits": "Зробили 100 чи більше редагувань за кожен показаний місяць чи день",
+	"tooltip-breakdown-image": "Файл зображення, який зазвичай зберігається на Commons і містить посилання з інших вікі",
+	"tooltip-breakdown-video": "Відеофайл, який зазвичай зберігається на Commons і містить посилання з інших вікі",
+	"tooltip-breakdown-audio": "Аудіофайл, який зазвичай зберігається на Commons і містить посилання з інших вікі",
+	"tooltip-breakdown-document": "Файл зображення, який зазвичай зберігається на Commons і містить посилання з інших вікі",
+	"tooltip-breakdown-other": "Інший тип файлу, який зазвичай зберігається на Commons і містить посилання з інших вікі",
 	"status_overlay-no_data": "Немає доступних даних для цього діапазону дат у цьому проєкті",
 	"status_overlay-non_global": "Статистика «{metricName}» недоступна для всіх проєктів. Виберіть якусь конкретну вікі",
 	"status_overlay-non_global_family": "Статистика «{metricName}» недоступна для проєкту {project}. Виберіть якусь конкретну вікі",

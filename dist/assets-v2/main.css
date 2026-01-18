@@ -269,21 +269,21 @@ ul.search.results span.subtitle {
 }
 
 
-.ui.dropdown[data-v-64235fa5] {
+.ui.dropdown[data-v-ca8aa1cc] {
     margin-left: 10px;
     background-color: #fff;
 }
-section[data-v-64235fa5] {
+section[data-v-ca8aa1cc] {
     color: #fff;
     font-size: 12px;
 }
-.alreadySelected[data-v-64235fa5] {
+.alreadySelected[data-v-ca8aa1cc] {
     cursor: default;
 }
-.menu.hidden[data-v-64235fa5] {
+.menu.hidden[data-v-ca8aa1cc] {
     display: none;
 }
-.menu.shown[data-v-64235fa5] {
+.menu.shown[data-v-ca8aa1cc] {
     display: block!important;
     opacity: 1;
     animation-name: fadeInOpacity;
@@ -294,14 +294,14 @@ section[data-v-64235fa5] {
 }
 
 
-a[data-v-3168d1e5], a[data-v-3168d1e5]:visited {
+a[data-v-7ab7d117], a[data-v-7ab7d117]:visited {
     color: #e6e6e7;
     font-weight: 300;
 }
-a[data-v-3168d1e5]:hover {
+a[data-v-7ab7d117]:hover {
     color: #ffffff;
 }
-.page-footer[data-v-3168d1e5] {
+.page-footer[data-v-7ab7d117] {
     display: grid;
     grid-gap: 20px;
     grid-template-areas:
@@ -315,24 +315,24 @@ a[data-v-3168d1e5]:hover {
     margin-right: -1rem;
     margin-bottom: -1rem;
 }
-.img-container[data-v-3168d1e5] {
+.img-container[data-v-7ab7d117] {
     grid-area: img-container;
     padding: 1rem 5rem;
     margin-right: 100px;
 }
-.list-documentation[data-v-3168d1e5] {
+.list-documentation[data-v-7ab7d117] {
     grid-area: list-documentation;
     padding: 1rem;
 }
-.list-contributing[data-v-3168d1e5] {
+.list-contributing[data-v-7ab7d117] {
     grid-area: list-contributing;
     padding: 1rem;
 }
-.list-community[data-v-3168d1e5] {
+.list-community[data-v-7ab7d117] {
     grid-area: list-community;
     padding: 1rem;
 }
-.bottom-footer-container[data-v-3168d1e5] {
+.bottom-footer-container[data-v-7ab7d117] {
     grid-area: bottom-footer-container;
     display: flex;
     overflow: hidden;
@@ -340,68 +340,68 @@ a[data-v-3168d1e5]:hover {
     color: rgba(255, 255, 255, 0.6);
     padding: 1rem 2rem;
 }
-.wikimedia-logo[data-v-3168d1e5]{
+.wikimedia-logo[data-v-7ab7d117]{
     width: 100px;
     height: 100px;
 }
-.list-container[data-v-3168d1e5] {
+.list-container[data-v-7ab7d117] {
     padding-bottom: 0;
 }
-.list-heading[data-v-3168d1e5] {
+.list-heading[data-v-7ab7d117] {
     font-weight: 400;
     font-size: 1.3rem;
 }
-.list-content[data-v-3168d1e5] {
+.list-content[data-v-7ab7d117] {
     list-style: none;
     padding: 0;
     line-height: 1.7;
 }
-.copyright[data-v-3168d1e5] {
+.copyright[data-v-7ab7d117] {
     margin-left: 200px;
 }
 @media(max-width: 767px) {
-.page-footer[data-v-3168d1e5] {
+.page-footer[data-v-7ab7d117] {
         grid-template-areas:
           'img-container img-container img-container'
           'list-documentation list-contributing list-community'
           'bottom-footer-container bottom-footer-container bottom-footer-container';
 }
-.list-container[data-v-3168d1e5] {
+.list-container[data-v-7ab7d117] {
       margin: auto;
 }
-.img-container[data-v-3168d1e5] {
+.img-container[data-v-7ab7d117] {
         display: block;
         margin: auto;
 }
 }
 @media(max-width: 500px) {
-.page-footer[data-v-3168d1e5] {
+.page-footer[data-v-7ab7d117] {
         grid-template-areas:
           'img-container img-container'
           'list-documentation list-contributing'
           'list-community list-community'
           'bottom-footer-container bottom-footer-container';
 }
-.list-documentation[data-v-3168d1e5] {
+.list-documentation[data-v-7ab7d117] {
         display: block;
         margin: auto;
 }
-.list-contributing[data-v-3168d1e5] {
+.list-contributing[data-v-7ab7d117] {
         display: block;
         margin: auto;
 }
-.list-community[data-v-3168d1e5]  {
+.list-community[data-v-7ab7d117]  {
         display: block;
         margin: auto;
 }
-.bottom-footer-container[data-v-3168d1e5] {
+.bottom-footer-container[data-v-7ab7d117] {
         display: flex;
         flex-direction: column;
         margin: auto;
         text-align: center;
         justify-content: center;
 }
-.copyright[data-v-3168d1e5] {
+.copyright[data-v-7ab7d117] {
         margin: auto;
 }
 }
@@ -421,100 +421,6 @@ i.arrow[data-v-5f723e14] { margin: 0;
     height: 74px;
     margin-top: 8px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*.widget.column g.month-ticks { display: none; }
@@ -931,7 +837,7 @@ div.ui.attached.basic.segment[data-v-203c88aa] {
     color: #bbb!important;
 }
 
-.resize-observer[data-v-b329ee4c]{position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;border:none;background-color:transparent;pointer-events:none;display:block;overflow:hidden;opacity:0}.resize-observer[data-v-b329ee4c] object{display:block;position:absolute;top:0;left:0;height:100%;width:100%;overflow:hidden;pointer-events:none;z-index:-1}
+.resize-observer[data-v-8859cc6c]{position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;border:none;background-color:transparent;pointer-events:none;display:block;overflow:hidden;opacity:0}.resize-observer[data-v-8859cc6c] object{display:block;position:absolute;top:0;left:0;height:100%;width:100%;overflow:hidden;pointer-events:none;z-index:-1}
 .tooltipped{position:relative}.tooltipped::after{position:absolute;z-index:1000000;display:none;padding:.5em .75em;font:normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";-webkit-font-smoothing:subpixel-antialiased;color:#fff;text-align:center;text-decoration:none;text-shadow:none;text-transform:none;letter-spacing:normal;word-wrap:break-word;white-space:pre;pointer-events:none;content:attr(aria-label);background:#1b1f23;border-radius:3px;opacity:0}.tooltipped::before{position:absolute;z-index:1000001;display:none;width:0;height:0;color:#1b1f23;pointer-events:none;content:"";border:6px solid transparent;opacity:0}@keyframes tooltip-appear{from{opacity:0}to{opacity:1}}.tooltipped:hover::before,.tooltipped:hover::after,.tooltipped:active::before,.tooltipped:active::after,.tooltipped:focus::before,.tooltipped:focus::after{display:inline-block;text-decoration:none;animation-name:tooltip-appear;animation-duration:.1s;animation-fill-mode:forwards;animation-timing-function:ease-in;animation-delay:.4s}.tooltipped-no-delay:hover::before,.tooltipped-no-delay:hover::after,.tooltipped-no-delay:active::before,.tooltipped-no-delay:active::after,.tooltipped-no-delay:focus::before,.tooltipped-no-delay:focus::after{animation-delay:0s}.tooltipped-multiline:hover::after,.tooltipped-multiline:active::after,.tooltipped-multiline:focus::after{display:table-cell}.tooltipped-s::after,.tooltipped-se::after,.tooltipped-sw::after{top:100%;right:50%;margin-top:6px}.tooltipped-s::before,.tooltipped-se::before,.tooltipped-sw::before{top:auto;right:50%;bottom:-7px;margin-right:-6px;border-bottom-color:#1b1f23}.tooltipped-se::after{right:auto;left:50%;margin-left:-16px}.tooltipped-sw::after{margin-right:-16px}.tooltipped-n::after,.tooltipped-ne::after,.tooltipped-nw::after{right:50%;bottom:100%;margin-bottom:6px}.tooltipped-n::before,.tooltipped-ne::before,.tooltipped-nw::before{top:-7px;right:50%;bottom:auto;margin-right:-6px;border-top-color:#1b1f23}.tooltipped-ne::after{right:auto;left:50%;margin-left:-16px}.tooltipped-nw::after{margin-right:-16px}.tooltipped-s::after,.tooltipped-n::after{transform:translateX(50%)}.tooltipped-w::after{right:100%;bottom:50%;margin-right:6px;transform:translateY(50%)}.tooltipped-w::before{top:50%;bottom:50%;left:-7px;margin-top:-6px;border-left-color:#1b1f23}.tooltipped-e::after{bottom:50%;left:100%;margin-left:6px;transform:translateY(50%)}.tooltipped-e::before{top:50%;right:-7px;bottom:50%;margin-top:-6px;border-right-color:#1b1f23}.tooltipped-align-right-1::after,.tooltipped-align-right-2::after{right:0;margin-right:0}.tooltipped-align-right-1::before{right:10px}.tooltipped-align-right-2::before{right:15px}.tooltipped-align-left-1::after,.tooltipped-align-left-2::after{left:0;margin-left:0}.tooltipped-align-left-1::before{left:5px}.tooltipped-align-left-2::before{left:10px}.tooltipped-multiline::after{width:-webkit-max-content;width:-moz-max-content;width:max-content;max-width:250px;word-wrap:break-word;white-space:pre-line;border-collapse:separate}.tooltipped-multiline.tooltipped-s::after,.tooltipped-multiline.tooltipped-n::after{right:auto;left:50%;transform:translateX(-50%)}.tooltipped-multiline.tooltipped-w::after,.tooltipped-multiline.tooltipped-e::after{right:100%}@media screen and (min-width: 0\0){.tooltipped-multiline::after{width:250px}}.tooltipped-sticky::before,.tooltipped-sticky::after{display:inline-block}.tooltipped-sticky.tooltipped-multiline::after{display:table-cell}
 
 
@@ -1028,7 +934,6 @@ p.loading { font-size: 1.2em; padding: 1.2em; color: #72777d;
  * http://opensource.org/licenses/MIT
  *
  */
-@import url('');
 /*!
  * # Fomantic-UI 2.8.8 - Reset
  * http://github.com/fomantic/Fomantic-UI/

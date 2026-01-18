@@ -33,17 +33,6 @@ module.exports = merge(baseConfig, {
                     }, 'css-loader'
                 ],
             },
-            // Replacing google imports in semantic with ...ahem nothing so they do not run
-            // the css needed is included in lato.css
-            {
-                test: /semantic\.css$/,
-                loader: 'string-replace-loader',
-                options: {
-                    search: 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400%3B0,700%3B1,400%3B1,700&subset=latin&display=swap',
-                    replace: '',
-                    strict: true
-                }
-            }
         ]
     },
 

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"1917 Ekim Devrimi",
+			"GolyatGeri",
 			"Mirzali",
 			"Orbot707"
 		]
@@ -15,6 +16,7 @@
 	"general-total": "Pêro piya",
 	"general-date": "tarix",
 	"general-name": "name",
+	"general-choose-language": "Zıwanê tercihi weçinên",
 	"general-original_wikistats": "Wikiistatistikê oricinali",
 	"areas-reading": "Waniyeno",
 	"areas-contributing": "İştırakiye",
@@ -208,6 +210,9 @@
 	"metrics-top-mediarequests-breakdowns-media_type-values-audio-name": "Veng",
 	"metrics-top-mediarequests-breakdowns-media_type-values-document-name": "Dokuman",
 	"metrics-top-mediarequests-breakdowns-media_type-values-other-name": "Zewbi",
+	"metrics-active-editors-by-country-breakdowns-activity-level-name": "Aktivitey sewiya",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-5..99-edits-name": "Vurnayışê 5 ra 99",
+	"metrics-active-editors-by-country-breakdowns-activity-level-values-100..-edits-name": "100 zede vurnayışi",
 	"months-January": "Çele",
 	"months-February": "Sıbate",
 	"months-March": "Adar",

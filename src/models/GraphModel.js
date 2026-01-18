@@ -120,7 +120,7 @@ class GraphModel {
                 this.status = StatusOverlay.getMessageForStatus(req.status);
             });
             dataPromise.then(dimensionalData => {
-                if (dimensionalData.getAllItems().length === 0) {
+                if (dimensionalData.isEmpty()) {
                     this.status = StatusOverlay.NO_DATA;
                 } else {
                     this.status = null;
@@ -273,7 +273,7 @@ class GraphModel {
         return this.config.darkColor;
     }
     get syntheticAll () {
-        return this.config.syntheticAll ?? false;
+        return !!this.config.syntheticAll;
     }
 
     getAggregateLabel () {
