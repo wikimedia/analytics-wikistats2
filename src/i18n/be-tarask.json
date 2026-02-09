@@ -205,5 +205,6 @@
 	"time_range-all": "Увесь час",
 	"tooltip-help-maximize": "Схаваць бакавую панэль і павялічыць графік",
 	"tooltip-help-minimize": "Вярнуць бакавую панэль",
+	"status_overlay-loading": "Ладаваньне мэтрыкі...",
 	"widget_header-subtitle_for_last_month": "{subtitle} для {lastMonthLabel}"
 }
