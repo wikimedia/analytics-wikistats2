@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Ayaat123"
+		]
 	},
 	"general-title": "وِکیٖمیٖڈیا اعدادِ شمار",
 	"general-month": "رؠتھ",
@@ -186,7 +188,7 @@
 	"months-October": "پۄہ",
 	"months-November": "ماگ",
 	"months-December": "فاگُن",
-	"graph_panel-no_data_yet": "وُنِس تام چُھنہٕ کٔہٲنی تہِ مواد",
+	"graph_panel-no_data_yet": "وُنِس تام چھُنہٕ کٔہٲنؠ تہِ مواد",
 	"detail_sidebar-metrics": "شمارٕ",
 	"breakdowns-filter": "فِلٹَر",
 	"breakdowns-filter_and_split": "فِلٹر تہٕ پٕھٹراوُن",
