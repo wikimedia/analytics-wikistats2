@@ -257,7 +257,7 @@
 	"graph_panel-wikistats1_counterpart": "Metrik ini ditapis untuk berpadanan dengan padanan Wikistats 1.",
 	"graph_panel-add_annotations_link": "Anda boleh {0}",
 	"graph_panel-annotations_link_action": "lihat atau tambah anotasi untuk data ini pada rencana wiki ini.",
-	"period_change-no_data": "(tiada data untuk {tempoh} terakhir)",
+	"period_change-no_data": "(tiada data untuk {period} terakhir)",
 	"period_change-month_over_month": "{change}% bulan ke bulan",
 	"period_change-year_over_year": "{change}% tahun ke tahun",
 	"detail_sidebar-metrics": "Metrik",
