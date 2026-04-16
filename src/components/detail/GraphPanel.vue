@@ -67,7 +67,7 @@
                     {{graphModel.getAggregateLabel()}}:
                     {{ aggregate | bytesOrKmb(unit)}}
                 </h5>
-                <p>{{$t(`metrics-${metricId}-description`)}}.
+                <p>{{$t(`metrics-${metricId}-description`)}}<a v-if="graphModel.config.type == 'map'" href="https://foundation.wikimedia.org/wiki/Legal:Wikimedia_Foundation_Country_and_Territory_Protection_List" target="_new"> (Country Protection List)</a>.
                     <a class="metric link" :href="graphModel.config.infoUrl" target="_blank"
                        v-hint:raw="graphModel.config.tooltip">
                         {{$t('graph_panel-more_info')}}

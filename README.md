@@ -13,6 +13,8 @@ The minimum requirements to install the Wikistats UI are Node.js 8+, npm 6+, and
 ```bash
 git clone https://gerrit.wikimedia.org/r/analytics/wikistats2
 npm install
+# to make local dev work, need to link semantic to the replacement "fomantic"
+ln -s ../node_modules/fomantic-ui/dist semantic/dist
 ```
 
 ### Third-party UI elements

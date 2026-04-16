@@ -1,0 +1,29 @@
+/*!
+ * # Fomantic-UI 2.9.4 - Dimmer
+ * https://github.com/fomantic/Fomantic-UI/
+ *
+ *
+ * Released under the MIT license
+ * https://opensource.org/licenses/MIT
+ *
+ */
+
+/*!
+ * # Fomantic-UI 2.9.4 - Modal
+ * https://github.com/fomantic/Fomantic-UI/
+ *
+ *
+ * Released under the MIT license
+ * https://opensource.org/licenses/MIT
+ *
+ */
+
+/*!
+ * # Fomantic-UI 2.9.4 - Transition
+ * https://github.com/fomantic/Fomantic-UI/
+ *
+ *
+ * Released under the MIT license
+ * https://opensource.org/licenses/MIT
+ *
+ */
