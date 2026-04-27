@@ -249,7 +249,7 @@
 	"granularities-daily": "매일",
 	"granularities-monthly": "매월",
 	"metrics_matrix-all_metrics": "모든 위키통계 매트릭",
-	"metrics_matrix-wikistats1-info": "위키미디어 로고와 함께 표시된 메트릭은 위키통계 1에 표시되는 것과 동일한 필터링와 변수를 갖고 있습니다.",
+	"metrics_matrix-wikistats1-info": "위키미디어 로고와 함께 표시된 메트릭은 위키통계 1에 표시되는 것과 동일한 필터링와 매개변수를 갖고 있습니다.",
 	"metrics_matrix-wikistats1-learn_more": "과거와 새로운 위키통계 메트릭 간 차이에 관해 알아보세요",
 	"footer-design_credit": "설계자: {aislinn}",
 	"footer-copyright": "모든 데이터, 차트, 기타 콘텐츠는 {license} 하에 배포됩니다.",
