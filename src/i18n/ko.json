@@ -278,7 +278,7 @@
 	"tooltip-help-toggle-dimension": "이 차원에서 나누기 및 필터를 하려면 켜거나 끄십시오.",
 	"tooltip-filterAndSplit": "전체를 각기 다른 분류로 나누고 하나 이상의 분류를 숨깁니다",
 	"tooltip-breakdown-anonymous": "로그인하지 않은 사용자",
-	"tooltip-breakdown-user": "로그인한 등록 사용자",
+	"tooltip-breakdown-user": "지표를 편집하기 위해 로그인한 등록 사용자, 즉 지표를 읽는 사람 사용자",
 	"tooltip-breakdown-non-content": "토론 문서, 사용자 문서 등을 비콘텐츠라고 합니다",
 	"tooltip-breakdown-1..4-edits": "표시된 날 또는 달마다 1~4회 수정함",
 	"tooltip-breakdown-5..99-edits": "표시된 날 또는 달마다 5~99회 수정함",
