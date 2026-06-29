@@ -5,7 +5,8 @@
 			"Nwme",
 			"Pyscowicz",
 			"SMAUG",
-			"Samoasambia"
+			"Samoasambia",
+			"Wikipeedikko"
 		]
 	},
 	"general-title": "Wikimedia-tilastot",
@@ -127,6 +128,7 @@
 	"metrics-new-pages-breakdowns-page_type-values-content-name": "Sisältösivut",
 	"metrics-new-pages-breakdowns-page_type-values-non-content-name": "Ei-sisältösivut",
 	"metrics-new-registered-users-name": "Uudet rekisteröityneet käyttäjät",
+	"metrics-new-registered-users-description": "Uusien itse rekisteröityneiden käyttäjien määrä",
 	"metrics-new-registered-users-tooltip": "Uusien käyttäjien eli ensimmäistä kertaa valittuun wikiprojektiin kirjautuneiden käyttäjien määrä. Used as a proxy for user acquisition.",
 	"metrics-new-registered-users-question": "Kuinka monta uutta käyttäjää?",
 	"metrics-top-editors-name": "Ahkerimmat muokkaajat",
