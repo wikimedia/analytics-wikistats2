@@ -161,7 +161,7 @@
 	"metrics-absolute-bytes-diff-name": "절대 바이트 수 차이",
 	"metrics-absolute-bytes-diff-description": "넘겨주기 편집을 포함하여 각 편집(또는 판)의 절대 바이트 차이의 총합입니다. 즉, 음수의 차이도 양수로 계수합니다",
 	"metrics-absolute-bytes-diff-tooltip": "넘겨주기 편집을 포함하여 각 편집(또는 판)의 절대 바이트 차이의 총합입니다. 즉, 음수의 차이도 양수로 계수합니다.",
-	"metrics-absolute-bytes-diff-question": "추가된 바이트와 삭제된 바이트의 총합은 얼마입니까?",
+	"metrics-absolute-bytes-diff-question": "추가된 바이트와 제거된 바이트의 총합은 얼마입니까?",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-name": "편집자 유형",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-anonymous-name": "익명",
 	"metrics-absolute-bytes-diff-breakdowns-editor_type-values-group-bot-name": "그룹 봇",
