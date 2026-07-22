@@ -5,6 +5,11 @@
 		"nativeName": "العربية",
 		"direction": "rtl"
 	},
+	"az": {
+		"numbroCode": "tr-TR",
+		"englishName": "Azerbaijani",
+		"nativeName": "azərbaycanca"
+	},
 	"bg": {
 		"numbroCode": "bg",
 		"englishName": "Bulgarian",
@@ -19,6 +24,11 @@
 		"numbroCode": "es-ES",
 		"englishName": "Catalan",
 		"nativeName": "català"
+	},
+	"da": {
+		"numbroCode": "da-DK",
+		"englishName": "Danish",
+		"nativeName": "dansk"
 	},
 	"de": {
 		"numbroCode": "de-DE",
@@ -59,6 +69,16 @@
 		"numbroCode": "fr-FR",
 		"englishName": "French",
 		"nativeName": "français"
+	},
+	"ga": {
+		"numbroCode": "en-GB",
+		"englishName": "Irish Gaelic",
+		"nativeName": "Gaeilge"
+	},
+	"gl": {
+		"numbroCode": "es-ES",
+		"englishName": "Galician",
+		"nativeName": "galego"
 	},
 	"he": {
 		"numbroCode": "he-IL",
@@ -126,6 +146,16 @@
 		"englishName": "Malayalam",
 		"nativeName": "മലയാളം"
 	},
+	"ms": {
+		"numbroCode": "en",
+		"englishName": "Malay",
+		"nativeName": "Bahasa Melayu"
+	},
+	"nb": {
+		"numbroCode": "nb-NO",
+		"englishName": "Norwegian",
+		"nativeName": "Bokmål"
+	},
 	"nl": {
 		"numbroCode": "nl-NL",
 		"englishName": "Dutch",
@@ -171,6 +201,11 @@
 		"englishName": "Swedish",
 		"nativeName": "svenska"
 	},
+	"ta": {
+		"numbroCode": "en",
+		"englishName": "Tamil",
+		"nativeName": "தமிழ்"
+	},
 	"te": {
 		"numbroCode": "en-GB",
 		"englishName": "Telugu",
@@ -181,10 +216,20 @@
 		"englishName": "Turkish",
 		"nativeName": "Türkçe"
 	},
+	"tt-cyrl": {
+		"numbroCode": "ru-RU",
+		"englishName": "Tatar",
+		"nativeName": "татар теле"
+	},
 	"uk": {
 		"numbroCode": "uk-UA",
 		"englishName": "Ukrainian",
 		"nativeName": "українська"
+	},
+	"ur": {
+		"numbroCode": "en",
+		"englishName": "Urdu",
+		"nativeName": "اُرْدُو"
 	},
 	"uz": {
 		"numbroCode": "en",
