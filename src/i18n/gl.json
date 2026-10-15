@@ -25,7 +25,7 @@
 	"topic_explorer-explore_topics": "Explorar temas",
 	"topic_explorer-default_description": "Procura ou navega polas cuestións e elixe unha para ver respostas",
 	"dashboard-monthly_overview": "Vista mensual",
-	"metrics-total-page-views-name": "Vistas de páxina totales",
+	"metrics-total-page-views-name": "Vistas de páxina totais",
 	"metrics-total-page-views-description": "As vistas de páxina nos proxectos da Wikimedia contan os accesos ao contido dos artigos. Por defecto, estes datos mostran as visualizacións tanto por tráfico automático como humano. Para centrarse nas visitas feitas por humanos, usa o filtro de \"Tipo de axente\".",
 	"metrics-total-page-views-tooltip": "Unha vista de páxina é unha solicitude do contido dunha páxina web. As vistas de páxina nos proxectos da Wikimedia son a nosa métrica de consumo máis importante. A definición de vista de páxina tentan contar as vitas de páxina do contido entregado aos usuarios.",
 	"metrics-total-page-views-question": "Cantas veces se viron os artigos?",
