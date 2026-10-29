@@ -172,7 +172,7 @@
 	"metrics-absolute-bytes-diff-breakdowns-page_type-values-non-content-name": "비콘텐츠",
 	"metrics-edited-pages-name": "편집한 문서",
 	"metrics-edited-pages-description": "넘겨주기를 제외한 편집 횟수",
-	"metrics-edited-pages-tooltip": "넘겨주기 문서를 제외한 편집된 문서 갯수",
+	"metrics-edited-pages-tooltip": "넘겨주기 문서를 제외한 편집된 문서 개수",
 	"metrics-edited-pages-question": "편집한 문서 수는 어떻게 됩니까?",
 	"metrics-edited-pages-breakdowns-editor_type-name": "편집자 유형",
 	"metrics-edited-pages-breakdowns-editor_type-values-anonymous-name": "익명",
